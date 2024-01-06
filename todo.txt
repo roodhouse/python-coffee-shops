@@ -1,4 +1,5 @@
 1. frontend mobile to desktop
     -- font 
     -- colors
+    -- icons
 2. backend setup and connection
