@@ -1,0 +1,4 @@
+1. setup react
+2. setup tailwind
+3. setup skeleton for python backend
+4. setup venv
