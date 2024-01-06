@@ -1,0 +1,2 @@
+1. frontend mobile to desktop
+2. backend setup and connection
