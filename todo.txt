@@ -1,5 +1,20 @@
+name: remote friendly
+main view: site and default city
+city view: list of cities currently with data
+add venue view: place to add a venue and/or a city
+    if venue then this, else go to add venue view
+
+log in view
+register view
+shop view
+update post view
+
 1. frontend mobile to desktop
     -- font 
+        - Noto Sans
+        - PT Serif
     -- colors
     -- icons
 2. backend setup and connection
+3. API's needed:
+    - google maps
