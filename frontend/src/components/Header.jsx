@@ -8,11 +8,11 @@ import NavLinks from './header/NavLinks'
 function Header() {
   return (
     <>
-        <div id="headerContainer" className='flex'>
+        <div id="headerContainer" className='flex justify-between'>
             <div id="logoTitleWrapper" className='cursor-pointer'>
                 <LogoTitle />
             </div>
-            <div id="navLinksWrapper">
+            <div id="navLinksWrapper" className='w-[30%]'>
                 <NavLinks />
             </div>
         </div>

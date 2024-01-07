@@ -9,7 +9,7 @@ function LogoTitle() {
             <div id="logoWrapper">
                 <Logo />
             </div>
-            <div id="titleWrapper">
+            <div id="titleWrapper" className='ml-[10px]'>
                 <Title />
             </div>
         </div>

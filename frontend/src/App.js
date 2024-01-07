@@ -10,7 +10,7 @@ function App() {
   return (
     <div id='app'>
       <div id='mainWrapper'>
-          <div id='headerWrapper' className='w-full bg-gray px-[.75rem] py-[.5rem]'>
+          <div id='headerWrapper' className='w-full bg-gray px-[.75rem] py-[1rem]'>
             <Header />
           </div>
         <div id='mainContainer' className='px-[.75rem]'>

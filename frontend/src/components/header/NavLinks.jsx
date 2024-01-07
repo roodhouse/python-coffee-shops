@@ -6,7 +6,7 @@ import Join from './navLinks/Join'
 function NavLinks() {
   return (
     <>
-        <div id="navLinksContainer">
+        <div id="navLinksContainer" className='flex justify-between'>
             <div id="allCitiesWrapper">
                 <AllCities />
             </div>
