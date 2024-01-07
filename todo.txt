@@ -10,9 +10,6 @@ shop view
 update post view
 
 1. frontend mobile to desktop
-    -- font 
-        - Noto Sans
-        - PT Serif
     -- icons
 2. backend setup and connection
 3. API's needed:

@@ -1,14 +1,23 @@
 // get replicating old project format here
 
 import { useMain } from './context/main';
+import Header from './components/Header'
 
 function App() {
 
   const  { home } = useMain()
+
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <div id='app'>
+      <div id='mainWrapper'>
+          <div id='headerWrapper' className='w-full bg-gray px-[.75rem] py-[1rem]'>
+            <Header />
+          </div>
+        <div id='mainContainer' className='px-[.75rem]'>
+        </div>
+
+      </div>
+    </div>
   );
 }
 
