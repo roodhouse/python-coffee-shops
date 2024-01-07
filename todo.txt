@@ -13,7 +13,6 @@ update post view
     -- font 
         - Noto Sans
         - PT Serif
-    -- colors
     -- icons
 2. backend setup and connection
 3. API's needed:
