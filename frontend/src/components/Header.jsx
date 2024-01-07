@@ -1,8 +1,9 @@
 import React from 'react'
 import LogoTitle from './header/LogoTitle'
+import NavLinks from './header/NavLinks'
 
 
-// add nav links wrapper
+// bring in icons for the links
 
 function Header() {
   return (
@@ -11,7 +12,9 @@ function Header() {
             <div id="logoTitleWrapper" className='cursor-pointer'>
                 <LogoTitle />
             </div>
-
+            <div id="navLinksWrapper">
+                <NavLinks />
+            </div>
         </div>
     </>
   )
