@@ -5,11 +5,11 @@ import HeroTitle from './heroTitle/HeroTitle'
 function TitleIcons() {
   return (
     <>
-        <div id="titleIconsContainer">
-            <div id="titleWrapper">
+        <div id="titleIconsContainer" className='flex justify-between'>
+            <div id="heroTitleWrapper">
                 <HeroTitle />
             </div>
-            <div id="iconsWrapper">
+            <div id="heroIconsWrapper">
                 <HeroIcons />
             </div>
         </div>

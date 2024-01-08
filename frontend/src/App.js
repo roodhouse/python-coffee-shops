@@ -14,9 +14,9 @@ function App() {
           <div id='headerWrapper' className='w-full bg-gray px-[.75rem] py-[1rem]'>
             <Header />
           </div>
-        <div id='mainContainer' className='px-[.75rem]'>
+        <div id='mainContainer' className='px-[.75rem] mt-[2rem]'>
           <div id='homeWrapper' style={home ? {display: 'block'} : {display: 'none'}}>
-          <Home />
+            <Home />
           </div>
 
             

@@ -10,7 +10,7 @@ function Home() {
   return (
     <>
         <div id="homeContainer">
-            <div id="titleIconsWrapper">
+            <div id="titleIconsWrapper" className='mb-[2rem]'>
                 <TitleIcons />
             </div>
             <div id="copyWrapper">
