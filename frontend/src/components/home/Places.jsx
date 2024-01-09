@@ -15,7 +15,7 @@ function Places() {
             <div id="placesCardWrapper" className='pb-4'>
                 <PlacesCard />
             </div>
-            <div id="placesNewWrapper">
+            <div id="placesNewWrapper" className='mt-8'>
                 <PlacesNew />
             </div>
         </div>

@@ -9,7 +9,7 @@ function PlacesDetails() {
             <div id="placeEssentialsWrapper">
                 <PlaceEssentials />
             </div>
-            <div id="placeRatingWrapper" className='border-2 border-green rounded w-[80px] h-[23px] flex'>
+            <div id="placeRatingWrapper" className='border-2 border-green rounded w-[100px] h-[23px] flex'>
                 <PlaceRating />
             </div>
         </div>

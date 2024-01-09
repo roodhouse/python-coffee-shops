@@ -3,7 +3,7 @@ import React from 'react'
 function PlaceName() {
   return (
     <>
-        <div id="placeNameContainer">
+        <div id="placeNameContainer" className='text-xl'>
             <p>Perky Beans</p>
         </div>
     </>
