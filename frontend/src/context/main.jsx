@@ -6,12 +6,17 @@ const MainContext = createContext();
 // define a provider component to wrap
 const MainProvider = ({ children }) => {
     const [ home, setHome ] = useState('home')
-    const [ currentCity, setCurrentCity ] = useState('Austin')
+    const [ currentCity, setCurrentCity ] = useState('Leander')
+    const [ venueCount, setVenueCount ] = useState()
+
+    useEffect(() => {
+        setVenueCount(5)
+    },[])
 
     return <MainContext.Provider value = 
     {
         {
-            home, currentCity
+            home, currentCity, venueCount
         }
     }>
         {children}
