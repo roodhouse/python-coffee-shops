@@ -1,21 +1,17 @@
 import React from 'react'
-import TitleIcons from './header/home/TitleIcons'
-import Copy from './header/home/Copy'
-
-// title
-// 2 icons
-// text
+import Hero from './home/Hero'
+import Places from './home/Places'
 
 function Home() {
   return (
     <>
         <div id="homeContainer">
-            <div id="titleIconsWrapper" className='mb-[2rem]'>
-                <TitleIcons />
-            </div>
-            <div id="copyWrapper">
-                <Copy />
-            </div>
+          <div id="heroWrapper" className='mb-[2rem]'>
+            <Hero />
+          </div>
+          <div id="placesWrapper">
+            <Places />
+          </div>
         </div>
     </>
   )
