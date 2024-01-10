@@ -1,6 +1,7 @@
 name: remote friendly
 add venue view: place to add a venue and/or a city - here
     if venue then this, else go to add venue view
+    form displays with more options to pre-select
 
 log in view
 register view

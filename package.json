@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "react-hook-form": "^7.49.3",
     "react-icons": "^4.12.0"
   }
 }

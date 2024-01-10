@@ -3,6 +3,7 @@ import Header from './components/Header'
 import Home from './components/Home';
 import Cities from './components/Cities';
 import Footer from './components/Footer'
+import Add from './components/Add';
 
 function App() {
 
@@ -20,6 +21,9 @@ function App() {
           </div>
           <div id='citiesWrapper' style={home === 'cities' ? {display: 'block'} : {display: 'none'}}>
             <Cities />
+          </div>
+          <div id='addWrapper' style={home === 'suggest' ? {display: 'block'} : {display: 'none'}}>
+            <Add />
           </div>
         </div>
         <div id='footerWrapper' className='w-full bg-gray flex justify-center'>
