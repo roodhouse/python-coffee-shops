@@ -13,10 +13,36 @@ const MainProvider = ({ children }) => {
         setVenueCount(5)
     },[])
 
+    // select view
+    function setPage(page) {
+        setHome(page)
+    }
+
+    // List of States, should retrieve from DB but for now hard code
+    // const listOfStates = ['Alabama', 'New York', 'Texas', 'Virginia']
+    const listOfStates = [
+        {
+            state: 'Alabama',
+            cities: ['Birmingham', 'Huntsville'],
+        },
+        {
+            state: 'New York',
+            cities: ['New York City', 'Queens', 'Brooklyn','Buffalo'],
+        },
+        {
+            state: 'Texas',
+            cities: ['Austin', 'Leander', 'Houston'],
+        },
+        {
+            state: 'Virginia',
+            cities: ['Richmond'],
+        }
+    ]
+
     return <MainContext.Provider value = 
     {
         {
-            home, currentCity, venueCount
+            home, currentCity, venueCount, listOfStates, setPage
         }
     }>
         {children}
