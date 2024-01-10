@@ -1,5 +1,4 @@
 name: remote friendly
-main view: site and default city
 city view: list of cities currently with data
 add venue view: place to add a venue and/or a city
     if venue then this, else go to add venue view
