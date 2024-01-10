@@ -1,6 +1,5 @@
 name: remote friendly
-city view: list of cities currently with data
-add venue view: place to add a venue and/or a city
+add venue view: place to add a venue and/or a city - here
     if venue then this, else go to add venue view
 
 log in view
@@ -8,8 +7,6 @@ register view
 shop view
 update post view
 
-1. frontend mobile to desktop
-    -- icons
 2. backend setup and connection
 3. API's needed:
     - google maps
