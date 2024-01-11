@@ -1,8 +1,10 @@
 import React from 'react'
-import { useForm } from 'react-hook-form'
+import VenueSelectionForm from './forms/VenueSelectionForm'
 
 // read article on multi step form
 // search for venue
+    // style venue
+    // set up and style multi step form 
 // confirm with map
 // choose picture
 // clear button
@@ -12,22 +14,12 @@ import { useForm } from 'react-hook-form'
 
 function AddForm() {
 
-    const { register, handleSubmit, formState: {errors} } = useForm()
-
-    const onSubmit = () => {
-        console.log('submit')
-    }
-
-    const onError = () => {
-        console.log('error')
-    }
-
   return (
     <>
         <div id="addFormContainer">
-            <form noValidate onSubmit={handleSubmit(onSubmit, onError)}>
-
-            </form>
+            <div id="venueSelectionFormWrapper">
+                <VenueSelectionForm />
+            </div>
         </div>
     </>
   )
