@@ -1,7 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { useAddForm } from '../../../context/addFormContext'
-import VenueInput from './venueForm/VenueInput'
+import { useAddForm } from '../../../../../context/addFormContext'
+import VenueInput from './venueInput/VenueInput'
 
 function VenueSelectionForm() {
 

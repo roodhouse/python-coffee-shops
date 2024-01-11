@@ -1,7 +1,5 @@
 import React from 'react'
-import { useAddForm } from '../../context/addFormContext'
-import AddFormTitle from './forms/title/AddFormTitle'
-import VenueSelectionForm from './forms/VenueSelectionForm'
+import VenueForm from './forms/venueForm/VenueForm'
 
 // read article on multi step form
 // search for venue
@@ -16,16 +14,11 @@ import VenueSelectionForm from './forms/VenueSelectionForm'
 
 function AddForm() {
 
-    const { step } = useAddForm()
-
   return (
     <>
         <div id="addFormContainer">
-            <div id="venueTitleWrapper" style={ step === 'venue' ? {opacity: 1} : {opacity: .25}}>
-                <AddFormTitle section={'Venue'} />
-            </div>
-            <div id="venueSelectionFormWrapper">
-                <VenueSelectionForm />
+            <div id="venueFormWrapper" className='mb-8'>
+                <VenueForm />
             </div>
         </div>
     </>

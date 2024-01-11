@@ -9,7 +9,7 @@ function VenueInput({ register, errors }) {
                 id='venueInput'
                 name='venueInput'
                 placeholder='Enter a location'
-                className=''
+                className='w-full px-2 py-2 border border-[#ced4da] rounded'
                 {...register("location", {
                     required: 'Can\'t be empty'
                 })}
