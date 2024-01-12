@@ -2,6 +2,7 @@ import React from 'react'
 import VenueForm from './forms/venueForm/VenueForm'
 import MapForm from './forms/mapForm/MapForm'
 import ImageForm from './forms/imageForm/ImageForm'
+import DetailsForm from './forms/detailsForm/DetailsForm'
 
 // read article on multi step form
 // search for venue
@@ -28,6 +29,9 @@ function AddForm() {
             </div>
             <div id="imageFormWrapper">
                 <ImageForm />
+            </div>
+            <div id="detailsFormWrapper">
+                <DetailsForm />
             </div>
         </div>
     </>

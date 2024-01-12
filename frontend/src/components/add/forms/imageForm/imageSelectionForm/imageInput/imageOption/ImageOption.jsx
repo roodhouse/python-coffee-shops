@@ -1,9 +1,15 @@
 import React from 'react'
 
-function ImageOption({ photo }) {
+function ImageOption({ photo, onClick, isSelected }) {
+
+  console.log(isSelected)
+  
   return (
     <>
-        <option value={photo}>{photo}</option>
+        <div id={photo+'image'} className={`image-option ${isSelected ? 'selected border border-blue' : ''}`} onClick={onClick}>
+          {/* replace this with image */}
+          <p>{photo}</p>
+        </div>
     </>
   )
 }

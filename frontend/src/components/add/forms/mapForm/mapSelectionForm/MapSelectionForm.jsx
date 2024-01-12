@@ -7,10 +7,11 @@ import MapInput from './mapInput/MapInput'
 function MapSelectionForm() {
     
     const { register, handleSubmit, formState: {errors} } = useForm()
-    const { currentStep } = useAddForm()
+    const { currentStep, updateFormData } = useAddForm()
 
     const onSubmit = () => {
         currentStep('image')
+        updateFormData({location: 'address here'})
     }
 
     const onError = () => {

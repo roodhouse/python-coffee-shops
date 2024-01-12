@@ -5,7 +5,7 @@ import ImageInput from './imageInput/ImageInput'
 
 function ImageSelectionForm() {
 
-    const { register, handleSubmit, formState: {errors} } = useForm()
+    const { register, handleSubmit, setValue, formState: {errors} } = useForm()
     const { currentStep, updateFormData } = useAddForm()
 
     const onSubmit = (data) => {
@@ -22,7 +22,7 @@ function ImageSelectionForm() {
         <div id="imageSelectionFormContainer">
             <form noValidate onSubmit={handleSubmit(onSubmit, onError)}>
                 <div id="imageInputWrapper">
-                    <ImageInput register={register} errors={errors} />
+                    <ImageInput register={register} errors={errors} setValue={setValue} />
                 </div>
             </form>
         </div>
