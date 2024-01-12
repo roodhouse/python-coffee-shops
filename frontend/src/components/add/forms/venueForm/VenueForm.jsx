@@ -11,7 +11,7 @@ function VenueForm() {
         <div id="venueTitleWrapper" style={ step === 'venue' ? {opacity: 1} : {opacity: .25}}>
                 <AddFormTitle section={'Venue'} />
             </div>
-            <div id="venueSelectionFormWrapper" style={ step === 'venue' ? {display: 'block'} : {display: 'none'}}>
+            <div id="venueSelectionFormWrapper" style={ step === 'venue' ? {display: 'block'} : {display: 'none'}} className='mb-8'>
                 <VenueSelectionForm />
             </div>
     </>

@@ -1,28 +1,28 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useAddForm } from '../../../../../context/addFormContext'
-import VenueInput from './venueInput/VenueInput'
+import ImageInput from './imageInput/ImageInput'
 
-function VenueSelectionForm() {
+function ImageSelectionForm() {
 
     const { register, handleSubmit, formState: {errors} } = useForm()
-    const { updateFormData, currentStep } = useAddForm()
+    const { currentStep, updateFormData } = useAddForm()
 
     const onSubmit = (data) => {
         updateFormData(data)
-        currentStep('map')
+        currentStep('details')
     }
 
     const onError = () => {
-        console.log('big time error')
+        console.log('error in image')
     }
 
   return (
     <>
-        <div id="venueSelectionFormContainer">
+        <div id="imageSelectionFormContainer">
             <form noValidate onSubmit={handleSubmit(onSubmit, onError)}>
-                <div id="venueInputWrapper">
-                    <VenueInput register={register} errors={errors}/>
+                <div id="imageInputWrapper">
+                    <ImageInput register={register} errors={errors} />
                 </div>
             </form>
         </div>
@@ -30,4 +30,4 @@ function VenueSelectionForm() {
   )
 }
 
-export default VenueSelectionForm
+export default ImageSelectionForm
