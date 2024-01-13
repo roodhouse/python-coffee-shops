@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useAddForm } from '../../../../../../context/addFormContext'
+import BackButton from '../../../back/BackButton'
+import NextButton from '../../../next/NextButton'
 
 function DetailsInput() {
 
@@ -12,9 +14,10 @@ function DetailsInput() {
     const { currentStep, updateFormData, detailQuestions } = useAddForm()
     const [ currentAnswers, setCurrentAnswers ] = useState({})
 
-    const onSubmit = (data) => {
-        updateFormData(data)
+    const onSubmit = () => {
+        console.log(currentAnswers)
         currentStep('summary')
+        updateFormData(currentAnswers)
     }
 
     const onError = () => {
@@ -22,16 +25,19 @@ function DetailsInput() {
     }
 
     const handleClick = (e) => {
-        console.log(e)
-        console.log(e.target)
-        console.log(e.target.tagName)
-
+       
         if (e.target.tagName === 'P') {
             const chosenAnswer = 'chosenAnswer'
             const newValue = e.target.textContent
             const questionElement = e.target.parentElement.parentElement.firstChild.textContent
             const clickedId = e.target.parentElement.parentElement.id
             const parentEl = e.target.parentElement.parentElement
+
+            console.log(typeof clickedId)
+            let categoryName = clickedId.split('Q')
+            categoryName = categoryName[0]
+
+            console.log(categoryName)
     
             function removeClass(parentElement, chosenAnswer) {
                 const children = parentElement.children
@@ -51,13 +57,16 @@ function DetailsInput() {
             }
     
             addClass(e.target.parentElement)
-            
+
             setCurrentAnswers((prevStates) => ({
                 ...prevStates,
-                [clickedId] : {
-                    question: questionElement,
-                    answer: newValue
-                }
+                [categoryName] : [
+                    ...(prevStates[categoryName] || []),
+                    {
+                        question: questionElement,
+                        answer: newValue
+                    },
+                ]
             }))
 
         } else {
@@ -89,6 +98,14 @@ function DetailsInput() {
                         ))}
                     </div>
                 ))}
+                <div id="detailInputButtonContainer" className='flex justify-between'>
+                    <div id="detailInputBackButtonWrapper">
+                        <BackButton back={'image'} />
+                    </div>
+                    <div id="detailSubmitWrapper" className='bg-blue rounded py-4 px-16 flex justify-center cursor-pointer text-center text-white border border-blue hover:bg-white hover:text-black'>
+                        <NextButton name={'detailSubmitButton'} id={'detailSubmitButton'} />
+                    </div>
+                </div>
             </form>
         </div>
     </>

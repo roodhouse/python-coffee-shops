@@ -3,6 +3,7 @@ import VenueForm from './forms/venueForm/VenueForm'
 import MapForm from './forms/mapForm/MapForm'
 import ImageForm from './forms/imageForm/ImageForm'
 import DetailsForm from './forms/detailsForm/DetailsForm'
+import SummaryForm from './forms/summaryForm/SummaryForm'
 
 // read article on multi step form
 // search for venue
@@ -32,6 +33,9 @@ function AddForm() {
             </div>
             <div id="detailsFormWrapper">
                 <DetailsForm />
+            </div>
+            <div id="summaryFormWrapper">
+                <SummaryForm />
             </div>
         </div>
     </>

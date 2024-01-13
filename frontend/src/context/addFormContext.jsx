@@ -17,12 +17,14 @@ const AddFormProvider = ({ children }) => {
 
     // update data from forms
     function updateFormData(sentData) {
-        console.log(sentData)
         setFormData({...formData, ...sentData})
-        console.log('form data is...')
     }
 
-    console.log(formData)
+    function sendToDataBase(submission) {
+        // send to database
+        console.log('sent:')
+        console.log(submission)
+    }
 
     // Photos from api
     const googlePhotos = ['Photo 1', 'Photo 2', 'Photo 3', 'Photo 4', 'Photo 5', 'Photo 6']
@@ -404,7 +406,7 @@ const AddFormProvider = ({ children }) => {
     return <AddFormContext.Provider value = 
     {
         {
-            step, currentStep, formData, updateFormData, googlePhotos, detailQuestions
+            step, currentStep, formData, updateFormData, googlePhotos, detailQuestions, sendToDataBase
         }
     }>
         {children}
