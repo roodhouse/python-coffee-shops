@@ -1,8 +1,6 @@
 import React from 'react'
 
 function ImageOption({ photo, onClick, isSelected }) {
-
-  console.log(isSelected)
   
   return (
     <>

@@ -22,46 +22,52 @@ function DetailsInput() {
     }
 
     const handleClick = (e) => {
-        const chosenAnswer = 'chosenAnswer'
-        const newValue = e.target.textContent
-        const questionElement = e.target.parentElement.parentElement.firstChild.textContent
-        const clickedId = e.target.parentElement.parentElement.id
-        const parentEl = e.target.parentElement.parentElement
+        console.log(e)
+        console.log(e.target)
+        console.log(e.target.tagName)
 
-        function removeClass(parentElement, chosenAnswer) {
-            const children = parentElement.children
-
-            for (let i = 0; i < children.length; i++) {
-                const child = children[i]
-                if (child.classList.contains(chosenAnswer)) {
-                    child.classList.remove(chosenAnswer)
+        if (e.target.tagName === 'P') {
+            const chosenAnswer = 'chosenAnswer'
+            const newValue = e.target.textContent
+            const questionElement = e.target.parentElement.parentElement.firstChild.textContent
+            const clickedId = e.target.parentElement.parentElement.id
+            const parentEl = e.target.parentElement.parentElement
+    
+            function removeClass(parentElement, chosenAnswer) {
+                const children = parentElement.children
+    
+                for (let i = 0; i < children.length; i++) {
+                    const child = children[i]
+                    if (child.classList.contains(chosenAnswer)) {
+                        child.classList.remove(chosenAnswer)
+                    }
                 }
             }
-        }
-
-        removeClass(parentEl, chosenAnswer)
-
-        function addClass(element) {
-            // clicking right outside of the element highlights the entire dive
     
-            element.classList.add(chosenAnswer)
-        }
-
-        addClass(e.target.parentElement)
-
-
+            removeClass(parentEl, chosenAnswer)
     
-        setCurrentAnswers((prevStates) => ({
-            ...prevStates,
-            [clickedId] : {
-                question: questionElement,
-                answer: newValue
+            function addClass(element) {
+                // clicking right outside of the element highlights the entire dive
+        
+                element.classList.add(chosenAnswer)
             }
-        }))
+    
+            addClass(e.target.parentElement)
+    
+    
+        
+            setCurrentAnswers((prevStates) => ({
+                ...prevStates,
+                [clickedId] : {
+                    question: questionElement,
+                    answer: newValue
+                }
+            }))
+
+        } else {
+            console.log('div click')
+        }
     }
-
-    console.log(currentAnswers)
-
 
   return (
     <>

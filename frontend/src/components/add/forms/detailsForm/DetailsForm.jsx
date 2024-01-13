@@ -5,9 +5,8 @@ import DetailsSelectionForm from './detailsSelectionForm/DetailsSelectionForm'
 
 function DetailsForm() {
 
-    const { step, detailQuestions } = useAddForm()
+    const { step } = useAddForm()
 
-    console.log(detailQuestions)
   return (
     <>
         <div id="detailsFormContainer">

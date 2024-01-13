@@ -3,8 +3,6 @@ import City from './City'
 
 function State(props) {
 
-  console.log(props.cities)
-
   return (
     <>
         <div id={props.state+'Container'} key={props.state}>

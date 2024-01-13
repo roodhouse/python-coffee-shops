@@ -10,7 +10,6 @@ function NavLinks() {
 
     const handleClick = (e) => {
         const newPage = e.currentTarget.getAttribute('data-name')
-        console.log(newPage)
         setPage(newPage)
     }
 
