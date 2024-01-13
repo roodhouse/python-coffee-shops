@@ -5,6 +5,7 @@ import Home from './components/Home';
 import Cities from './components/Cities';
 import Footer from './components/Footer'
 import Add from './components/Add';
+import ThankYou from './components/ThankYou';
 
 function App() {
 
@@ -28,7 +29,11 @@ function App() {
               <Add />
             </div>
           </AddFormProvider>
+          <div id='thankYouWrapper' style={home === 'thankYou' ? {display: 'block'} : {display: 'none'}}>
+            <ThankYou />
+          </div>
         </div>
+
         <div id='footerWrapper' className='w-full bg-gray flex justify-center'>
           <Footer />
         </div>

@@ -1,4 +1,5 @@
 import React, { useContext, createContext, useState } from "react";
+import { useMain } from "./main";
 import { FaWifi, FaPlug, FaUserClock, FaSquarePen, FaVolumeLow, FaHeadphones, FaLaptop, FaUserGroup, 
     FaMugHot, FaUtensils, FaLeaf, FaMartiniGlass, FaCreditCard, FaSun, FaTree, FaArrowsUpDownLeftRight, FaToiletPaper, FaWheelchair, FaTemperatureFull,
     FaBanSmoking, FaDog, FaCar, FaStar } from "react-icons/fa6";
@@ -7,6 +8,8 @@ import { FaWifi, FaPlug, FaUserClock, FaSquarePen, FaVolumeLow, FaHeadphones, Fa
 const AddFormContext = createContext();
 
 const AddFormProvider = ({ children }) => {
+
+    const { setPage } = useMain()
     const [ step, setStep ] = useState('venue')
     const [ formData, setFormData ] = useState({})
 
@@ -24,6 +27,9 @@ const AddFormProvider = ({ children }) => {
         // send to database
         console.log('sent:')
         console.log(submission)
+        setPage('thankYou')
+        setStep('venue')
+        // reset formData to empty
     }
 
     // Photos from api

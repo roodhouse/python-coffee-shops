@@ -13,7 +13,7 @@ function Add() {
             <div id="addCopyWrapper" className='mb-8'>
                 <AddCopy />
             </div>
-            <div id="addFormWrapper" style={ step === 'details' ? {marginBottom: 0} : {marginBottom: '253px'}}>
+            <div id="addFormWrapper" style={ step === 'details' || step === 'summary' ? {marginBottom: 0} : {marginBottom: '253px'}}>
                 <AddForm />
             </div>
         </div>

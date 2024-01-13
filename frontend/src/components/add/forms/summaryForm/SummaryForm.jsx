@@ -16,10 +16,10 @@ function SummaryForm() {
                 <AddFormTitle section={'Summary'} />
             </div>
             <div id="summaryDetailsContainer" style={ step === 'summary' ? {display: 'block'} : {display: 'none'}} className='mb-8'>
-                <div id="summaryCopyWrapper">
+                <div id="summaryCopyWrapper" className='mb-4'>
                     <SummaryCopy />
                 </div>
-                <div id="summaryReviewWrapper">
+                <div id="summaryReviewWrapper" className='mb-8'>
                     <SummaryReview />
                 </div>
                 <div id="summarySubmissionWrapper">
