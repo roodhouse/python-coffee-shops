@@ -47,15 +47,11 @@ function DetailsInput() {
             removeClass(parentEl, chosenAnswer)
     
             function addClass(element) {
-                // clicking right outside of the element highlights the entire dive
-        
                 element.classList.add(chosenAnswer)
             }
     
             addClass(e.target.parentElement)
-    
-    
-        
+            
             setCurrentAnswers((prevStates) => ({
                 ...prevStates,
                 [clickedId] : {
