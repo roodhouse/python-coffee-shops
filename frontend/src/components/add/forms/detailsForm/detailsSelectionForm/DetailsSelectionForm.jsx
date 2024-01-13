@@ -6,7 +6,7 @@ function DetailsSelectionForm() {
   return (
     <>
         <div id="detailsSelectionFormContainer">
-            <div id="detailsSelectionFormTitleWrapper" className='mb-2'>
+            <div id="detailsSelectionFormTitleWrapper" className='mb-4'>
                 <SelectionTitle />
             </div>
             <div id="detailsInputWrapper">
