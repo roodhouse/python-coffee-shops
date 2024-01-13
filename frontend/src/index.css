@@ -13,3 +13,7 @@
 body {
     font-family: 'Noto Sans';
 }
+
+.chosenAnswer {
+    color: red;
+}

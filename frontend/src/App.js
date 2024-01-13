@@ -1,8 +1,11 @@
 import { useMain } from './context/main';
+import { AddFormProvider } from './context/addFormContext';
 import Header from './components/Header'
 import Home from './components/Home';
 import Cities from './components/Cities';
 import Footer from './components/Footer'
+import Add from './components/Add';
+import ThankYou from './components/ThankYou';
 
 function App() {
 
@@ -21,7 +24,16 @@ function App() {
           <div id='citiesWrapper' style={home === 'cities' ? {display: 'block'} : {display: 'none'}}>
             <Cities />
           </div>
+          <AddFormProvider>
+            <div id='addWrapper' style={home === 'suggest' ? {display: 'block'} : {display: 'none'}}>
+              <Add />
+            </div>
+          </AddFormProvider>
+          <div id='thankYouWrapper' style={home === 'thankYou' ? {display: 'block'} : {display: 'none'}}>
+            <ThankYou />
+          </div>
         </div>
+
         <div id='footerWrapper' className='w-full bg-gray flex justify-center'>
           <Footer />
         </div>
