@@ -7,6 +7,7 @@ import Footer from './components/Footer'
 import Add from './components/Add';
 import ThankYou from './components/ThankYou';
 import Join from './components/Join';
+import Register from './components/Register';
 
 function App() {
 
@@ -32,6 +33,10 @@ function App() {
           </AddFormProvider>
           <div id='joinWrapper' style={home === 'join' ? {display: 'block'} : {display: 'none'}} className='w-full'>
             <Join />
+          </div>
+
+          <div id='registerWrapper' style={home === 'register' ? {display: 'block'} : {display: 'none'}} className='w-full'>
+            <Register />
           </div>
           <div id='thankYouWrapper' style={home === 'thankYou' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem]'>
             <ThankYou />

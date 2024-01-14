@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import LoginField from '../shared/loginField/LoginField'
 import JoinButton from '../shared/joinButton/JoinButton'
 
-function LoginForm() {
+function RegisterForm() {
 
     const { register, handleSubmit, formState: {errors} } = useForm({ defaultValues: {
         email: '',
@@ -20,15 +20,18 @@ function LoginForm() {
 
   return (
     <>
-        <div id="loginFormContainer">
+        <div id="registerFormContainer">
             <form noValidate onSubmit={handleSubmit(onSubmit, onError)}>
-                <div id="userNameContainer" className='mb-2 w-full'>
+                <div id="registerUserNameContainer" className='mb-2 w-full'>
                     <LoginField register={register} errors={errors} placeholder={'Email'} name={'user'} id={'email'} />
                 </div>
-                <div id="passwordContainer" className='mb-2'>
+                <div id="registerPasswordContainer" className='mb-2'>
                     <LoginField register={register} errors={errors} placeholder={'Password'} name={'password'} id={'password'} />
                 </div>
-                <div id="loginButtonContainer">
+                <div id="registerPasswordContainer" className='mb-2'>
+                    <LoginField register={register} errors={errors} placeholder={'Confirm Password'} name={'confirm'} id={'confirm'} />
+                </div>
+                <div id="registerButtonContainer">
                     <JoinButton name={'Login'} type={'submit'} />
                 </div>
             </form>
@@ -37,4 +40,4 @@ function LoginForm() {
   )
 }
 
-export default LoginForm
+export default RegisterForm
