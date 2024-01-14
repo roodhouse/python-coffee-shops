@@ -8,6 +8,7 @@ const MainProvider = ({ children }) => {
     const [ home, setHome ] = useState('home')
     const [ currentCity, setCurrentCity ] = useState('Leander')
     const [ venueCount, setVenueCount ] = useState()
+    const [ currentVenue, setCurrentVenue ] = useState()
 
     useEffect(() => {
         setVenueCount(5)
@@ -21,6 +22,12 @@ const MainProvider = ({ children }) => {
     // select city
     function setCity(city) {
         setCurrentCity(city)
+    }
+
+    // select venue
+    function setVenue(venue) {
+        setHome('store')
+        setCurrentVenue(venue)
     }
 
     // List of States, should retrieve from DB but for now hard code
@@ -47,7 +54,7 @@ const MainProvider = ({ children }) => {
     return <MainContext.Provider value = 
     {
         {
-            home, currentCity, venueCount, listOfStates, setPage, setCity
+            home, currentCity, venueCount, listOfStates, setPage, setCity, setVenue, currentVenue
         }
     }>
         {children}
