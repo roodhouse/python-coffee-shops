@@ -6,6 +6,7 @@ import Cities from './components/Cities';
 import Footer from './components/Footer'
 import Add from './components/Add';
 import ThankYou from './components/ThankYou';
+import Join from './components/Join';
 
 function App() {
 
@@ -13,23 +14,26 @@ function App() {
 
   return (
     <div id='app'>
-      <div id='mainWrapper'>
+      <div id='mainWrapper' className='flex flex-col items-center'>
         <div id='headerWrapper' className='w-full bg-gray px-[.75rem] py-[1rem]'>
           <Header />
         </div>
-        <div id='mainContainer' className='px-[.75rem] mt-[2rem]'>
-          <div id='homeWrapper' style={home === 'home' ? {display: 'block'} : {display: 'none'}}>
+        <div id='mainContainer' className='px-[.75rem] min-h-[75svh] w-full flex items-center justify-center'>
+          <div id='homeWrapper' style={home === 'home' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem]'>
             <Home />
           </div>
-          <div id='citiesWrapper' style={home === 'cities' ? {display: 'block'} : {display: 'none'}}>
+          <div id='citiesWrapper' style={home === 'cities' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem]'>
             <Cities />
           </div>
           <AddFormProvider>
-            <div id='addWrapper' style={home === 'suggest' ? {display: 'block'} : {display: 'none'}}>
+            <div id='addWrapper' style={home === 'suggest' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem]'>
               <Add />
             </div>
           </AddFormProvider>
-          <div id='thankYouWrapper' style={home === 'thankYou' ? {display: 'block'} : {display: 'none'}}>
+          <div id='joinWrapper' style={home === 'join' ? {display: 'block'} : {display: 'none'}} className='w-full'>
+            <Join />
+          </div>
+          <div id='thankYouWrapper' style={home === 'thankYou' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem]'>
             <ThankYou />
           </div>
         </div>
