@@ -18,6 +18,11 @@ const MainProvider = ({ children }) => {
         setHome(page)
     }
 
+    // select city
+    function setCity(city) {
+        setCurrentCity(city)
+    }
+
     // List of States, should retrieve from DB but for now hard code
     // const listOfStates = ['Alabama', 'New York', 'Texas', 'Virginia']
     const listOfStates = [
@@ -42,7 +47,7 @@ const MainProvider = ({ children }) => {
     return <MainContext.Provider value = 
     {
         {
-            home, currentCity, venueCount, listOfStates, setPage
+            home, currentCity, venueCount, listOfStates, setPage, setCity
         }
     }>
         {children}
