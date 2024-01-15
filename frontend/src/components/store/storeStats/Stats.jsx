@@ -20,9 +20,11 @@ function Stats() {
             <div id="statsServiceWrapper">
                 <ServiceStats />
             </div>
+            <div><Divider /></div>
             <div id="statsSpaceWrapper">
                 <SpaceStats />
             </div>
+            <div><Divider /></div>
         </div>
     </>
   )

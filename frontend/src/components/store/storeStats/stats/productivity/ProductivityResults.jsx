@@ -23,7 +23,7 @@ function ProductivityResults() {
             <div id="productivityQuietWrapper" className='w-[50%]'>
                 <Item type={'quiet'} name={'Quiet'} rating={'red'} width={'25%'}/>
             </div>
-            <div id="productivityQuietWrapper" className='w-[50%]'>
+            <div id="productivityCallsWrapper" className='w-[50%]'>
                 <Item type={'unknown'} name={'Audio/Video Calls'} rating={'#ddd'} width={'25%'}/>
             </div>
         </div>
