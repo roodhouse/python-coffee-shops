@@ -3,6 +3,7 @@ import ProductivityStats from './stats/ProductivityStats'
 import CommunityStats from './stats/CommunityStats'
 import ServiceStats from './stats/ServiceStats'
 import SpaceStats from './stats/SpaceStats'
+import Divider from '../../shared/divider/Divider'
 
 function Stats() {
   return (
@@ -11,9 +12,11 @@ function Stats() {
             <div id="statsProductivityWrapper">
                 <ProductivityStats />
             </div>
+            <div><Divider /></div>
             <div id="statsCommunityWrapper">
                 <CommunityStats />
             </div>
+            <div><Divider /></div>
             <div id="statsServiceWrapper">
                 <ServiceStats />
             </div>

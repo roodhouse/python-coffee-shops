@@ -24,9 +24,11 @@ function Item({ type, name, rating, width }) {
                                 <FaVolumeLow />
                             ) : type === 'calls' ? (
                                 <FaHeadphones />
-                            ) : type === 'unknown' ? (
-                                <FaQuestion />  
-                            ) : null }
+                            ) : type === 'people' ? (
+                                <FaLaptop />  
+                            ) : type === 'groups' ? (
+                                <FaUserGroup />
+                            ) : <FaQuestion />   }
                         </div>
                         <div id={`${type}NameContainer`}>
                             <p className={ rating === 'red' ? (

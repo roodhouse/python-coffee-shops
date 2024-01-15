@@ -20,10 +20,10 @@ function ProductivityResults() {
             <div id="productivityTablesWrapper" className='w-[50%] mb-8'>
                 <Item type={'tables'} name={'Work-friendly tables'} rating={'#F6D95E'} width={'45%'}/>
             </div>
-            <div id="productivityQuietWrapper" className='w-[50%] mb-8'>
+            <div id="productivityQuietWrapper" className='w-[50%]'>
                 <Item type={'quiet'} name={'Quiet'} rating={'red'} width={'25%'}/>
             </div>
-            <div id="productivityQuietWrapper" className='w-[50%] mb-8'>
+            <div id="productivityQuietWrapper" className='w-[50%]'>
                 <Item type={'unknown'} name={'Audio/Video Calls'} rating={'#ddd'} width={'25%'}/>
             </div>
         </div>
