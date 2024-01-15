@@ -1,18 +1,30 @@
 import React from 'react'
+import { useMain } from '../../context/main'
 import PlacesTitle from './places/PlacesTitle'
 import PlacesCard from './places/PlacesCard'
 import PlacesNew from './places/PlacesNew'
 
-// add new
+// need to replace "perkyBeans" below with info from database when setup
 
 function Places() {
+
+    const { setVenue } = useMain()
+
+    const handleClick = (e) => {
+        console.log(e.currentTarget)
+        let placeCard = e.currentTarget
+        placeCard = placeCard.getAttribute('data-uniqueplaceid')
+        console.log(placeCard)
+        setVenue(placeCard)
+    }
+
   return (
     <>
         <div id="placesContainer">
             <div id="placesTitleWrapper" className='pb-4'>
                 <PlacesTitle />
             </div>
-            <div id="placesCardWrapper" className='pb-4'>
+            <div id="placesCardWrapper-perkyBeans" className='pb-4' data-uniqueplaceid={'perkyBeans'} onClick={handleClick}>
                 <PlacesCard />
             </div>
             <div id="placesNewWrapper" className='my-8'>

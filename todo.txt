@@ -1,8 +1,12 @@
 1. frontend
-    store view
+    filter view
     dashboard view
         update post view
 
 2. backend setup and connection
+    - create tables
+    - connect forms 
+    - create logic for aggregating results
+
 3. API's needed:
     - google maps
