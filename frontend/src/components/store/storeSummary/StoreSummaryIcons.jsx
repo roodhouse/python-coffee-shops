@@ -25,7 +25,7 @@ function StoreSummaryIcons() {
         console.log(iconParent.id)
 
         for (let i = 0; i < siblings.length; i++ ) {
-            if (siblings[i].classList.contains('text-red') || siblings[i].classList.contains('text-green') || siblings[i].classList.contains('text-yellow')) {
+            if (siblings[i].classList.contains('text-red') || siblings[i].classList.contains('text-green') || siblings[i].classList.contains('text-[#F6D95E]')) {
                 siblings[i].classList.replace('text-red', 'text-[#ddd]')
                 siblings[i].classList.replace('text-green', 'text-[#ddd]')
                 siblings[i].classList.replace('text-[#F6D95E]', 'text-[#ddd]')

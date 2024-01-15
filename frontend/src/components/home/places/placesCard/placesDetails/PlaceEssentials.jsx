@@ -14,7 +14,7 @@ function PlaceEssentials() {
                 <PlaceHours />
             </div>
             <div id="placeLocationWrapper">
-                <PlaceLocation />
+                <PlaceLocation margin={'mr-2'} />
             </div>
         </div>
     </>

@@ -1,5 +1,5 @@
 1. frontend
-    store view
+    filter view
     dashboard view
         update post view
 

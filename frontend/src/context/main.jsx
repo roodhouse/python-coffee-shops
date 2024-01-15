@@ -31,7 +31,6 @@ const MainProvider = ({ children }) => {
     }
 
     // List of States, should retrieve from DB but for now hard code
-    // const listOfStates = ['Alabama', 'New York', 'Texas', 'Virginia']
     const listOfStates = [
         {
             state: 'Alabama',
