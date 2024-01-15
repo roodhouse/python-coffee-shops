@@ -13,7 +13,7 @@ function Places() {
     const handleClick = (e) => {
         console.log(e.currentTarget)
         let placeCard = e.currentTarget
-        placeCard = placeCard.getAttribute('data-uniquePlaceID')
+        placeCard = placeCard.getAttribute('data-uniqueplaceid')
         console.log(placeCard)
         setVenue(placeCard)
     }
@@ -24,7 +24,7 @@ function Places() {
             <div id="placesTitleWrapper" className='pb-4'>
                 <PlacesTitle />
             </div>
-            <div id="placesCardWrapper-perkyBeans" className='pb-4' data-uniquePlaceID={'perkyBeans'} onClick={handleClick}>
+            <div id="placesCardWrapper-perkyBeans" className='pb-4' data-uniqueplaceid={'perkyBeans'} onClick={handleClick}>
                 <PlacesCard />
             </div>
             <div id="placesNewWrapper" className='my-8'>

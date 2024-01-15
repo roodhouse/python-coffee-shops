@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaWifi, FaPlug, FaUserClock, FaSquarePen, FaVolumeLow, FaHeadphones, FaLaptop, FaUserGroup, 
     FaMugHot, FaUtensils, FaLeaf, FaMartiniGlass, FaCreditCard, FaSun, FaTree, FaArrowsUpDownLeftRight, FaToiletPaper, FaWheelchair, FaTemperatureFull,
-    FaBanSmoking, FaDog, FaCar, FaStar, FaQuestion } from "react-icons/fa6";
+    FaBanSmoking, FaDog, FaCar, FaQuestion } from "react-icons/fa6";
 
 function Item({ type, name, rating, width }) {
   return (
