@@ -2,10 +2,10 @@ import React from 'react'
 import { CiHeart } from "react-icons/ci";
 
 
-function HeartIcon() {
+function HeartIcon({ heart }) {
   return (
     <>
-        <div id="heartIconContainer" className='text-green text-xl'>
+        <div id="heartIconContainer" className={`${heart} text-xl`}>
             <CiHeart />
         </div>
     </>

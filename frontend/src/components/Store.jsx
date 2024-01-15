@@ -39,7 +39,7 @@ function Store() {
   return (
     <>
         <div id="storeContainer">
-            <div id="storeHeroWrapper">
+            <div id="storeHeroWrapper" className='bg-[url("assets/perkyBeans.jpeg")] bg-[rgba(0,0,0,0.5)] bg-blend-overlay h-96 bg-cover bg-no-repeat flex items-end mb-9'>
                 <StoreHero />
             </div>
             <div id="storeMainContainer" className='px-[.75rem]'>

@@ -9,8 +9,8 @@ function PlacesDetails() {
             <div id="placeEssentialsWrapper">
                 <PlaceEssentials />
             </div>
-            <div id="placeRatingWrapper" className='border-2 border-green rounded w-[100px] h-[23px] flex'>
-                <PlaceRating />
+            <div id="placeRatingWrapper">
+                <PlaceRating width={'w-[100px]'} height={'h-[23px]'} display={'none'} border={'border-2'} heart={'text-green'} />
             </div>
         </div>
     </>
