@@ -3,6 +3,10 @@
         update post view
 
 2. backend setup and connection
+    go through and update the __init__.py files one by one
+    - create server
+    - create database
+    - create routes
     - create tables
     - connect forms 
     - create logic for aggregating results
