@@ -11,6 +11,7 @@ const MainProvider = ({ children }) => {
     const [ currentVenue, setCurrentVenue ] = useState()
     const [ filter, setFilter ] = useState(false)
     const [ placeIcons, setPlaceIcons ] = useState([])
+    const [ loggedIn, setLoggedIn ] = useState(true)
 
     useEffect(() => {
         setVenueCount(5)
@@ -82,7 +83,7 @@ const MainProvider = ({ children }) => {
     return <MainContext.Provider value = 
     {
         {
-            home, currentCity, venueCount, listOfStates, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons
+            home, currentCity, venueCount, listOfStates, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn
         }
     }>
         {children}
