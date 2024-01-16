@@ -42,6 +42,7 @@ const AddFormProvider = ({ children }) => {
             questions: [
                 {
                     question: 'Is there Wi-Fi?',
+                    label: 'Wi-Fi',
                     icon: <FaWifi />,
                     answers: [
                         {
@@ -57,6 +58,7 @@ const AddFormProvider = ({ children }) => {
                 },
                 {
                     question: 'Are power sockets available?',
+                    label: 'Sockets',
                     icon: <FaPlug />,
                     answers: [
                         {
@@ -72,6 +74,7 @@ const AddFormProvider = ({ children }) => {
                 },
                 {
                     question: 'How long can you comfortably stay and work?',
+                    label: 'Long stays',
                     icon: <FaUserClock />,
                     answers: [
                         {
@@ -87,6 +90,7 @@ const AddFormProvider = ({ children }) => {
                 },
                 {
                     question: 'Are tables and chairs ideal for work?',
+                    label: 'Tables',
                     icon: <FaSquarePen />,
                     answers: [
                         {
@@ -102,6 +106,7 @@ const AddFormProvider = ({ children }) => {
                 },
                 {
                     question: 'Is it quiet?',
+                    label: 'Quiet',
                     icon: <FaVolumeLow />,
                     answers: [
                         {
@@ -118,6 +123,7 @@ const AddFormProvider = ({ children }) => {
                 {
                     question: 'Can you comfortably make audio/video calls?',
                     icon: <FaHeadphones />,
+                    label: 'Calls',
                     answers: [
                         {
                             answer: 'No'
@@ -137,6 +143,7 @@ const AddFormProvider = ({ children }) => {
             questions: [
                 {
                     question: 'Is it common to see others working?' ,
+                    label: 'Work Vibe',
                     icon: <FaLaptop />,
                     answers: [
                         {
@@ -152,6 +159,7 @@ const AddFormProvider = ({ children }) => {
                 },
                 {
                     question: 'Are there group tables (for 6 or more people)?',
+                    label: 'Groups',
                     icon: <FaUserGroup />,
                     answers: [
                         {
@@ -172,6 +180,7 @@ const AddFormProvider = ({ children }) => {
             questions: [
                 {
                     question: 'Is coffee available?',
+                    label: 'Coffee',
                     icon: <FaMugHot />,
                     answers: [
                         {
@@ -187,6 +196,7 @@ const AddFormProvider = ({ children }) => {
                 },
                 {
                     question: 'Is food offered?',
+                    label: 'Food',
                     icon: <FaUtensils />,
                     answers: [
                         {
@@ -202,6 +212,7 @@ const AddFormProvider = ({ children }) => {
                 },
                 {
                     question: 'Are there veggies options?',
+                    label: 'Veggie',
                     icon: <FaLeaf />,
                     answers: [
                         {
@@ -217,6 +228,7 @@ const AddFormProvider = ({ children }) => {
                 },
                 {
                     question: 'Is alcohol offered?',
+                    label: 'Alcohol',
                     icon: <FaMartiniGlass />,
                     answers: [
                         {
@@ -232,6 +244,7 @@ const AddFormProvider = ({ children }) => {
                 },
                 {
                     question: 'Are credit cards accepted?',
+                    label: 'Cards',
                     icon: <FaCreditCard />,
                     answers: [
                         {
@@ -252,6 +265,7 @@ const AddFormProvider = ({ children }) => {
             questions: [
                 {
                     question: 'Is the space full of natural light?',
+                    label: 'Light',
                     icon: <FaSun />,
                     answers: [
                         {
@@ -267,6 +281,7 @@ const AddFormProvider = ({ children }) => {
                 },
                 {
                     question: 'Is there an outdoor area?',
+                    label: 'Outdoor',
                     icon: <FaTree />,
                     answers: [
                         {
@@ -282,6 +297,7 @@ const AddFormProvider = ({ children }) => {
                 },
                 {
                     question: 'How large is the venue?',
+                    label: 'Spacious',
                     icon: <FaArrowsUpDownLeftRight />,
                     answers: [
                         {
@@ -297,6 +313,7 @@ const AddFormProvider = ({ children }) => {
                 },
                 {
                     question: 'Is there a restroom?',
+                    label: 'Restroom',
                     icon: <FaToiletPaper />,
                     answers: [
                         {
@@ -312,6 +329,7 @@ const AddFormProvider = ({ children }) => {
                 },
                 {
                     question: 'Is it easily accessible with a wheelchair?',
+                    label: 'Accessible',
                     icon: <FaWheelchair />,
                     answers: [
                         {
@@ -327,6 +345,7 @@ const AddFormProvider = ({ children }) => {
                 },
                 {
                     question: 'Is there air conditioning?',
+                    label: 'A/C',
                     icon: <FaTemperatureFull />,
                     answers: [
                         {
@@ -342,6 +361,7 @@ const AddFormProvider = ({ children }) => {
                 },
                 {
                     question: 'Is the venue smoke free?',
+                    label: 'No smoke',
                     icon: <FaBanSmoking />,
                     answers: [
                         {
@@ -357,6 +377,7 @@ const AddFormProvider = ({ children }) => {
                 },
                 {
                     question: 'Is the venue pet friendly?',
+                    label: 'Pets',
                     icon: <FaDog />,
                     answers: [
                         {
@@ -372,6 +393,7 @@ const AddFormProvider = ({ children }) => {
                 },
                 {
                     question: 'Are there parking spaces?',
+                    label: 'Parking',
                     icon: <FaCar />,
                     answers: [
                         {
@@ -392,6 +414,7 @@ const AddFormProvider = ({ children }) => {
             questions: [
                 {
                     question: 'In general, do you like working from here?',
+                    label: 'Summary',
                     icon: <FaStar />,
                     answers: [
                         {

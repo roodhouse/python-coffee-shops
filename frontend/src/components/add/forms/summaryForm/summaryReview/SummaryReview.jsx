@@ -5,8 +5,6 @@ function SummaryReview() {
 
   const { formData } = useAddForm()
 
-  console.log(formData)
-
   // style this data
 
   return (

@@ -9,6 +9,8 @@ const MainProvider = ({ children }) => {
     const [ currentCity, setCurrentCity ] = useState('Leander')
     const [ venueCount, setVenueCount ] = useState()
     const [ currentVenue, setCurrentVenue ] = useState()
+    const [ filter, setFilter ] = useState(false)
+    const [ placeIcons, setPlaceIcons ] = useState([])
 
     useEffect(() => {
         setVenueCount(5)
@@ -29,6 +31,33 @@ const MainProvider = ({ children }) => {
         setHome('store')
         setCurrentVenue(venue)
     }
+
+    // toggle filter
+    function toggleFilter() {
+        if (filter) {
+            setFilter(false)
+        } else {
+            setFilter(true)
+        }
+    }
+
+    // set place icons
+    function addPlaceIcons(icon) {
+        let currentIcons = [...placeIcons]
+        currentIcons.push(icon)
+        setPlaceIcons(currentIcons)
+    }
+
+    // remove place icons
+    function removePlaceIcons(icon) {
+        let currentIcons = [...placeIcons]
+        currentIcons.splice(icon, 1)
+        setPlaceIcons(currentIcons)
+    }
+
+    useEffect(() => {
+        console.log(placeIcons)
+    },[placeIcons])
 
     // List of States, should retrieve from DB but for now hard code
     const listOfStates = [
@@ -53,7 +82,7 @@ const MainProvider = ({ children }) => {
     return <MainContext.Provider value = 
     {
         {
-            home, currentCity, venueCount, listOfStates, setPage, setCity, setVenue, currentVenue
+            home, currentCity, venueCount, listOfStates, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons
         }
     }>
         {children}
