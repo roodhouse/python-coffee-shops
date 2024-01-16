@@ -3,10 +3,12 @@ import DashTitle from './dashboard/DashTitle'
 import DashWelcome from './dashboard/DashWelcome'
 import DashTable from './dashboard/DashTable'
 
+// remove mb from dashboardContainer when tables are added
+
 function Dashboard() {
   return (
     <>
-        <div id="dashboardContainer" className='flex flex-wrap items-center'>
+        <div id="dashboardContainer" className='flex flex-wrap items-center mb-[396px]'>
             <div id="dashTitleWrapper" className='mb-9 text-center w-full'>
                 <DashTitle />
             </div>
