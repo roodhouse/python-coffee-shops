@@ -22,7 +22,7 @@ function PlaceEssentials() {
             </div>
             {placeIcons.length > 0 ? (
                 placeIcons.map((icon) => (
-                    <div id={icon.label+'PlaceContainer'}>
+                    <div key={icon.label} id={icon.label+'PlaceContainer'}>
                         {icon.icon}
                     </div>
                 ))

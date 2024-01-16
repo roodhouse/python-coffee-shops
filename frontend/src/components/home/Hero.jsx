@@ -46,13 +46,13 @@ function Hero() {
             </div>
             <div id="filterWrapper" style={home === 'home' && filter ? {display: 'block'} : {display: 'none'} }>
               { detailQuestions.map((category) => (
-                <div id={category.category+'FilterContainer'}>
+                <div id={category.category+'FilterContainer'} key={category.category}>
                     <div id={category.category+'FilterHeadingContainer'} className='mb-2'>
                       <h2>{category.category}</h2>
                     </div>
                     <div id={category.category+'ItemContainer'} data-type={category.category} className='flex flex-wrap text-xl'>
                       { category.questions.map((question) => (
-                        <div id={question.label+'Container'} data-type={question.label} className='flex flex-wrap justify-center items-center text-center w-20 h-20 text-sm py-5 rounded m-3 bg-[white] text-[black]' onClick={handleClick}>
+                        <div key={question.label} id={question.label+'Container'} data-type={question.label} className='flex flex-wrap justify-center items-center text-center w-20 h-20 text-sm py-5 rounded m-3 bg-[white] text-[black]' onClick={handleClick}>
                           <div id={question.label+'IconContainer'}>
                             {question.icon}
                           </div>

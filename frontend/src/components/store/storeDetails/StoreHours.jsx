@@ -44,8 +44,8 @@ function StoreHours() {
             </div>
             <div id="hoursContainer" className='w-full mr-10'>
                 { hoursOfOperation.map((day) => (
-                    <>
-                        <div id={day.day + 'DayHourContainer'} className='flex justify-between'>
+                    
+                        <div key={day.day} id={day.day + 'DayHourContainer'} className='flex justify-between'>
                             <div id={day.day + 'DayContainer'} className=''>
                                 {day.day}
                             </div>
@@ -53,7 +53,7 @@ function StoreHours() {
                                 {day.hours}
                             </div>
                         </div>
-                    </>
+                    
                 ))}
             </div>
         </div>
