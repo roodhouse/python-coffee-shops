@@ -6,7 +6,7 @@ import { useMain } from '../../context/main'
 
 function NavLinks() {
 
-    const { setPage } = useMain()
+    const { setPage, loggedIn } = useMain()
 
     const handleClick = (e) => {
         const newPage = e.currentTarget.getAttribute('data-name')
@@ -22,7 +22,8 @@ function NavLinks() {
             <div id="suggestWrapper" data-name='suggest' className='cursor-pointer' onClick={handleClick}>
                 <Suggest />
             </div>
-            <div id="joinWrapper" data-name='join' className='cursor-pointer' onClick={handleClick}>
+            {/* <div id="joinWrapper" data-name='join' className='cursor-pointer' onClick={handleClick}> */}
+            <div id="joinWrapper" data-name={loggedIn ? 'dash' : 'join'} className='cursor-pointer' onClick={handleClick}>
                 <Join />
             </div>
         </div>
