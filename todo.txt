@@ -1,5 +1,7 @@
 1. frontend
     filter view
+        - update places array to include key word
+        - click highlights icon in filter view and adds icon with correct color in the card unclick remvoes
     dashboard view
         update post view
 
