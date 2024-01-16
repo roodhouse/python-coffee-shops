@@ -20,13 +20,15 @@ function PlaceEssentials() {
             <div id="placeLocationWrapper">
                 <PlaceLocation margin={'mr-2'} />
             </div>
-            {placeIcons.length > 0 ? (
-                placeIcons.map((icon) => (
-                    <div key={icon.label} id={icon.label+'PlaceContainer'}>
-                        {icon.icon}
-                    </div>
-                ))
-            ) : ''}
+            <div id="placeFilterIconsContainer" style={placeIcons.length > 0 ? {display: 'flex'} : {display: 'none'}} className=''>
+                {placeIcons.length > 0 ? (
+                    placeIcons.map((icon) => (
+                        <div key={icon.label} id={icon.label+'PlaceContainer'} className='border-2 text-red border-red p-1 rounded mr-2 mt-2'>
+                            {icon.icon}
+                        </div>
+                    ))
+                ) : ''}
+            </div>
         </div>
     </>
   )
