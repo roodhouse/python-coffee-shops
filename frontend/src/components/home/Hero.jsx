@@ -6,24 +6,36 @@ import { useAddForm } from '../../context/addFormContext'
 
 function Hero() {
 
-  const { home, filter } = useMain()
+  const { home, filter, addPlaceIcons, placeIcons, removePlaceIcons } = useMain()
   const { detailQuestions } = useAddForm()
 
   const handleClick = (e) => {
-    const icon = e.currentTarget
-    if( icon.classList.contains('bg-[white]') ) {
-      icon.classList.replace('bg-[white]', 'bg-[#343434]')
-      icon.classList.replace('text-[black]', 'text-[white]')
+      const icon = e.currentTarget
       let iconCategoryName = icon.parentElement.getAttribute('data-type')
       let iconLabel = icon.getAttribute('data-type')
       let iconCategory = detailQuestions.filter((cat) => cat.category === iconCategoryName)
       let iconItem = iconCategory[0].questions.filter((item) => item.label === iconLabel)
-      // pull out the icon and label from the array and create new object with them, then put then in the placeIcons array
-      console.log(iconItem)
-    } else {
-      icon.classList.replace('bg-[#343434]', 'bg-[white]')
-      icon.classList.replace('text-[white]', 'text-[black]')
-    }
+      let iconObject = {
+        label: iconItem[0].label,
+        icon: iconItem[0].icon
+      }
+
+      if( icon.classList.contains('bg-[white]') ) {
+        icon.classList.replace('bg-[white]', 'bg-[#343434]')
+        icon.classList.replace('text-[black]', 'text-[white]')
+  
+        addPlaceIcons(iconObject)
+
+      } else {
+        icon.classList.replace('bg-[#343434]', 'bg-[white]')
+        icon.classList.replace('text-[white]', 'text-[black]')
+      
+        let removeIconItem;
+        for (let i = 0; placeIcons.length > i; i++) {
+          removeIconItem = placeIcons.findIndex((item) => item.label === iconLabel)
+        }
+        removePlaceIcons(removeIconItem)
+      }
   }
 
   return (

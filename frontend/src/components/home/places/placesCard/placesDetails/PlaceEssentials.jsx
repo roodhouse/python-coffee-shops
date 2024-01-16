@@ -2,10 +2,12 @@ import React from 'react'
 import PlaceName from './placeEssentials/PlaceName'
 import PlaceLocation from './placeEssentials/PlaceLocation'
 import PlaceHours from './placeEssentials/PlaceHours'
+import { useMain } from '../../../../../context/main'
 
 function PlaceEssentials() {
 
-    let placeIcons = [{label: 'hi', icon: 'bye'}]
+  const { placeIcons } = useMain()
+
   return (
     <>
         <div id="placeEssentialsContainer">
