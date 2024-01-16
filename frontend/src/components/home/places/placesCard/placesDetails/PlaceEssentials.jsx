@@ -4,6 +4,8 @@ import PlaceLocation from './placeEssentials/PlaceLocation'
 import PlaceHours from './placeEssentials/PlaceHours'
 
 function PlaceEssentials() {
+
+    let placeIcons = [{label: 'hi', icon: 'bye'}]
   return (
     <>
         <div id="placeEssentialsContainer">
@@ -16,6 +18,13 @@ function PlaceEssentials() {
             <div id="placeLocationWrapper">
                 <PlaceLocation margin={'mr-2'} />
             </div>
+            {placeIcons.length > 0 ? (
+                placeIcons.map((icon) => (
+                    <div id={icon.label+'PlaceContainer'}>
+                        {icon.icon}
+                    </div>
+                ))
+            ) : ''}
         </div>
     </>
   )
