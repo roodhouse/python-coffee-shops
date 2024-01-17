@@ -11,7 +11,7 @@ const MainProvider = ({ children }) => {
     const [ currentVenue, setCurrentVenue ] = useState()
     const [ filter, setFilter ] = useState(false)
     const [ placeIcons, setPlaceIcons ] = useState([])
-    const [ loggedIn, setLoggedIn ] = useState(true)
+    const [ loggedIn, setLoggedIn ] = useState(false)
 
     useEffect(() => {
         setVenueCount(5)
