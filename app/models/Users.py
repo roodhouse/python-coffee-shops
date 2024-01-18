@@ -8,6 +8,7 @@ salt = bcrypt.gensalt()
 class Users(Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
+    comment_id = Column(Integer, ForeignKey('comments.id'))
     email = Column(String(250), nullable=False)
     password = Column(String(100), nullable=False)
     avatar = Column(String(250))

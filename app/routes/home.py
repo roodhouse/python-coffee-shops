@@ -1,3 +1,4 @@
+from crypt import methods
 from email import message
 from os import getenv
 import sys
@@ -16,6 +17,42 @@ bp = Blueprint("home", __name__, url_prefix="/")
 def index():
     return send_from_directory("../frontend/build", "index.html")
 
+# base user route
+@bp.route('/users', methods=['POST'])
+def signup():
+    data = request.get_json()
+    db = get_db()
+
+    try:
+        # attempt to create new user
+        newUser = Users(
+            email = data['email'],
+            password = data['password']
+        )
+
+        # save to db
+        db.add(newUser)
+        db.commit()
+
+    except:  # noqa: E722
+        # insert failed, send error to frontend
+        print(sys.exc_info()[0])
+        # insert failed, rollback and send error to frontend
+        db.rollback()
+        return jsonify(message = 'Signup failed'), 500
+    
+    session.clear()
+    session['user_id'] = newUser.id
+    session['loggedIn'] = True
+    return jsonify(id = newUser.id)
+
+# logout route
+@bp.route('users/logout', methods=['POST'])
+def logout():
+    session.clear()
+    return '', 204
+
+# login route
 @bp.route("/users/login", methods=['POST'])
 def login():
     data = request.get_json()
@@ -23,7 +60,7 @@ def login():
 
     try:
         user = db.query(Users).filter(Users.email == data['email']).one()
-    except:
+    except:  # noqa: E722
         print(sys.exc_info()[0])
         return jsonify(message = 'Incorrect credentials'), 400
     
@@ -35,6 +72,26 @@ def login():
     session['loggedIn'] = True
 
     return jsonify(id = user.id)
+
+# get user info
+@bp.route('/api/user', methods=['GET'])
+def get_user_info():
+    db = get_db()
+    # check if user is authenticated
+    if 'user_id' in session and session['loggedIn']:
+        # retrieve user info based on user_id
+        user_id = session['user_id']
+        user = db.query(Users).filter_by(id=user_id).first()
+
+        if user:
+            # serialize user info and send back as json
+            user_info = {
+                'user_id' : user.id,
+                'email' : user.email
+            }
+            return jsonify(user_info)
+    # return an error if user is not found
+    return jsonify(message='Not authenticated')
 
 @bp.route("/static/css/<path:filename>")
 def serve_static_css(filename):

@@ -6,6 +6,7 @@ class Venues(Base):
     __tablename__ = 'venues'
     id = Column(Integer, primary_key=True)
     # review_id = Column(Integer, ForeignKey('reviews.id'), nullable=False)
+    comment_id = Column(Integer, ForeignKey('comments.id'), nullable=False)
     name = Column(String(250), nullable=False)
     image = Column(String(length=250), nullable=False)
     address = Column(String(length=250), nullable=False)

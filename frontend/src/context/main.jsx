@@ -12,6 +12,25 @@ const MainProvider = ({ children }) => {
     const [ filter, setFilter ] = useState(false)
     const [ placeIcons, setPlaceIcons ] = useState([])
     const [ loggedIn, setLoggedIn ] = useState(false)
+    const [ userData, setUserData ] = useState(null)
+    const [ userAuthenticated, setUserAuthenticated ] = useState(false)
+
+    useEffect(() => {
+        fetch('/api/user')
+            // .then((response) => {
+            //     console.log(response)
+            // })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.user_id) {
+                    setUserAuthenticated(true)
+                    setUserData(data)
+                }
+            })
+            .catch((error) => {
+                console.error('Error fetching user data:', error)
+            })
+    },[])
 
     useEffect(() => {
         setVenueCount(5)
