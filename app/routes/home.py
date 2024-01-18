@@ -1,4 +1,6 @@
+from email import message
 from os import getenv
+import sys
 from dotenv import load_dotenv
 import json
 from flask import Blueprint, send_from_directory, current_app, jsonify, request, session
@@ -13,6 +15,26 @@ bp = Blueprint("home", __name__, url_prefix="/")
 @bp.route("/")
 def index():
     return send_from_directory("../frontend/build", "index.html")
+
+@bp.route("/users/login", methods=['POST'])
+def login():
+    data = request.get_json()
+    db = get_db()
+
+    try:
+        user = db.query(Users).filter(Users.email == data['email']).one()
+    except:
+        print(sys.exc_info()[0])
+        return jsonify(message = 'Incorrect credentials'), 400
+    
+    if user.verify_password(data['password']) == False:
+        return jsonify(message = "Incorrect credentials"), 400
+    
+    session.clear()
+    session['user_id'] = user.id
+    session['loggedIn'] = True
+
+    return jsonify(id = user.id)
 
 @bp.route("/static/css/<path:filename>")
 def serve_static_css(filename):

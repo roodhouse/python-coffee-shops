@@ -9,5 +9,7 @@ class Comments(Base):
     user = Column(String(250), nullable=False)
     body = Column(String(length=1000), nullable= False)
 
-
+    # define relationships
+    user = relationship('Users', back_populates='comments')
+    venue = relationship('Venues', back_populates='comments')
 
