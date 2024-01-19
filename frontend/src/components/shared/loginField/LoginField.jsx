@@ -1,11 +1,11 @@
 import React from 'react'
 
-function LoginField({ register, errors, placeholder, id, name }) {
+function LoginField({ register, errors, placeholder, id, name, type }) {
   return (
     <>
         <div id="loginFieldContainer" className='w-full'>
             <input 
-                type="text"
+                type={type}
                 id={id}
                 placeholder={placeholder}
                 className='w-full mb-2 bg-[#f5f5f5] rounded p-3'

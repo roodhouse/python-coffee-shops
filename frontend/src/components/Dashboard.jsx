@@ -2,6 +2,7 @@ import React from 'react'
 import DashTitle from './dashboard/DashTitle'
 import DashWelcome from './dashboard/DashWelcome'
 import DashTable from './dashboard/DashTable'
+import Logout from './shared/logout/Logout'
 
 // remove mb from dashboardContainer when tables are added
 
@@ -15,8 +16,11 @@ function Dashboard() {
             <div id="dashWelcomeWrapper" className='w-full mb-9'>
                 <DashWelcome />
             </div>
-            <div id="dashTableWrapper">
+            <div id="dashTableWrapper" className='mb-9'>
                 <DashTable />
+            </div>
+            <div id="dashLogoutContainer" className='flex w-full justify-center'>
+                <Logout name={'Logout'} type={'button'} />
             </div>
         </div>
     </>
