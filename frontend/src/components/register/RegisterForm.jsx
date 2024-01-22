@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { useMain } from '../../context/main'
 import LoginField from '../shared/loginField/LoginField'
@@ -8,10 +8,13 @@ function RegisterForm() {
 
     const { successLogin } = useMain()
 
-    const { register, handleSubmit, reset, formState: {errors} } = useForm({ defaultValues: {
+    const { register, handleSubmit, reset, watch, formState: {errors} } = useForm({ defaultValues: {
         user: '',
         password: ''
     }}, {validateOnChange: true})
+
+    const password = useRef({})
+    password.current = watch("password", '')
 
     const onSubmit = async (data) => {
         console.log(data)
@@ -52,7 +55,7 @@ function RegisterForm() {
                     <LoginField type={'password'} register={register} errors={errors} placeholder={'Password'} name={'password'} id={'regPassword'} />
                 </div>
                 <div id="registerPasswordContainer" className='mb-2'>
-                    <LoginField type={'password'} register={register} errors={errors} placeholder={'Confirm Password'} name={'confirm'} id={'regConfirm'} />
+                    <LoginField type={'password'} register={register} errors={errors} placeholder={'Confirm Password'} name={'confirm'} id={'regConfirm'} current={password.current} />
                 </div>
                 <div id="registerButtonContainer">
                     <JoinButton name={'Login'} type={'submit'} />

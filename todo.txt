@@ -5,6 +5,7 @@
 2. backend setup and connection
     go through and update the __init__.py files one by one
         - authenticate forms (login and register)
+            -- try chatgpt latest ... here
     - create tables
     - connect forms (answers)
     - create logic for aggregating results

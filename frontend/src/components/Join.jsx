@@ -10,7 +10,6 @@ function Join() {
     const { setPage } = useMain()
 
     const handleClick = () => {
-        console.log('click')
         setPage('register')
     }
 
