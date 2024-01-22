@@ -1,5 +1,3 @@
-from crypt import methods
-from email import message
 from os import getenv
 import sys
 from dotenv import load_dotenv
@@ -93,6 +91,38 @@ def get_user_info():
     # return an error if user is not found
     return jsonify(message='Not authenticated')
 
+## venues routes
+
+# venues get route
+@bp.route('/api/venues', methods=['GET'])
+def get_venues():
+    db = get_db()
+    venues = db.query(Venues).order_by(Venues.id).all()
+
+    # convert venues data to a list of dictionaries
+    venues_data = [
+        {
+            'id': venue.id,
+            'name': venue.name,
+            'image': venue.image,
+            'location': venue.location,
+            'address': venue.address,
+            'hours': venue.hours,
+            'rating': venue.rating
+        }
+        for venue in venues
+    ]
+
+    return jsonify({'venues': venues_data})
+
+# venues post route
+
+# venues update route
+
+# venues delete route
+
+
+# static file routes
 @bp.route("/static/css/<path:filename>")
 def serve_static_css(filename):
     return send_from_directory("../frontend/build/static/css", filename)

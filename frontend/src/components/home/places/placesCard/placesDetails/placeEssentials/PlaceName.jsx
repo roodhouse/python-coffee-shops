@@ -1,10 +1,11 @@
 import React from 'react'
 
-function PlaceName() {
+function PlaceName({ name }) {
+
   return (
     <>
         <div id="placeNameContainer" className='text-xl'>
-            <p>Perky Beans</p>
+            <p>{name}</p>
         </div>
     </>
   )

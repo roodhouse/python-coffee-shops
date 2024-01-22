@@ -2,8 +2,6 @@ import React from 'react'
 
 function LoginField({ register, errors, placeholder, id, name, type, current }) {
 
-    console.log(name)
-    
   return (
     <>
         <div id="loginFieldContainer" className='w-full'>

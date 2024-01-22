@@ -3,10 +3,15 @@
         update post view
 
 2. backend setup and connection
-    go through and update the __init__.py files one by one
-        - authenticate forms (login and register)
-            -- try chatgpt latest ... here
-    - create tables
+    - create tables and populate
+        - user (done)
+        - venues (expand on model and create frontend connection)
+            -- route
+            -- frontend fetch route
+            -- return only venues for specific location
+            -- change count to number of venues in current location
+        - reviews
+        - comments
     - connect forms (answers)
     - create logic for aggregating results
 

@@ -14,6 +14,32 @@ const MainProvider = ({ children }) => {
     const [ loggedIn, setLoggedIn ] = useState(false)
     const [ userData, setUserData ] = useState(null)
     const [ userAuthenticated, setUserAuthenticated ] = useState(false)
+    const [ venues, setVenues] = useState(null)
+
+
+    // fetch requests
+    useEffect(() => {
+        fetch("http://127.0.0.1:5000/api/venues/")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok")
+                }
+                return response.json()
+            })
+            .then((data) => {
+                setVenues(data)
+            })
+            .catch((error) => {
+                console.error("Error fetching data:", error)
+            })
+    },[])
+
+    useEffect(() => {
+        if (venues !== null) {
+            console.log(venues.venues[0])
+        }
+    },[venues])
+
 
     // login success
     const successLogin = (e) => {
@@ -96,9 +122,9 @@ const MainProvider = ({ children }) => {
         setPlaceIcons(currentIcons)
     }
 
-    useEffect(() => {
-        console.log(placeIcons)
-    },[placeIcons])
+    // useEffect(() => {
+    //     console.log(placeIcons)
+    // },[placeIcons])
 
     // List of States, should retrieve from DB but for now hard code
     const listOfStates = [
@@ -123,7 +149,8 @@ const MainProvider = ({ children }) => {
     return <MainContext.Provider value = 
     {
         {
-            home, currentCity, venueCount, listOfStates, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn, successLogin, logout
+            home, currentCity, venueCount, listOfStates, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn, successLogin, logout,
+            venues
         }
     }>
         {children}
