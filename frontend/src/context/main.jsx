@@ -12,6 +12,46 @@ const MainProvider = ({ children }) => {
     const [ filter, setFilter ] = useState(false)
     const [ placeIcons, setPlaceIcons ] = useState([])
     const [ loggedIn, setLoggedIn ] = useState(false)
+    const [ userData, setUserData ] = useState(null)
+    const [ userAuthenticated, setUserAuthenticated ] = useState(false)
+
+    // login success
+    const successLogin = (e) => {
+        setLoggedIn(true)
+        setHome('dash')
+    }
+
+    // logout
+    const logout = async (e) => {
+        console.log('logout click')
+        const response = await fetch('/users/logout', {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json'}
+        })
+        if ( response.ok ) {
+            setUserAuthenticated(false)
+            setLoggedIn(false)
+            setHome('home')
+        } else {
+            alert(response.statusText)
+        }
+    }
+    
+    useEffect(() => {
+        if (loggedIn) { 
+            fetch('/api/user')
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.user_id) {
+                        setUserAuthenticated(true)
+                        setUserData(data)
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error fetching user data:', error)
+                })
+        }
+    },[loggedIn])
 
     useEffect(() => {
         setVenueCount(5)
@@ -83,7 +123,7 @@ const MainProvider = ({ children }) => {
     return <MainContext.Provider value = 
     {
         {
-            home, currentCity, venueCount, listOfStates, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn
+            home, currentCity, venueCount, listOfStates, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn, successLogin, logout
         }
     }>
         {children}

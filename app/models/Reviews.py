@@ -5,9 +5,13 @@ from sqlalchemy.orm import relationship
 class Reviews(Base):
     __tablename__ = 'reviews'
     id = Column(Integer, primary_key=True)
-    venue = Column(String(250), nullable=False)
-    user = Column(String(250), nullable=False)
+    venue_id = Column(Integer, ForeignKey('venues.id'), nullable=False)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
 
+    
+    # define relationships
+    venue = relationship('Venues', back_populates='reviews')
+    user = relationship('Users', back_populates='reviews')
     # questions below
 
 

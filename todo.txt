@@ -4,11 +4,10 @@
 
 2. backend setup and connection
     go through and update the __init__.py files one by one
-    - create server
-    - create database
-    - create routes
+        - authenticate forms (login and register)
+            -- try chatgpt latest ... here
     - create tables
-    - connect forms 
+    - connect forms (answers)
     - create logic for aggregating results
 
 3. API's needed:
