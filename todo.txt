@@ -4,13 +4,7 @@
 
 2. backend setup and connection
     - create tables and populate
-        - user (done)
-        - venues (expand on model and create frontend connection)
-            -- route
-            -- frontend fetch route
-            -- return only venues for specific location
-            -- change count to number of venues in current location
-        - reviews
+        - reviews and individual page
         - comments
     - connect forms (answers)
     - create logic for aggregating results

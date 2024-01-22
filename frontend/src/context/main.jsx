@@ -37,6 +37,7 @@ const MainProvider = ({ children }) => {
     useEffect(() => {
         if (venues !== null) {
             console.log(venues.venues[0])
+            console.log(venues.venues.length)
         }
     },[venues])
 
@@ -80,8 +81,10 @@ const MainProvider = ({ children }) => {
     },[loggedIn])
 
     useEffect(() => {
-        setVenueCount(5)
-    },[])
+        if (venues !== null) {
+            setVenueCount(venues.venues.length)
+        }
+    },[venues])
 
     // select view
     function setPage(page) {
