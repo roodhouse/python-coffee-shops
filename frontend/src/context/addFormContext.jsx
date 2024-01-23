@@ -9,7 +9,7 @@ const AddFormContext = createContext();
 
 const AddFormProvider = ({ children }) => {
 
-    const { setPage } = useMain()
+    const { setPage, userAuthenticated  } = useMain()
     const [ step, setStep ] = useState('venue')
     const [ formData, setFormData ] = useState({})
 
@@ -23,13 +23,49 @@ const AddFormProvider = ({ children }) => {
         setFormData({...formData, ...sentData})
     }
 
-    function sendToDataBase(submission) {
+    const sendToDataBase = async (submission) => {
+        console.log('Request Payload:', JSON.stringify(submission));
         // send to database
-        console.log('sent:')
-        console.log(submission)
-        setPage('thankYou')
-        setStep('venue')
-        // reset formData to empty
+        
+
+        const venue = submission.venue
+        const image = submission.image
+        const location = submission.location
+        const address = submission.address
+        const hours = submission.hours
+        // rating should actually come from an aggregate off all reviews
+        const rating = submission.Summary
+        // define questions/answer here will need to define them all even if blank
+
+        console.log(rating)
+
+        if (userAuthenticated) {
+            const response = await fetch("http://127.0.0.1:5000/api/venues/", {
+                method: 'post',
+                body: JSON.stringify({
+                    venue,
+                    image,
+                    location,
+                    address,
+                    hours,
+                    rating
+                }),
+                headers: {'Content-Type': 'application/json'}
+            })
+            
+            if (response.ok) {
+                // new fetch request here for review post
+                setPage('thankYou')
+                setStep('venue')
+                setFormData({})
+                // 2nd if response.ok conditional here
+            } else {
+                console.log(response)
+                alert(response.statusText)
+            }
+        } else {
+            console.log('error')
+        }
     }
 
     // Photos from api

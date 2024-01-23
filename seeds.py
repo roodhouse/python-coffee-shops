@@ -126,4 +126,45 @@ db.add_all([
 
 db.commit()
 
+venue_instance = db.query(Venues).filter_by(id=1).first()
+user_instance = db.query(Users).filter_by(id=1).first()
+
+db.add_all([
+    Reviews(
+        venue_id = 1,
+        user_id = 1,
+        answers = [
+            {
+                'p1' : 0,
+                'p2' : 1,
+                'p3' : 2,
+                'p4' : 0,
+                'p5': 2,
+                'p6' : 2,
+                'c1' : 1,
+                'c2' : 0,
+                'ser1': 1,
+                'ser2': 1,
+                'ser3' : 0,
+                'ser4' : 0,
+                'ser5': 2,
+                'sp1' : 0,
+                'sp2' : 0,
+                'sp3' : 2,
+                'sp4': 2,
+                'sp5' : 2,
+                'sp6' : 2,
+                'sp7' : 2,
+                'sp8' : 0,
+                'sp9' : 0,
+                'sum' : 2
+            }
+        ],
+        venue = venue_instance,
+        user = user_instance
+    )
+])
+
+db.commit()
+
 db.close()

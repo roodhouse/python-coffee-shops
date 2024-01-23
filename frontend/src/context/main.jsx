@@ -153,7 +153,7 @@ const MainProvider = ({ children }) => {
     {
         {
             home, currentCity, venueCount, listOfStates, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn, successLogin, logout,
-            venues
+            venues, userAuthenticated
         }
     }>
         {children}

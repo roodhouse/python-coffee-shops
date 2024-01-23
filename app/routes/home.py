@@ -1,3 +1,4 @@
+from crypt import methods
 from os import getenv
 import sys
 from dotenv import load_dotenv
@@ -116,10 +117,75 @@ def get_venues():
     return jsonify({'venues': venues_data})
 
 # venues post route
+@bp.route('/api/venues', methods=['POST'])
+def new_venue():
+    data = request.get_json()
+    print(data)
+    db = get_db()
+
+    try:
+        new_venue = Venues(
+            name = data['venue'],
+            image = data['image'],
+            location = data['location'],
+            address = data['address'],
+            hours = data['hours'],
+            rating = data['rating']
+        )
+        db.add(new_venue)
+        db.commit()
+        return jsonify(message = 'venue added'), 200
+    except:
+        print(sys.exc_info()[0])
+        db.rollback()
+        return jsonify(message = 'venue failed to be added'), 500
+
 
 # venues update route
+@bp.route('/api/venues/<int:id>', methods=['PUT'])
+def update_venue(id):
+    data = request.get_json()
+    db = get_db()
 
+    venue = db.query(Venues).filter_by(id=id).one_or_none()
+
+    if venue:
+        try:
+            # update venue
+            venue.name = data['venue'],
+            venue.image = data['image'],
+            venue.location = data['location'],
+            venue.address = data['address'],
+            venue.hours = data['hours'],
+            venue.rating = data['rating']
+        
+            db.commit()
+            return jsonify({'message': 'Venue was updated'})
+        
+        except KeyError as e:
+            logging.error(f'KeyError: {e}')
+            db.rollback()
+            return jsonify(message = 'Invalid data'), 400
+    else:
+        return jsonify({'error': 'Venue was not found'}), 404
+    
 # venues delete route
+@bp.route('/api/venues/<int:id>', methods=['DELETE'])
+def delete_venue(id):
+    db = get_db()
+
+    venue = db.query(Venues).get(id)
+
+    if venue:
+        try:
+            db.delete(venue)
+            db.commit()
+            return jsonify({'error': 'Venue has been deleted'})
+        except Exception as e:
+            db.rollback()
+            return jsonify({"error": "Failed to delete venue", "details": str(e)}), 500
+    else:
+        return jsonify({'error': 'venue was not found'}), 404
 
 
 # static file routes

@@ -6,15 +6,20 @@ import NextButton from '../../../next/NextButton'
 
 function DetailsInput() {
 
-    // how to send currentAnswers upon submit?
-    // style form
-    // add back and next buttons
-
     const { register, handleSubmit, formState: {errors} } = useForm()
     const { currentStep, updateFormData, detailQuestions } = useAddForm()
     const [ currentAnswers, setCurrentAnswers ] = useState({})
 
     const onSubmit = () => {
+        console.log(currentAnswers)
+        if (currentAnswers.Summary[0].answer === 'No') {
+            currentAnswers.Summary = 1
+        } else if (currentAnswers.Summary[0].answer === 'Sometimes') {
+            currentAnswers.Summary = 2
+        } else {
+            currentAnswers.Summary = 3
+        }
+        console.log(`after conversion`)
         console.log(currentAnswers)
         currentStep('summary')
         updateFormData(currentAnswers)
@@ -27,10 +32,12 @@ function DetailsInput() {
     const handleClick = (e) => {
        
         if (e.target.tagName === 'P') {
-            const chosenAnswer = 'chosenAnswer'
-            const newValue = e.target.textContent
+            const chosenAnswer = 'chosenAnswer' 
+            const newValue = e.target.id
+            console.log(newValue)
             const questionElement = e.target.parentElement.parentElement.firstChild.textContent
             const clickedId = e.target.parentElement.parentElement.id
+            console.log(clickedId)
             const parentEl = e.target.parentElement.parentElement
 
             console.log(typeof clickedId)
@@ -89,7 +96,7 @@ function DetailsInput() {
                                     <p className='flex items-center mb-2 font-["PT_SERIF"]'><span className='mr-3'>{question.icon}</span> <span>{question.question}</span></p>
                                 {question.answers.map((answer, aIndex) => (
                                     <div className='mb-2 ml-7 font-["PT_SERIF"] bg-[#f5f5f5] rounded p-3' key={aIndex} id={category.category+'Question'+qIndex+'Answer'+aIndex} onClick={handleClick}>
-                                        <p>{answer.answer}</p>
+                                        <p id={aIndex}>{answer.answer}</p>
                                     </div>
                                 ))}
                                 </div>
