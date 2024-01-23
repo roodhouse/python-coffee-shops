@@ -16,6 +16,7 @@ const MainProvider = ({ children }) => {
     const [ userAuthenticated, setUserAuthenticated ] = useState(false)
     const [ venues, setVenues] = useState(null)
     const [ allReviews, setAllReviews ] = useState(null)
+    const [ review, setReview ] = useState(null)
 
 
     // fetch requests
@@ -50,6 +51,27 @@ const MainProvider = ({ children }) => {
     },[])
 
     console.log(allReviews)
+
+    // get single review, might move this later
+
+        useEffect(() => {
+            fetch(`http://127.0.0.1:5000/api/reviews/1`)
+            .then((response) => {
+                if ( !response.ok ) {
+                    throw new Error("Network response was not ok")
+                }
+                return response.json()
+            })
+            .then((data) => {
+                setReview(data)
+            })
+            .catch((error) => {
+                console.error("Error fetching data", error)
+            })
+        },[])
+    
+
+console.log(review)
 
     useEffect(() => {
         if (venues !== null) {
