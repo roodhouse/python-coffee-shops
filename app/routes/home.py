@@ -187,6 +187,33 @@ def delete_venue(id):
     else:
         return jsonify({'error': 'venue was not found'}), 404
 
+# review routes
+
+# get all reviews
+@bp.route('/api/reviews', methods=['GET'])
+def get_reviews():
+    db = get_db()
+
+    reviews = db.query(Reviews).order_by(Reviews.id).all()
+
+    reviews_data = [
+        {
+            'id' : review.id,
+            'venue' : review.venue_id,
+            'user' : review.user_id,
+            'answers' : review.answers
+        }
+        for review in reviews
+    ]
+
+    return jsonify({'reviews': reviews_data})
+# get individual review
+#  here !
+
+# post review
+# update review
+# delete review
+
 
 # static file routes
 @bp.route("/static/css/<path:filename>")
