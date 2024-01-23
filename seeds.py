@@ -131,8 +131,8 @@ user_instance = db.query(Users).filter_by(id=1).first()
 
 db.add_all([
     Reviews(
-        venue_id = 1,
-        user_id = 1,
+        venue = venue_instance,
+        user = user_instance,
         answers = [
             {
                 'p1' : 0,
@@ -159,9 +159,7 @@ db.add_all([
                 'sp9' : 0,
                 'sum' : 2
             }
-        ],
-        venue = venue_instance,
-        user = user_instance
+        ]
     )
 ])
 
