@@ -9,7 +9,7 @@ const AddFormContext = createContext();
 
 const AddFormProvider = ({ children }) => {
 
-    const { setPage, userAuthenticated  } = useMain()
+    const { setPage, userAuthenticated, userData  } = useMain()
     const [ step, setStep ] = useState('venue')
     const [ formData, setFormData ] = useState({})
 
@@ -23,10 +23,9 @@ const AddFormProvider = ({ children }) => {
         setFormData({...formData, ...sentData})
     }
 
+    // ready to test !
     const sendToDataBase = async (submission) => {
         console.log('Request Payload:', JSON.stringify(submission));
-        // send to database
-        
 
         const venue = submission.venue
         const image = submission.image
@@ -35,11 +34,14 @@ const AddFormProvider = ({ children }) => {
         const hours = submission.hours
         // rating should actually come from an aggregate off all reviews
         const rating = submission.Summary
-        // define questions/answer here will need to define them all even if blank
-
+        const answers = submission.answers
+        
         console.log(rating)
 
         if (userAuthenticated) {
+
+            const user = userData.user_id
+
             const response = await fetch("http://127.0.0.1:5000/api/venues/", {
                 method: 'post',
                 body: JSON.stringify({
@@ -54,11 +56,40 @@ const AddFormProvider = ({ children }) => {
             })
             
             if (response.ok) {
-                // new fetch request here for review post
-                setPage('thankYou')
-                setStep('venue')
-                setFormData({})
-                // 2nd if response.ok conditional here
+                const response = await fetch("http://127.0.0.1:5000/api/reviews", {
+                    method: 'post',
+                    body: JSON.stringify({
+                        venue,
+                        answers,
+                        user
+                    }),
+                    headers: {'Content-Type': 'application/json'}
+                })
+                if (response.ok) {
+                    setPage('thankYou')
+                    setStep('venue')
+                    setFormData({})
+                    if (response.ok) {
+                        const response = await fetch(`http://127.0.0.1:5000/api/user/${user}`, {
+                            method: 'post',
+                            body: JSON.stringify({
+                                venue
+                            }),
+                            headers: {'Content-Type': 'application/json'}
+                        })
+                        if (response.ok) {
+                            setPage('thankYou')
+                            setStep('venue')
+                            setFormData({})
+                        } else {
+                            console.log(response)
+                            alert(response.statusText)
+                        }
+                    } 
+                } else {
+                    console.log(response)
+                    alert(response.statusText)
+                }
             } else {
                 console.log(response)
                 alert(response.statusText)

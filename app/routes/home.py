@@ -92,6 +92,33 @@ def get_user_info():
     # return an error if user is not found
     return jsonify(message='Not authenticated')
 
+# update user with reviews
+bp.route('api/user/<int:id>', methods=['PUT'])
+def update_user(id):
+    db = get_db()
+
+    if 'user_id' in session and session['loggedIn']:
+        user_id = session['user_id']
+        user = db.query(Users).filter_by(id=user_id).one_or_none()
+
+    if user:
+        try:
+            # update user with review
+            reviews_ids_data = user.review_ids or {}
+            new_review_data = request.get_json('venue', {})
+            reviews_ids_data = {**reviews_ids_data, **new_review_data}
+            user.review_ids = reviews_ids_data
+            
+            db.commit()
+            return jsonify({'message': 'Review added to user'})
+        
+        except KeyError as e:
+            logging.error(f'KeyError: {e}')
+            db.rollback()
+            return jsonify(message = 'Invalid data'), 400
+    else:
+        return jsonify({'error': 'Review not added to user'}), 404
+
 ## venues routes
 
 # venues get route
@@ -208,7 +235,6 @@ def get_reviews():
 
     return jsonify({'reviews': reviews_data})
 # get individual review
-#  here !
 @bp.route('/api/reviews/<int:id>', methods=['GET'])
 def get_review(id):
     db = get_db()
@@ -227,8 +253,35 @@ def get_review(id):
         return jsonify({"error": "review not found"}), 404
 
 # post review
+@bp.route('/api/reviews', methods=['POST'])
+def new_review():
+    data = request.get_json()
+    print(data)
+    db = get_db()
+
+    try:
+        new_review = Reviews(
+            venue = data['venue'],
+            user = data['user'],
+            answers = data['answers'],
+        )
+        db.add(new_review)
+        db.commit()
+        return jsonify(message = 'review added'), 200
+    except:
+        print(sys.exc_info()[0])
+        db.rollback()
+        return jsonify(message = 'review failed to be added'), 500
 # update review
+    # ! here !
 # delete review
+    
+# comments routes
+# get all comments
+# get individual comment
+# create new comment (post)
+# update comment (put)
+# delete comment (delete)
 
 
 # static file routes

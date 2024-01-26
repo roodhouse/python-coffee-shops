@@ -192,7 +192,7 @@ console.log(review)
     {
         {
             home, currentCity, venueCount, listOfStates, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn, successLogin, logout,
-            venues, userAuthenticated
+            venues, userAuthenticated, userData
         }
     }>
         {children}
