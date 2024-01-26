@@ -6,7 +6,7 @@
     - create tables and populate
             
         - reviews - set the table to questions with numbers as answers 
-            -- need to test the venue, user, reviews routes
+            -- need to test the venue, user, reviews, comment routes (use postman or similar)
             - send data via add new venue
             - add new fields to Venues table that will show the aggregate of all reviews for that venue
             - create way for 2nd user to add review for same location

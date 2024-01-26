@@ -167,7 +167,6 @@ def new_venue():
         db.rollback()
         return jsonify(message = 'venue failed to be added'), 500
 
-
 # venues update route
 @bp.route('/api/venues/<int:id>', methods=['PUT'])
 def update_venue(id):
@@ -272,14 +271,119 @@ def new_review():
         print(sys.exc_info()[0])
         db.rollback()
         return jsonify(message = 'review failed to be added'), 500
+    
 # update review
-    # ! here !
+@bp.route('/api/reviews/<int:id>', methods=['PUT'])
+def update_review(id):
+    data = request.get_json()
+    db = get_db()
+
+    review = db.query(Reviews).filter_by(id=id).one_or_none()
+
+    if review:
+        try:
+            # update review
+            review.answers = data['answers'],
+        
+            db.commit()
+            return jsonify({'message': 'Review was updated'})
+        
+        except KeyError as e:
+            logging.error(f'KeyError: {e}')
+            db.rollback()
+            return jsonify(message = 'Invalid data'), 400
+    else:
+        return jsonify({'error': 'Review was not found'}), 404
+    
 # delete review
     
 # comments routes
+
 # get all comments
+@bp.route('/api/comments', methods=['GET'])
+def get_comments():
+    db = get_db()
+
+    comments = db.query(Comments).order_by(Comments.id).all()
+
+    if comments:
+        comments_data = [
+            {
+                'id' : comment.id,
+                'venue' : comment.venue_id,
+                'user' : comment.user_id,
+                'body' : comment.body
+            }
+            for comment in comments
+        ]
+
+        return jsonify({'comments': comments_data})
+    else: 
+        return jsonify({"error": "comment not found"}), 404
+
+# get all comments by post
+@bp.route('/api/comments/<int:post_id>', methods=['GET'])
+def get_comments_by_post(post_id):
+    db = get_db()
+
+    comments = db.query(Comments).filter_by(venue_id = post_id).order_by(Comments.id).all()
+
+    if comments:
+        comments_data = [
+            {
+                'id' : comment.id,
+                'venue' : comment.venue_id,
+                'user' : comment.user_id,
+                'body' : comment.body
+            }
+            for comment in comments
+        ]
+        return jsonify({'comments': comments_data})
+    else: 
+        return jsonify({"error": "comment not found"}), 404
+    
+# get all comments by user
+@bp.route('/api/comments/<int:user_id>', methods=['GET'])
+def get_comments_by_user(user_id):
+    db = get_db()
+
+    comments = db.query(Comments).filter_by(venue_id = user_id).order_by(Comments.id).all()
+
+    if comments:
+        comments_data = [
+            {
+                'id' : comment.id,
+                'venue' : comment.venue_id,
+                'user' : comment.user_id,
+                'body' : comment.body
+            }
+            for comment in comments
+        ]
+
+        return jsonify({'comments': comments_data})
+    else: 
+        return jsonify({"error": "comment not found"}), 404
+
 # get individual comment
+@bp.route('/api/comments/<int:id>', methods=['GET'])
+def get_comment(id):
+    db = get_db()
+
+    comment = db.query(Comments).filter_by(id = id).one_or_none()
+
+    if comment:
+        comment_details = {
+           'id' : comment.id,
+            'venue' : comment.venue_id,
+            'user' : comment.user_id,
+            'body' : comment.body
+        }
+        return jsonify(comment_details)
+    else: 
+        return jsonify({"error": "comment not found"}), 404
+    
 # create new comment (post)
+    # here !!!!!!!!!
 # update comment (put)
 # delete comment (deletes)
 
