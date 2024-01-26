@@ -281,7 +281,7 @@ def new_review():
 # get individual comment
 # create new comment (post)
 # update comment (put)
-# delete comment (delete)
+# delete comment (deletes)
 
 
 # static file routes
