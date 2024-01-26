@@ -296,6 +296,22 @@ def update_review(id):
         return jsonify({'error': 'Review was not found'}), 404
     
 # delete review
+@bp.route('/api/reviews/<int:id>', methods=['DELETE'])
+def delete_review(id):
+    db = get_db()
+
+    review = db.query(Reviews).get(id)
+
+    if review:
+        try:
+            db.delete(review)
+            db.commit()
+            return jsonify({'error': 'Review has been deleted'})
+        except Exception as e:
+            db.rollback()
+            return jsonify({"error": "Failed to delete review", "details": str(e)}), 500
+    else:
+        return jsonify({'error': 'review was not found'}), 404
     
 # comments routes
 
@@ -383,10 +399,64 @@ def get_comment(id):
         return jsonify({"error": "comment not found"}), 404
     
 # create new comment (post)
-    # here !!!!!!!!!
-# update comment (put)
-# delete comment (deletes)
+@bp.route('/api/comments', methods=['POST'])
+def new_comment():
+    db = get_db()
+    data = request.get_json()
+    try:
+        new_comment = Comments(
+            venue = data['venue'],
+            user = data['user'],
+            body = data['body'],
+        )
+        db.add(new_comment)
+        db.commit()
+        return jsonify(message = 'comment added'), 200
+    except:
+        print(sys.exc_info()[0])
+        db.rollback()
+        return jsonify(message = 'comment failed to be added'), 500
+    
+# update comment
+@bp.route('/api/comments/<int:id>', methods=['PUT'])
+def update_comment(id):
+    data = request.get_json()
+    db = get_db()
 
+    comment = db.query(Comments).filter_by(id=id).one_or_none()
+
+    if comment:
+        try:
+            # update comment
+            comment.answers = data['body'],
+        
+            db.commit()
+            return jsonify({'message': 'Comment was updated'})
+        
+        except KeyError as e:
+            logging.error(f'KeyError: {e}')
+            db.rollback()
+            return jsonify(message = 'Invalid data'), 400
+    else:
+        return jsonify({'error': 'Comment was not found'}), 404
+    
+# delete comment (deletes)
+@bp.route('/api/comments/<int:id>', methods=['DELETE'])
+def delete_comment(id):
+    db = get_db()
+
+    comment = db.query(Comments).get(id)
+
+    if comment:
+        try:
+            db.delete(comment)
+            db.commit()
+            return jsonify({'error': 'Comment has been deleted'})
+        except Exception as e:
+            db.rollback()
+            return jsonify({"error": "Failed to delete comment", "details": str(e)}), 500
+    else:
+        return jsonify({'error': 'comment was not found'}), 404
 
 # static file routes
 @bp.route("/static/css/<path:filename>")
