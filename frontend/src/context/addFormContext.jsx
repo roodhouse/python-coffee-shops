@@ -25,8 +25,6 @@ const AddFormProvider = ({ children }) => {
 
     // ready to test !
     const sendToDataBase = async (submission) => {
-        console.log('Request Payload:', JSON.stringify(submission));
-
         const venue = submission.venue
         const image = submission.image
         const location = submission.location
@@ -34,66 +32,136 @@ const AddFormProvider = ({ children }) => {
         const hours = submission.hours
         // rating should actually come from an aggregate off all reviews
         const rating = submission.Summary
-        const answers = submission.answers
+        // const answers = submission.answers
+        const answers = [
+            {
+                'p1' : parseInt(submission.Productivity[0].answer),
+                'p2' : parseInt(submission.Productivity[1].answer),
+                'p3' : parseInt(submission.Productivity[2].answer),
+                'p4' : parseInt(submission.Productivity[3].answer),
+                'p5' : parseInt(submission.Productivity[4].answer),
+                'p6' : parseInt(submission.Productivity[5].answer),
+                'c1' : parseInt(submission.Community[0].answer),
+                'c2' : parseInt(submission.Community[1].answer),
+                'ser1' : parseInt(submission.Service[0].answer),
+                'ser2' : parseInt(submission.Service[1].answer),
+                'ser3' : parseInt(submission.Service[2].answer),
+                'ser4' : parseInt(submission.Service[3].answer),
+                'ser5' : parseInt(submission.Service[4].answer),
+                'sp1' : parseInt(submission.Space[0].answer),
+                'sp2' : parseInt(submission.Space[1].answer),
+                'sp3' : parseInt(submission.Space[2].answer),
+                'sp4' : parseInt(submission.Space[3].answer),
+                'sp5' : parseInt(submission.Space[4].answer),
+                'sp6' : parseInt(submission.Space[5].answer),
+                'sp7' : parseInt(submission.Space[6].answer),
+                'sp8' : parseInt(submission.Space[7].answer),
+                'sp9' : parseInt(submission.Space[8].answer),
+                'sum' : submission.Summary
+            }
+        ]
         
-        console.log(rating)
+        console.log('the answers are:')
+        console.log(answers)
+        
 
-        if (userAuthenticated) {
+        const user_email = userData.email
 
-            const user = userData.user_id
-
-            const response = await fetch("http://127.0.0.1:5000/api/venues/", {
-                method: 'post',
-                body: JSON.stringify({
-                    venue,
-                    image,
-                    location,
-                    address,
-                    hours,
-                    rating
-                }),
+        // create review
+        async function fetchVenueFromServer() {
+            const venueInstanceResponse = await fetch("http://127.0.0.1:5000/api/venues/last", {
+                method: 'GET',
                 headers: {'Content-Type': 'application/json'}
             })
-            
-            if (response.ok) {
-                const response = await fetch("http://127.0.0.1:5000/api/reviews", {
+
+            if (venueInstanceResponse.ok) {
+                const venueData = await venueInstanceResponse.json()
+                console.log(venueData.venues)
+                console.log(venueData.venues[0])
+                console.log(venueData.venues[0].name)
+                const reviewResponse = await fetch("http://127.0.0.1:5000/api/reviews", {
                     method: 'post',
                     body: JSON.stringify({
-                        venue,
-                        answers,
-                        user
-                    }),
+                    venue_name: venueData.venues[0].name,
+                    answers,
+                    user_email
+                }),
                     headers: {'Content-Type': 'application/json'}
                 })
-                if (response.ok) {
+
+                if (reviewResponse.ok) {
                     setPage('thankYou')
                     setStep('venue')
                     setFormData({})
-                    if (response.ok) {
-                        const response = await fetch(`http://127.0.0.1:5000/api/user/${user}`, {
-                            method: 'post',
-                            body: JSON.stringify({
-                                venue
-                            }),
-                            headers: {'Content-Type': 'application/json'}
-                        })
-                        if (response.ok) {
-                            setPage('thankYou')
-                            setStep('venue')
-                            setFormData({})
-                        } else {
-                            console.log(response)
-                            alert(response.statusText)
-                        }
-                    } 
                 } else {
-                    console.log(response)
-                    alert(response.statusText)
+                    console.error("Error creating review:", reviewResponse.statusText)
+                    alert("Error creating review")
                 }
             } else {
-                console.log(response)
-                alert(response.statusText)
+                console.error("Error fetching venue from server", venueInstanceResponse.statusText)
+                alert("Error fetching venue from server")
+                return null
             }
+        }
+
+        if (userAuthenticated) {
+
+            try {
+                // create venue
+                const venueResponse = await fetch("http://127.0.0.1:5000/api/venues/", {
+                    method: 'post',
+                    body: JSON.stringify({
+                        venue,
+                        image,
+                        location,
+                        address,
+                        hours,
+                        rating
+                    }),
+                    headers: {'Content-Type': 'application/json'}
+                })
+
+                if (!venueResponse.ok) {
+                    console.error("Error creating venue:", venueResponse.statusText)
+                    alert("Error creating venue")
+                    return
+                }
+
+                await fetchVenueFromServer()
+
+                
+            } catch (error) {
+                console.error("An unexpected error occurred", error)
+                alert("An unexpected error occurred")
+            }
+
+
+                // next add review id to user, see below but mimic above
+            
+            //     if (review_response.ok) {
+            //             const user_response = await fetch(`http://127.0.0.1:5000/api/user/${user}`, {
+            //                 method: 'post',
+            //                 body: JSON.stringify({
+            //                     venue
+            //                 }),
+            //                 headers: {'Content-Type': 'application/json'}
+            //             })
+            //             if (user_response.ok) {
+            //                 setPage('thankYou')
+            //                 setStep('venue')
+            //                 setFormData({})
+            //             } else {
+            //                 console.log(response)
+            //                 alert(response.statusText)
+            //             }
+            //     } else {
+            //         console.log(response)
+            //         alert(response.statusText)
+            //     }
+            // } else {
+            //     console.log(response)
+            //     alert(response.statusText)
+            // }
         } else {
             console.log('error')
         }

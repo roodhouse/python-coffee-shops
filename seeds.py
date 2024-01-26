@@ -131,8 +131,8 @@ user_instance = db.query(Users).filter_by(id=1).first()
 
 db.add_all([
     Reviews(
-        venue = venue_instance,
-        user = user_instance,
+        venue_name = 'Perky Beans',
+        user_email = 'rughjm@gmail.com',
         answers = [
             {
                 'p1' : 0,

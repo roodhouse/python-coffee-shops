@@ -6,7 +6,7 @@ class Venues(Base):
     __tablename__ = 'venues'
     id = Column(Integer, primary_key=True)
     comment_id = Column(Integer, ForeignKey('comments.id'))
-    name = Column(String(250), nullable=False)
+    name = Column(String(250), nullable=False, index=True)
     image = Column(String(length=250), nullable=False)
     location = Column(String(length=500), nullable=False)
     address = Column(String(length=250), nullable=False)
@@ -16,5 +16,5 @@ class Venues(Base):
     review_ids = Column(JSON)
 
     # define relationship
-    reviews = relationship('Reviews', back_populates='venue')
+    reviews = relationship('Reviews', back_populates='venue_rated')
     comments = relationship('Comments', back_populates='venue')
