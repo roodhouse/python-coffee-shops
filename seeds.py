@@ -9,7 +9,7 @@ db = Session()
 
 # insert user
 db.add_all([
-    Users(email='rughjm@gmail.com', password='12345')
+    Users(email='rughjm@gmail.com', password='12345', review_ids=[])
 ])
 
 db.commit()

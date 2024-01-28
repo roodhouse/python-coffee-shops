@@ -81,7 +81,8 @@ def get_user_info():
             # serialize user info and send back as json
             user_info = {
                 'user_id' : user.id,
-                'email' : user.email
+                'email' : user.email,
+                'reviews' : user.review_ids
             }
             return jsonify(user_info)
     # return an error if user is not found
@@ -90,7 +91,10 @@ def get_user_info():
 # update user with reviews
 @user_bp.route('api/user/<int:id>', methods=['PUT'])
 def update_user(id):
+    data = request.get_json()
     db = get_db()
+
+    print(data)
 
     if 'user_id' in session and session['loggedIn']:
         user_id = session['user_id']
@@ -99,10 +103,8 @@ def update_user(id):
     if user:
         try:
             # update user with review
-            reviews_ids_data = user.review_ids or {}
-            new_review_data = request.get_json('venue', {})
-            reviews_ids_data = {**reviews_ids_data, **new_review_data}
-            user.review_ids = reviews_ids_data
+            new_review_data = request.get_json(force=True).get('venue', [])
+            user.review_ids = new_review_data
             
             db.commit()
             return jsonify({'message': 'Review added to user'})

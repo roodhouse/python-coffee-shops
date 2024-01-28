@@ -61,11 +61,13 @@ const AddFormProvider = ({ children }) => {
             }
         ]
         
-        console.log('the answers are:')
-        console.log(answers)
-        
-
+        console.log(userData)
         const user_email = userData.email
+        const user_id = userData.user_id
+
+        console.log(user_id)
+
+        
 
         // create review
         async function fetchVenueFromServer() {
@@ -76,9 +78,6 @@ const AddFormProvider = ({ children }) => {
 
             if (venueInstanceResponse.ok) {
                 const venueData = await venueInstanceResponse.json()
-                console.log(venueData.venues)
-                console.log(venueData.venues[0])
-                console.log(venueData.venues[0].name)
                 const reviewResponse = await fetch("http://127.0.0.1:5000/api/reviews", {
                     method: 'post',
                     body: JSON.stringify({
@@ -90,9 +89,36 @@ const AddFormProvider = ({ children }) => {
                 })
 
                 if (reviewResponse.ok) {
-                    setPage('thankYou')
-                    setStep('venue')
-                    setFormData({})
+                        const userResponse = await fetch(`http://127.0.0.1:5000/api/user`, {
+                        method: 'GET',
+                        headers: {'Content-Type': 'application/json'}
+                    })
+                    
+                    if (userResponse.ok) {
+                        const currentUserData = await userResponse.json()
+                        const currentReviews = Array.isArray(currentUserData.reviews) ? currentUserData.reviews : []
+                        const updatedReviewIds = [ ...currentReviews, venue ]
+                        const updateUserResponse = await fetch(`http://127.0.0.1:5000/api/user/${user_id}`, {
+                            method: 'put',
+                            body: JSON.stringify({
+                                venue: updatedReviewIds
+                            }),
+                            headers: {'Content-Type' : 'application/json'}
+                        })
+                        if (updateUserResponse.ok) {
+                            setPage('thankYou')
+                            setStep('venue')
+                            setFormData({})
+                        } else {
+                            console.error("Error adding review to user:", updateUserResponse.statusText)
+                            alert("Error adding review to user")
+                        }
+
+                    } else {
+                        console.error("Error getting user", userResponse.statusText)
+                        alert("Error getting user")
+                    }
+                    
                 } else {
                     console.error("Error creating review:", reviewResponse.statusText)
                     alert("Error creating review")
@@ -134,34 +160,6 @@ const AddFormProvider = ({ children }) => {
                 console.error("An unexpected error occurred", error)
                 alert("An unexpected error occurred")
             }
-
-
-                // next add review id to user, see below but mimic above
-            
-            //     if (review_response.ok) {
-            //             const user_response = await fetch(`http://127.0.0.1:5000/api/user/${user}`, {
-            //                 method: 'post',
-            //                 body: JSON.stringify({
-            //                     venue
-            //                 }),
-            //                 headers: {'Content-Type': 'application/json'}
-            //             })
-            //             if (user_response.ok) {
-            //                 setPage('thankYou')
-            //                 setStep('venue')
-            //                 setFormData({})
-            //             } else {
-            //                 console.log(response)
-            //                 alert(response.statusText)
-            //             }
-            //     } else {
-            //         console.log(response)
-            //         alert(response.statusText)
-            //     }
-            // } else {
-            //     console.log(response)
-            //     alert(response.statusText)
-            // }
         } else {
             console.log('error')
         }
