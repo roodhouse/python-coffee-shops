@@ -9,7 +9,16 @@ db = Session()
 
 # insert user
 db.add_all([
-    Users(email='rughjm@gmail.com', password='12345', review_ids=[])
+    Users(
+        email='rughjm@gmail.com', 
+        password='12345', 
+        review_ids=["Perky Beans"]
+    ),
+    Users(
+        email='rooinfo@gmail.com', 
+        password='12345', 
+        review_ids=["Scooter\'s Coffee, Perky Beans"]
+    )
 ])
 
 db.commit()
@@ -131,6 +140,37 @@ user_instance = db.query(Users).filter_by(id=1).first()
 
 db.add_all([
     Reviews(
+        venue_name = 'Scooter\'s Coffee',
+        user_email = 'rooinfo@gmail.com',
+        answers = [
+            {
+                'p1' : 2,
+                'p2' : 1,
+                'p3' : 1,
+                'p4' : 2,
+                'p5': 0,
+                'p6' : 1,
+                'c1' : 2,
+                'c2' : 1,
+                'ser1': 0,
+                'ser2': 2,
+                'ser3' : 2,
+                'ser4' : 0,
+                'ser5': 1,
+                'sp1' : 1,
+                'sp2' : 2,
+                'sp3' : 0,
+                'sp4': 1,
+                'sp5' : 2,
+                'sp6' : 1,
+                'sp7' : 1,
+                'sp8' : 0,
+                'sp9' : 1,
+                'sum' : 0
+            }
+        ]
+    ),
+    Reviews(
         venue_name = 'Perky Beans',
         user_email = 'rughjm@gmail.com',
         answers = [
@@ -158,6 +198,37 @@ db.add_all([
                 'sp8' : 0,
                 'sp9' : 0,
                 'sum' : 2
+            }
+        ]
+    ),
+    Reviews(
+        venue_name = 'Perky Beans',
+        user_email = 'rooinfo@gmail.com',
+        answers = [
+            {
+                'p1' : 2,
+                'p2' : 0,
+                'p3' : 1,
+                'p4' : 2,
+                'p5': 0,
+                'p6' : 1,
+                'c1' : 2,
+                'c2' : 1,
+                'ser1': 1,
+                'ser2': 2,
+                'ser3' : 1,
+                'ser4' : 1,
+                'ser5': 1,
+                'sp1' : 2,
+                'sp2' : 0,
+                'sp3' : 2,
+                'sp4': 1,
+                'sp5' : 0,
+                'sp6' : 1,
+                'sp7' : 1,
+                'sp8' : 0,
+                'sp9' : 0,
+                'sum' : 1
             }
         ]
     )

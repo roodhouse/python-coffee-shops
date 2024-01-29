@@ -3,7 +3,7 @@ import sys
 from dotenv import load_dotenv
 import json
 from flask import Blueprint, jsonify, request
-from app.models import Reviews
+from app.models import Reviews, VenueAggregates
 from app.db import get_db
 import logging
 
@@ -21,14 +21,15 @@ def get_reviews():
     reviews_data = [
         {
             'id' : review.id,
-            'venue' : review.venue_id,
-            'user' : review.user_id,
+            'venue' : review.venue_name,
+            'user' : review.user_email,
             'answers' : review.answers
         }
         for review in reviews
     ]
 
     return jsonify({'reviews': reviews_data})
+
 # get individual review
 @review_bp.route('/api/reviews/<int:id>', methods=['GET'])
 def get_review(id):
@@ -39,8 +40,8 @@ def get_review(id):
     if review:
         review_details = {
            "review_id": review.id,
-           "venue": review.venue_id,
-           "user": review.user_id,
+           "venue": review.venue_name,
+           "user": review.user_email,
            "answers": review.answers 
         }
         return jsonify(review_details)
@@ -62,6 +63,9 @@ def new_review():
         )
         db.add(new_review)
         db.commit()
+
+        VenueAggregates.calc_aggregates(db)
+
         return jsonify(message = 'review added'), 200
     except KeyError as e:
         logging.error(f'KeyError: {e}')
