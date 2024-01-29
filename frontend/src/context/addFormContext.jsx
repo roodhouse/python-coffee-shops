@@ -52,15 +52,49 @@ const AddFormProvider = ({ children }) => {
             for (let [venue, count] of Object.entries(venueCount)) {
                 if (count > 1) {
                     console.log(`need to aggregate data for: ${venue}`)
+                    const allReviewsForVenue = []
+                    allReviewsForVenue.push(allReviews.reviews.filter(review => review.venue === venue))
+                    console.log(allReviewsForVenue)
+                    // answer * 100, sum all answers, divide by length of array, divide again by 100
+                    // (200+200+200+200+200+100)/6/(100) = 1.83
+                    let c1 = []
+                    allReviewsForVenue[0].forEach(review => {
+                        console.log(review.answers)
+                        review.answers[0].forEach(answer => {
+                            // trying to pop each answer into an array containing all the answers for that question...
+                        })
+                        
+                    });
                 } else {
-                    console.log(`need to send data to agg table as is for: ${venue}`)
                     const reviewForVenue = allReviews.reviews.find(review => review.venue === venue)
                     try {
                         await fetch('http://127.0.0.1:5000/api/aggregate', {
                             method: 'POST',
                             body: JSON.stringify({
                                 venue_name: venue,
-                                answers: reviewForVenue ? reviewForVenue.answers[0] : null
+                                c1: reviewForVenue.answers[0].c1,
+                                c2: reviewForVenue.answers[0].c2,
+                                p1: reviewForVenue.answers[0].p1,
+                                p2: reviewForVenue.answers[0].p2,
+                                p3: reviewForVenue.answers[0].p3,
+                                p4: reviewForVenue.answers[0].p4,
+                                p5: reviewForVenue.answers[0].p5,
+                                p6: reviewForVenue.answers[0].p6,
+                                ser1: reviewForVenue.answers[0].ser1,
+                                ser2: reviewForVenue.answers[0].ser2,
+                                ser3: reviewForVenue.answers[0].ser3,
+                                ser4: reviewForVenue.answers[0].ser4,
+                                ser5: reviewForVenue.answers[0].ser5,
+                                sp1: reviewForVenue.answers[0].sp1,
+                                sp2: reviewForVenue.answers[0].sp2,
+                                sp3: reviewForVenue.answers[0].sp3,
+                                sp4: reviewForVenue.answers[0].sp4,
+                                sp5: reviewForVenue.answers[0].sp5,
+                                sp6: reviewForVenue.answers[0].sp6,
+                                sp7: reviewForVenue.answers[0].sp7,
+                                sp8: reviewForVenue.answers[0].sp8,
+                                sp9: reviewForVenue.answers[0].sp9,
+                                sum: reviewForVenue.answers[0].sum
                             }),
                             headers: {'Content-Type': 'application/json'}
                         })

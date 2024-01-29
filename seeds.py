@@ -171,6 +171,37 @@ db.add_all([
         ]
     ),
     Reviews(
+        venue_name = 'Scooter\'s Coffee',
+        user_email = 'rughjm@gmail.com',
+        answers = [
+            {
+                'p1' : 1,
+                'p2' : 1,
+                'p3' : 1,
+                'p4' : 0,
+                'p5': 0,
+                'p6' : 1,
+                'c1' : 1,
+                'c2' : 1,
+                'ser1': 0,
+                'ser2': 1,
+                'ser3' : 2,
+                'ser4' : 2,
+                'ser5': 1,
+                'sp1' : 1,
+                'sp2' : 2,
+                'sp3' : 0,
+                'sp4': 2,
+                'sp5' : 1,
+                'sp6' : 1,
+                'sp7' : 1,
+                'sp8' : 0,
+                'sp9' : 1,
+                'sum' : 2
+            }
+        ]
+    ),
+    Reviews(
         venue_name = 'Perky Beans',
         user_email = 'rughjm@gmail.com',
         answers = [
