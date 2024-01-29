@@ -50,8 +50,6 @@ const MainProvider = ({ children }) => {
             })
     },[])
 
-    console.log(allReviews)
-
     // get single review, might move this later
 
         useEffect(() => {
@@ -70,9 +68,6 @@ const MainProvider = ({ children }) => {
             })
         },[])
     
-
-console.log(review)
-
     useEffect(() => {
         if (venues !== null) {
             console.log(venues.venues[0])
@@ -163,10 +158,6 @@ console.log(review)
         currentIcons.splice(icon, 1)
         setPlaceIcons(currentIcons)
     }
-
-    // useEffect(() => {
-    //     console.log(placeIcons)
-    // },[placeIcons])
 
     // List of States, should retrieve from DB but for now hard code
     const listOfStates = [

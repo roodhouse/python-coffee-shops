@@ -1,7 +1,6 @@
 import React from 'react'
 
 function PlacesImage({ image, name }) {
-  console.log(image)
   return (
     <>
         <div id="placesImageContainer" className='max-w-[351px]'>

@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
-from app.routes import home, user, venue, review, comment
+from app.routes import home, user, venue, review, comment, venueAggregates
 from app.db import init_db
 
 def create_app(test_config=None):
@@ -19,6 +19,7 @@ def create_app(test_config=None):
     app.register_blueprint(venue)
     app.register_blueprint(review)
     app.register_blueprint(comment)
+    app.register_blueprint(blueprint=venueAggregates)
     init_db(app)
 
     return app

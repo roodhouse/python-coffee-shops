@@ -23,6 +23,63 @@ const AddFormProvider = ({ children }) => {
         setFormData({...formData, ...sentData})
     }
 
+    async function aggregateResults() {
+        // fetch all the reviews first
+        const allReviewsRequest = await fetch("http://127.0.0.1:5000/api/reviews", {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        })
+
+        if ( allReviewsRequest.ok ) {
+            const allReviews = await allReviewsRequest.json()
+            console.log(allReviews)
+
+            // now that we have all the reviews we can aggregate the results here and send back to the server 
+            let venueCount = {}
+
+            for (let review of allReviews.reviews) {
+                let venueName = review.venue
+                if (venueCount[venueName]) {
+                    venueCount[venueName] += 1
+                } else {
+                    venueCount[venueName] = 1
+                }
+
+            }
+
+            console.log(venueCount)
+
+            for (let [venue, count] of Object.entries(venueCount)) {
+                if (count > 1) {
+                    console.log(`need to aggregate data for: ${venue}`)
+                } else {
+                    console.log(`need to send data to agg table as is for: ${venue}`)
+                    const reviewForVenue = allReviews.reviews.find(review => review.venue === venue)
+                    try {
+                        await fetch('http://127.0.0.1:5000/api/aggregate', {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                venue_name: venue,
+                                answers: reviewForVenue ? reviewForVenue.answers[0] : null
+                            }),
+                            headers: {'Content-Type': 'application/json'}
+                        })
+                    }
+                    catch (error) {
+                        console.error("An unexpected error occurred", error)
+                        alert("An unexpected error occurred")
+                    }
+                        
+                }
+            }
+
+        } else {
+            console.error("Error fetching all reviews from server", allReviewsRequest.statusText)
+            alert("Error fetching all reviews from server")
+            return null
+        }
+    }
+
     // ready to test !
     const sendToDataBase = async (submission) => {
         const venue = submission.venue
@@ -61,13 +118,8 @@ const AddFormProvider = ({ children }) => {
             }
         ]
         
-        console.log(userData)
         const user_email = userData.email
         const user_id = userData.user_id
-
-        console.log(user_id)
-
-        
 
         // create review
         async function fetchVenueFromServer() {
@@ -154,7 +206,8 @@ const AddFormProvider = ({ children }) => {
                 }
 
                 await fetchVenueFromServer()
-
+                
+                aggregateResults()
                 
             } catch (error) {
                 console.error("An unexpected error occurred", error)

@@ -11,7 +11,7 @@ function DetailsInput() {
     const [ currentAnswers, setCurrentAnswers ] = useState({})
 
     const onSubmit = () => {
-        console.log(currentAnswers)
+        
         if (currentAnswers.Summary[0].answer === 'No') {
             currentAnswers.Summary = 1
         } else if (currentAnswers.Summary[0].answer === 'Sometimes') {
@@ -19,8 +19,7 @@ function DetailsInput() {
         } else {
             currentAnswers.Summary = 3
         }
-        console.log(`after conversion`)
-        console.log(currentAnswers)
+        
         currentStep('summary')
         updateFormData(currentAnswers)
     }
@@ -34,17 +33,14 @@ function DetailsInput() {
         if (e.target.tagName === 'P') {
             const chosenAnswer = 'chosenAnswer' 
             const newValue = e.target.id
-            console.log(newValue)
+            
             const questionElement = e.target.parentElement.parentElement.firstChild.textContent
             const clickedId = e.target.parentElement.parentElement.id
-            console.log(clickedId)
+            
             const parentEl = e.target.parentElement.parentElement
 
-            console.log(typeof clickedId)
             let categoryName = clickedId.split('Q')
             categoryName = categoryName[0]
-
-            console.log(categoryName)
     
             function removeClass(parentElement, chosenAnswer) {
                 const children = parentElement.children

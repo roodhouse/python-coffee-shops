@@ -8,11 +8,9 @@ function Places() {
 
     const { setVenue, venues } = useMain()
 
-    const handleClick = (e) => {
-        console.log(e.currentTarget)
+    const handleClick = (e) => { 
         let placeCard = e.currentTarget
         placeCard = placeCard.getAttribute('data-uniqueplaceid')
-        console.log(placeCard)
         setVenue(placeCard)
     }
 

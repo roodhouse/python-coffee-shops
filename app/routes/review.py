@@ -64,7 +64,7 @@ def new_review():
         db.add(new_review)
         db.commit()
 
-        VenueAggregates.calc_aggregates(db)
+        # VenueAggregates.calc_aggregates(db)
 
         return jsonify(message = 'review added'), 200
     except KeyError as e:

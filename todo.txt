@@ -5,7 +5,8 @@
 2. backend setup and connection
     - create tables and populate
                 here!
-            - add new fields to Venues table that will show the aggregate of all reviews for that venue
+            - refactor VenueAggregates so that each question has a column
+            - refactor how the data is being sent to reflect the new columns
             - update store page to reflect aggregated data
             - create way for 2nd user to add review for same location
         --individual page

@@ -5,7 +5,6 @@ function Address({ address }) {
   const parsedLocation = () => {
     if (address) {
       const street = address.split(",")
-      console.log(street)
       return street[0]
     } else {
       const street = ''

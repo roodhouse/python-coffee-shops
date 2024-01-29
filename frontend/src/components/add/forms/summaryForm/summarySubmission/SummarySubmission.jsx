@@ -7,8 +7,6 @@ function SummarySubmission() {
     const { formData, sendToDataBase } = useAddForm()
 
     const submitReviewForm = () => {
-        console.log('submit')
-        console.log(formData)
         sendToDataBase(formData)
     }
 

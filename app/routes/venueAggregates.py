@@ -41,8 +41,7 @@ def new_aggregate():
     try:
         new_aggregate = VenueAggregates(
             venue_name = data['venue_name'],
-            # aggregate_answers = data['aggregate_answers'],
-            aggregate_answers = data['answers'],
+            aggregate_data = data['answers'],
         )
         db.add(new_aggregate)
         db.commit()
