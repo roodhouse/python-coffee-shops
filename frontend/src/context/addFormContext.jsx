@@ -57,13 +57,141 @@ const AddFormProvider = ({ children }) => {
                     console.log(allReviewsForVenue)
                     // answer * 100, sum all answers, divide by length of array, divide again by 100
                     // (200+200+200+200+200+100)/6/(100) = 1.83
-                    let c1 = []
+
+                    let c1 = [], c2 = [], p1 = [], p2 = [], p3 = [], p4 = [], p5 = [], ser1 = [], ser2 = [], ser3 = [], ser4 = [], ser5 = [];
+                    let sp1 = [], sp2 = [], sp3 = [], sp4 = [], sp5 = [], sp6 = [], sp7 = [], sp8 = [], sp9 = [], sum = [];
+
                     allReviewsForVenue[0].forEach(review => {
                         console.log(review.answers)
-                        review.answers[0].forEach(answer => {
-                            // trying to pop each answer into an array containing all the answers for that question...
+                        Object.keys(review.answers[0]).forEach(key => {
+                            let answer = review.answers[0][key]
+                            switch (key) {
+                                case 'c1':
+                                    c1.push(answer * 100)
+                                    break;
+                                case 'c2':
+                                    c2.push(answer * 100)
+                                    break;
+                                case 'p1':
+                                    p1.push(answer * 100)
+                                    break;
+                                case 'p2':
+                                    p2.push(answer * 100)
+                                    break;
+                                case 'p3':
+                                    p3.push(answer * 100)
+                                    break;
+                                case 'p4':
+                                    p4.push(answer * 100)
+                                    break;
+                                case 'p5':
+                                    p5.push(answer * 100)
+                                    break;
+                                case 'ser1':
+                                    ser1.push(answer * 100)
+                                    break;
+                                case 'ser2':
+                                    ser2.push(answer * 100)
+                                    break;
+                                case 'ser3':
+                                    ser3.push(answer * 100)
+                                    break;
+                                case 'ser4':
+                                    ser4.push(answer * 100)
+                                    break;
+                                case 'ser5':
+                                    ser5.push(answer * 100)
+                                    break;
+                                case 'sp1':
+                                    sp1.push(answer * 100)
+                                    break;
+                                case 'sp2':
+                                    sp2.push(answer * 100)
+                                    break;
+                                case 'sp3':
+                                    sp3.push(answer * 100)
+                                    break;
+                                case 'sp4':
+                                    sp4.push(answer * 100)
+                                    break;
+                                case 'sp5':
+                                    sp5.push(answer * 100)
+                                    break;
+                                case 'sp6':
+                                    sp6.push(answer * 100)
+                                    break;
+                                case 'sp7':
+                                    sp7.push(answer * 100)
+                                    break;
+                                case 'sp8':
+                                    sp8.push(answer * 100)
+                                    break;
+                                case 'sp9':
+                                    sp9.push(answer * 100)
+                                    break;
+                                case 'sum':
+                                    sum.push(answer * 100)
+                                    break;
+                                default:
+                                    break;
+                            }
                         })
+                        let pairedAnswers = []
+                        pairedAnswers.push(c1, c2, p1, p2, p3, p4, p5, ser1, ser2, ser3, ser4, ser4, ser5, sp1, sp2, sp3, sp4, sp5, sp6, sp7, sp8, sp9, sum)
+
+                        let aggScore = []
+
+                        pairedAnswers.forEach(answer => {
+                            let sumOfAnswers = 0
+                            for (let i = 0; i < answer.length; i++) {
+                                sumOfAnswers += answer[i]
+                                
+                            }
+
+                            sumOfAnswers = sumOfAnswers/answer.length
+                            sumOfAnswers = sumOfAnswers/100
+                            aggScore.push(sumOfAnswers)
+                            
+                        });
                         
+                        console.log(aggScore)
+                        // why is it posting a single review and an aggregated review...
+                        try {
+                             fetch('http://127.0.0.1:5000/api/aggregate', {
+                                method: 'POST',
+                                body: JSON.stringify({
+                                    venue_name: venue,
+                                    c1: aggScore[0],
+                                    c2: aggScore[1],
+                                    p1: aggScore[2],
+                                    p2: aggScore[3],
+                                    p3: aggScore[4],
+                                    p4: aggScore[5],
+                                    p5: aggScore[6],
+                                    p6: aggScore[7],
+                                    ser1: aggScore[8],
+                                    ser2: aggScore[9],
+                                    ser3: aggScore[10],
+                                    ser4: aggScore[11],
+                                    ser5: aggScore[12],
+                                    sp1: aggScore[13],
+                                    sp2: aggScore[14],
+                                    sp3: aggScore[15],
+                                    sp4: aggScore[16],
+                                    sp5: aggScore[17],
+                                    sp6: aggScore[18],
+                                    sp7: aggScore[19],
+                                    sp8: aggScore[20],
+                                    sp9: aggScore[21],
+                                    sum: aggScore[22]
+                                }),
+                                headers: {'Content-Type': 'application/json'}
+                            })
+                        }
+                        catch (error) {
+                            console.error("An unexpected error occurred", error)
+                            alert("An unexpected error occurred")
+                        }
                     });
                 } else {
                     const reviewForVenue = allReviews.reviews.find(review => review.venue === venue)
@@ -72,29 +200,29 @@ const AddFormProvider = ({ children }) => {
                             method: 'POST',
                             body: JSON.stringify({
                                 venue_name: venue,
-                                c1: reviewForVenue.answers[0].c1,
-                                c2: reviewForVenue.answers[0].c2,
-                                p1: reviewForVenue.answers[0].p1,
-                                p2: reviewForVenue.answers[0].p2,
-                                p3: reviewForVenue.answers[0].p3,
-                                p4: reviewForVenue.answers[0].p4,
-                                p5: reviewForVenue.answers[0].p5,
-                                p6: reviewForVenue.answers[0].p6,
-                                ser1: reviewForVenue.answers[0].ser1,
-                                ser2: reviewForVenue.answers[0].ser2,
-                                ser3: reviewForVenue.answers[0].ser3,
-                                ser4: reviewForVenue.answers[0].ser4,
-                                ser5: reviewForVenue.answers[0].ser5,
-                                sp1: reviewForVenue.answers[0].sp1,
-                                sp2: reviewForVenue.answers[0].sp2,
-                                sp3: reviewForVenue.answers[0].sp3,
-                                sp4: reviewForVenue.answers[0].sp4,
-                                sp5: reviewForVenue.answers[0].sp5,
-                                sp6: reviewForVenue.answers[0].sp6,
-                                sp7: reviewForVenue.answers[0].sp7,
-                                sp8: reviewForVenue.answers[0].sp8,
-                                sp9: reviewForVenue.answers[0].sp9,
-                                sum: reviewForVenue.answers[0].sum
+                                c1: parseFloat(reviewForVenue.answers[0].c1),
+                                c2: parseFloat(reviewForVenue.answers[0].c2),
+                                p1: parseFloat(reviewForVenue.answers[0].p1),
+                                p2: parseFloat(reviewForVenue.answers[0].p2),
+                                p3: parseFloat(reviewForVenue.answers[0].p3),
+                                p4: parseFloat(reviewForVenue.answers[0].p4),
+                                p5: parseFloat(reviewForVenue.answers[0].p5),
+                                p6: parseFloat(reviewForVenue.answers[0].p6),
+                                ser1: parseFloat(reviewForVenue.answers[0].ser1),
+                                ser2: parseFloat(reviewForVenue.answers[0].ser2),
+                                ser3: parseFloat(reviewForVenue.answers[0].ser3),
+                                ser4: parseFloat(reviewForVenue.answers[0].ser4),
+                                ser5: parseFloat(reviewForVenue.answers[0].ser5),
+                                sp1: parseFloat(reviewForVenue.answers[0].sp1),
+                                sp2: parseFloat(reviewForVenue.answers[0].sp2),
+                                sp3: parseFloat(reviewForVenue.answers[0].sp3),
+                                sp4: parseFloat(reviewForVenue.answers[0].sp4),
+                                sp5: parseFloat(reviewForVenue.answers[0].sp5),
+                                sp6: parseFloat(reviewForVenue.answers[0].sp6),
+                                sp7: parseFloat(reviewForVenue.answers[0].sp7),
+                                sp8: parseFloat(reviewForVenue.answers[0].sp8),
+                                sp9: parseFloat(reviewForVenue.answers[0].sp9),
+                                sum: parseFloat(reviewForVenue.answers[0].sum)
                             }),
                             headers: {'Content-Type': 'application/json'}
                         })
