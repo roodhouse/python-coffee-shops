@@ -26,7 +26,8 @@ def get_venues():
             'location': venue.location,
             'address': venue.address,
             'hours': venue.hours,
-            'rating': venue.rating
+            'rating': venue.rating,
+            'review_count': venue.review_count
         }
         for venue in venues
     ]
@@ -48,7 +49,8 @@ def get_venue(name):
             'image': venue.image,
             'location': venue.location,
             'address': venue.address,
-            'rating': rating.sum
+            'rating': rating.sum,
+            'review_count': venue.review_count
         }
         return jsonify(venue_details)
     else:
@@ -70,7 +72,8 @@ def get_last_venue():
                 'location': latest_venue.location,
                 'address': latest_venue.address,
                 'hours': latest_venue.hours,
-                'rating': latest_venue.rating
+                'rating': latest_venue.rating,
+                'review_count': latest_venue.review_count
         }
         
         return jsonify({'venues': [venue_data]})

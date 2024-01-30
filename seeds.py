@@ -76,7 +76,8 @@ db.add_all([
                 ],
             }
         ],
-        rating = 90
+        rating = 90,
+        review_count = 2
     ),
     Venues(
         name = 'Scooter\'s Coffee',
@@ -129,7 +130,8 @@ db.add_all([
                 ],
             }
         ],
-        rating = 60
+        rating = 60,
+        review_count = 2
     )
 ])
 

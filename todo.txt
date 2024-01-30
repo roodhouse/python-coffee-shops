@@ -5,7 +5,13 @@
 2. backend setup and connection
     - create tables and populate
                 here!
+            -- storeSummaryIcons
+                // change been here to reflect if there has been a review filled out for the user or not,
+                if not then ask if they would like to reivew
+                // change default heart color to the result of the sum field if the user has a review for this venue
             - update store page to reflect aggregated data
+            - change icons on hover and add onClick to allow update of reviews if logged and have reviewed
+            - change review to allow null values
             - create way for 2nd user to add review for same location
         --individual page
         - comments

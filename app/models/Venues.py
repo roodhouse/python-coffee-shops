@@ -13,7 +13,7 @@ class Venues(Base):
     hours = Column(JSON, nullable=False)
     rating = Column(Float)
 
-    review_ids = Column(JSON)
+    review_count = Column(Integer, default=0)
 
     # define relationship
     reviews = relationship('Reviews', back_populates='venue_rated')

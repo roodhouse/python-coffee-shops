@@ -3,8 +3,6 @@ import PlaceRating from '../home/places/placesCard/placesDetails/PlaceRating'
 import TitleMap from './storeHero/TitleMap'
 import { useMain } from '../../context/main'
 
-// turn the rating widget into a shared component then refactor home page and this page
-
 function StoreHero() {
 
   const { currentVenueData } = useMain()

@@ -7,6 +7,8 @@ from app.models import Reviews, VenueAggregates
 from app.db import get_db
 import logging
 
+from app.models.Venues import Venues
+
 load_dotenv()
 
 review_bp = Blueprint("review", __name__, url_prefix="/")
@@ -62,11 +64,13 @@ def new_review():
             answers = data['answers'],
         )
         db.add(new_review)
+
+        venue = db.query(Venues).filter_by(name=new_review.venue_name).one()
+        venue.review_count += 1
+
         db.commit()
 
-        # VenueAggregates.calc_aggregates(db)
-
-        return jsonify(message = 'review added'), 200
+        return jsonify(message = 'review added'), 201
     except KeyError as e:
         logging.error(f'KeyError: {e}')
         db.rollback()

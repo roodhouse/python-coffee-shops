@@ -10,6 +10,7 @@ const MainProvider = ({ children }) => {
     const [ venueCount, setVenueCount ] = useState()
     const [ currentVenue, setCurrentVenue ] = useState()
     const [ currentVenueData, setCurrentVenueData ] = useState()
+    const [ currentVenueAgg, setCurrentVenueAgg ] = useState()
     const [ filter, setFilter ] = useState(false)
     const [ placeIcons, setPlaceIcons ] = useState([])
     const [ loggedIn, setLoggedIn ] = useState(false)
@@ -146,6 +147,14 @@ const MainProvider = ({ children }) => {
         .then((response) => response.json())
         .then((data) => {
             setCurrentVenueData(data)
+            fetch(`http://127.0.0.1:5000/api/aggregate/${encodedName}`)
+            .then((aggResponse) => aggResponse.json())
+            .then((aggData) => {
+                setCurrentVenueAgg(aggData)
+            })
+            .catch ((error) => {
+                console.error('Error fetching venue data:', error)
+            })
         })
         .catch ((error) => {
         console.error('Error fetching venue data:', error)
@@ -199,7 +208,7 @@ const MainProvider = ({ children }) => {
     {
         {
             home, currentCity, venueCount, listOfStates, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn, successLogin, logout,
-            venues, userAuthenticated, userData, currentVenueData
+            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg
         }
     }>
         {children}
