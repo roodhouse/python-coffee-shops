@@ -13,11 +13,11 @@ function DetailsInput() {
     const onSubmit = () => {
         
         if (currentAnswers.Summary[0].answer === 'No') {
-            currentAnswers.Summary = 1
+            currentAnswers.Summary = 0
         } else if (currentAnswers.Summary[0].answer === 'Sometimes') {
-            currentAnswers.Summary = 2
+            currentAnswers.Summary = 1
         } else {
-            currentAnswers.Summary = 3
+            currentAnswers.Summary = 2
         }
         
         currentStep('summary')
