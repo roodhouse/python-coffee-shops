@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
-from app.routes import home
+from app.routes import home, user, venue, review, comment, venueAggregates
 from app.db import init_db
 
 def create_app(test_config=None):
@@ -15,6 +15,11 @@ def create_app(test_config=None):
     CORS(app, resources={r"/api/*": {"origins": "*"}})
 
     app.register_blueprint(home)
+    app.register_blueprint(user)
+    app.register_blueprint(venue)
+    app.register_blueprint(review)
+    app.register_blueprint(comment)
+    app.register_blueprint(blueprint=venueAggregates)
     init_db(app)
 
     return app

@@ -21,9 +21,6 @@ function StoreSummaryIcons() {
 
         const siblings = getSiblings(iconParent)
 
-        console.log(siblings)
-        console.log(iconParent.id)
-
         for (let i = 0; i < siblings.length; i++ ) {
             if (siblings[i].classList.contains('text-red') || siblings[i].classList.contains('text-green') || siblings[i].classList.contains('text-[#F6D95E]')) {
                 siblings[i].classList.replace('text-red', 'text-[#ddd]')

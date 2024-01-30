@@ -2,7 +2,7 @@ import React from 'react'
 import LocationIcon from './placeLocation/LocationIcon'
 import Address from './placeLocation/Address'
 
-function PlaceLocation({ margin }) {
+function PlaceLocation({ margin, address }) {
   return (
     <>
         <div id="placeLocationContainer" className='flex items-center'>
@@ -10,7 +10,7 @@ function PlaceLocation({ margin }) {
                 <LocationIcon />
             </div>
             <div id="addressWrapper">
-                <Address />
+                <Address address={address} />
             </div>
         </div>
     </>

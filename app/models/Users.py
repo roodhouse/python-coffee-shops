@@ -1,5 +1,5 @@
 from app.db import Base
-from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
+from sqlalchemy import JSON, Column, Integer, String, ForeignKey, Boolean
 from sqlalchemy.orm import relationship, validates
 import bcrypt
 
@@ -9,12 +9,14 @@ class Users(Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
     comment_id = Column(Integer, ForeignKey('comments.id'))
-    email = Column(String(250), nullable=False)
+    email = Column(String(250), nullable=False, index=True)
     password = Column(String(100), nullable=False)
     avatar = Column(String(250))
 
+    review_ids = Column(JSON)
+    
     # define relationships
-    reviews = relationship('Reviews', back_populates='user')
+    reviews = relationship('Reviews', back_populates='user_rated')
     comments = relationship('Comments', back_populates='user')
 
     @validates('email')

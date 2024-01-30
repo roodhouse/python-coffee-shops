@@ -3,10 +3,12 @@
         update post view
 
 2. backend setup and connection
-    go through and update the __init__.py files one by one
-        - authenticate forms (login and register)
-            -- try chatgpt latest ... here
-    - create tables
+    - create tables and populate
+                here!
+            - update store page to reflect aggregated data
+            - create way for 2nd user to add review for same location
+        --individual page
+        - comments
     - connect forms (answers)
     - create logic for aggregating results
 

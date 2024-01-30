@@ -17,7 +17,6 @@ function RegisterForm() {
     password.current = watch("password", '')
 
     const onSubmit = async (data) => {
-        console.log(data)
         const email = data.user
         const password = data.password
 

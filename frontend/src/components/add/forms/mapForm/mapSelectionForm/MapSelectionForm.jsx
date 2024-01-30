@@ -11,7 +11,59 @@ function MapSelectionForm() {
 
     const onSubmit = () => {
         currentStep('image')
-        updateFormData({location: 'address here'})
+        // this data should come from api not hard coded
+        updateFormData(
+            {
+                location: 'google link here', 
+                address: 'address here', 
+                hours: [
+                    {
+                        'Sun': [
+                            {
+                                'open': '5am',
+                                'close': '8pm'
+                            }
+                        ],
+                        'Mon': [
+                            {
+                                'open' : '5am',
+                                'close' : '8pm'
+                            }
+                        ],
+                        'Tues': [
+                            {
+                                'open' : '5am',
+                                'close' : '8pm'
+                            }
+                        ],
+                        'Wed': [
+                            {
+                                'open' : '5am',
+                                'close' : '8pm'
+                            }
+                        ],
+                        'Thurs': [
+                            {
+                                'open' : '5am',
+                                'close' : '8pm'
+                            }
+                        ],
+                        'Fri': [
+                            {
+                                'open' : '5am',
+                                'close' : '8pm'
+                            }
+                        ],
+                        'Sat': [
+                            {
+                                'open' : '5am',
+                                'close' : '8pm'
+                            }
+                        ],
+                    }
+                ] 
+            }
+        )
     }
 
     const onError = () => {

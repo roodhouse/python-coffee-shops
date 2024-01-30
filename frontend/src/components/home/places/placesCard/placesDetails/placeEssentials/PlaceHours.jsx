@@ -2,7 +2,7 @@ import React from 'react'
 import TimeIcon from './placeHours/TimeIcon'
 import Hours from './placeHours/Hours'
 
-function PlaceHours() {
+function PlaceHours({ hours }) {
   return (
     <>
         <div id="placeHoursContainer" className='flex items-center'>
@@ -10,7 +10,7 @@ function PlaceHours() {
                 <TimeIcon />
             </div>
             <div id="hoursWrapper">
-                <Hours />
+                <Hours hours={hours} />
             </div>
         </div>
     </>

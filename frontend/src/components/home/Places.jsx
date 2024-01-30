@@ -4,17 +4,13 @@ import PlacesTitle from './places/PlacesTitle'
 import PlacesCard from './places/PlacesCard'
 import PlacesNew from './places/PlacesNew'
 
-// need to replace "perkyBeans" below with info from database when setup
-
 function Places() {
 
-    const { setVenue } = useMain()
+    const { setVenue, venues } = useMain()
 
-    const handleClick = (e) => {
-        console.log(e.currentTarget)
+    const handleClick = (e) => { 
         let placeCard = e.currentTarget
         placeCard = placeCard.getAttribute('data-uniqueplaceid')
-        console.log(placeCard)
         setVenue(placeCard)
     }
 
@@ -24,9 +20,13 @@ function Places() {
             <div id="placesTitleWrapper" className='pb-4'>
                 <PlacesTitle />
             </div>
-            <div id="placesCardWrapper-perkyBeans" className='pb-4' data-uniqueplaceid={'perkyBeans'} onClick={handleClick}>
-                <PlacesCard />
-            </div>
+            {venues !== null ? (
+                venues.venues.map((venue) => (
+                    <div key={venue.id} id="placesCardWrapper-perkyBeans" className='pb-4' data-uniqueplaceid={venue.name} onClick={handleClick}>
+                        <PlacesCard image={venue.image} rating={venue.rating} name={venue.name} hours={venue.hours} address={venue.address} />
+                    </div>    
+                ))
+            ) : ''}
             <div id="placesNewWrapper" className='my-8'>
                 <PlacesNew />
             </div>

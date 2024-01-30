@@ -4,7 +4,7 @@ import PlaceLocation from './placeEssentials/PlaceLocation'
 import PlaceHours from './placeEssentials/PlaceHours'
 import { useMain } from '../../../../../context/main'
 
-function PlaceEssentials() {
+function PlaceEssentials({ name, hours, address }) {
 
   const { placeIcons } = useMain()
 
@@ -12,13 +12,13 @@ function PlaceEssentials() {
     <>
         <div id="placeEssentialsContainer">
             <div id="placeNameWrapper" className='mb-2'>
-                <PlaceName />
+                <PlaceName name={name} />
             </div>
             <div id="placeHoursWrapper" className='mb-2'>
-                <PlaceHours />
+                <PlaceHours hours={hours} />
             </div>
             <div id="placeLocationWrapper">
-                <PlaceLocation margin={'mr-2'} />
+                <PlaceLocation address={address} margin={'mr-2'} />
             </div>
             <div id="placeFilterIconsContainer" style={placeIcons.length > 0 ? {display: 'flex'} : {display: 'none'}} className=''>
                 {placeIcons.length > 0 ? (
