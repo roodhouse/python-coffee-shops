@@ -133,7 +133,6 @@ const AddFormProvider = ({ children }) => {
                             }
                         })
                         let pairedAnswers = [c1, c2, p1, p2, p3, p4, p5, ser1, ser2, ser3, ser4, ser4, ser5, sp1, sp2, sp3, sp4, sp5, sp6, sp7, sp8, sp9, sum]
-                        
                         aggScore = pairedAnswers.map(answers => {
                             let sumOfAnswers = answers.reduce((acc, val) => acc + val, 0)
                             return (sumOfAnswers / answers.length) / 100
@@ -145,7 +144,7 @@ const AddFormProvider = ({ children }) => {
                              await fetch('http://127.0.0.1:5000/api/aggregate', {
                                 method: 'POST',
                                 body: JSON.stringify({
-                                    venue_name: venue,
+                                    name: venue,
                                     c1: aggScore[0],
                                     c2: aggScore[1],
                                     p1: aggScore[2],
@@ -177,13 +176,29 @@ const AddFormProvider = ({ children }) => {
                             console.error("An unexpected error occurred", error)
                             alert("An unexpected error occurred")
                         }
+                        const encodedName = encodeURIComponent(venue)
+                        try {
+                            console.log('summary score is:')
+                            console.log(venue, aggScore[22])
+                            await fetch(`http://127.0.0.1:5000/api/venues/${encodedName}`, {
+                                method: 'PUT',
+                                body: JSON.stringify({
+                                    rating: aggScore[22]
+                                }),
+                                headers: {'Content-Type': 'application/json' }
+                            })
+                        }
+                        catch (error) {
+                            console.error("An unexpected error occurred", error)
+                            alert("An unexpected error occurred")
+                        }
                 } else {
                     const reviewForVenue = allReviews.reviews.find(review => review.venue === venue)
                     try {
                         await fetch('http://127.0.0.1:5000/api/aggregate', {
                             method: 'POST',
                             body: JSON.stringify({
-                                venue_name: venue,
+                                name: venue,
                                 c1: parseFloat(reviewForVenue.answers[0].c1),
                                 c2: parseFloat(reviewForVenue.answers[0].c2),
                                 p1: parseFloat(reviewForVenue.answers[0].p1),

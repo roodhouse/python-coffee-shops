@@ -9,6 +9,7 @@ const MainProvider = ({ children }) => {
     const [ currentCity, setCurrentCity ] = useState('Leander')
     const [ venueCount, setVenueCount ] = useState()
     const [ currentVenue, setCurrentVenue ] = useState()
+    const [ currentVenueData, setCurrentVenueData ] = useState()
     const [ filter, setFilter ] = useState(false)
     const [ placeIcons, setPlaceIcons ] = useState([])
     const [ loggedIn, setLoggedIn ] = useState(false)
@@ -17,6 +18,7 @@ const MainProvider = ({ children }) => {
     const [ venues, setVenues] = useState(null)
     const [ allReviews, setAllReviews ] = useState(null)
     const [ review, setReview ] = useState(null)
+
 
 
     // fetch requests
@@ -48,7 +50,7 @@ const MainProvider = ({ children }) => {
             .catch((error) => {
                 console.error("Error fetching data:", error)
             })
-    },[])
+    },[home])
 
     // get single review, might move this later
 
@@ -132,9 +134,23 @@ const MainProvider = ({ children }) => {
 
     // select venue
     function setVenue(venue) {
+        console.log(venue)
         setHome('store')
         setCurrentVenue(venue)
     }
+
+    // get single venue data
+    useEffect(() => {
+        const encodedName = encodeURIComponent(currentVenue)
+        fetch(`http://127.0.0.1:5000/api/venues/${encodedName}`)
+        .then((response) => response.json())
+        .then((data) => {
+            setCurrentVenueData(data)
+        })
+        .catch ((error) => {
+        console.error('Error fetching venue data:', error)
+        })
+    },[currentVenue])
 
     // toggle filter
     function toggleFilter() {
@@ -183,7 +199,7 @@ const MainProvider = ({ children }) => {
     {
         {
             home, currentCity, venueCount, listOfStates, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn, successLogin, logout,
-            venues, userAuthenticated, userData
+            venues, userAuthenticated, userData, currentVenueData
         }
     }>
         {children}

@@ -5,7 +5,7 @@ import requests
 class VenueAggregates(Base):
     __tablename__ = 'aggregates'
     id = Column(Integer, primary_key=True)
-    venue_name = Column(String(250), nullable=False)
+    name = Column(String(250), nullable=False)
     # aggregate_data = Column(JSON)
     c1 = Column(Float)
     c2 = Column(Float)

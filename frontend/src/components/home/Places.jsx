@@ -23,7 +23,7 @@ function Places() {
             {venues !== null ? (
                 venues.venues.map((venue) => (
                     <div key={venue.id} id="placesCardWrapper-perkyBeans" className='pb-4' data-uniqueplaceid={venue.name} onClick={handleClick}>
-                        <PlacesCard image={venue.image} rating={venue.rating} name={venue.name} hours={venue.hours} address={venue.address} />
+                        <PlacesCard image={venue.image} rating={(venue.rating/2) * 100} name={venue.name} hours={venue.hours} address={venue.address} />
                     </div>    
                 ))
             ) : ''}

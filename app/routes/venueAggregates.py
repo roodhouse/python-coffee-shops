@@ -21,7 +21,7 @@ def get_aggregates():
     aggregates_data = [
         {
             'id' : aggregate.id,
-            'venue' : aggregate.venue_name,
+            'venue' : aggregate.name,
             'community 1' : aggregate.c1,
             'community 2' : aggregate.c2,
             'productivity 1' : aggregate.p1,
@@ -63,7 +63,7 @@ def new_aggregate():
 
     try:
         new_aggregate = VenueAggregates(
-            venue_name = data['venue_name'],
+            name = data['name'],
             c1 = data['c1'],
             c2 = data['c2'],
             p1 = data['p1'],

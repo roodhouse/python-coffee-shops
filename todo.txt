@@ -14,3 +14,8 @@
 
 3. API's needed:
     - google maps
+
+4. Bugs 
+    - login session is deleted after a refresh or navigating away from page
+    - after adding new venue and review the form is not cleared
+    - logic for if venue has already been added
