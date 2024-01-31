@@ -55,28 +55,57 @@ const MainProvider = ({ children }) => {
 
     // get single review, might move this later
 
+        // useEffect(() => {
+        //     fetch(`http://127.0.0.1:5000/api/reviews/1`)
+        //     .then((response) => {
+        //         if ( !response.ok ) {
+        //             throw new Error("Network response was not ok")
+        //         }
+        //         return response.json()
+        //     })
+        //     .then((data) => {
+        //         setReview(data)
+        //     })
+        //     .catch((error) => {
+        //         console.error("Error fetching data", error)
+        //     })
+        // },[])
+
+        // get review of user when currentVenue changes
         useEffect(() => {
-            fetch(`http://127.0.0.1:5000/api/reviews/1`)
-            .then((response) => {
-                if ( !response.ok ) {
-                    throw new Error("Network response was not ok")
+            if (userAuthenticated) {
+                console.log(userData)
+                // if the userData.reviews contains the name of currentVenue then fetch the review based on user email
+                if (userData.reviews.includes(currentVenue)) {
+                    const encodedVenue = encodeURIComponent(currentVenue)
+                    const encodedUser = encodeURIComponent(userData.email)
+                    fetch(`http://127.0.0.1:5000/api/reviews/${encodedVenue}/${encodedUser}`)
+                    .then((response) => {
+                        if ( !response.ok ) {
+                            throw new Error('Network response was not ok')
+                        }
+                        return response.json()
+                    })
+                    .then((data) => {
+                        setReview(data)
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching user review data", error)
+                    })
+                } else {
+                    console.log('this user has not left a review for this venue')
                 }
-                return response.json()
-            })
-            .then((data) => {
-                setReview(data)
-            })
-            .catch((error) => {
-                console.error("Error fetching data", error)
-            })
-        },[])
+            } else {
+                console.log('user not logged in so no data to retrieve')
+            }
+        },[currentVenue])
     
-    useEffect(() => {
-        if (venues !== null) {
-            console.log(venues.venues[0])
-            console.log(venues.venues.length)
-        }
-    },[venues])
+    // useEffect(() => {
+    //     if (venues !== null) {
+    //         console.log(venues.venues[0])
+    //         console.log(venues.venues.length)
+    //     }
+    // },[venues])
 
 
     // login success
@@ -208,7 +237,7 @@ const MainProvider = ({ children }) => {
     {
         {
             home, currentCity, venueCount, listOfStates, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn, successLogin, logout,
-            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg
+            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review
         }
     }>
         {children}

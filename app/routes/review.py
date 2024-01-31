@@ -32,12 +32,30 @@ def get_reviews():
 
     return jsonify({'reviews': reviews_data})
 
-# get individual review
+# get individual review by id
 @review_bp.route('/api/reviews/<int:id>', methods=['GET'])
 def get_review(id):
     db = get_db()
 
     review = db.query(Reviews).filter_by(id = id).one_or_none()
+
+    if review:
+        review_details = {
+           "review_id": review.id,
+           "venue": review.venue_name,
+           "user": review.user_email,
+           "answers": review.answers 
+        }
+        return jsonify(review_details)
+    else: 
+        return jsonify({"error": "review not found"}), 404
+
+# get individual review by email
+@review_bp.route('/api/reviews/<string:venue_name>/<string:user_email>', methods=['GET'])
+def get_user_review(venue_name, user_email):
+    db = get_db()
+
+    review = db.query(Reviews).filter_by(venue_name = venue_name, user_email = user_email).one_or_none()
 
     if review:
         review_details = {

@@ -25,3 +25,5 @@
     - login session is deleted after a refresh or navigating away from page
     - after adding new venue and review the form is not cleared
     - logic for if venue has already been added
+    - if view venue, log in, and then view venue again state does not update to see that user has left review or not
+    - set up history array so that when a login click happens and a successful login occurs it takes the user back to the page they came from
