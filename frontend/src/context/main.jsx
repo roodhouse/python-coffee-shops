@@ -76,24 +76,28 @@ const MainProvider = ({ children }) => {
             if (userAuthenticated) {
                 console.log(userData)
                 // if the userData.reviews contains the name of currentVenue then fetch the review based on user email
-                if (userData.reviews.includes(currentVenue)) {
-                    const encodedVenue = encodeURIComponent(currentVenue)
-                    const encodedUser = encodeURIComponent(userData.email)
-                    fetch(`http://127.0.0.1:5000/api/reviews/${encodedVenue}/${encodedUser}`)
-                    .then((response) => {
-                        if ( !response.ok ) {
-                            throw new Error('Network response was not ok')
-                        }
-                        return response.json()
-                    })
-                    .then((data) => {
-                        setReview(data)
-                    })
-                    .catch((error) => {
-                        console.error("Error fetching user review data", error)
-                    })
-                } else {
+                if ( userData.reviews === null ) {
                     console.log('this user has not left a review for this venue')
+                } else {
+                    if (userData.reviews.includes(currentVenue)) {
+                        const encodedVenue = encodeURIComponent(currentVenue)
+                        const encodedUser = encodeURIComponent(userData.email)
+                        fetch(`http://127.0.0.1:5000/api/reviews/${encodedVenue}/${encodedUser}`)
+                        .then((response) => {
+                            if ( !response.ok ) {
+                                throw new Error('Network response was not ok')
+                            }
+                            return response.json()
+                        })
+                        .then((data) => {
+                            setReview(data)
+                        })
+                        .catch((error) => {
+                            console.error("Error fetching user review data", error)
+                        })
+                    } else {
+                        console.log('this user has not left a review for this venue')
+                    }
                 }
             } else {
                 console.log('user not logged in so no data to retrieve')

@@ -3,7 +3,7 @@ import StoreHeading from '../storeShared/StoreHeading'
 import Avatar from '../../shared/avatar/Avatar'
 import Divider from '../../shared/divider/Divider'
 import { useMain } from '../../../context/main'
-import EditReview from './beenHere/EditReview'
+import EditReview from '../../add/EditReview'
 import LeaveReview from './beenHere/LeaveReview'
 
 function BeenHere() {

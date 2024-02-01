@@ -18,44 +18,47 @@ function App() {
   return (
     <div id='app'>
       <div id='mainWrapper' className='flex flex-col items-center'>
-        <div id='headerWrapper' className='w-full bg-gray px-[.75rem] py-[1rem]'>
-          <Header />
-        </div>
-        <div id='mainContainer' className='min-h-[75svh] w-full flex items-center justify-center'>
-          <div id='homeWrapper' style={home === 'home' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem] px-[.75rem]'>
-            <Home />
+      <AddFormProvider>
+          <div id='headerWrapper' className='w-full bg-gray px-[.75rem] py-[1rem]'>
+            <Header />
           </div>
+          <div id='mainContainer' className='min-h-[75svh] w-full flex items-center justify-center'>
+          
+              <div id='homeWrapper' style={home === 'home' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem] px-[.75rem]'>
+                <Home />
+              </div>
 
-          <div id='citiesWrapper' style={home === 'cities' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem] px-[.75rem]'>
-            <Cities />
-          </div>
+              <div id='citiesWrapper' style={home === 'cities' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem] px-[.75rem]'>
+                <Cities />
+              </div>
 
-          <div id='storeWrapper' style={home === 'store' ? {display: 'block'} : {display: 'none'}} className='w-full'>
-            <Store />
-          </div>
+              <div id='storeWrapper' style={home === 'store' ? {display: 'block'} : {display: 'none'}} className='w-full'>
+                <Store />
+              </div>
 
-          <AddFormProvider>
-            <div id='addWrapper' style={home === 'suggest' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem] px-[.75rem]'>
-              <Add />
+              
+                <div id='addWrapper' style={home === 'suggest' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem] px-[.75rem]'>
+                  <Add />
+                </div>
+                <div id='dashWrapper' style={home === 'dash' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem] px-[.75rem] w-full'>
+                  <Dash />
+                </div>
+            
+            <div id='joinWrapper' style={home === 'join' ? {display: 'block'} : {display: 'none'}} className='w-full px-[.75rem]'>
+              <Join />
             </div>
-            <div id='dashWrapper' style={home === 'dash' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem] px-[.75rem] w-full'>
-              <Dash />
+            <div id='registerWrapper' style={home === 'register' ? {display: 'block'} : {display: 'none'}} className='w-full px-[.75rem]'>
+              <Register />
             </div>
-          </AddFormProvider>
-          <div id='joinWrapper' style={home === 'join' ? {display: 'block'} : {display: 'none'}} className='w-full px-[.75rem]'>
-            <Join />
+            <div id='thankYouWrapper' style={home === 'thankYou' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem] px-[.75rem]'>
+              <ThankYou />
+            </div>
           </div>
-          <div id='registerWrapper' style={home === 'register' ? {display: 'block'} : {display: 'none'}} className='w-full px-[.75rem]'>
-            <Register />
-          </div>
-          <div id='thankYouWrapper' style={home === 'thankYou' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem] px-[.75rem]'>
-            <ThankYou />
-          </div>
-        </div>
 
-        <div id='footerWrapper' className='w-full bg-gray flex justify-center'>
-          <Footer />
-        </div>
+          <div id='footerWrapper' className='w-full bg-gray flex justify-center'>
+            <Footer />
+          </div>
+        </AddFormProvider>
       </div>
     </div>
   );

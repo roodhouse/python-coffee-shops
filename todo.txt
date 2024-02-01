@@ -5,6 +5,7 @@
 2. backend setup and connection
     - create tables and populate
                 here!
+                 -- currently in the sendToDataBase fucnction in addFormContext
             -- storeSummaryIcons
                 // change been here to reflect if there has been a review filled out for the user or not,
                 if not then ask if they would like to reivew
@@ -27,3 +28,4 @@
     - logic for if venue has already been added
     - if view venue, log in, and then view venue again state does not update to see that user has left review or not
     - set up history array so that when a login click happens and a successful login occurs it takes the user back to the page they came from
+    - clicking an answer in the form more than once will append a new value instead of overwriting the first value

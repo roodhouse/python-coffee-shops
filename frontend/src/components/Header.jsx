@@ -2,13 +2,16 @@ import React from 'react'
 import LogoTitle from './header/LogoTitle'
 import NavLinks from './header/NavLinks'
 import { useMain } from '../context/main'
+import { useAddForm } from '../context/addFormContext'
 
 function Header() {
 
   const { setPage } = useMain()
+  const { editTheReview } = useAddForm()
 
   const handleClick = () => {
       setPage('home')
+      editTheReview(false)
   }
   return (
     <>

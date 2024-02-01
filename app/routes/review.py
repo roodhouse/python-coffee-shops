@@ -66,7 +66,7 @@ def get_user_review(venue_name, user_email):
         }
         return jsonify(review_details)
     else: 
-        return jsonify({"error": "review not found"}), 404
+        return jsonify({"error": "review not found"}), 404 
 
 # post review
 @review_bp.route('/api/reviews', methods=['POST'])

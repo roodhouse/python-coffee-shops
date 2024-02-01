@@ -4,10 +4,11 @@ import { useAddForm } from '../../../../../context/addFormContext'
 
 function SummarySubmission() {
 
-    const { formData, sendToDataBase } = useAddForm()
+    const { formData, sendToDataBase, editTheReview } = useAddForm()
 
     const submitReviewForm = () => {
         sendToDataBase(formData)
+        editTheReview(false)
     }
 
   return (
