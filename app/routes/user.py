@@ -44,18 +44,18 @@ def login():
 
     try:
         user = db.query(Users).filter(Users.email == data['email']).one()
+        if user.verify_password(data['password']):
+            # generate token
+            token_data = {
+                'user_id': user.id,
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1) # token expires after 1 day
+            }
+            # encode token
+            token = jwt.encode(token_data, SECRET_KEY, algorithm=['HS256'])
+            return jsonify(token=token), 200
     except:  # noqa: E722
         print(sys.exc_info()[0])
         return jsonify(message = 'Incorrect credentials'), 400
-    
-    if user.verify_password(data['password']) == False:
-        return jsonify(message = "Incorrect credentials"), 400
-    
-    session.clear()
-    session['user_id'] = user.id
-    session['loggedIn'] = True
-
-    return jsonify(id = user.id)
 
 # base user route
 @user_bp.route('/users', methods=['POST'])

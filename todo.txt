@@ -4,7 +4,7 @@
 
 2. backend setup and connection
     - create tables and populate
-                -- adding jwt logic etc - here
+                -- adding jwt logic etc - see recent chatgpt about login jwt etc... here 
                  -- currently in the sendToDataBase fucnction in addFormContext
                     -- test:
                         -- add new review for new venue
