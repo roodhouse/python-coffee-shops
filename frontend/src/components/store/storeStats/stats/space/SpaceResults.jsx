@@ -1,36 +1,55 @@
 import React from 'react'
 import Item from '../statsShared/Item'
+import { useMain } from '../../../../../context/main'
 
 function SpaceResults() {
+
+    const { currentVenueAgg } = useMain()
+
+    let sp1, sp2, sp3, sp4, sp5, sp6, sp7, sp8, sp9 = 0
+
+    if (currentVenueAgg) {
+        // going to need to add a condition for null
+        sp1 = (currentVenueAgg.sp1/2) * 100
+        sp2 = (currentVenueAgg.sp2/2) * 100
+        sp3 = (currentVenueAgg.sp3/2) * 100
+        sp4 = (currentVenueAgg.sp4/2) * 100
+        sp5 = (currentVenueAgg.sp5/2) * 100
+        sp6 = (currentVenueAgg.sp6/2) * 100
+        sp7 = (currentVenueAgg.sp7/2) * 100
+        sp8 = (currentVenueAgg.sp8/2) * 100
+        sp9 = (currentVenueAgg.sp9/2) * 100
+    } 
+
   return (
     <>
         <div id="spaceResultsContainer" className='flex flex-wrap justify-around items-center font-["PT_SERIF"]'>
             <div id="spaceLightWrapper" className='w-[50%] mb-8'>
-                <Item type={'light'} name={'Natural Light'} rating={'green'} width={'90%'}/>
+                <Item type={'light'} name={'Natural Light'} rating={sp1 <= 25 ? 'red' : sp1 >= 26 && sp1 <= 50 ? '#E0531F' : sp1 >= 51 && sp1 <= 75 ? '#F6D95E' : 'green' } width={sp1 <= 25 ? '20%' : sp1 >= 26 && sp1 <= 50 ? '45%' : sp1 >= 51 && sp1 <= 75 ? '70%' : '95%' }/>
             </div>
             <div id="spaceOutdoorWrapper" className='w-[50%] mb-8'>
-                <Item type={'outdoor'} name={'Outdoor area'} rating={'#F6D95E'} width={'45%'}/>
+                <Item type={'outdoor'} name={'Outdoor area'} rating={sp2 <= 25 ? 'red' : sp2 >= 26 && sp2 <= 50 ? '#E0531F' : sp2 >= 51 && sp2 <= 75 ? '#F6D95E' : 'green' } width={sp2 <= 25 ? '20%' : sp2 >= 26 && sp2 <= 50 ? '45%' : sp2 >= 51 && sp2 <= 75 ? '70%' : '95%' }/>
             </div>
             <div id="spaceSpaciousWrapper" className='w-[50%] mb-8'>
-                <Item type={'spacious'} name={'Spacious'} rating={'#F6D95E'} width={'45%'} />
+                <Item type={'spacious'} name={'Spacious'} rating={sp3 <= 25 ? 'red' : sp3 >= 26 && sp3 <= 50 ? '#E0531F' : sp3 >= 51 && sp3 <= 75 ? '#F6D95E' : 'green' } width={sp3 <= 25 ? '20%' : sp3 >= 26 && sp3 <= 50 ? '45%' : sp3 >= 51 && sp3 <= 75 ? '70%' : '95%' } />
             </div>
             <div id="spaceRestRoomWrapper" className='w-[50%] mb-8'>
-                <Item type={'restroom'} name={'Restroom'} rating={'#F6D95E'} width={'45%'}/>
+                <Item type={'restroom'} name={'Restroom'} rating={sp4 <= 25 ? 'red' : sp4 >= 26 && sp4 <= 50 ? '#E0531F' : sp4 >= 51 && sp4 <= 75 ? '#F6D95E' : 'green' } width={sp4 <= 25 ? '20%' : sp4 >= 26 && sp4 <= 50 ? '45%' : sp4 >= 51 && sp4 <= 75 ? '70%' : '95%' } />
             </div>
             <div id="spaceAccessibleWrapper" className='w-[50%] mb-8'>
-                <Item type={'accessible'} name={'Accessible'} rating={'red'} width={'25%'}/>
+                <Item type={'accessible'} name={'Accessible'} rating={sp5 <= 25 ? 'red' : sp5 >= 26 && sp5 <= 50 ? '#E0531F' : sp5 >= 51 && sp5 <= 75 ? '#F6D95E' : 'green' } width={sp5 <= 25 ? '20%' : sp5 >= 26 && sp5 <= 50 ? '45%' : sp5 >= 51 && sp5 <= 75 ? '70%' : '95%' }/>
             </div>
             <div id="spaceAirWrapper" className='w-[50%] mb-8'>
-                <Item type={'air'} name={'Air conditioned'} rating={'red'} width={'25%'}/>
+                <Item type={'air'} name={'Air conditioned'} rating={sp6 <= 25 ? 'red' : sp6 >= 26 && sp6 <= 50 ? '#E0531F' : sp6 >= 51 && sp6 <= 75 ? '#F6D95E' : 'green' } width={sp6 <= 25 ? '20%' : sp6 >= 26 && sp6 <= 50 ? '45%' : sp6 >= 51 && sp6 <= 75 ? '70%' : '95%' }/>
             </div>
             <div id="spaceSmokeWrapper" className='w-[50%] mb-8'>
-                <Item type={'smoke'} name={'Smoke Free'} rating={'green'} width={'25%'}/>
+                <Item type={'smoke'} name={'Smoke Free'} rating={sp7 <= 25 ? 'red' : sp7 >= 26 && sp7 <= 50 ? '#E0531F' : sp7 >= 51 && sp7 <= 75 ? '#F6D95E' : 'green' } width={sp7 <= 25 ? '20%' : sp7 >= 26 && sp7 <= 50 ? '45%' : sp7 >= 51 && sp7 <= 75 ? '70%' : '95%' }/>
             </div>
             <div id="spacePetWrapper" className='w-[50%] mb-8'>
-                <Item type={'pet'} name={'Pet Friendly'} rating={'#F6D95E'} width={'25%'}/>
+                <Item type={'pet'} name={'Pet Friendly'} rating={sp8 <= 25 ? 'red' : sp8 >= 26 && sp8 <= 50 ? '#E0531F' : sp8 >= 51 && sp8 <= 75 ? '#F6D95E' : 'green' } width={sp8 <= 25 ? '20%' : sp8 >= 26 && sp8 <= 50 ? '45%' : sp8 >= 51 && sp8 <= 75 ? '70%' : '95%' }/>
             </div>
             <div id="spaceParkingWrapper" className='w-full'>
-                <Item type={'parking'} name={'Parking'} rating={'red'} width={'12.5%'}/>
+                <Item type={'parking'} name={'Parking'} rating={sp9 <= 25 ? 'red' : sp9 >= 26 && sp9 <= 50 ? '#E0531F' : sp9 >= 51 && sp9 <= 75 ? '#F6D95E' : 'green' } width={sp9 <= 25 ? '20%' : sp9 >= 26 && sp9 <= 50 ? '45%' : sp9 >= 51 && sp9 <= 75 ? '70%' : '95%' }/>
             </div>
         </div>
     </>

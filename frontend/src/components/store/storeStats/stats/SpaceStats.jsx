@@ -3,6 +3,7 @@ import StoreHeading from '../../storeShared/StoreHeading'
 import SpaceResults from './space/SpaceResults'
 
 function SpaceStats() {
+
   return (
     <>
         <div id="spaceStatsContainer">

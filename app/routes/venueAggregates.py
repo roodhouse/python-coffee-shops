@@ -21,7 +21,7 @@ def get_aggregates():
     aggregates_data = [
         {
             'id' : aggregate.id,
-            'venue' : aggregate.venue_name,
+            'venue' : aggregate.name,
             'community 1' : aggregate.c1,
             'community 2' : aggregate.c2,
             'productivity 1' : aggregate.p1,
@@ -52,6 +52,45 @@ def get_aggregates():
 
     return jsonify({'aggregates': aggregates_data})
 
+# get single aggregate
+@aggregate_bp.route('/api/aggregate/<string:name>', methods=['GET'])
+def get_aggregate(name):
+    db = get_db()
+
+    aggregate = db.query(VenueAggregates).filter_by(name = name).one_or_none()
+
+    if aggregate:
+        aggregate_details = {
+            'aggregate_id': aggregate.id,
+            'aggregate_name': aggregate.name,
+            'c1': aggregate.c1,
+            'c2': aggregate.c2,
+            'p1': aggregate.p1,
+            'p2': aggregate.p2,
+            'p3': aggregate.p3,
+            'p4': aggregate.p4,
+            'p5': aggregate.p5,
+            'p6': aggregate.p6,
+            'ser1': aggregate.ser1,
+            'ser2': aggregate.ser2,
+            'ser3': aggregate.ser3,
+            'ser4': aggregate.ser4,
+            'ser5': aggregate.ser5,
+            'sp1': aggregate.sp1,
+            'sp2': aggregate.sp2,
+            'sp3': aggregate.sp3,
+            'sp4': aggregate.sp4,
+            'sp5': aggregate.sp5,
+            'sp6': aggregate.sp6,
+            'sp7': aggregate.sp7,
+            'sp8': aggregate.sp8,
+            'sp9': aggregate.sp9,
+            'sum': aggregate.sum,
+        }
+        return jsonify(aggregate_details)
+    else:
+        return jsonify({'error': 'agg details not found'}), 404
+
 # post aggregate
 @aggregate_bp.route('/api/aggregate', methods=['POST'])
 def new_aggregate():
@@ -63,7 +102,7 @@ def new_aggregate():
 
     try:
         new_aggregate = VenueAggregates(
-            venue_name = data['venue_name'],
+            name = data['name'],
             c1 = data['c1'],
             c2 = data['c2'],
             p1 = data['p1'],
@@ -88,7 +127,8 @@ def new_aggregate():
             sp9 = data['sp9'],
             sum = data['sum']
         )
-        db.add(new_aggregate)
+        # db.add(new_aggregate)
+        db.merge(new_aggregate)
         db.commit()
 
         return jsonify(message = 'aggregate added'), 200

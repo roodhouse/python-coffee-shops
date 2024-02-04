@@ -1,5 +1,5 @@
 from app.db import Base
-from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, null, JSON
+from sqlalchemy import Column, Float, Integer, String, ForeignKey, Boolean, null, JSON
 from sqlalchemy.orm import relationship
 
 class Venues(Base):
@@ -13,7 +13,7 @@ class Venues(Base):
     hours = Column(JSON, nullable=False)
     rating = Column(Integer)
 
-    review_ids = Column(JSON)
+    review_count = Column(Integer, default=0)
 
     # define relationship
     reviews = relationship('Reviews', back_populates='venue_rated')

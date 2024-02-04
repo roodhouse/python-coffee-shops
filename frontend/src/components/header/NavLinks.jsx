@@ -3,14 +3,17 @@ import AllCities from './navLinks/AllCities'
 import Suggest from './navLinks/Suggest'
 import Join from './navLinks/Join'
 import { useMain } from '../../context/main'
+import { useAddForm } from '../../context/addFormContext'
 
 function NavLinks() {
 
     const { setPage, loggedIn } = useMain()
+    const { editTheReview } = useAddForm()
 
     const handleClick = (e) => {
         const newPage = e.currentTarget.getAttribute('data-name')
         setPage(newPage)
+        editTheReview(false)
     }
 
   return (
@@ -19,10 +22,9 @@ function NavLinks() {
             <div id="allCitiesWrapper" data-name='cities' className='cursor-pointer' onClick={handleClick}>
                 <AllCities />
             </div>
-            <div id="suggestWrapper" data-name='suggest' className='cursor-pointer' onClick={handleClick}>
+            <div id="suggestWrapper" data-name={loggedIn ? 'suggest' : 'join' } className='cursor-pointer' onClick={handleClick}>
                 <Suggest />
             </div>
-            {/* <div id="joinWrapper" data-name='join' className='cursor-pointer' onClick={handleClick}> */}
             <div id="joinWrapper" data-name={loggedIn ? 'dash' : 'join'} className='cursor-pointer' onClick={handleClick}>
                 <Join />
             </div>

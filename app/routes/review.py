@@ -7,6 +7,8 @@ from app.models import Reviews, VenueAggregates
 from app.db import get_db
 import logging
 
+from app.models.Venues import Venues
+
 load_dotenv()
 
 review_bp = Blueprint("review", __name__, url_prefix="/")
@@ -30,7 +32,7 @@ def get_reviews():
 
     return jsonify({'reviews': reviews_data})
 
-# get individual review
+# get individual review by id
 @review_bp.route('/api/reviews/<int:id>', methods=['GET'])
 def get_review(id):
     db = get_db()
@@ -48,6 +50,24 @@ def get_review(id):
     else: 
         return jsonify({"error": "review not found"}), 404
 
+# get individual review by email
+@review_bp.route('/api/reviews/<string:venue_name>/<string:user_email>', methods=['GET'])
+def get_user_review(venue_name, user_email):
+    db = get_db()
+
+    review = db.query(Reviews).filter_by(venue_name = venue_name, user_email = user_email).one_or_none()
+
+    if review:
+        review_details = {
+           "review_id": review.id,
+           "venue": review.venue_name,
+           "user": review.user_email,
+           "answers": review.answers 
+        }
+        return jsonify(review_details)
+    else: 
+        return jsonify({"error": "review not found"}), 404 
+
 # post review
 @review_bp.route('/api/reviews', methods=['POST'])
 def new_review():
@@ -62,11 +82,13 @@ def new_review():
             answers = data['answers'],
         )
         db.add(new_review)
+
+        venue = db.query(Venues).filter_by(name=new_review.venue_name).one()
+        venue.review_count += 1
+
         db.commit()
 
-        # VenueAggregates.calc_aggregates(db)
-
-        return jsonify(message = 'review added'), 200
+        return jsonify(message = 'review added'), 201
     except KeyError as e:
         logging.error(f'KeyError: {e}')
         db.rollback()
@@ -83,7 +105,12 @@ def update_review(id):
     if review:
         try:
             # update review
-            review.answers = data['answers'],
+            if 'venue_name' in data:
+                review.venue_name = data['venue_name']
+            if 'user_email' in data:
+                review.user_email = data['user_email']
+            if 'answers' in data: 
+                review.answers = data['answers']
         
             db.commit()
             return jsonify({'message': 'Review was updated'})

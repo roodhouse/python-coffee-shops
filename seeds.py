@@ -12,7 +12,7 @@ db.add_all([
     Users(
         email='rughjm@gmail.com', 
         password='12345', 
-        review_ids=["Perky Beans"]
+        review_ids=["Perky Beans, Scooter\'s Coffee"]
     ),
     Users(
         email='rooinfo@gmail.com', 
@@ -76,7 +76,8 @@ db.add_all([
                 ],
             }
         ],
-        rating = 90
+        rating = 2,
+        review_count = 2
     ),
     Venues(
         name = 'Scooter\'s Coffee',
@@ -129,7 +130,8 @@ db.add_all([
                 ],
             }
         ],
-        rating = 60
+        rating = 1,
+        review_count = 2
     )
 ])
 

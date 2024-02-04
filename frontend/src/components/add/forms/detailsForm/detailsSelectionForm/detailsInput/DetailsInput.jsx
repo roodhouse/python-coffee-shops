@@ -1,24 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useAddForm } from '../../../../../../context/addFormContext'
 import BackButton from '../../../back/BackButton'
 import NextButton from '../../../next/NextButton'
 
-function DetailsInput() {
+function DetailsInput() { 
 
     const { register, handleSubmit, formState: {errors} } = useForm()
-    const { currentStep, updateFormData, detailQuestions } = useAddForm()
+    const { currentStep, updateFormData, detailQuestions, editReview, editTheReview } = useAddForm()
     const [ currentAnswers, setCurrentAnswers ] = useState({})
 
     const onSubmit = () => {
         
-        if (currentAnswers.Summary[0].answer === 'No') {
-            currentAnswers.Summary = 0
-        } else if (currentAnswers.Summary[0].answer === 'Sometimes') {
-            currentAnswers.Summary = 1
-        } else {
-            currentAnswers.Summary = 2
-        }
+        // do i need this? make sure it still runs without it
+        // if (currentAnswers.Summary[0].answer === 'No') {
+        //     currentAnswers.Summary = 0
+        // } else if (currentAnswers.Summary[0].answer === 'Sometimes') {
+        //     currentAnswers.Summary = 1
+        // } else {
+        //     currentAnswers.Summary = 2
+        // }
         
         currentStep('summary')
         updateFormData(currentAnswers)
@@ -28,7 +29,7 @@ function DetailsInput() {
         console.log('error in details')
     }
 
-    const handleClick = (e) => {
+    const handleClick = (e, questionKey, answerIndex) => {
        
         if (e.target.tagName === 'P') {
             const chosenAnswer = 'chosenAnswer' 
@@ -61,21 +62,37 @@ function DetailsInput() {
     
             addClass(e.target.parentElement)
 
-            setCurrentAnswers((prevStates) => ({
-                ...prevStates,
-                [categoryName] : [
-                    ...(prevStates[categoryName] || []),
-                    {
-                        question: questionElement,
-                        answer: newValue
-                    },
-                ]
-            }))
+
+            if (!editReview) {
+                setCurrentAnswers((prevStates) => ({
+                    ...prevStates,
+                    [categoryName] : [
+                        ...(prevStates[categoryName] || []),
+                        {
+                            question: questionElement,
+                            answer: newValue
+                        },
+                    ]
+                }))
+            } else {
+                if (questionKey in currentAnswers.answers[0]) {
+                    currentAnswers.answers[0][questionKey] = answerIndex
+                } else {
+                    console.log('nothing to do')
+                }
+            }
 
         } else {
             console.log('div click')
         }
     }
+
+    // if edit review is true then set the currentAnswers to the answers in the db
+    useEffect(() => {
+        if (editReview) {
+            setCurrentAnswers(editReview)
+        }
+    },[editReview])
 
   return (
     <>
@@ -91,7 +108,7 @@ function DetailsInput() {
                                 <div id={category.category+'Question'+qIndex} className='w-full'>
                                     <p className='flex items-center mb-2 font-["PT_SERIF"]'><span className='mr-3'>{question.icon}</span> <span>{question.question}</span></p>
                                 {question.answers.map((answer, aIndex) => (
-                                    <div className='mb-2 ml-7 font-["PT_SERIF"] bg-[#f5f5f5] rounded p-3' key={aIndex} id={category.category+'Question'+qIndex+'Answer'+aIndex} onClick={handleClick}>
+                                    <div className={`mb-2 ml-7 font-["PT_SERIF"] bg-[#f5f5f5] rounded p-3 ${editReview ? (editReview.answers[0][question.key] === aIndex ? 'chosenAnswer' : '') : '' }`} data-question-key={editReview ? question.key : ''} key={aIndex} id={category.category+'Question'+qIndex+'Answer'+aIndex} onClick={(e) => handleClick(e, question.key, aIndex)}>
                                         <p id={aIndex}>{answer.answer}</p>
                                     </div>
                                 ))}

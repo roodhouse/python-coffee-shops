@@ -9,6 +9,8 @@ const MainProvider = ({ children }) => {
     const [ currentCity, setCurrentCity ] = useState('Leander')
     const [ venueCount, setVenueCount ] = useState()
     const [ currentVenue, setCurrentVenue ] = useState()
+    const [ currentVenueData, setCurrentVenueData ] = useState()
+    const [ currentVenueAgg, setCurrentVenueAgg ] = useState()
     const [ filter, setFilter ] = useState(false)
     const [ placeIcons, setPlaceIcons ] = useState([])
     const [ loggedIn, setLoggedIn ] = useState(false)
@@ -17,6 +19,7 @@ const MainProvider = ({ children }) => {
     const [ venues, setVenues] = useState(null)
     const [ allReviews, setAllReviews ] = useState(null)
     const [ review, setReview ] = useState(null)
+
 
 
     // fetch requests
@@ -48,32 +51,66 @@ const MainProvider = ({ children }) => {
             .catch((error) => {
                 console.error("Error fetching data:", error)
             })
-    },[])
+    },[home]) 
 
     // get single review, might move this later
 
+        // useEffect(() => {
+        //     fetch(`http://127.0.0.1:5000/api/reviews/1`)
+        //     .then((response) => {
+        //         if ( !response.ok ) {
+        //             throw new Error("Network response was not ok")
+        //         }
+        //         return response.json()
+        //     })
+        //     .then((data) => {
+        //         setReview(data)
+        //     })
+        //     .catch((error) => {
+        //         console.error("Error fetching data", error)
+        //     })
+        // },[])
+
+        // get review of user when currentVenue changes
         useEffect(() => {
-            fetch(`http://127.0.0.1:5000/api/reviews/1`)
-            .then((response) => {
-                if ( !response.ok ) {
-                    throw new Error("Network response was not ok")
+            if (userAuthenticated) {
+                // if the userData.reviews contains the name of currentVenue then fetch the review based on user email
+                if ( userData.reviews === null ) {
+                    console.log('this user has not left a review for this venue')
+                } else {
+                    if (userData.reviews[0].includes(currentVenue)) {
+                        
+                        const encodedVenue = encodeURIComponent(currentVenue)
+                        const encodedUser = encodeURIComponent(userData.email)
+                        
+                        fetch(`http://127.0.0.1:5000/api/reviews/${encodedVenue}/${encodedUser}`, {
+                            credentials: 'include'
+                        })
+                        .then((response) => {
+                            if ( !response.ok ) {
+                                throw new Error('Network response was not ok')
+                            }
+                            return response.json()
+                        })
+                        .then((data) => {
+                            setReview(data)
+                        })
+                        .catch((error) => {
+                            console.error("Error fetching user review data", error)
+                        })
+                    } else {
+                        console.log('this user has not left a review for this venue')
+                    }
                 }
-                return response.json()
-            })
-            .then((data) => {
-                setReview(data)
-            })
-            .catch((error) => {
-                console.error("Error fetching data", error)
-            })
-        },[])
+            }
+        },[currentVenue, userAuthenticated])
     
-    useEffect(() => {
-        if (venues !== null) {
-            console.log(venues.venues[0])
-            console.log(venues.venues.length)
-        }
-    },[venues])
+    // useEffect(() => {
+    //     if (venues !== null) {
+    //         console.log(venues.venues[0])
+    //         console.log(venues.venues.length)
+    //     }
+    // },[venues])
 
 
     // login success
@@ -85,7 +122,7 @@ const MainProvider = ({ children }) => {
     // logout
     const logout = async (e) => {
         console.log('logout click')
-        const response = await fetch('/users/logout', {
+        const response = await fetch('http://127.0.0.1:5000/users/logout', {
             method: 'post',
             headers: { 'Content-Type': 'application/json'}
         })
@@ -100,7 +137,9 @@ const MainProvider = ({ children }) => {
     
     useEffect(() => {
         if (loggedIn) { 
-            fetch('/api/user')
+            fetch('http://127.0.0.1:5000/api/user', {
+                credentials: 'include'
+            })
                 .then((response) => response.json())
                 .then((data) => {
                     if (data.user_id) {
@@ -135,6 +174,27 @@ const MainProvider = ({ children }) => {
         setHome('store')
         setCurrentVenue(venue)
     }
+
+    // get single venue data
+    useEffect(() => {
+        const encodedName = encodeURIComponent(currentVenue)
+        fetch(`http://127.0.0.1:5000/api/venues/${encodedName}`)
+        .then((response) => response.json())
+        .then((data) => {
+            setCurrentVenueData(data)
+            fetch(`http://127.0.0.1:5000/api/aggregate/${encodedName}`)
+            .then((aggResponse) => aggResponse.json())
+            .then((aggData) => {
+                setCurrentVenueAgg(aggData)
+            })
+            .catch ((error) => {
+                console.error('Error fetching venue data:', error)
+            })
+        })
+        .catch ((error) => {
+        console.error('Error fetching venue data:', error)
+        })
+    },[currentVenue])
 
     // toggle filter
     function toggleFilter() {
@@ -183,7 +243,7 @@ const MainProvider = ({ children }) => {
     {
         {
             home, currentCity, venueCount, listOfStates, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn, successLogin, logout,
-            venues, userAuthenticated, userData
+            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review
         }
     }>
         {children}
