@@ -127,7 +127,8 @@ def new_aggregate():
             sp9 = data['sp9'],
             sum = data['sum']
         )
-        db.add(new_aggregate)
+        # db.add(new_aggregate)
+        db.merge(new_aggregate)
         db.commit()
 
         return jsonify(message = 'aggregate added'), 200

@@ -105,7 +105,12 @@ def update_review(id):
     if review:
         try:
             # update review
-            review.answers = data['answers'],
+            if 'venue_name' in data:
+                review.venue_name = data['venue_name']
+            if 'user_email' in data:
+                review.user_email = data['user_email']
+            if 'answers' in data: 
+                review.answers = data['answers']
         
             db.commit()
             return jsonify({'message': 'Review was updated'})

@@ -1,4 +1,4 @@
-import React, { useContext, createContext, useState } from "react";
+import React, { useContext, createContext, useState, useEffect } from "react";
 import { useMain } from "./main";
 import { FaWifi, FaPlug, FaUserClock, FaSquarePen, FaVolumeLow, FaHeadphones, FaLaptop, FaUserGroup, 
     FaMugHot, FaUtensils, FaLeaf, FaMartiniGlass, FaCreditCard, FaSun, FaTree, FaArrowsUpDownLeftRight, FaToiletPaper, FaWheelchair, FaTemperatureFull,
@@ -24,6 +24,10 @@ const AddFormProvider = ({ children }) => {
         setFormData({...formData, ...sentData})
     }
 
+    useEffect(() => {
+        aggregateResults()
+    },[])
+
     async function aggregateResults() {
         // fetch all the reviews first
         const allReviewsRequest = await fetch("http://127.0.0.1:5000/api/reviews", {
@@ -33,8 +37,7 @@ const AddFormProvider = ({ children }) => {
 
         if ( allReviewsRequest.ok ) {
             const allReviews = await allReviewsRequest.json()
-            console.log(allReviews)
-
+            
             // now that we have all the reviews we can aggregate the results here and send back to the server 
             let venueCount = {}
 
@@ -48,16 +51,19 @@ const AddFormProvider = ({ children }) => {
 
             }
 
-            console.log(venueCount)
+            let pairedAnswers = []
+            let c1 = [], c2 = [], p1 = [], p2 = [], p3 = [], p4 = [], p5 = [], ser1 = [], ser2 = [], ser3 = [], ser4 = [], ser5 = [];
+            let sp1 = [], sp2 = [], sp3 = [], sp4 = [], sp5 = [], sp6 = [], sp7 = [], sp8 = [], sp9 = [], sum = [];
+            let aggScore = []
 
             for (let [venue, count] of Object.entries(venueCount)) {
+
                 if (count > 1) {
                     const allReviewsForVenue = []
                     allReviewsForVenue.push(allReviews.reviews.filter(review => review.venue === venue))
 
-                    let c1 = [], c2 = [], p1 = [], p2 = [], p3 = [], p4 = [], p5 = [], ser1 = [], ser2 = [], ser3 = [], ser4 = [], ser5 = [];
-                    let sp1 = [], sp2 = [], sp3 = [], sp4 = [], sp5 = [], sp6 = [], sp7 = [], sp8 = [], sp9 = [], sum = [];
-                    let aggScore = []
+                    console.log(`all reviews:`)
+                    console.log(allReviewsForVenue)
 
                     allReviewsForVenue[0].forEach(review => {
                         Object.keys(review.answers[0]).forEach(key => {
@@ -133,13 +139,75 @@ const AddFormProvider = ({ children }) => {
                                     break;
                             }
                         })
-                        let pairedAnswers = [c1, c2, p1, p2, p3, p4, p5, ser1, ser2, ser3, ser4, ser4, ser5, sp1, sp2, sp3, sp4, sp5, sp6, sp7, sp8, sp9, sum]
+                    })
+                } else {
+                    const reviewForVenue = allReviews.reviews.find(review => review.venue === venue)
+                    console.log(reviewForVenue)
+                    try {
+                        await fetch('http://127.0.0.1:5000/api/aggregate', {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                name: venue,
+                                c1: parseFloat(reviewForVenue.answers[0].c1),
+                                c2: parseFloat(reviewForVenue.answers[0].c2),
+                                p1: parseFloat(reviewForVenue.answers[0].p1),
+                                p2: parseFloat(reviewForVenue.answers[0].p2),
+                                p3: parseFloat(reviewForVenue.answers[0].p3),
+                                p4: parseFloat(reviewForVenue.answers[0].p4),
+                                p5: parseFloat(reviewForVenue.answers[0].p5),
+                                p6: parseFloat(reviewForVenue.answers[0].p6),
+                                ser1: parseFloat(reviewForVenue.answers[0].ser1),
+                                ser2: parseFloat(reviewForVenue.answers[0].ser2),
+                                ser3: parseFloat(reviewForVenue.answers[0].ser3),
+                                ser4: parseFloat(reviewForVenue.answers[0].ser4),
+                                ser5: parseFloat(reviewForVenue.answers[0].ser5),
+                                sp1: parseFloat(reviewForVenue.answers[0].sp1),
+                                sp2: parseFloat(reviewForVenue.answers[0].sp2),
+                                sp3: parseFloat(reviewForVenue.answers[0].sp3),
+                                sp4: parseFloat(reviewForVenue.answers[0].sp4),
+                                sp5: parseFloat(reviewForVenue.answers[0].sp5),
+                                sp6: parseFloat(reviewForVenue.answers[0].sp6),
+                                sp7: parseFloat(reviewForVenue.answers[0].sp7),
+                                sp8: parseFloat(reviewForVenue.answers[0].sp8),
+                                sp9: parseFloat(reviewForVenue.answers[0].sp9),
+                                sum: parseFloat(reviewForVenue.answers[0].sum)
+                            }),
+                            headers: {'Content-Type': 'application/json'}
+                        })
+                    }
+                    catch (error) {
+                        console.error("An unexpected error occurred", error)
+                        alert("An unexpected error occurred")
+                    }
+                    // update venue with lone sum score
+                    const encodedName = encodeURIComponent(venue)
+                        try {
+                            await fetch(`http://127.0.0.1:5000/api/venues/${encodedName}`, {
+                                method: 'PUT',
+                                body: JSON.stringify({
+                                    rating: reviewForVenue.answers[0].sum
+                                }),
+                                headers: {'Content-Type': 'application/json' }
+                            })
+                        }
+                        catch (error) {
+                            console.error("An unexpected error occurred", error)
+                            alert("An unexpected error occurred")
+                        } 
+                }
+
+                console.log(c1, c2)
+
+                        pairedAnswers = [c1, c2, p1, p2, p3, p4, p5, ser1, ser2, ser3, ser4, ser4, ser5, sp1, sp2, sp3, sp4, sp5, sp6, sp7, sp8, sp9, sum]
+
+                        console.log(pairedAnswers) 
                         aggScore = pairedAnswers.map(answers => {
                             let sumOfAnswers = answers.reduce((acc, val) => acc + val, 0)
                             return (sumOfAnswers / answers.length) / 100
                         })
-                        
-                    });
+
+                    console.log(`the aggscore is`)
+                    console.log(aggScore)
                        
                         try {
                              await fetch('http://127.0.0.1:5000/api/aggregate', {
@@ -179,8 +247,6 @@ const AddFormProvider = ({ children }) => {
                         }
                         const encodedName = encodeURIComponent(venue)
                         try {
-                            console.log('summary score is:')
-                            console.log(venue, aggScore[22])
                             await fetch(`http://127.0.0.1:5000/api/venues/${encodedName}`, {
                                 method: 'PUT',
                                 body: JSON.stringify({
@@ -193,46 +259,6 @@ const AddFormProvider = ({ children }) => {
                             console.error("An unexpected error occurred", error)
                             alert("An unexpected error occurred")
                         }
-                } else {
-                    const reviewForVenue = allReviews.reviews.find(review => review.venue === venue)
-                    try {
-                        await fetch('http://127.0.0.1:5000/api/aggregate', {
-                            method: 'POST',
-                            body: JSON.stringify({
-                                name: venue,
-                                c1: parseFloat(reviewForVenue.answers[0].c1),
-                                c2: parseFloat(reviewForVenue.answers[0].c2),
-                                p1: parseFloat(reviewForVenue.answers[0].p1),
-                                p2: parseFloat(reviewForVenue.answers[0].p2),
-                                p3: parseFloat(reviewForVenue.answers[0].p3),
-                                p4: parseFloat(reviewForVenue.answers[0].p4),
-                                p5: parseFloat(reviewForVenue.answers[0].p5),
-                                p6: parseFloat(reviewForVenue.answers[0].p6),
-                                ser1: parseFloat(reviewForVenue.answers[0].ser1),
-                                ser2: parseFloat(reviewForVenue.answers[0].ser2),
-                                ser3: parseFloat(reviewForVenue.answers[0].ser3),
-                                ser4: parseFloat(reviewForVenue.answers[0].ser4),
-                                ser5: parseFloat(reviewForVenue.answers[0].ser5),
-                                sp1: parseFloat(reviewForVenue.answers[0].sp1),
-                                sp2: parseFloat(reviewForVenue.answers[0].sp2),
-                                sp3: parseFloat(reviewForVenue.answers[0].sp3),
-                                sp4: parseFloat(reviewForVenue.answers[0].sp4),
-                                sp5: parseFloat(reviewForVenue.answers[0].sp5),
-                                sp6: parseFloat(reviewForVenue.answers[0].sp6),
-                                sp7: parseFloat(reviewForVenue.answers[0].sp7),
-                                sp8: parseFloat(reviewForVenue.answers[0].sp8),
-                                sp9: parseFloat(reviewForVenue.answers[0].sp9),
-                                sum: parseFloat(reviewForVenue.answers[0].sum)
-                            }),
-                            headers: {'Content-Type': 'application/json'}
-                        })
-                    }
-                    catch (error) {
-                        console.error("An unexpected error occurred", error)
-                        alert("An unexpected error occurred")
-                    }
-                        
-                }
             }
 
         } else {
@@ -241,8 +267,7 @@ const AddFormProvider = ({ children }) => {
             return null
         }
     }
-
-    // ready to test !
+ 
     const sendToDataBase = async (submission) => {
         // if edit review is false then it is a new review 
         if (!editReview) {
@@ -252,7 +277,7 @@ const AddFormProvider = ({ children }) => {
             const address = submission.address
             const hours = submission.hours
             // rating should actually come from an aggregate off all reviews
-            const rating = submission.Summary
+            const rating = parseInt(submission.Summary[0].answer)
             // const answers = submission.answers
             const answers = [
                 {
@@ -278,7 +303,7 @@ const AddFormProvider = ({ children }) => {
                     'sp7' : parseInt(submission.Space[6].answer),
                     'sp8' : parseInt(submission.Space[7].answer),
                     'sp9' : parseInt(submission.Space[8].answer),
-                    'sum' : submission.Summary
+                    'sum' : parseInt(submission.Summary[0].answer)
                 }
             ]
             
@@ -383,15 +408,24 @@ const AddFormProvider = ({ children }) => {
 
         } else {
             
-            console.log(formData)
+            const updateReviewResponse = await fetch(`http://127.0.0.1:5000/api/reviews/${formData.review_id}`, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    answers: formData.answers[0]
+                }),
+                headers: {'Content-Type': 'application/json'}
+            })
+            if (updateReviewResponse.ok) {
+                aggregateResults()
+                setPage('thankYou')
+                setStep('venue')
+                setFormData({})
+            } else {
+                console.error("Error editing review:", updateReviewResponse.statusText)
+                alert("Error editing review")
+            }
 
-            console.log(editReview)
-
-            // works!  - here 
-            // need to set up fetch to update the review 
-            // need to change state of home to confirm page
-
-            // setEditReview(false)
+            setEditReview(false)
         }
     }
 
@@ -405,6 +439,11 @@ const AddFormProvider = ({ children }) => {
             setStep('venue')
         }
     }
+
+    // useEffect(() => {
+    //     console.log('edit review from useEffect on editReivew change')
+    //     console.log(editReview)
+    // },[editReview])
 
     // Photos from api
     const googlePhotos = ['Photo 1', 'Photo 2', 'Photo 3', 'Photo 4', 'Photo 5', 'Photo 6']

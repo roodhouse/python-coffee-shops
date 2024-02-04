@@ -41,7 +41,8 @@ def get_venue(name):
 
     venue = db.query(Venues).filter_by(name = name).one_or_none()
     rating = db.query(VenueAggregates).filter_by(name = name).one_or_none()
-
+# here, can't create because rating.sum is not available because VenueAggregates is not seeding correctly?
+    # should I seed data in venue aggregates and then tackle the issue?
     if venue:
         venue_details = {
             'venue_id': venue.id,

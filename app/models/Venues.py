@@ -11,7 +11,7 @@ class Venues(Base):
     location = Column(String(length=500), nullable=False)
     address = Column(String(length=250), nullable=False)
     hours = Column(JSON, nullable=False)
-    rating = Column(Float)
+    rating = Column(Integer)
 
     review_count = Column(Integer, default=0)
 

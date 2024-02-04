@@ -51,7 +51,7 @@ const MainProvider = ({ children }) => {
             .catch((error) => {
                 console.error("Error fetching data:", error)
             })
-    },[home])
+    },[home]) 
 
     // get single review, might move this later
 
@@ -77,12 +77,20 @@ const MainProvider = ({ children }) => {
                 console.log(userData)
                 // if the userData.reviews contains the name of currentVenue then fetch the review based on user email
                 if ( userData.reviews === null ) {
+                    console.log('after userData.reviews === null:')
                     console.log('this user has not left a review for this venue')
                 } else {
-                    if (userData.reviews.includes(currentVenue)) {
+                    console.log(`current venue is: ${currentVenue}`)
+                    console.log(userData.reviews)
+                    console.log(typeof(userData.reviews[0]))
+                    if (userData.reviews[0].includes(currentVenue)) {
+                        
                         const encodedVenue = encodeURIComponent(currentVenue)
                         const encodedUser = encodeURIComponent(userData.email)
-                        fetch(`http://127.0.0.1:5000/api/reviews/${encodedVenue}/${encodedUser}`)
+                        
+                        fetch(`http://127.0.0.1:5000/api/reviews/${encodedVenue}/${encodedUser}`, {
+                            credentials: 'include'
+                        })
                         .then((response) => {
                             if ( !response.ok ) {
                                 throw new Error('Network response was not ok')
@@ -96,6 +104,7 @@ const MainProvider = ({ children }) => {
                             console.error("Error fetching user review data", error)
                         })
                     } else {
+                        console.log('inside of user has review for this venue')
                         console.log('this user has not left a review for this venue')
                     }
                 }
@@ -121,7 +130,7 @@ const MainProvider = ({ children }) => {
     // logout
     const logout = async (e) => {
         console.log('logout click')
-        const response = await fetch('/users/logout', {
+        const response = await fetch('http://127.0.0.1:5000/users/logout', {
             method: 'post',
             headers: { 'Content-Type': 'application/json'}
         })
@@ -136,19 +145,30 @@ const MainProvider = ({ children }) => {
     
     useEffect(() => {
         if (loggedIn) { 
-            fetch('/api/user')
+            console.log('hi')
+            fetch('http://127.0.0.1:5000/api/user', {
+                credentials: 'include'
+            })
                 .then((response) => response.json())
                 .then((data) => {
                     if (data.user_id) {
                         setUserAuthenticated(true)
                         setUserData(data)
+                        console.log(data)
                     }
                 })
                 .catch((error) => {
                     console.error('Error fetching user data:', error)
                 })
+                console.log('bye')
         }
     },[loggedIn])
+
+    useEffect(() => {
+        if (loggedIn) {
+            console.log(userData)
+        }
+    },[loggedIn, userData])
 
     useEffect(() => {
         if (venues !== null) {

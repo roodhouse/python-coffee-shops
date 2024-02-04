@@ -76,7 +76,7 @@ db.add_all([
                 ],
             }
         ],
-        rating = 90,
+        rating = 2,
         review_count = 2
     ),
     Venues(
@@ -130,7 +130,7 @@ db.add_all([
                 ],
             }
         ],
-        rating = 60,
+        rating = 1,
         review_count = 2
     )
 ])

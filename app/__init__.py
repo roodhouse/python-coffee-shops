@@ -11,9 +11,6 @@ def create_app(test_config=None):
         SECRET_KEY = 'super_secret_key'
     )
 
-    # init CORS with flask app
-    CORS(app, resources={r"/api/*": {"origins": "*"}})
-
     app.register_blueprint(home)
     app.register_blueprint(user)
     app.register_blueprint(venue)
@@ -21,5 +18,11 @@ def create_app(test_config=None):
     app.register_blueprint(comment)
     app.register_blueprint(blueprint=venueAggregates)
     init_db(app)
+
+    # init CORS with flask app
+    # api only
+    # CORS(app, resources={r"/api/*": {"origins": "*"}})
+    # all routes
+    CORS(app, origins="*", supports_credentials=True)
 
     return app
