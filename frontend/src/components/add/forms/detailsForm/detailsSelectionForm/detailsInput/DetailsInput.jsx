@@ -30,8 +30,6 @@ function DetailsInput() {
     }
 
     const handleClick = (e, questionKey, answerIndex) => {
-
-        console.log(editReview)
        
         if (e.target.tagName === 'P') {
             const chosenAnswer = 'chosenAnswer' 
@@ -77,16 +75,10 @@ function DetailsInput() {
                     ]
                 }))
             } else {
-                console.log(questionKey, answerIndex)
                 if (questionKey in currentAnswers.answers[0]) {
                     currentAnswers.answers[0][questionKey] = answerIndex
                 } else {
-
                     console.log('nothing to do')
-                    // setCurrentAnswers((prevStates) => ({
-                    //     ...prevStates,
-                    //     [questionKey]: answerIndex
-                    // }))
                 }
             }
 
@@ -101,9 +93,6 @@ function DetailsInput() {
             setCurrentAnswers(editReview)
         }
     },[editReview])
-
-    console.log('these are the current answers')
-    console.log(currentAnswers)
 
   return (
     <>

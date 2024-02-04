@@ -74,15 +74,10 @@ const MainProvider = ({ children }) => {
         // get review of user when currentVenue changes
         useEffect(() => {
             if (userAuthenticated) {
-                console.log(userData)
                 // if the userData.reviews contains the name of currentVenue then fetch the review based on user email
                 if ( userData.reviews === null ) {
-                    console.log('after userData.reviews === null:')
                     console.log('this user has not left a review for this venue')
                 } else {
-                    console.log(`current venue is: ${currentVenue}`)
-                    console.log(userData.reviews)
-                    console.log(typeof(userData.reviews[0]))
                     if (userData.reviews[0].includes(currentVenue)) {
                         
                         const encodedVenue = encodeURIComponent(currentVenue)
@@ -104,7 +99,6 @@ const MainProvider = ({ children }) => {
                             console.error("Error fetching user review data", error)
                         })
                     } else {
-                        console.log('inside of user has review for this venue')
                         console.log('this user has not left a review for this venue')
                     }
                 }
@@ -145,7 +139,6 @@ const MainProvider = ({ children }) => {
     
     useEffect(() => {
         if (loggedIn) { 
-            console.log('hi')
             fetch('http://127.0.0.1:5000/api/user', {
                 credentials: 'include'
             })
@@ -154,21 +147,13 @@ const MainProvider = ({ children }) => {
                     if (data.user_id) {
                         setUserAuthenticated(true)
                         setUserData(data)
-                        console.log(data)
                     }
                 })
                 .catch((error) => {
                     console.error('Error fetching user data:', error)
                 })
-                console.log('bye')
         }
     },[loggedIn])
-
-    useEffect(() => {
-        if (loggedIn) {
-            console.log(userData)
-        }
-    },[loggedIn, userData])
 
     useEffect(() => {
         if (venues !== null) {
@@ -188,7 +173,6 @@ const MainProvider = ({ children }) => {
 
     // select venue
     function setVenue(venue) {
-        console.log(venue)
         setHome('store')
         setCurrentVenue(venue)
     }
