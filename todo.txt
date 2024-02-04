@@ -4,8 +4,14 @@
 
 2. backend setup and connection
     - create tables and populate
-                here! here again!!
+                -- adding jwt logic etc - here
                  -- currently in the sendToDataBase fucnction in addFormContext
+                    -- test:
+                        -- add new review for new venue
+                        -- edit new review
+                        -- add new review as new user for new venue
+                        -- add new review as new user for a different venue
+
             -- storeSummaryIcons
                 // change been here to reflect if there has been a review filled out for the user or not,
                 if not then ask if they would like to reivew

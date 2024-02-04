@@ -102,10 +102,8 @@ const MainProvider = ({ children }) => {
                         console.log('this user has not left a review for this venue')
                     }
                 }
-            } else {
-                console.log('user not logged in so no data to retrieve')
             }
-        },[currentVenue])
+        },[currentVenue, userAuthenticated])
     
     // useEffect(() => {
     //     if (venues !== null) {

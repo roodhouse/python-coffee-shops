@@ -13,8 +13,6 @@ function BeenHere() {
     if (review) {
         console.log('review from db:')
         console.log(review)
-    } else {
-        console.log('no review')
     }
 
   return (

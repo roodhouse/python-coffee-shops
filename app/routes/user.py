@@ -1,15 +1,61 @@
-from os import getenv
 import sys
+from os import getenv
 from dotenv import load_dotenv
-import json
-from flask import Blueprint, jsonify, request, session
+from flask import Blueprint, jsonify, request, session, make_response
 from app.models import Users
 from app.db import get_db
 import logging
+import jwt
+import datetime
+from functools import wraps
 
 load_dotenv()
 
+SECRET_KEY = getenv('SECRET_KEY')
+
 user_bp = Blueprint("user", __name__, url_prefix="/")
+
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = None
+
+        if 'Authorization' in request.headers:
+            token = request.headers['Authorization'].split(" ")[1]
+
+        if not token:
+            return jsonify({'message': 'Token is missing'}), 403
+        
+        try:
+            data = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
+            current_user = data['user_id']
+        except:
+            return jsonify({'message': 'Token is invalid'}), 403
+        
+        return f(current_user, *args, **kwargs)
+    
+    return decorated
+
+# login route
+@user_bp.route("/users/login", methods=['POST'])
+def login():
+    data = request.get_json()
+    db = get_db()
+
+    try:
+        user = db.query(Users).filter(Users.email == data['email']).one()
+    except:  # noqa: E722
+        print(sys.exc_info()[0])
+        return jsonify(message = 'Incorrect credentials'), 400
+    
+    if user.verify_password(data['password']) == False:
+        return jsonify(message = "Incorrect credentials"), 400
+    
+    session.clear()
+    session['user_id'] = user.id
+    session['loggedIn'] = True
+
+    return jsonify(id = user.id)
 
 # base user route
 @user_bp.route('/users', methods=['POST'])
@@ -38,6 +84,7 @@ def signup():
     session.clear()
     session['user_id'] = newUser.id
     session['loggedIn'] = True
+    session.permanent = True
     return jsonify(id = newUser.id)
 
 # logout route
@@ -45,27 +92,6 @@ def signup():
 def logout():
     session.clear()
     return '', 204
-
-# login route
-@user_bp.route("/users/login", methods=['POST'])
-def login():
-    data = request.get_json()
-    db = get_db()
-
-    try:
-        user = db.query(Users).filter(Users.email == data['email']).one()
-    except:  # noqa: E722
-        print(sys.exc_info()[0])
-        return jsonify(message = 'Incorrect credentials'), 400
-    
-    if user.verify_password(data['password']) == False:
-        return jsonify(message = "Incorrect credentials"), 400
-    
-    session.clear()
-    session['user_id'] = user.id
-    session['loggedIn'] = True
-
-    return jsonify(id = user.id)
 
 # get user info
 @user_bp.route('/api/user', methods=['GET'])

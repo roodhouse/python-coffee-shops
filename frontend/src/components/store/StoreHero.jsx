@@ -10,8 +10,6 @@ function StoreHero() {
   let currentRating = 0
   if (currentVenueData) {
     currentRating = (currentVenueData.rating / 2)*100
-  } else {
-    console.log('waiting for data')
   }
 
 
