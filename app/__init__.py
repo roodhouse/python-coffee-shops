@@ -22,9 +22,6 @@ def create_app(test_config=None):
     init_db(app)
 
     # init CORS with flask app
-    # api only
-    # CORS(app, resources={r"/api/*": {"origins": "*"}})
-    # all routes
     CORS(app, origins="*", supports_credentials=True)
 
     return app

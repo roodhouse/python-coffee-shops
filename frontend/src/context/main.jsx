@@ -19,6 +19,7 @@ const MainProvider = ({ children }) => {
     const [ venues, setVenues] = useState(null)
     const [ allReviews, setAllReviews ] = useState(null)
     const [ review, setReview ] = useState(null)
+    const [ token, setToken ] = useState()
 
 
 
@@ -53,24 +54,6 @@ const MainProvider = ({ children }) => {
             })
     },[home]) 
 
-    // get single review, might move this later
-
-        // useEffect(() => {
-        //     fetch(`http://127.0.0.1:5000/api/reviews/1`)
-        //     .then((response) => {
-        //         if ( !response.ok ) {
-        //             throw new Error("Network response was not ok")
-        //         }
-        //         return response.json()
-        //     })
-        //     .then((data) => {
-        //         setReview(data)
-        //     })
-        //     .catch((error) => {
-        //         console.error("Error fetching data", error)
-        //     })
-        // },[])
-
         // get review of user when currentVenue changes
         useEffect(() => {
             if (userAuthenticated) {
@@ -84,7 +67,11 @@ const MainProvider = ({ children }) => {
                         const encodedUser = encodeURIComponent(userData.email)
                         
                         fetch(`http://127.0.0.1:5000/api/reviews/${encodedVenue}/${encodedUser}`, {
-                            credentials: 'include'
+                            credentials: 'include',
+                            headers: {
+                                'Content-Type' : 'application/json',
+                                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                            }
                         })
                         .then((response) => {
                             if ( !response.ok ) {
@@ -127,6 +114,7 @@ const MainProvider = ({ children }) => {
             headers: { 'Content-Type': 'application/json'}
         })
         if ( response.ok ) {
+            localStorage.removeItem('token')
             setUserAuthenticated(false)
             setLoggedIn(false)
             setHome('home')
@@ -137,8 +125,15 @@ const MainProvider = ({ children }) => {
     
     useEffect(() => {
         if (loggedIn) { 
+        
+            const token = localStorage.getItem('token')
+
             fetch('http://127.0.0.1:5000/api/user', {
-                credentials: 'include'
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
             })
                 .then((response) => response.json())
                 .then((data) => {

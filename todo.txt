@@ -5,6 +5,8 @@
 2. backend setup and connection
     - create tables and populate
                 -- adding jwt logic etc - see recent chatgpt about login jwt etc... here 
+                    -- need to update all routes that should be protected with @token_required
+                    -- create delete review route and continue... - here
                  -- currently in the sendToDataBase fucnction in addFormContext
                     -- test:
                         -- add new review for new venue

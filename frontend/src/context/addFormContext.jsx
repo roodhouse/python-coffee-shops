@@ -398,11 +398,14 @@ const AddFormProvider = ({ children }) => {
         } else {
             
             const updateReviewResponse = await fetch(`http://127.0.0.1:5000/api/reviews/${formData.review_id}`, {
-                method: 'PUT',
+                method: 'PATCH',
                 body: JSON.stringify({
                     answers: formData.answers[0]
                 }),
-                headers: {'Content-Type': 'application/json'}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
             })
             if (updateReviewResponse.ok) {
                 aggregateResults()

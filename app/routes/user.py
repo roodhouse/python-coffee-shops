@@ -1,40 +1,19 @@
 import sys
 from os import getenv
 from dotenv import load_dotenv
-from flask import Blueprint, jsonify, request, session, make_response
+from flask import Blueprint, jsonify, request, session
 from app.models import Users
 from app.db import get_db
 import logging
 import jwt
 import datetime
-from functools import wraps
+from utils.auth import token_required
 
 load_dotenv()
 
 SECRET_KEY = getenv('SECRET_KEY')
 
 user_bp = Blueprint("user", __name__, url_prefix="/")
-
-def token_required(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        token = None
-
-        if 'Authorization' in request.headers:
-            token = request.headers['Authorization'].split(" ")[1]
-
-        if not token:
-            return jsonify({'message': 'Token is missing'}), 403
-        
-        try:
-            data = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
-            current_user = data['user_id']
-        except:
-            return jsonify({'message': 'Token is invalid'}), 403
-        
-        return f(current_user, *args, **kwargs)
-    
-    return decorated
 
 # login route
 @user_bp.route("/users/login", methods=['POST'])
@@ -48,6 +27,7 @@ def login():
             # generate token
             token_data = {
                 'user_id': user.id,
+                'email': user.email,
                 'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1) # token expires after 1 day
             }
             # encode token
@@ -95,38 +75,35 @@ def logout():
 
 # get user info
 @user_bp.route('/api/user', methods=['GET'])
-def get_user_info():
+@token_required
+def get_user_info(current_user):
     db = get_db()
-    # check if user is authenticated
-    if 'user_id' in session and session['loggedIn']:
-        # retrieve user info based on user_id
-        user_id = session['user_id']
-        user = db.query(Users).filter_by(id=user_id).first()
+    user = db.query(Users).filter_by(id=current_user).first()
 
-        if user:
-            # serialize user info and send back as json
-            user_info = {
-                'user_id' : user.id,
-                'email' : user.email,
-                'reviews' : user.review_ids
-            }
-            return jsonify(user_info)
+    if user:
+        # serialize user info and send back as json
+        user_info = {
+            'user_id' : user.id,
+            'email' : user.email,
+            'reviews' : user.review_ids
+        }
+        return jsonify(user_info)
+    
     # return an error if user is not found
     return jsonify(message='Not authenticated')
 
 # update user with reviews
 @user_bp.route('api/user/<int:id>', methods=['PUT'])
-def update_user(id):
+@token_required
+def update_user(current_user, id):
     data = request.get_json()
     db = get_db()
 
+    user = db.query(Users).filter_by(id=current_user).one_or_none()
+    
     print(data)
 
-    if 'user_id' in session and session['loggedIn']:
-        user_id = session['user_id']
-        user = db.query(Users).filter_by(id=user_id).one_or_none()
-
-    if user:
+    if user and user.id == int(id):
         try:
             # update user with review
             new_review_data = request.get_json(force=True).get('venue', [])
