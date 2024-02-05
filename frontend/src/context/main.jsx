@@ -1,4 +1,5 @@
 import React, { useContext, createContext, useState, useEffect } from "react";
+import authService from '../utils/auth'
 
 // create context
 const MainContext = createContext();
@@ -19,9 +20,25 @@ const MainProvider = ({ children }) => {
     const [ venues, setVenues] = useState(null)
     const [ allReviews, setAllReviews ] = useState(null)
     const [ review, setReview ] = useState(null)
-    const [ token, setToken ] = useState()
 
 
+    // Check for token on load
+    useEffect(() => {
+        const token = authService.getToken()
+        if (token) {
+            console.log('token here')
+            if (!authService.isTokenExpired(token)) {
+                const cur = authService.getProfile()
+                console.log(cur)
+                setLoggedIn(true)
+                
+            } else {
+                authService.logout()
+            }
+        } else {
+            console.log('no token')
+        }
+    }, [])
 
     // fetch requests
     useEffect(() => {
@@ -70,7 +87,7 @@ const MainProvider = ({ children }) => {
                             credentials: 'include',
                             headers: {
                                 'Content-Type' : 'application/json',
-                                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                                'Authorization': `Bearer ${localStorage.getItem('id_token')}`
                             }
                         })
                         .then((response) => {
@@ -90,7 +107,7 @@ const MainProvider = ({ children }) => {
                     }
                 }
             }
-        },[currentVenue, userAuthenticated])
+        },[currentVenue])
     
     // useEffect(() => {
     //     if (venues !== null) {
@@ -114,7 +131,7 @@ const MainProvider = ({ children }) => {
             headers: { 'Content-Type': 'application/json'}
         })
         if ( response.ok ) {
-            localStorage.removeItem('token')
+            localStorage.removeItem('id_token')
             setUserAuthenticated(false)
             setLoggedIn(false)
             setHome('home')
@@ -126,7 +143,7 @@ const MainProvider = ({ children }) => {
     useEffect(() => {
         if (loggedIn) { 
         
-            const token = localStorage.getItem('token')
+            const token = localStorage.getItem('id_token')
 
             fetch('http://127.0.0.1:5000/api/user', {
                 credentials: 'include',
@@ -190,6 +207,7 @@ const MainProvider = ({ children }) => {
         console.error('Error fetching venue data:', error)
         })
     },[currentVenue])
+
 
     // toggle filter
     function toggleFilter() {

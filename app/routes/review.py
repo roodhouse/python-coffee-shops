@@ -6,7 +6,7 @@ from flask import Blueprint, jsonify, request
 from app.models import Reviews, Users
 from app.db import get_db
 import logging
-from utils.auth import token_required
+from app.utils import token_required
 
 from app.models.Venues import Venues
 
@@ -54,7 +54,7 @@ def get_review(id):
 # get individual review by email
 @review_bp.route('/api/reviews/<string:venue_name>/<string:user_email>', methods=['GET'])
 @token_required
-def get_user_review(current_user, venue_name, user_email):
+def get_user_review(current_user, current_user_email, venue_name, user_email):
     db = get_db()
 
     user = db.query(Users).filter_by(id=current_user).one_or_none()
@@ -77,7 +77,7 @@ def get_user_review(current_user, venue_name, user_email):
 # post review
 @review_bp.route('/api/reviews', methods=['POST'])
 @token_required
-def new_review(current_user):
+def new_review(current_user, current_user_email):
     data = request.get_json()
     print(data)
     db = get_db()
@@ -108,7 +108,7 @@ def new_review(current_user):
 # update review
 @review_bp.route('/api/reviews/<int:id>', methods=['PATCH'])
 @token_required
-def update_review(current_user_email, id):
+def update_review(current_user, current_user_email, id):
     data = request.get_json()
     db = get_db()
 
@@ -134,10 +134,10 @@ def update_review(current_user_email, id):
 # delete review
 @review_bp.route('/api/reviews/<int:id>', methods=['DELETE'])
 @token_required
-def delete_review(current_user_email, id):
+def delete_review(current_user, current_user_email, id):
     db = get_db()
 
-    review = db.query(Reviews).get(id, user_email=current_user_email)
+    review = db.query(Reviews).filter_by(id=id, user_email=current_user_email).one_or_none()
 
     if review:
         try:

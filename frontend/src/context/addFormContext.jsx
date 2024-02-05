@@ -24,9 +24,9 @@ const AddFormProvider = ({ children }) => {
         setFormData({...formData, ...sentData})
     }
 
-    useEffect(() => {
-        aggregateResults()
-    },[])
+    // useEffect(() => {
+    //     aggregateResults()
+    // },[])
 
     async function aggregateResults() {
         // fetch all the reviews first
@@ -50,6 +50,8 @@ const AddFormProvider = ({ children }) => {
                 }
 
             }
+
+            console.log(venueCount)
 
             let pairedAnswers = []
             let c1 = [], c2 = [], p1 = [], p2 = [], p3 = [], p4 = [], p5 = [], ser1 = [], ser2 = [], ser3 = [], ser4 = [], ser5 = [];
@@ -183,7 +185,10 @@ const AddFormProvider = ({ children }) => {
                                 body: JSON.stringify({
                                     rating: reviewForVenue.answers[0].sum
                                 }),
-                                headers: {'Content-Type': 'application/json' }
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${localStorage.getItem('id_token')}`
+                                }
                             })
                         }
                         catch (error) {
@@ -241,7 +246,10 @@ const AddFormProvider = ({ children }) => {
                         body: JSON.stringify({
                             rating: aggScore[22]
                         }),
-                        headers: {'Content-Type': 'application/json' }
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('id_token')}`
+                        }
                     })
                 }
                 catch (error) {
@@ -315,13 +323,19 @@ const AddFormProvider = ({ children }) => {
                         answers,
                         user_email
                     }),
-                        headers: {'Content-Type': 'application/json'}
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('id_token')}`
+                        }
                     })
     
                     if (reviewResponse.ok) {
                             const userResponse = await fetch(`http://127.0.0.1:5000/api/user`, {
                             method: 'GET',
-                            headers: {'Content-Type': 'application/json'}
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${localStorage.getItem('id_token')}`
+                            }
                         })
                         
                         if (userResponse.ok) {
@@ -333,7 +347,10 @@ const AddFormProvider = ({ children }) => {
                                 body: JSON.stringify({
                                     venue: updatedReviewIds
                                 }),
-                                headers: {'Content-Type' : 'application/json'}
+                                headers: {
+                                    'Content-Type' : 'application/json',
+                                    'Authorization': `Bearer ${localStorage.getItem('id_token')}`
+                                }
                             })
                             if (updateUserResponse.ok) {
                                 setPage('thankYou')
@@ -374,7 +391,10 @@ const AddFormProvider = ({ children }) => {
                             hours,
                             rating
                         }),
-                        headers: {'Content-Type': 'application/json'}
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('id_token')}`
+                        }
                     })
     
                     if (!venueResponse.ok) {
@@ -404,7 +424,7 @@ const AddFormProvider = ({ children }) => {
                 }),
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    'Authorization': `Bearer ${localStorage.getItem('id_token')}`
                 }
             })
             if (updateReviewResponse.ok) {

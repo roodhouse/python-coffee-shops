@@ -28,7 +28,7 @@ function LoginForm() {
             })
             if ( response.ok ) {
                 const responseData = await response.json()
-                localStorage.setItem('token', responseData.token)
+                localStorage.setItem('id_token', responseData.token)
                 successLogin()
                 reset()
             } else {
