@@ -7,7 +7,8 @@
                  -- currently in the sendToDataBase fucnction in addFormContext
                     -- test:
                         -- add new review for new venue
-                            -- new review agg is same as perky beans agg, id? -- here
+                            -- new review agg is same as perky beans agg, id? -- here, see chatgpt suggestion and refactor
+                            -- in venues all ratings are 1
                         -- edit new review
                         -- add new review as new user for new venue
                         -- add new review as new user for a different venue

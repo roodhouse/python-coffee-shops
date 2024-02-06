@@ -64,6 +64,9 @@ const AddFormProvider = ({ children }) => {
                     const allReviewsForVenue = []
                     allReviewsForVenue.push(allReviews.reviews.filter(review => review.venue === venue))
 
+                    console.log('count is more than one')
+                    console.log(allReviewsForVenue)
+
                     allReviewsForVenue[0].forEach(review => {
                         Object.keys(review.answers[0]).forEach(key => {
                             let answer = review.answers[0][key] * 100
@@ -141,7 +144,16 @@ const AddFormProvider = ({ children }) => {
                     })
                 } else {
                     const reviewForVenue = allReviews.reviews.find(review => review.venue === venue)
+
+                    console.log('review for venue is:')
+                    console.log(reviewForVenue)
+                    
+                    console.log('count is only 1')
+                    console.log(reviewForVenue)
+
                     try {
+                        console.log(`venue is: ${venue}`)
+
                         await fetch('http://127.0.0.1:5000/api/aggregate', {
                             method: 'POST',
                             body: JSON.stringify({

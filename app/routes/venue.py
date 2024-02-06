@@ -51,7 +51,8 @@ def get_venue(name):
             'image': venue.image,
             'location': venue.location,
             'address': venue.address,
-            'rating': rating.sum,
+            # 'rating': rating.sum,
+            'rating': venue.rating,
             'review_count': venue.review_count
         }
         return jsonify(venue_details)
