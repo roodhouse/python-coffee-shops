@@ -97,13 +97,14 @@ def get_user_info(current_user, current_user_email):
     return jsonify(message='Not authenticated')
 
 # update user with reviews
-@user_bp.route('api/user/<int:id>', methods=['PUT'])
+@user_bp.route('/api/user/<int:id>', methods=['PUT'])
 @token_required
 def update_user(current_user, current_user_email, id):
     data = request.get_json()
     db = get_db()
 
     user = db.query(Users).filter_by(id=current_user).one_or_none()
+    # user = db.query(Users).filter_by(id=id).one_or_none()
     
     print(data)
 

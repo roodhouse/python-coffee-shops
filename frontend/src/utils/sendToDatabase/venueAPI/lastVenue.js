@@ -9,7 +9,7 @@ export async function lastVenue() {
 
     if ( lastVenueCreated.ok ) {
         const venueData = await lastVenueCreated.json()
-        const venueName = venueData.venues[0].venueName
+        const venueName = venueData.venues[0].name
         return venueName
     } else {
         console.error("Error fetching the last venue from the server", lastVenueCreated.statusText)

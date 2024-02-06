@@ -1,4 +1,4 @@
-export const updateUser = async (venue, user_id) => {
+export const updateUser = async (user_id, venue) => {
     try {
         const getCurrentUserReviews = await fetch(`http://127.0.0.1:5000/api/user/${user_id}`, {
             method: 'GET',

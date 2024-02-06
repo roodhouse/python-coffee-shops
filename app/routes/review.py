@@ -83,13 +83,13 @@ def new_review(current_user, current_user_email):
     db = get_db()
 
     user = db.query(Users).filter_by(id=current_user).one_or_none()
-    if user.email != data['user_email']:
+    if user.email != current_user_email:
         return jsonify({'error': 'Unauthorized to post a review'}), 403
 
     try:
         new_review = Reviews(
             venue_name = data['venue_name'],
-            user_email = data['user_email'],
+            user_email = current_user_email,
             answers = data['answers'],
         )
         db.add(new_review)
