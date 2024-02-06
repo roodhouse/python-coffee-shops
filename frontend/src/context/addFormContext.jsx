@@ -342,6 +342,7 @@ const AddFormProvider = ({ children }) => {
                             const currentUserData = await userResponse.json()
                             const currentReviews = Array.isArray(currentUserData.reviews) ? currentUserData.reviews : []
                             const updatedReviewIds = [ ...currentReviews, venue ]
+                            console.log(updatedReviewIds)
                             const updateUserResponse = await fetch(`http://127.0.0.1:5000/api/user/${user_id}`, {
                                 method: 'put',
                                 body: JSON.stringify({

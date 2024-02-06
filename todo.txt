@@ -7,8 +7,7 @@
                  -- currently in the sendToDataBase fucnction in addFormContext
                     -- test:
                         -- add new review for new venue
-                            -- something is getting crossed, when clicking on a new venue the state does not change but remains set on the previous venue clicked
-                            -- new review agg is same as perky beans agg, id?
+                            -- new review agg is same as perky beans agg, id? -- here
                         -- edit new review
                         -- add new review as new user for new venue
                         -- add new review as new user for a different venue

@@ -21,7 +21,6 @@ const MainProvider = ({ children }) => {
     const [ allReviews, setAllReviews ] = useState(null)
     const [ review, setReview ] = useState(null)
 
-
     // Check for token on load
     useEffect(() => {
         const token = authService.getToken()
@@ -76,9 +75,11 @@ const MainProvider = ({ children }) => {
             if (userAuthenticated) {
                 // if the userData.reviews contains the name of currentVenue then fetch the review based on user email
                 if ( userData.reviews === null ) {
-                    console.log('this user has not left a review for this venue')
+                    console.log('this user has not left any reviews')
                 } else {
-                    if (userData.reviews[0].includes(currentVenue)) {
+                    if (userData.reviews.includes(currentVenue)) {
+
+                        console.log(currentVenue)
                         
                         const encodedVenue = encodeURIComponent(currentVenue)
                         const encodedUser = encodeURIComponent(userData.email)
@@ -134,6 +135,7 @@ const MainProvider = ({ children }) => {
             localStorage.removeItem('id_token')
             setUserAuthenticated(false)
             setLoggedIn(false)
+            setUserData(null)
             setHome('home')
         } else {
             alert(response.statusText)
@@ -163,7 +165,9 @@ const MainProvider = ({ children }) => {
                     console.error('Error fetching user data:', error)
                 })
         }
-    },[loggedIn])
+    },[loggedIn, venues])
+
+    console.log(userData)
 
     useEffect(() => {
         if (venues !== null) {

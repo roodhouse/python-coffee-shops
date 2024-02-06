@@ -12,12 +12,12 @@ db.add_all([
     Users(
         email='rughjm@gmail.com', 
         password='12345', 
-        review_ids=["Perky Beans, Scooter\'s Coffee"]
+        review_ids=["Perky Beans", "Scooter\'s Coffee"]
     ),
     Users(
         email='rooinfo@gmail.com', 
         password='12345', 
-        review_ids=["Scooter\'s Coffee, Perky Beans"]
+        review_ids=["Scooter\'s Coffee", "Perky Beans"]
     )
 ])
 
