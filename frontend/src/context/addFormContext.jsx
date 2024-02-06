@@ -290,6 +290,7 @@ const AddFormProvider = ({ children }) => {
                 setPage('thankYou')
                 setStep('venue')
                 setFormData({})
+                setEditReview(false)
             } else {
                 console.error('Error in sendResults: aggSubmission')
             }
@@ -298,182 +299,182 @@ const AddFormProvider = ({ children }) => {
         }
     }
  
-    const sendToDataBase = async (submission) => {
-        // if edit review is false then it is a new review 
-        if (!editReview) {
-            const venue = submission.venue
-            const image = submission.image
-            const location = submission.location
-            const address = submission.address
-            const hours = submission.hours
-            // rating should actually come from an aggregate off all reviews
-            const rating = parseInt(submission.Summary[0].answer)
-            // const answers = submission.answers
-            const answers = [
-                {
-                    'p1' : parseInt(submission.Productivity[0].answer),
-                    'p2' : parseInt(submission.Productivity[1].answer),
-                    'p3' : parseInt(submission.Productivity[2].answer),
-                    'p4' : parseInt(submission.Productivity[3].answer),
-                    'p5' : parseInt(submission.Productivity[4].answer),
-                    'p6' : parseInt(submission.Productivity[5].answer),
-                    'c1' : parseInt(submission.Community[0].answer),
-                    'c2' : parseInt(submission.Community[1].answer),
-                    'ser1' : parseInt(submission.Service[0].answer),
-                    'ser2' : parseInt(submission.Service[1].answer),
-                    'ser3' : parseInt(submission.Service[2].answer),
-                    'ser4' : parseInt(submission.Service[3].answer),
-                    'ser5' : parseInt(submission.Service[4].answer),
-                    'sp1' : parseInt(submission.Space[0].answer),
-                    'sp2' : parseInt(submission.Space[1].answer),
-                    'sp3' : parseInt(submission.Space[2].answer),
-                    'sp4' : parseInt(submission.Space[3].answer),
-                    'sp5' : parseInt(submission.Space[4].answer),
-                    'sp6' : parseInt(submission.Space[5].answer),
-                    'sp7' : parseInt(submission.Space[6].answer),
-                    'sp8' : parseInt(submission.Space[7].answer),
-                    'sp9' : parseInt(submission.Space[8].answer),
-                    'sum' : parseInt(submission.Summary[0].answer)
-                }
-            ]
+    // const sendToDataBase = async (submission) => {
+    //     // if edit review is false then it is a new review 
+    //     if (!editReview) {
+    //         const venue = submission.venue
+    //         const image = submission.image
+    //         const location = submission.location
+    //         const address = submission.address
+    //         const hours = submission.hours
+    //         // rating should actually come from an aggregate off all reviews
+    //         const rating = parseInt(submission.Summary[0].answer)
+    //         // const answers = submission.answers
+    //         const answers = [
+    //             {
+    //                 'p1' : parseInt(submission.Productivity[0].answer),
+    //                 'p2' : parseInt(submission.Productivity[1].answer),
+    //                 'p3' : parseInt(submission.Productivity[2].answer),
+    //                 'p4' : parseInt(submission.Productivity[3].answer),
+    //                 'p5' : parseInt(submission.Productivity[4].answer),
+    //                 'p6' : parseInt(submission.Productivity[5].answer),
+    //                 'c1' : parseInt(submission.Community[0].answer),
+    //                 'c2' : parseInt(submission.Community[1].answer),
+    //                 'ser1' : parseInt(submission.Service[0].answer),
+    //                 'ser2' : parseInt(submission.Service[1].answer),
+    //                 'ser3' : parseInt(submission.Service[2].answer),
+    //                 'ser4' : parseInt(submission.Service[3].answer),
+    //                 'ser5' : parseInt(submission.Service[4].answer),
+    //                 'sp1' : parseInt(submission.Space[0].answer),
+    //                 'sp2' : parseInt(submission.Space[1].answer),
+    //                 'sp3' : parseInt(submission.Space[2].answer),
+    //                 'sp4' : parseInt(submission.Space[3].answer),
+    //                 'sp5' : parseInt(submission.Space[4].answer),
+    //                 'sp6' : parseInt(submission.Space[5].answer),
+    //                 'sp7' : parseInt(submission.Space[6].answer),
+    //                 'sp8' : parseInt(submission.Space[7].answer),
+    //                 'sp9' : parseInt(submission.Space[8].answer),
+    //                 'sum' : parseInt(submission.Summary[0].answer)
+    //             }
+    //         ]
             
-            const user_email = userData.email
-            const user_id = userData.user_id
+    //         const user_email = userData.email
+    //         const user_id = userData.user_id
     
-            // create review
-            async function fetchVenueFromServer() {
-                const venueInstanceResponse = await fetch("http://127.0.0.1:5000/api/venues/last", {
-                    method: 'GET',
-                    headers: {'Content-Type': 'application/json'}
-                })
+    //         // create review
+    //         async function fetchVenueFromServer() {
+    //             const venueInstanceResponse = await fetch("http://127.0.0.1:5000/api/venues/last", {
+    //                 method: 'GET',
+    //                 headers: {'Content-Type': 'application/json'}
+    //             })
     
-                if (venueInstanceResponse.ok) {
-                    const venueData = await venueInstanceResponse.json()
-                    const reviewResponse = await fetch("http://127.0.0.1:5000/api/reviews", {
-                        method: 'post',
-                        body: JSON.stringify({
-                        venue_name: venueData.venues[0].name,
-                        answers,
-                        user_email
-                    }),
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${localStorage.getItem('id_token')}`
-                        }
-                    })
+    //             if (venueInstanceResponse.ok) {
+    //                 const venueData = await venueInstanceResponse.json()
+    //                 const reviewResponse = await fetch("http://127.0.0.1:5000/api/reviews", {
+    //                     method: 'post',
+    //                     body: JSON.stringify({
+    //                     venue_name: venueData.venues[0].name,
+    //                     answers,
+    //                     user_email
+    //                 }),
+    //                     headers: {
+    //                         'Content-Type': 'application/json',
+    //                         'Authorization': `Bearer ${localStorage.getItem('id_token')}`
+    //                     }
+    //                 })
     
-                    if (reviewResponse.ok) {
-                            const userResponse = await fetch(`http://127.0.0.1:5000/api/user`, {
-                            method: 'GET',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${localStorage.getItem('id_token')}`
-                            }
-                        })
+    //                 if (reviewResponse.ok) {
+    //                         const userResponse = await fetch(`http://127.0.0.1:5000/api/user`, {
+    //                         method: 'GET',
+    //                         headers: {
+    //                             'Content-Type': 'application/json',
+    //                             'Authorization': `Bearer ${localStorage.getItem('id_token')}`
+    //                         }
+    //                     })
                         
-                        if (userResponse.ok) {
-                            const currentUserData = await userResponse.json()
-                            const currentReviews = Array.isArray(currentUserData.reviews) ? currentUserData.reviews : []
-                            const updatedReviewIds = [ ...currentReviews, venue ]
-                            console.log(updatedReviewIds)
-                            const updateUserResponse = await fetch(`http://127.0.0.1:5000/api/user/${user_id}`, {
-                                method: 'put',
-                                body: JSON.stringify({
-                                    venue: updatedReviewIds
-                                }),
-                                headers: {
-                                    'Content-Type' : 'application/json',
-                                    'Authorization': `Bearer ${localStorage.getItem('id_token')}`
-                                }
-                            })
-                            if (updateUserResponse.ok) {
-                                setPage('thankYou')
-                                setStep('venue')
-                                setFormData({})
-                            } else {
-                                console.error("Error adding review to user:", updateUserResponse.statusText)
-                                alert("Error adding review to user")
-                            }
+    //                     if (userResponse.ok) {
+    //                         const currentUserData = await userResponse.json()
+    //                         const currentReviews = Array.isArray(currentUserData.reviews) ? currentUserData.reviews : []
+    //                         const updatedReviewIds = [ ...currentReviews, venue ]
+    //                         console.log(updatedReviewIds)
+    //                         const updateUserResponse = await fetch(`http://127.0.0.1:5000/api/user/${user_id}`, {
+    //                             method: 'put',
+    //                             body: JSON.stringify({
+    //                                 venue: updatedReviewIds
+    //                             }),
+    //                             headers: {
+    //                                 'Content-Type' : 'application/json',
+    //                                 'Authorization': `Bearer ${localStorage.getItem('id_token')}`
+    //                             }
+    //                         })
+    //                         if (updateUserResponse.ok) {
+    //                             setPage('thankYou')
+    //                             setStep('venue')
+    //                             setFormData({})
+    //                         } else {
+    //                             console.error("Error adding review to user:", updateUserResponse.statusText)
+    //                             alert("Error adding review to user")
+    //                         }
     
-                        } else {
-                            console.error("Error getting user", userResponse.statusText)
-                            alert("Error getting user")
-                        }
+    //                     } else {
+    //                         console.error("Error getting user", userResponse.statusText)
+    //                         alert("Error getting user")
+    //                     }
                         
-                    } else {
-                        console.error("Error creating review:", reviewResponse.statusText)
-                        alert("Error creating review")
-                    }
-                } else {
-                    console.error("Error fetching venue from server", venueInstanceResponse.statusText)
-                    alert("Error fetching venue from server")
-                    return null
-                }
-            }
+    //                 } else {
+    //                     console.error("Error creating review:", reviewResponse.statusText)
+    //                     alert("Error creating review")
+    //                 }
+    //             } else {
+    //                 console.error("Error fetching venue from server", venueInstanceResponse.statusText)
+    //                 alert("Error fetching venue from server")
+    //                 return null
+    //             }
+    //         }
     
-            if (userAuthenticated) {
+    //         if (userAuthenticated) {
     
-                try {
-                    // create venue
-                    const venueResponse = await fetch("http://127.0.0.1:5000/api/venues/", {
-                        method: 'post',
-                        body: JSON.stringify({
-                            venue,
-                            image,
-                            location,
-                            address,
-                            hours,
-                            rating
-                        }),
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${localStorage.getItem('id_token')}`
-                        }
-                    })
+    //             try {
+    //                 // create venue
+    //                 const venueResponse = await fetch("http://127.0.0.1:5000/api/venues/", {
+    //                     method: 'post',
+    //                     body: JSON.stringify({
+    //                         venue,
+    //                         image,
+    //                         location,
+    //                         address,
+    //                         hours,
+    //                         rating
+    //                     }),
+    //                     headers: {
+    //                         'Content-Type': 'application/json',
+    //                         'Authorization': `Bearer ${localStorage.getItem('id_token')}`
+    //                     }
+    //                 })
     
-                    if (!venueResponse.ok) {
-                        console.error("Error creating venue:", venueResponse.statusText)
-                        alert("Error creating venue")
-                        return
-                    }
+    //                 if (!venueResponse.ok) {
+    //                     console.error("Error creating venue:", venueResponse.statusText)
+    //                     alert("Error creating venue")
+    //                     return
+    //                 }
     
-                    await fetchVenueFromServer()
+    //                 await fetchVenueFromServer()
                     
-                    aggregateResults()
+    //                 aggregateResults()
                     
-                } catch (error) {
-                    console.error("An unexpected error occurred", error)
-                    alert("An unexpected error occurred")
-                }
-            } else {
-                console.log('error')
-            }
+    //             } catch (error) {
+    //                 console.error("An unexpected error occurred", error)
+    //                 alert("An unexpected error occurred")
+    //             }
+    //         } else {
+    //             console.log('error')
+    //         }
 
-        } else {
+    //     } else {
             
-            const updateReviewResponse = await fetch(`http://127.0.0.1:5000/api/reviews/${formData.review_id}`, {
-                method: 'PATCH',
-                body: JSON.stringify({
-                    answers: formData.answers[0]
-                }),
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('id_token')}`
-                }
-            })
-            if (updateReviewResponse.ok) {
-                aggregateResults()
-                setPage('thankYou')
-                setStep('venue')
-                setFormData({})
-            } else {
-                console.error("Error editing review:", updateReviewResponse.statusText)
-                alert("Error editing review")
-            }
+    //         const updateReviewResponse = await fetch(`http://127.0.0.1:5000/api/reviews/${formData.review_id}`, {
+    //             method: 'PATCH',
+    //             body: JSON.stringify({
+    //                 answers: formData.answers[0]
+    //             }),
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': `Bearer ${localStorage.getItem('id_token')}`
+    //             }
+    //         })
+    //         if (updateReviewResponse.ok) {
+    //             aggregateResults()
+    //             setPage('thankYou')
+    //             setStep('venue')
+    //             setFormData({})
+    //         } else {
+    //             console.error("Error editing review:", updateReviewResponse.statusText)
+    //             alert("Error editing review")
+    //         }
 
-            setEditReview(false)
-        }
-    }
+    //         setEditReview(false)
+    //     }
+    // }
 
      // set edit review 
      function editTheReview(data) {
@@ -917,7 +918,7 @@ const AddFormProvider = ({ children }) => {
     return <AddFormContext.Provider value = 
     {
         {
-            step, currentStep, formData, updateFormData, googlePhotos, detailQuestions, sendToDataBase, editReview, editTheReview, sendResults
+            step, currentStep, formData, updateFormData, googlePhotos, detailQuestions, editReview, editTheReview, sendResults
         }
     }>
         {children}

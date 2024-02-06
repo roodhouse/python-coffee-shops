@@ -11,6 +11,11 @@ export const reviewAPI = async (editReview, venue, image, location, address, hou
             return false
         }
     } else {
-        updateReview(answers, reviewId)
+        const postUpdate = await updateReview(answers, reviewId)
+        if (postUpdate) {
+            return true
+        } else {
+            return false
+        }
     }
 }
