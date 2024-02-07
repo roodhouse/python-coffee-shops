@@ -1,4 +1,5 @@
 import React, { useContext, createContext, useState, useEffect } from "react";
+import authService from '../utils/auth'
 
 // create context
 const MainContext = createContext();
@@ -19,8 +20,25 @@ const MainProvider = ({ children }) => {
     const [ venues, setVenues] = useState(null)
     const [ allReviews, setAllReviews ] = useState(null)
     const [ review, setReview ] = useState(null)
+    const [ aggDataUpdate, setAggDataUpdate] = useState(false)
 
-
+    // Check for token on load
+    useEffect(() => {
+        const token = authService.getToken()
+        if (token) {
+            console.log('token here')
+            if (!authService.isTokenExpired(token)) {
+                const cur = authService.getProfile()
+                console.log(cur)
+                setLoggedIn(true)
+                
+            } else {
+                authService.logout()
+            }
+        } else {
+            console.log('no token')
+        }
+    }, [])
 
     // fetch requests
     useEffect(() => {
@@ -53,38 +71,26 @@ const MainProvider = ({ children }) => {
             })
     },[home]) 
 
-    // get single review, might move this later
-
-        // useEffect(() => {
-        //     fetch(`http://127.0.0.1:5000/api/reviews/1`)
-        //     .then((response) => {
-        //         if ( !response.ok ) {
-        //             throw new Error("Network response was not ok")
-        //         }
-        //         return response.json()
-        //     })
-        //     .then((data) => {
-        //         setReview(data)
-        //     })
-        //     .catch((error) => {
-        //         console.error("Error fetching data", error)
-        //     })
-        // },[])
-
         // get review of user when currentVenue changes
         useEffect(() => {
             if (userAuthenticated) {
                 // if the userData.reviews contains the name of currentVenue then fetch the review based on user email
                 if ( userData.reviews === null ) {
-                    console.log('this user has not left a review for this venue')
+                    console.log('this user has not left any reviews')
                 } else {
-                    if (userData.reviews[0].includes(currentVenue)) {
+                    if (userData.reviews.includes(currentVenue)) {
+
+                        console.log(currentVenue)
                         
                         const encodedVenue = encodeURIComponent(currentVenue)
                         const encodedUser = encodeURIComponent(userData.email)
                         
                         fetch(`http://127.0.0.1:5000/api/reviews/${encodedVenue}/${encodedUser}`, {
-                            credentials: 'include'
+                            credentials: 'include',
+                            headers: {
+                                'Content-Type' : 'application/json',
+                                'Authorization': `Bearer ${localStorage.getItem('id_token')}`
+                            }
                         })
                         .then((response) => {
                             if ( !response.ok ) {
@@ -103,7 +109,7 @@ const MainProvider = ({ children }) => {
                     }
                 }
             }
-        },[currentVenue, userAuthenticated])
+        },[currentVenue])
     
     // useEffect(() => {
     //     if (venues !== null) {
@@ -127,8 +133,10 @@ const MainProvider = ({ children }) => {
             headers: { 'Content-Type': 'application/json'}
         })
         if ( response.ok ) {
+            localStorage.removeItem('id_token')
             setUserAuthenticated(false)
             setLoggedIn(false)
+            setUserData(null)
             setHome('home')
         } else {
             alert(response.statusText)
@@ -137,8 +145,15 @@ const MainProvider = ({ children }) => {
     
     useEffect(() => {
         if (loggedIn) { 
+        
+            const token = localStorage.getItem('id_token')
+
             fetch('http://127.0.0.1:5000/api/user', {
-                credentials: 'include'
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
             })
                 .then((response) => response.json())
                 .then((data) => {
@@ -151,7 +166,7 @@ const MainProvider = ({ children }) => {
                     console.error('Error fetching user data:', error)
                 })
         }
-    },[loggedIn])
+    },[loggedIn, venues])
 
     useEffect(() => {
         if (venues !== null) {
@@ -186,6 +201,7 @@ const MainProvider = ({ children }) => {
             .then((aggResponse) => aggResponse.json())
             .then((aggData) => {
                 setCurrentVenueAgg(aggData)
+                setAggDataUpdate(false)
             })
             .catch ((error) => {
                 console.error('Error fetching venue data:', error)
@@ -194,7 +210,12 @@ const MainProvider = ({ children }) => {
         .catch ((error) => {
         console.error('Error fetching venue data:', error)
         })
-    },[currentVenue])
+    },[currentVenue, aggDataUpdate])
+
+    // agg data updated function
+    function aggDataUpdated(data) {
+        setAggDataUpdate(data)
+    }
 
     // toggle filter
     function toggleFilter() {
@@ -243,7 +264,7 @@ const MainProvider = ({ children }) => {
     {
         {
             home, currentCity, venueCount, listOfStates, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn, successLogin, logout,
-            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review
+            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review, aggDataUpdated
         }
     }>
         {children}

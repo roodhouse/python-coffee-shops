@@ -3,9 +3,10 @@ import sys
 from dotenv import load_dotenv
 import json
 from flask import Blueprint, jsonify, request
-from app.models import Reviews, VenueAggregates
+from app.models import Reviews, Users
 from app.db import get_db
 import logging
+from app.utils import token_required
 
 from app.models.Venues import Venues
 
@@ -52,8 +53,13 @@ def get_review(id):
 
 # get individual review by email
 @review_bp.route('/api/reviews/<string:venue_name>/<string:user_email>', methods=['GET'])
-def get_user_review(venue_name, user_email):
+@token_required
+def get_user_review(current_user, current_user_email, venue_name, user_email):
     db = get_db()
+
+    user = db.query(Users).filter_by(id=current_user).one_or_none()
+    if user.email != user_email:
+        return jsonify({'error': 'Unauthorized access to this review'}), 403
 
     review = db.query(Reviews).filter_by(venue_name = venue_name, user_email = user_email).one_or_none()
 
@@ -70,15 +76,20 @@ def get_user_review(venue_name, user_email):
 
 # post review
 @review_bp.route('/api/reviews', methods=['POST'])
-def new_review():
+@token_required
+def new_review(current_user, current_user_email):
     data = request.get_json()
     print(data)
     db = get_db()
 
+    user = db.query(Users).filter_by(id=current_user).one_or_none()
+    if user.email != current_user_email:
+        return jsonify({'error': 'Unauthorized to post a review'}), 403
+
     try:
         new_review = Reviews(
             venue_name = data['venue_name'],
-            user_email = data['user_email'],
+            user_email = current_user_email,
             answers = data['answers'],
         )
         db.add(new_review)
@@ -95,45 +106,44 @@ def new_review():
         return jsonify(message = 'review failed to be added'), 500
     
 # update review
-@review_bp.route('/api/reviews/<int:id>', methods=['PUT'])
-def update_review(id):
+@review_bp.route('/api/reviews/<int:id>', methods=['PATCH'])
+@token_required
+def update_review(current_user, current_user_email, id):
     data = request.get_json()
     db = get_db()
 
-    review = db.query(Reviews).filter_by(id=id).one_or_none()
+    review = db.query(Reviews).filter_by(id=id, user_email=current_user_email).one_or_none()
 
     if review:
         try:
             # update review
-            if 'venue_name' in data:
-                review.venue_name = data['venue_name']
-            if 'user_email' in data:
-                review.user_email = data['user_email']
             if 'answers' in data: 
                 review.answers = data['answers']
+                db.commit()
+                return jsonify({'message': 'Review answers were updated'})
+            else:
+                return jsonify({'message': 'No updatable fields provided'}), 400
         
-            db.commit()
-            return jsonify({'message': 'Review was updated'})
-        
-        except KeyError as e:
-            logging.error(f'KeyError: {e}')
+        except Exception as e:
+            logging.error(f'Exception: {e}')
             db.rollback()
-            return jsonify(message = 'Invalid data'), 400
+            return jsonify({'error': 'Failed to update review'}), 500
     else:
-        return jsonify({'error': 'Review was not found'}), 404
+        return jsonify({'error': 'Review was not found or you do not have permission to update this review'}), 404
     
 # delete review
 @review_bp.route('/api/reviews/<int:id>', methods=['DELETE'])
-def delete_review(id):
+@token_required
+def delete_review(current_user, current_user_email, id):
     db = get_db()
 
-    review = db.query(Reviews).get(id)
+    review = db.query(Reviews).filter_by(id=id, user_email=current_user_email).one_or_none()
 
     if review:
         try:
             db.delete(review)
             db.commit()
-            return jsonify({'error': 'Review has been deleted'})
+            return jsonify({'error': 'Review has been deleted'}), 200
         except Exception as e:
             db.rollback()
             return jsonify({"error": "Failed to delete review", "details": str(e)}), 500

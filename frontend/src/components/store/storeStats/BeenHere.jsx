@@ -10,10 +10,10 @@ function BeenHere() {
 
     const { review } = useMain()
 
-    if (review) {
-        console.log('review from db:')
-        console.log(review)
-    }
+    // if (review) {
+    //     console.log('review from db:')
+    //     console.log(review)
+    // }
 
   return (
     <>

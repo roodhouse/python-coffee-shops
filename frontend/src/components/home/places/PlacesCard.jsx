@@ -3,6 +3,7 @@ import PlacesImage from './placesCard/PlacesImage'
 import PlacesDetails from './placesCard/PlacesDetails'
 
 function PlacesCard({ image, rating, name, hours, address }) {
+  // console.log(name,rating)
   return (
     <>
       <div id="placesImageWrapper" className='mb-3'>

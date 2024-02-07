@@ -6,6 +6,7 @@ from flask import Blueprint, jsonify, request
 from app.models import Venues, VenueAggregates
 from app.db import get_db
 import logging
+from app.utils import token_required
 
 load_dotenv()
 
@@ -50,7 +51,8 @@ def get_venue(name):
             'image': venue.image,
             'location': venue.location,
             'address': venue.address,
-            'rating': rating.sum,
+            # 'rating': rating.sum,
+            'rating': venue.rating,
             'review_count': venue.review_count
         }
         return jsonify(venue_details)
@@ -84,7 +86,8 @@ def get_last_venue():
 
 # venues post route
 @venue_bp.route('/api/venues', methods=['POST'])
-def new_venue():
+@token_required
+def new_venue(current_user, current_user_email):
     data = request.get_json()
     print(data)
     db = get_db()
@@ -108,7 +111,8 @@ def new_venue():
 
 # venues update route
 @venue_bp.route('/api/venues/<string:name>', methods=['PUT'])
-def update_venue(name):
+@token_required
+def update_venue(current_user, current_user_email, name):
     data = request.get_json()
     db = get_db()
 
@@ -142,7 +146,8 @@ def update_venue(name):
     
 # venues delete route
 @venue_bp.route('/api/venues/<int:id>', methods=['DELETE'])
-def delete_venue(id):
+@token_required
+def delete_venue(current_user, current_user_email, id):
     db = get_db()
 
     venue = db.query(Venues).get(id)

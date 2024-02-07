@@ -3,11 +3,7 @@
         update post view
 
 2. backend setup and connection
-    - create tables and populate
-                -- adding jwt logic etc - here
-                 -- currently in the sendToDataBase fucnction in addFormContext
                     -- test:
-                        -- add new review for new venue
                         -- edit new review
                         -- add new review as new user for new venue
                         -- add new review as new user for a different venue
@@ -22,8 +18,8 @@
             - create way for 2nd user to add review for same location
         --individual page
         - comments
-    - connect forms (answers)
-    - create logic for aggregating results
+    - dashboard
+        - create delete review route
 
 3. API's needed:
     - google maps
@@ -37,4 +33,5 @@
     - clicking an answer in the form more than once will append a new value instead of overwriting the first value
     - initial load still hows totals as 4500%.. need to run the aggregate results function sometime before a new venue is added 
     - each venue is getting a new aggregate upon running of function...
+    - check sum logic
 
