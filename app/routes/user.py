@@ -78,9 +78,28 @@ def logout():
     return '', 204
 
 # get user info
+@user_bp.route('/api/user', methods=['GET'])
+@token_required
+def get_user_info(current_user, current_user_email):
+    db = get_db()
+    user = db.query(Users).filter_by(id=current_user).first()
+
+    if user:
+        # serialize user info and send back as json
+        user_info = {
+            'user_id' : user.id,
+            'email' : user.email,
+            'reviews' : user.review_ids
+        }
+        return jsonify(user_info)
+    
+    # return an error if user is not found
+    return jsonify(message='Not authenticated')
+
+# get user individual user info
 @user_bp.route('/api/user/<int:id>', methods=['GET'])
 @token_required
-def get_user_info(current_user, current_user_email, id):
+def get_user_info_for_post(current_user, current_user_email, id):
     db = get_db()
     user = db.query(Users).filter_by(id=current_user).first()
 

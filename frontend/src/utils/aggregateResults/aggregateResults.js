@@ -8,13 +8,15 @@ export async function aggregateResults() {
     let allReviews = await fetchAllReviews()
     let venueCount = calculateVenueCounts(allReviews)
 
+    let allUpdatesSuccessful = true
+
     for (let[venue, count] of Object.entries(venueCount)) {
         let aggScore = count > 1 ? await aggregateScoresForVenue(allReviews, venue) : await singleReviewScore(allReviews, venue)
         let aggUpdateSuccess = await updateAggregateAndVenueRating(venue, aggScore)
-        if (aggUpdateSuccess) {
-            return true
-        } else {
-            console.error('Error in aggregateResults')
+        if (!aggUpdateSuccess) {
+            allUpdatesSuccessful = false
+            console.error('Error in aggregateResults for venue', venue)
         }
     }
+    return allUpdatesSuccessful
 }

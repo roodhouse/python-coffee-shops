@@ -8,9 +8,6 @@ export async function aggregateScoresForVenue(allReviews, venue) {
     const allReviewsForVenue = []
         allReviewsForVenue.push(allReviews.reviews.filter(review => review.venue === venue))
 
-        console.log('count is more than one')
-        console.log(allReviewsForVenue)
-
         allReviewsForVenue[0].forEach(review => {
             Object.keys(review.answers[0]).forEach(key => {
                 let answer = review.answers[0][key] * 100

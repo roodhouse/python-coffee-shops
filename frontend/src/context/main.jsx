@@ -20,6 +20,7 @@ const MainProvider = ({ children }) => {
     const [ venues, setVenues] = useState(null)
     const [ allReviews, setAllReviews ] = useState(null)
     const [ review, setReview ] = useState(null)
+    const [ aggDataUpdate, setAggDataUpdate] = useState(false)
 
     // Check for token on load
     useEffect(() => {
@@ -167,8 +168,6 @@ const MainProvider = ({ children }) => {
         }
     },[loggedIn, venues])
 
-    console.log(userData)
-
     useEffect(() => {
         if (venues !== null) {
             setVenueCount(venues.venues.length)
@@ -202,6 +201,7 @@ const MainProvider = ({ children }) => {
             .then((aggResponse) => aggResponse.json())
             .then((aggData) => {
                 setCurrentVenueAgg(aggData)
+                setAggDataUpdate(false)
             })
             .catch ((error) => {
                 console.error('Error fetching venue data:', error)
@@ -210,8 +210,12 @@ const MainProvider = ({ children }) => {
         .catch ((error) => {
         console.error('Error fetching venue data:', error)
         })
-    },[currentVenue])
+    },[currentVenue, aggDataUpdate])
 
+    // agg data updated function
+    function aggDataUpdated(data) {
+        setAggDataUpdate(data)
+    }
 
     // toggle filter
     function toggleFilter() {
@@ -260,7 +264,7 @@ const MainProvider = ({ children }) => {
     {
         {
             home, currentCity, venueCount, listOfStates, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn, successLogin, logout,
-            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review
+            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review, aggDataUpdated
         }
     }>
         {children}

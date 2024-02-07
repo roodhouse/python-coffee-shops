@@ -3,13 +3,7 @@
         update post view
 
 2. backend setup and connection
-    - create tables and populate
-                 -- currently in the sendToDataBase fucnction in addFormContext
                     -- test:
-                        -- add new review for new venue
-                            -- new review agg is same as perky beans agg, id? -- here, see chatgpt suggestion and refactor
-                                -- error in aggregateResults == here 
-                            -- in venues all ratings are 1
                         -- edit new review
                         -- add new review as new user for new venue
                         -- add new review as new user for a different venue
