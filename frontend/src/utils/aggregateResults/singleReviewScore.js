@@ -4,8 +4,8 @@ export async function singleReviewScore(allReviews, venue) {
     if (!reviewForVenue || !reviewForVenue.answers || !reviewForVenue.answers[0]) {
         return []
     }
-    
-    const aggScore = Object.values(reviewForVenue.answers[0].map(answer => parseFloat(answer)))
+ 
+    const aggScore = Object.values(reviewForVenue.answers[0]).map(answer => parseFloat(answer))
 
     return aggScore
 }
