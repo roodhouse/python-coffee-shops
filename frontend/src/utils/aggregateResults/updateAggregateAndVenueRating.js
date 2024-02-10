@@ -1,6 +1,7 @@
 import { updateRatingAfterAggregate } from "./updateRatingAfterAggregate";
 
 export async function updateAggregateAndVenueRating(venue, aggScore) {
+  let rating = aggScore[22]
   try {
     let response = await fetch("http://127.0.0.1:5000/api/aggregate", {
       method: "POST",
@@ -33,6 +34,7 @@ export async function updateAggregateAndVenueRating(venue, aggScore) {
       headers: { "Content-Type": "application/json" },
     });
     if (response.ok) {
+      await updateRatingAfterAggregate(venue, rating)
       return true
     } else {
       console.error("An error occurred in updateAggregateAndVenueRating")
@@ -44,6 +46,4 @@ export async function updateAggregateAndVenueRating(venue, aggScore) {
     );
     alert("An error occurred in updateAggregateAndVenueRating");
   }
-
-  updateRatingAfterAggregate(venue, aggScore[22])
 }

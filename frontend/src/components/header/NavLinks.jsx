@@ -7,12 +7,13 @@ import { useAddForm } from '../../context/addFormContext'
 
 function NavLinks() {
 
-    const { setPage, loggedIn } = useMain()
+    const { setPage, loggedIn, clearVenue } = useMain()
     const { editTheReview } = useAddForm()
 
     const handleClick = (e) => {
         const newPage = e.currentTarget.getAttribute('data-name')
         setPage(newPage)
+        clearVenue()
         editTheReview(false)
     }
 

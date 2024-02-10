@@ -6,23 +6,14 @@ import NextButton from '../../../next/NextButton'
 
 function DetailsInput() { 
 
-    const { register, handleSubmit, formState: {errors} } = useForm()
+    const { register, handleSubmit, reset, formState: {errors} } = useForm()
     const { currentStep, updateFormData, detailQuestions, editReview, editTheReview } = useAddForm()
     const [ currentAnswers, setCurrentAnswers ] = useState({})
 
-    const onSubmit = () => {
-        
-        // do i need this? make sure it still runs without it
-        // if (currentAnswers.Summary[0].answer === 'No') {
-        //     currentAnswers.Summary = 0
-        // } else if (currentAnswers.Summary[0].answer === 'Sometimes') {
-        //     currentAnswers.Summary = 1
-        // } else {
-        //     currentAnswers.Summary = 2
-        // }
-        
+    const onSubmit = () => {    
         currentStep('summary')
         updateFormData(currentAnswers)
+        reset()
     }
 
     const onError = () => {

@@ -21,7 +21,8 @@ function RegisterForm() {
         const password = data.password
 
         if ( email && password ) {
-            const response = await fetch ('/users', {
+            try {
+                const response = await fetch ('http://127.0.0.1:5000/users', {
                 method: 'post',
                 body: JSON.stringify({
                     email,
@@ -30,12 +31,18 @@ function RegisterForm() {
                 headers: { 'Content-Type': 'application/json' }
             })
 
+            const data = await response.json()
+
             if ( response.ok ) {
+                localStorage.setItem('id_token', data.token)
                 successLogin()
                 reset()
             } else {
-                alert(response.statusText)
+                console.error('Registration error', data.message)
             }
+            } catch (error) {
+                console.error('Registration failed:', error)
+            }  
         }
     }
 
