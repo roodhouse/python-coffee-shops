@@ -26,17 +26,12 @@ const MainProvider = ({ children }) => {
     useEffect(() => {
         const token = authService.getToken()
         if (token) {
-            console.log('token here')
             if (!authService.isTokenExpired(token)) {
-                const cur = authService.getProfile()
-                console.log(cur)
                 setLoggedIn(true)
                 
             } else {
                 authService.logout()
             }
-        } else {
-            console.log('no token')
         }
     }, [])
 
@@ -70,8 +65,6 @@ const MainProvider = ({ children }) => {
                 console.error("Error fetching data:", error)
             })
     },[home]) 
-
-    console.log(venues)
 
         // get review of user when currentVenue changes
         useEffect(() => {

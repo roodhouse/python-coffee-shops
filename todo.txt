@@ -4,7 +4,7 @@
 
 2. backend setup and connection
                     -- test:
-                        -- add new review as new user for a different venue -- here
+                        -- add new review as new user for a different venue
                             -- need to add state for when "leave a review" is clicked
 
 
