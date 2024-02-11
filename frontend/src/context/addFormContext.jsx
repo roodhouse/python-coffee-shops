@@ -61,8 +61,7 @@ const AddFormProvider = ({ children }) => {
     // new review for existing venue
     function newReviewExistingVenue(){
         console.log(currentVenue, userData)
-        setPage('suggest')
-        setStep('details')
+        setPage('newReview')
     }
 
 

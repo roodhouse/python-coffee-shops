@@ -6,6 +6,12 @@
                     -- test:
                         -- add new review as new user for a different venue
                             -- need to add state for when "leave a review" is clicked
+                                -- add top portion of form with filled in data
+                                    - venue name
+                                    - address
+                                    - image?
+                                -- add form details
+                                -- add summary form
 
 
             -- storeSummaryIcons
