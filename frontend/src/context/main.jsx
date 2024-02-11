@@ -26,17 +26,12 @@ const MainProvider = ({ children }) => {
     useEffect(() => {
         const token = authService.getToken()
         if (token) {
-            console.log('token here')
             if (!authService.isTokenExpired(token)) {
-                const cur = authService.getProfile()
-                console.log(cur)
                 setLoggedIn(true)
                 
             } else {
                 authService.logout()
             }
-        } else {
-            console.log('no token')
         }
     }, [])
 
@@ -106,6 +101,7 @@ const MainProvider = ({ children }) => {
                         })
                     } else {
                         console.log('this user has not left a review for this venue')
+                        setReview(null)
                     }
                 }
             }
@@ -185,9 +181,14 @@ const MainProvider = ({ children }) => {
     }
 
     // select venue
-    function setVenue(venue) {
+    function setVenue(venue) { 
         setHome('store')
         setCurrentVenue(venue)
+    }
+
+    // clear venue
+    function clearVenue() {
+        setCurrentVenue(null)
     }
 
     // get single venue data
@@ -264,7 +265,7 @@ const MainProvider = ({ children }) => {
     {
         {
             home, currentCity, venueCount, listOfStates, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn, successLogin, logout,
-            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review, aggDataUpdated
+            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review, aggDataUpdated, clearVenue
         }
     }>
         {children}

@@ -8,12 +8,7 @@ import LeaveReview from './beenHere/LeaveReview'
 
 function BeenHere() {
 
-    const { review } = useMain()
-
-    // if (review) {
-    //     console.log('review from db:')
-    //     console.log(review)
-    // }
+  const { review } = useMain()
 
   return (
     <>

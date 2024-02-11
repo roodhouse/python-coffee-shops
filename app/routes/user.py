@@ -3,6 +3,7 @@ import sys
 from os import getenv
 from dotenv import load_dotenv
 from flask import Blueprint, jsonify, request, session
+from pymysql import IntegrityError
 from app.models import Users
 from app.db import get_db
 import logging
@@ -48,28 +49,32 @@ def signup():
     db = get_db()
 
     try:
-        # attempt to create new user
+        # attempt to create new user 
         newUser = Users(
             email = data['email'],
             password = data['password']
         )
-
         # save to db
         db.add(newUser)
         db.commit()
 
-    except:  # noqa: E722
-        # insert failed, send error to frontend
-        print(sys.exc_info()[0])
-        # insert failed, rollback and send error to frontend
+        # generate token
+        token_data = {
+            'user_id': newUser.id,
+            'email': newUser.email,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1) # token expires after 1 day
+        }
+        # encode token
+        token = jwt.encode(token_data, SECRET_KEY, algorithm='HS256')
+        return jsonify(token=token), 201
+
+
+    except IntegrityError:  # noqa: E722
         db.rollback()
-        return jsonify(message = 'Signup failed'), 500
-    
-    session.clear()
-    session['user_id'] = newUser.id
-    session['loggedIn'] = True
-    session.permanent = True
-    return jsonify(id = newUser.id)
+        return jsonify(message = 'Email already exists'), 400
+    except Exception as e:  # noqa: E722
+        db.rollback()
+        return jsonify(message =str(e)), 500
 
 # logout route
 @user_bp.route('users/logout', methods=['POST'])

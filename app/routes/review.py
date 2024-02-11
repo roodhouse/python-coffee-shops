@@ -118,7 +118,7 @@ def update_review(current_user, current_user_email, id):
         try:
             # update review
             if 'answers' in data: 
-                review.answers = data['answers']
+                review.answers = [data['answers']]
                 db.commit()
                 return jsonify({'message': 'Review answers were updated'})
             else:

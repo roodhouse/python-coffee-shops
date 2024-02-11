@@ -11,7 +11,7 @@ const AddFormContext = createContext();
 
 const AddFormProvider = ({ children }) => {
 
-    const { setPage, userAuthenticated, userData, aggDataUpdated  } = useMain()
+    const { setPage, userAuthenticated, userData, aggDataUpdated, currentVenue  } = useMain()
     const [ step, setStep ] = useState('venue')
     const [ formData, setFormData ] = useState({})
     const [ editReview, setEditReview ] = useState(false)
@@ -56,6 +56,13 @@ const AddFormProvider = ({ children }) => {
         } else {
             setStep('venue')
         }
+    }
+
+    // new review for existing venue
+    function newReviewExistingVenue(){
+        console.log(currentVenue, userData)
+        setPage('suggest')
+        setStep('details')
     }
 
 
@@ -485,7 +492,7 @@ const AddFormProvider = ({ children }) => {
     return <AddFormContext.Provider value = 
     {
         {
-            step, currentStep, formData, updateFormData, googlePhotos, detailQuestions, editReview, editTheReview, sendResults
+            step, currentStep, formData, updateFormData, googlePhotos, detailQuestions, editReview, editTheReview, sendResults, newReviewExistingVenue
         }
     }>
         {children}
