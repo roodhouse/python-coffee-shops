@@ -2,7 +2,7 @@ import React from 'react'
 import SelectionTitle from './selectionTitle/SelectionTitle'
 import DetailsInput from './detailsInput/DetailsInput'
 
-function DetailsSelectionForm() {
+function DetailsSelectionForm({id}) {
   return (
     <>
         <div id="detailsSelectionFormContainer">
@@ -10,7 +10,7 @@ function DetailsSelectionForm() {
                 <SelectionTitle />
             </div>
             <div id="detailsInputWrapper">
-                <DetailsInput />
+                <DetailsInput id={id} />
             </div>
         </div>
     </>

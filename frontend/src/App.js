@@ -10,6 +10,7 @@ import Join from './components/Join';
 import Register from './components/Register';
 import Store from './components/Store';
 import Dash from './components/Dashboard';
+import NewReview from './components/NewReview';
 
 function App() {
 
@@ -36,13 +37,17 @@ function App() {
                 <Store />
               </div>
 
-              
-                <div id='addWrapper' style={home === 'suggest' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem] px-[.75rem]'>
-                  <Add />
-                </div>
-                <div id='dashWrapper' style={home === 'dash' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem] px-[.75rem] w-full'>
-                  <Dash />
-                </div>
+              <div id='addWrapper' style={home === 'suggest' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem] px-[.75rem]'>
+                <Add />
+              </div>
+
+              <div id='newReviewWrapper' style={home === 'newReview' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem] px-[.75rem]'>
+                <NewReview />
+              </div>
+
+              <div id='dashWrapper' style={home === 'dash' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem] px-[.75rem] w-full'>
+                <Dash />
+              </div>
             
             <div id='joinWrapper' style={home === 'join' ? {display: 'block'} : {display: 'none'}} className='w-full px-[.75rem]'>
               <Join />

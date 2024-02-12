@@ -4,7 +4,7 @@ import { useAddForm } from '../../../../../../context/addFormContext'
 import BackButton from '../../../back/BackButton'
 import NextButton from '../../../next/NextButton'
 
-function DetailsInput() { 
+function DetailsInput({id}) { 
 
     const { register, handleSubmit, reset, formState: {errors} } = useForm()
     const { currentStep, updateFormData, detailQuestions, editReview, editTheReview } = useAddForm()
@@ -114,7 +114,7 @@ function DetailsInput() {
                         <BackButton back={'image'} />
                     </div>
                     <div id="detailSubmitWrapper" className='bg-blue rounded py-4 px-16 flex justify-center cursor-pointer text-center text-white border border-blue hover:bg-white hover:text-black'>
-                        <NextButton name={'detailSubmitButton'} id={'detailSubmitButton'} />
+                        <NextButton name={`${id}DetailSubmitButton`} id={`${id}DetailSubmitButton`} />
                     </div>
                 </div>
             </form>

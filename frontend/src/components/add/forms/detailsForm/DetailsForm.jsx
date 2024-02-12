@@ -3,7 +3,7 @@ import { useAddForm } from '../../../../context/addFormContext'
 import AddFormTitle from '../title/AddFormTitle'
 import DetailsSelectionForm from './detailsSelectionForm/DetailsSelectionForm'
 
-function DetailsForm() {
+function DetailsForm({ id }) {
 
     const { step } = useAddForm()
 
@@ -14,7 +14,7 @@ function DetailsForm() {
                 <AddFormTitle section={'Details'} />
             </div>
             <div id="detailsSectionFormWrapper" style={ step === 'details' ? {display: 'block'} : {display: 'none'}} className='mb-8'>
-                <DetailsSelectionForm />
+                <DetailsSelectionForm id={id} />
             </div>
         </div>
     </>

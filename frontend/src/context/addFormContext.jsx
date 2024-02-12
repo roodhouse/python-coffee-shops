@@ -15,6 +15,7 @@ const AddFormProvider = ({ children }) => {
     const [ step, setStep ] = useState('venue')
     const [ formData, setFormData ] = useState({})
     const [ editReview, setEditReview ] = useState(false)
+    const [ newReviewExistVenue, setNewReviewExistVenue ] = useState(false)
 
     // select step
     function currentStep(sentStep) {
@@ -29,7 +30,9 @@ const AddFormProvider = ({ children }) => {
     const reviewId = formData.review_id
 
     const sendResults = async (submission) => {
-        const submissionResults = await sendToDatabase(submission, editReview, userData, userAuthenticated, reviewId)
+        console.log(`from send results submission:`)
+        console.log(submission)
+        const submissionResults = await sendToDatabase(submission, editReview, userData, userAuthenticated, reviewId, newReviewExistVenue, currentVenue)
         if (submissionResults) {
             const aggSubmission = await aggregateResults()
             if (aggSubmission) {
@@ -38,6 +41,7 @@ const AddFormProvider = ({ children }) => {
                 setFormData({})
                 setEditReview(false)
                 aggDataUpdated(true)
+                setNewReviewExistVenue(false)
             } else {
                 console.error('Error in sendResults: aggSubmission')
             }
@@ -61,8 +65,10 @@ const AddFormProvider = ({ children }) => {
     // new review for existing venue
     function newReviewExistingVenue(){
         console.log(currentVenue, userData)
-        setPage('suggest')
+        setEditReview(false)
+        setPage('newReview')
         setStep('details')
+        setNewReviewExistVenue(true)
     }
 
 
@@ -492,7 +498,7 @@ const AddFormProvider = ({ children }) => {
     return <AddFormContext.Provider value = 
     {
         {
-            step, currentStep, formData, updateFormData, googlePhotos, detailQuestions, editReview, editTheReview, sendResults, newReviewExistingVenue
+            step, currentStep, formData, updateFormData, googlePhotos, detailQuestions, editReview, editTheReview, sendResults, newReviewExistingVenue, newReviewExistVenue
         }
     }>
         {children}
