@@ -1,4 +1,5 @@
 export const postNewReviewExistVenue = async (venue, answers, user_email, user_id) => {
+    console.log(`postNewReviewExistVenue: ${answers}`)
     const response = await fetch(`http://127.0.0.1:5000/api/reviews`, {
         method: 'POST',
         body: JSON.stringify({

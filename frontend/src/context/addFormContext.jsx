@@ -30,6 +30,7 @@ const AddFormProvider = ({ children }) => {
     const reviewId = formData.review_id
 
     const sendResults = async (submission) => {
+        console.log(`from send results submission:`)
         console.log(submission)
         const submissionResults = await sendToDatabase(submission, editReview, userData, userAuthenticated, reviewId, newReviewExistVenue, currentVenue)
         if (submissionResults) {
@@ -64,6 +65,7 @@ const AddFormProvider = ({ children }) => {
     // new review for existing venue
     function newReviewExistingVenue(){
         console.log(currentVenue, userData)
+        setEditReview(false)
         setPage('newReview')
         setStep('details')
         setNewReviewExistVenue(true)
