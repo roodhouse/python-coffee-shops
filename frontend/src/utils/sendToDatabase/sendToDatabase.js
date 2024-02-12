@@ -1,7 +1,8 @@
 import { handleNewSubmission } from "./handleNewSubmission"
 import { handleReviewUpdate } from "./handleReviewUpdate"
+import { handleNewReviewExistVenue } from "../handleNewReviewExistVenue"
 
-export const sendToDatabase = async (submission, editReview, userData, userAuthenticated, reviewId) => {
+export const sendToDatabase = async (submission, editReview, userData, userAuthenticated, reviewId, newReviewExistVenue, currentVenue) => {
     const user_email = userData.user_email
     const user_id = userData.user_id
     const venue = submission.venue
@@ -9,7 +10,7 @@ export const sendToDatabase = async (submission, editReview, userData, userAuthe
     const location = submission.location
     const address = submission.address
     const hours = submission.hours
-    if ( !editReview ) {
+    if ( !editReview || newReviewExistVenue ) {
         const rating = parseInt(submission.Summary[0].answer)
         const answers = [
             {
@@ -38,11 +39,20 @@ export const sendToDatabase = async (submission, editReview, userData, userAuthe
                 'sum' : parseInt(submission.Summary[0].answer)
             }
         ]
-        const newSubmission = await handleNewSubmission(user_id, user_email, venue, image, location, address, hours, rating, answers, editReview, reviewId)
-        if (newSubmission) {
-            return true
+        if (newReviewExistVenue) {
+            const newReviewForExistVenue = await handleNewReviewExistVenue(answers, currentVenue, user_email, user_id, newReviewExistVenue )
+            if (newReviewForExistVenue) {
+                return true
+            } else {
+                console.error('Error in sendToDatabase: handleNewReviewExistVenue')
+            }
         } else {
-            console.error('Error in sendToDatabase: handleNewSubmission')
+            const newSubmission = await handleNewSubmission(user_id, user_email, venue, image, location, address, hours, rating, answers, editReview, reviewId)
+            if (newSubmission) {
+                return true
+            } else {
+                console.error('Error in sendToDatabase: handleNewSubmission')
+            }
         }
     } else {
         const answers = submission.answers[0]

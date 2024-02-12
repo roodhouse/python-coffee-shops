@@ -2,7 +2,7 @@ import { postVenue } from "./venueAPI/VenueAPI"
 import { reviewAPI } from "./reviewAPI/ReviewAPI"
 import { updateUser } from "./userAPI/UserAPI"
 
-export const handleNewSubmission = async (user_id, user_email, venue, image, location, address, hours, rating, answers, editReview) => {
+export const handleNewSubmission = async (user_id, user_email, venue, image, location, address, hours, rating, answers, editReview, reviewId) => {
     const newVenue = await postVenue(venue, image, location, address, hours, rating)
     if (newVenue) {
         const newReview = await reviewAPI(editReview, venue, image, location, address, hours, rating, answers, user_id, user_email)

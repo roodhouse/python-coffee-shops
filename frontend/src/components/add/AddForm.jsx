@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react' 
 import VenueForm from './forms/venueForm/VenueForm'
 import MapForm from './forms/mapForm/MapForm'
 import ImageForm from './forms/imageForm/ImageForm'
@@ -35,7 +35,7 @@ function AddForm() {
             </>
             ) : ''}
             <div id="detailsFormWrapper">
-                <DetailsForm />
+                <DetailsForm id={'newVenueForm'} />
             </div>
             <div id="summaryFormWrapper">
                 <SummaryForm />

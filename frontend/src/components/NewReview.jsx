@@ -2,6 +2,7 @@ import React from 'react'
 import AddForm from './add/AddForm'
 import { useAddForm } from '../context/addFormContext'
 import NewReviewCopy from './newReview/NewReviewCopy'
+import NewReviewForm from './newReview/NewReviewForm'
 
 function NewReview() {
 
@@ -13,10 +14,10 @@ function NewReview() {
             <div id="addCopyWrapper" className='mb-8'>
                 <NewReviewCopy />
             </div>
-             {/* here */}
-            {/* <div id="addFormWrapper" style={ step === 'details' || step === 'summary' ? {marginBottom: 0} : {marginBottom: '253px'}}>
-                <AddForm />
-            </div> */}
+             
+            <div id="newReviewFormWrapper" style={ step === 'details' || step === 'summary' ? {marginBottom: 0} : {marginBottom: '253px'}}>
+                <NewReviewForm />
+            </div>
         </div>
     </>
   )
