@@ -4,6 +4,8 @@
 
 2. backend setup and connection
             - change default heart color to the result of the sum field if the user has a review for this venue - here!
+                - on click change the color and update the DB
+                    - in review.py updating route, also in updateReview.js, do I need to create a patchReview.js ?? here!
             - change icons on hover and add onClick to allow update of reviews if logged and have reviewed
             - change review to allow null values
         --individual page

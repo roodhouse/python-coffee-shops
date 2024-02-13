@@ -6,7 +6,13 @@ import { useMain } from '../../../context/main';
 
 function StoreSummaryIcons() {
 
-    const { userAuthenticated, setPage } = useMain()
+    const { userAuthenticated, setPage, review } = useMain()
+
+    let usersOverallRating;
+    if (review) {
+        console.log(review.answers[0])
+        usersOverallRating = review.answers[0].sum
+    }
 
     const handleClick = (e) => {
 
@@ -51,6 +57,9 @@ function StoreSummaryIcons() {
                 iconParent.classList.remove(['text-[#F6D95E]'])
                 iconParent.classList.add('text-[#ddd]')
             }
+
+            // conditional for what to send to the fetch request
+            // going to need new rating, user data...
         } else {
             setPage('join')
         }
@@ -60,13 +69,13 @@ function StoreSummaryIcons() {
   return (
     <>
         <div id="storeSummaryIconsContainer" className='flex justify-evenly text-5xl'>
-            <div id="noIconContainer" className='text-[#ddd]' onClick={handleClick}>
+            <div id="noIconContainer" className={usersOverallRating === 0 ? 'text-red' : 'text-[#ddd]'} onClick={handleClick}>
                 <FaHeartCrack />
             </div>
-            <div id="sometimesIconContainer" className='text-[#ddd]' onClick={handleClick}>
+            <div id="sometimesIconContainer" className={usersOverallRating === 1 ? 'text-[#f6D95E]' : 'text-[#ddd]'} onClick={handleClick}>
                 <FaHeart />
             </div>
-            <div id="yesIconContainer" className='text-[#ddd]' onClick={handleClick}>
+            <div id="yesIconContainer" className={usersOverallRating === 2 ? 'text-green' : 'text-[#ddd]'} onClick={handleClick}>
                 <FaHeart />
             </div>
         </div>

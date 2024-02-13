@@ -1,16 +1,11 @@
 import React from 'react'
-import { useMain } from '../context/main'
 import StoreHero from './store/StoreHero'
 import StoreStats from './store/StoreStats'
 import StoreSummary from './store/StoreSummary'
 import StoreDetails from './store/StoreDetails'
 import StoreFooter from './store/StoreFooter'
 
-// need to retrieve data from database and replace all info below with it
-
 function Store() {
-
-    const { currentVenue } = useMain()
 
   return (
     <>

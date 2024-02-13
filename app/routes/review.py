@@ -1,3 +1,4 @@
+from crypt import methods
 from os import getenv
 import sys
 from dotenv import load_dotenv
@@ -105,31 +106,95 @@ def new_review(current_user, current_user_email):
         db.rollback()
         return jsonify(message = 'review failed to be added'), 500
     
-# update review
+# update review, single answer or all answers
 @review_bp.route('/api/reviews/<int:id>', methods=['PATCH'])
 @token_required
 def update_review(current_user, current_user_email, id):
     data = request.get_json()
     db = get_db()
 
-    review = db.query(Reviews).filter_by(id=id, user_email=current_user_email).one_or_none()
+    review = db.query(Reviews).filter_by(id = id, user_email = current_user_email).one_or_none()
 
     if review:
         try:
-            # update review
-            if 'answers' in data: 
-                review.answers = [data['answers']]
-                db.commit()
-                return jsonify({'message': 'Review answers were updated'})
+            # check if we are updating a single answer or all of the answers
+            if 'answers' in data:
+                # determine if updating all answers or just one based on the structure of 'answers' in the request
+                if isinstance(data['answers'], dict) and len(data['answers']) == 1:
+                    # then this is a single answer
+                    for key, value in data['answers'].items():
+                        # make sure the key exists
+                        if key in review.answers[0]:
+                            review.answers[0][key] = value
+                        else:
+                            return jsonify({'error': f'Answer {key} does not exist'}), 400
+                else:
+                    #update all the answers
+                    review.answers = [data['answers']]
+
+                db.commit
+                return jsonify({'message': 'Review updated successfully'})
             else:
-                return jsonify({'message': 'No updatable fields provided'}), 400
-        
+                return jsonify({'message': 'No updatable fields provided'})
         except Exception as e:
             logging.error(f'Exception: {e}')
             db.rollback()
-            return jsonify({'error': 'Failed to update review'}), 500
+            return jsonify({'message': 'Failed to update review'}), 500
     else:
-        return jsonify({'error': 'Review was not found or you do not have permission to update this review'}), 404
+        return jsonify({'message': 'Review was not found, or you do not have permission to update this review'}), 404
+    
+# # update review
+# @review_bp.route('/api/reviews/<int:id>', methods=['PATCH'])
+# @token_required
+# # update review (all answers)
+# def update_review(current_user, current_user_email, id):
+#     data = request.get_json()
+#     db = get_db()
+
+#     review = db.query(Reviews).filter_by(id=id, user_email=current_user_email).one_or_none()
+
+#     if review:
+#         try:
+#             # update review
+#             if 'answers' in data: 
+#                 review.answers = [data['answers']]
+#                 db.commit()
+#                 return jsonify({'message': 'Review answers were updated'})
+#             else:
+#                 return jsonify({'message': 'No updatable fields provided'}), 400
+        
+#         except Exception as e:
+#             logging.error(f'Exception: {e}')
+#             db.rollback()
+#             return jsonify({'error': 'Failed to update review'}), 500
+#     else:
+#         return jsonify({'error': 'Review was not found or you do not have permission to update this review'}), 404
+
+# # update review (one answer only)
+# def update_review_single_answer(current_user, current_user_email, id):
+#     data = request.get_json()
+#     db = get_db()
+
+#     review = db.query(Reviews).filter_by(id=id, user_email=current_user_email).one_or_none()
+
+#     if review:
+#         try:
+#             # update review
+#             if 'answers' in data: 
+#                 # Merge the changes into the existing answers
+#                 for key, value in data['answers'].items():
+#                     review.answers[key] = value
+#                 db.commit()
+#                 return jsonify({'message': 'Single review answer updated'})
+#             else:
+#                 return jsonify({'message': 'No updatable fields provided'}), 400
+        
+#         except Exception as e:
+#             logging.error(f'Exception: {e}')
+#             db.rollback()
+#             return jsonify({'error': 'Failed to single answer in review'}), 500
+#     else:
+#         return jsonify({'error': 'Review was not found or you do not have permission to update this review'}), 404
     
 # delete review
 @review_bp.route('/api/reviews/<int:id>', methods=['DELETE'])
