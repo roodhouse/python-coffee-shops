@@ -30,8 +30,7 @@ const AddFormProvider = ({ children }) => {
     const reviewId = formData.review_id
 
     const sendResults = async (submission) => {
-        console.log(`from send results submission:`)
-        console.log(submission)
+        console.log(`from sendResults currentVenue: ${currentVenue}`)
         const submissionResults = await sendToDatabase(submission, editReview, userData, userAuthenticated, reviewId, newReviewExistVenue, currentVenue)
         if (submissionResults) {
             const aggSubmission = await aggregateResults()
