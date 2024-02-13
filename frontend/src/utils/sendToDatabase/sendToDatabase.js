@@ -1,15 +1,22 @@
 import { handleNewSubmission } from "./handleNewSubmission"
 import { handleReviewUpdate } from "./handleReviewUpdate"
 
-export const sendToDatabase = async (submission, editReview, userData, userAuthenticated, reviewId) => {
+export const sendToDatabase = async (submission, editReview, userData, userAuthenticated, reviewId, newReviewExistVenue, currentVenue) => {
+    console.log(`from sendToDatabase currentVenue: ${currentVenue}`)
+    let venue;
+    if ( newReviewExistVenue ) {
+        venue = currentVenue
+    } else {
+        venue = submission.venue
+    }
     const user_email = userData.user_email
     const user_id = userData.user_id
-    const venue = submission.venue
+    // const venue = submission.venue
     const image = submission.image
     const location = submission.location
     const address = submission.address
     const hours = submission.hours
-    if ( !editReview ) {
+    if ( editReview === false || newReviewExistVenue === true ) {
         const rating = parseInt(submission.Summary[0].answer)
         const answers = [
             {
@@ -38,7 +45,8 @@ export const sendToDatabase = async (submission, editReview, userData, userAuthe
                 'sum' : parseInt(submission.Summary[0].answer)
             }
         ]
-        const newSubmission = await handleNewSubmission(user_id, user_email, venue, image, location, address, hours, rating, answers, editReview, reviewId)
+        console.log(`sendToDatabase: ${venue}`)
+        const newSubmission = await handleNewSubmission(user_id, user_email, venue, image, location, address, hours, rating, answers, editReview, reviewId, newReviewExistVenue)
         if (newSubmission) {
             return true
         } else {
