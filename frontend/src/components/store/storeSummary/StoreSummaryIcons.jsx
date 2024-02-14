@@ -1,55 +1,32 @@
 import React from 'react'
 import { FaHeartCrack, FaHeart } from "react-icons/fa6";
 import { useMain } from '../../../context/main';
-
-// change default heart color to the result of the sum field if the user has a review for this venue
+import { useAddForm } from '../../../context/addFormContext';
+import { ratingChange } from '../../../utils/ratingChange/ratingChange';
 
 function StoreSummaryIcons() {
 
-    const { userAuthenticated, setPage } = useMain()
+    const { userAuthenticated, setPage, review } = useMain()
+    const { sendResults } = useAddForm()
 
-    const handleClick = (e) => {
+    let usersOverallRating;
+    if (review) {
+        usersOverallRating = review.answers[0].sum
+    }
+
+    const handleClick = async (e) => {
 
         if (userAuthenticated) {
-
-            const iconParent = e.currentTarget
-    
-            function getSiblings(element) {
-                const parent = element.parentNode;
-    
-                const children = Array.from(parent.children)
-    
-                const siblings = children.filter(child => child !== element)
-    
-                return siblings
-            }
-    
-            const siblings = getSiblings(iconParent)
-    
-            for (let i = 0; i < siblings.length; i++ ) {
-                if (siblings[i].classList.contains('text-red') || siblings[i].classList.contains('text-green') || siblings[i].classList.contains('text-[#F6D95E]')) {
-                    siblings[i].classList.replace('text-red', 'text-[#ddd]')
-                    siblings[i].classList.replace('text-green', 'text-[#ddd]')
-                    siblings[i].classList.replace('text-[#F6D95E]', 'text-[#ddd]')
-                }
-            }
-    
-            if ( iconParent.classList.contains('text-[#ddd]') ) {
-                if ( iconParent.id === 'noIconContainer' ) {
-                    iconParent.classList.remove('text-[#ddd]')
-                    iconParent.classList.add('text-red')
-                } else if ( iconParent.id === 'yesIconContainer' ) {
-                    iconParent.classList.remove('text-[#ddd]')
-                    iconParent.classList.add('text-green')
+            try {
+                const submission = await ratingChange(e, review)
+                const category = 'single'
+                if (submission) {
+                    sendResults(submission, category)
                 } else {
-                    iconParent.classList.remove('text-[#ddd]')
-                    iconParent.classList.add('text-[#F6D95E]')
+                    console.error('error in ratingChange')
                 }
-            } else {
-                iconParent.classList.remove(['text-red'])
-                iconParent.classList.remove(['text-green'])
-                iconParent.classList.remove(['text-[#F6D95E]'])
-                iconParent.classList.add('text-[#ddd]')
+            } catch (error) {
+                console.error(`Error in StoreSummaryIcons: ratingChange`, error)
             }
         } else {
             setPage('join')
@@ -60,13 +37,13 @@ function StoreSummaryIcons() {
   return (
     <>
         <div id="storeSummaryIconsContainer" className='flex justify-evenly text-5xl'>
-            <div id="noIconContainer" className='text-[#ddd]' onClick={handleClick}>
+            <div id="noIconContainer" className={usersOverallRating === 0 ? 'text-red' : 'text-[#ddd]'} onClick={handleClick}>
                 <FaHeartCrack />
             </div>
-            <div id="sometimesIconContainer" className='text-[#ddd]' onClick={handleClick}>
+            <div id="sometimesIconContainer" className={usersOverallRating === 1 ? 'text-[#f6D95E]' : 'text-[#ddd]'} onClick={handleClick}>
                 <FaHeart />
             </div>
-            <div id="yesIconContainer" className='text-[#ddd]' onClick={handleClick}>
+            <div id="yesIconContainer" className={usersOverallRating === 2 ? 'text-green' : 'text-[#ddd]'} onClick={handleClick}>
                 <FaHeart />
             </div>
         </div>

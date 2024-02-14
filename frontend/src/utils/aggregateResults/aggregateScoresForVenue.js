@@ -1,5 +1,4 @@
 export async function aggregateScoresForVenue(allReviews, venue) {
-    console.log('allReviews from aggregateScoresForVenue', allReviews)
     let pairedAnswers = []
     let c1 = [], c2 = [], p1 = [], p2 = [], p3 = [], p4 = [], p5 = [], ser1 = [], ser2 = [], ser3 = [], ser4 = [], ser5 = [];
     let sp1 = [], sp2 = [], sp3 = [], sp4 = [], sp5 = [], sp6 = [], sp7 = [], sp8 = [], sp9 = [], sum = [];
@@ -11,7 +10,7 @@ export async function aggregateScoresForVenue(allReviews, venue) {
         allReviewsForVenue[0].forEach(review => {
 
             if (!review.answers[0]) {
-                console.log("Review answers are missing or malformed", review)
+                console.error("Review answers are missing or malformed", review)
             } 
             
             Object.keys(review.answers[0]).forEach(key => {

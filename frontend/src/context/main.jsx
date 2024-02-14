@@ -69,13 +69,10 @@ const MainProvider = ({ children }) => {
         // get review of user when currentVenue changes
         useEffect(() => {
             if (userAuthenticated) {
-                // if the userData.reviews contains the name of currentVenue then fetch the review based on user email
                 if ( userData.reviews === null ) {
-                    console.log('this user has not left any reviews')
+                    setReview(null)
                 } else {
                     if (userData.reviews.includes(currentVenue)) {
-
-                        console.log(currentVenue)
                         
                         const encodedVenue = encodeURIComponent(currentVenue)
                         const encodedUser = encodeURIComponent(userData.email)
@@ -100,21 +97,12 @@ const MainProvider = ({ children }) => {
                             console.error("Error fetching user review data", error)
                         })
                     } else {
-                        console.log('this user has not left a review for this venue')
                         setReview(null)
                     }
                 }
             }
         },[currentVenue])
     
-    // useEffect(() => {
-    //     if (venues !== null) {
-    //         console.log(venues.venues[0])
-    //         console.log(venues.venues.length)
-    //     }
-    // },[venues])
-
-
     // login success
     const successLogin = (e) => {
         setLoggedIn(true)

@@ -94,10 +94,7 @@ def get_aggregate(name):
 # post aggregate
 @aggregate_bp.route('/api/aggregate', methods=['POST'])
 def new_aggregate():
-    print('test from venueAggregates new_aggreate()')
     data = request.get_json()
-    print('the data recieved is: ')
-    print(data)
     db = get_db()
 
     try:

@@ -9,10 +9,7 @@ function LeaveReview() {
 
     const handleClick = () => {
         if (userAuthenticated) {
-            console.log('take to shortened review form')
             newReviewExistingVenue()
-            // need to pass the current venue as the name 
-            // create form first then connect it to backend
         } else {
             setPage('join')
         }

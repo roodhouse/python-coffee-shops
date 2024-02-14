@@ -1,9 +1,9 @@
 import { handleNewSubmission } from "./handleNewSubmission"
 import { handleReviewUpdate } from "./handleReviewUpdate"
 
-export const sendToDatabase = async (submission, editReview, userData, userAuthenticated, reviewId, newReviewExistVenue, currentVenue) => {
-    console.log(`from sendToDatabase currentVenue: ${currentVenue}`)
+export const sendToDatabase = async (submission, category, editReview, userData, userAuthenticated, reviewId, newReviewExistVenue, currentVenue) => {
     let venue;
+    let answers;
     if ( newReviewExistVenue ) {
         venue = currentVenue
     } else {
@@ -11,14 +11,13 @@ export const sendToDatabase = async (submission, editReview, userData, userAuthe
     }
     const user_email = userData.user_email
     const user_id = userData.user_id
-    // const venue = submission.venue
     const image = submission.image
     const location = submission.location
     const address = submission.address
     const hours = submission.hours
-    if ( editReview === false || newReviewExistVenue === true ) {
+    if ( (editReview === false && category === 'full') || (newReviewExistVenue === true && category === 'full' )) {
         const rating = parseInt(submission.Summary[0].answer)
-        const answers = [
+        answers = [
             {
                 'p1' : parseInt(submission.Productivity[0].answer),
                 'p2' : parseInt(submission.Productivity[1].answer),
@@ -45,7 +44,6 @@ export const sendToDatabase = async (submission, editReview, userData, userAuthe
                 'sum' : parseInt(submission.Summary[0].answer)
             }
         ]
-        console.log(`sendToDatabase: ${venue}`)
         const newSubmission = await handleNewSubmission(user_id, user_email, venue, image, location, address, hours, rating, answers, editReview, reviewId, newReviewExistVenue)
         if (newSubmission) {
             return true
@@ -53,7 +51,7 @@ export const sendToDatabase = async (submission, editReview, userData, userAuthe
             console.error('Error in sendToDatabase: handleNewSubmission')
         }
     } else {
-        const answers = submission.answers[0]
+        answers = submission.answers[0]        
         const newUpdate = await handleReviewUpdate(answers, reviewId)
         if (newUpdate){
             return true

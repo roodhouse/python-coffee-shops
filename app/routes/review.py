@@ -1,3 +1,4 @@
+from crypt import methods
 from os import getenv
 import sys
 from dotenv import load_dotenv
@@ -7,6 +8,7 @@ from app.models import Reviews, Users
 from app.db import get_db
 import logging
 from app.utils import token_required
+from sqlalchemy.orm import sessionmaker
 
 from app.models.Venues import Venues
 
@@ -79,7 +81,6 @@ def get_user_review(current_user, current_user_email, venue_name, user_email):
 @token_required
 def new_review(current_user, current_user_email):
     data = request.get_json()
-    print(data)
     db = get_db()
 
     user = db.query(Users).filter_by(id=current_user).one_or_none()

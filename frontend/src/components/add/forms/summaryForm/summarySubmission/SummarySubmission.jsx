@@ -7,7 +7,8 @@ function SummarySubmission() {
     const { formData, editTheReview, sendResults } = useAddForm()
 
     const submitReviewForm = () => {
-        sendResults(formData)
+        const category = 'full'
+        sendResults(formData, category)
         editTheReview(false)
     }
 
