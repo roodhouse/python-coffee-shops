@@ -3,7 +3,7 @@ from os import getenv
 import sys
 from dotenv import load_dotenv
 from flask import Blueprint, jsonify, request
-from app.models import Venues, VenueAggregates
+from app.models import Venues, VenueAggregates, Users
 from app.db import get_db
 import logging
 from app.utils import token_required
@@ -41,9 +41,7 @@ def get_venue(name):
     db = get_db()
 
     venue = db.query(Venues).filter_by(name = name).one_or_none()
-    rating = db.query(VenueAggregates).filter_by(name = name).one_or_none()
-# here, can't create because rating.sum is not available because VenueAggregates is not seeding correctly?
-    # should I seed data in venue aggregates and then tackle the issue?
+    
     if venue:
         venue_details = {
             'venue_id': venue.id,
@@ -51,9 +49,16 @@ def get_venue(name):
             'image': venue.image,
             'location': venue.location,
             'address': venue.address,
-            # 'rating': rating.sum,
             'rating': venue.rating,
-            'review_count': venue.review_count
+            'review_count': venue.review_count,
+            'reviews' : [
+                {
+                    'user_email': review.user_email, 
+                    'avatar' : db.query(Users.avatar).filter_by(email=review.user_email).scalar(),
+                    'answers' : review.answers
+                } 
+                
+                for review in venue.reviews]
         }
         return jsonify(venue_details)
     else:

@@ -186,6 +186,8 @@ const MainProvider = ({ children }) => {
         .then((response) => response.json())
         .then((data) => {
             setCurrentVenueData(data)
+            const reviews = data.reviews
+            console.log('reviews:', reviews)
             fetch(`http://127.0.0.1:5000/api/aggregate/${encodedName}`)
             .then((aggResponse) => aggResponse.json())
             .then((aggData) => {
@@ -200,6 +202,8 @@ const MainProvider = ({ children }) => {
         console.error('Error fetching venue data:', error)
         })
     },[currentVenue, aggDataUpdate])
+
+    console.log(currentVenueData)
 
     // agg data updated function
     function aggDataUpdated(data) {

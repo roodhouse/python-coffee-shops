@@ -1,5 +1,5 @@
 from app.db import Base
-from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, null, JSON
+from sqlalchemy import Column, Integer, String, ForeignKey, JSON
 from sqlalchemy.orm import relationship
 
 class Reviews(Base):

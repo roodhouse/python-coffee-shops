@@ -1,4 +1,5 @@
-from app.models import Comments, Reviews, Users, Venues, VenueAggregates
+from sqlalchemy import null
+from app.models import Comments, Reviews, Users, Venues
 from app.db import Session, Base, engine
 
 # Drop and rebuild tables
@@ -7,12 +8,13 @@ Base.metadata.create_all(engine)
 
 db = Session()
 
-# insert user
+# insert users
 db.add_all([
     Users(
         email='rughjm@gmail.com', 
         password='12345', 
-        review_ids=["Perky Beans", "Scooter\'s Coffee"]
+        review_ids=["Perky Beans", "Scooter\'s Coffee"],
+        avatar = '/assets/meAgain.jpeg'
     ),
     Users(
         email='rooinfo@gmail.com', 
@@ -32,48 +34,13 @@ db.add_all([
         address = '2080 N US Hwy 183 #210, Leander, TX 78641',
         hours = [
             {
-                'Sun': [
-                    {
-                        'open': '5am',
-                        'close': '8pm'
-                    }
-                ],
-                'Mon': [
-                    {
-                        'open' : '5am',
-                        'close' : '8pm'
-                    }
-                ],
-                'Tues': [
-                    {
-                        'open' : '5am',
-                        'close' : '8pm'
-                    }
-                ],
-                'Wed': [
-                    {
-                        'open' : '5am',
-                        'close' : '8pm'
-                    }
-                ],
-                'Thurs': [
-                    {
-                        'open' : '5am',
-                        'close' : '8pm'
-                    }
-                ],
-                'Fri': [
-                    {
-                        'open' : '5am',
-                        'close' : '8pm'
-                    }
-                ],
-                'Sat': [
-                    {
-                        'open' : '5am',
-                        'close' : '8pm'
-                    }
-                ],
+                'Sun': [{'open': '5am','close': '8pm'}],
+                'Mon': [{'open' : '5am','close' : '8pm'}],
+                'Tues': [{'open' : '5am','close' : '8pm'}],
+                'Wed': [{'open' : '5am','close' : '8pm'}],
+                'Thurs': [{'open' : '5am','close' : '8pm'}],
+                'Fri': [{'open' : '5am','close' : '8pm'}],
+                'Sat': [{'open' : '5am','close' : '8pm'}],
             }
         ],
         rating = 1.5,
@@ -86,48 +53,13 @@ db.add_all([
         address = '3625 N US Hwy 183, Leander, TX 78641',
         hours = [
             {
-                'Sun': [
-                    {
-                        'open': '5am',
-                        'close': '8pm'
-                    }
-                ],
-                'Mon': [
-                    {
-                        'open' : '5am',
-                        'close' : '8pm'
-                    }
-                ],
-                'Tues': [
-                    {
-                        'open' : '5am',
-                        'close' : '8pm'
-                    }
-                ],
-                'Wed': [
-                    {
-                        'open' : '5am',
-                        'close' : '8pm'
-                    }
-                ],
-                'Thurs': [
-                    {
-                        'open' : '5am',
-                        'close' : '8pm'
-                    }
-                ],
-                'Fri': [
-                    {
-                        'open' : '5am',
-                        'close' : '8pm'
-                    }
-                ],
-                'Sat': [
-                    {
-                        'open' : '5am',
-                        'close' : '8pm'
-                    }
-                ],
+                'Sun': [{'open': '5am','close': '8pm'}],
+                'Mon': [{'open' : '5am','close' : '8pm'}],
+                'Tues': [{'open' : '5am','close' : '8pm'}],
+                'Wed': [{'open' : '5am','close' : '8pm'}],
+                'Thurs': [{'open' : '5am','close' : '8pm'}],
+                'Fri': [{'open' : '5am','close' : '8pm'}],
+                'Sat': [{'open' : '5am','close' : '8pm'}],
             }
         ],
         rating = 1,
@@ -279,65 +211,5 @@ db.add_all([
 ])
 
 db.commit()
-
-# insert aggregates
-# db.add_all([
-#     VenueAggregates(
-#         # id = 1,
-#         name = 'Perky Beans',
-#         c1 = 1.5,
-#         c2 = 0.75,
-#         p1 = 1.25,
-#         p2 = 0.75,
-#         p3 = 1.25,
-#         p4 = 1,
-#         p5 = 1,
-#         p6 = 0.5,
-#         ser1 = 1.5,
-#         ser2 = 1.25,
-#         ser3 = 0.75,
-#         ser4 = 0.75,
-#         ser5 = 1.25,
-#         sp1 = 1,
-#         sp2 = 1,
-#         sp3 = 1,
-#         sp4 = 1.5,
-#         sp5 = 1.25,
-#         sp6 = 1.25,
-#         sp7 = 1.25,
-#         sp8 = 0,
-#         sp9 = 0.5,
-#         sum = 1.25
-#     ),
-#     VenueAggregates(
-#         # id = 2,
-#         name = 'Scooter\'s Coffee',
-#         c1 = 1.5,
-#         c2 = 1,
-#         p1 = 1.5,
-#         p2 = 1,
-#         p3 = 1,
-#         p4 = 1,
-#         p5 = 0,
-#         p6 = 0,
-#         ser1 = 1.5,
-#         ser2 = 1.25,
-#         ser3 = 1,
-#         ser4 = 1,
-#         ser5 = 1,
-#         sp1 = 1,
-#         sp2 = 2,
-#         sp3 = 0,
-#         sp4 = 1.5,
-#         sp5 = 1.5,
-#         sp6 = 1,
-#         sp7 = 1,
-#         sp8 = 0,
-#         sp9 = 1,
-#         sum = 1
-#     )
-# ])
-
-# db.commit()
 
 db.close()
