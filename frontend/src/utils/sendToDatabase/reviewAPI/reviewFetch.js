@@ -1,5 +1,4 @@
 export async function reviewFetch(venue, answers, user_id, user_email) {
-    console.log(venue)
     const reviewResponse = await fetch('http://127.0.0.1:5000/api/reviews', {
         method: 'POST',
         body: JSON.stringify({

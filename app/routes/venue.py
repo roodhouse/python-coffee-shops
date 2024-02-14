@@ -89,7 +89,6 @@ def get_last_venue():
 @token_required
 def new_venue(current_user, current_user_email):
     data = request.get_json()
-    print(data)
     db = get_db()
 
     try:

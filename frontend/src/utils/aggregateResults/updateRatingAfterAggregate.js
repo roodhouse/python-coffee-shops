@@ -1,6 +1,5 @@
 export async function updateRatingAfterAggregate(venue, rating) { 
     const encodedName = encodeURIComponent(venue)
-    console.log(`the rating is: ${rating} and the type is ${typeof(rating)}`)
     try {
         await fetch(`http://127.0.0.1:5000/api/venues/${encodedName}`, {
             method: 'PUT',

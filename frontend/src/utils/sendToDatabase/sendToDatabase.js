@@ -11,7 +11,6 @@ export const sendToDatabase = async (submission, category, editReview, userData,
     }
     const user_email = userData.user_email
     const user_id = userData.user_id
-    // const venue = submission.venue
     const image = submission.image
     const location = submission.location
     const address = submission.address
@@ -52,21 +51,8 @@ export const sendToDatabase = async (submission, category, editReview, userData,
             console.error('Error in sendToDatabase: handleNewSubmission')
         }
     } else {
-        let category;
-        if (Array.isArray(submission)) {
-            console.log('array')
-            console.log(submission)
-            console.log(typeof(submission[1]))
-            category = 'single'
-            answers = submission
-            console.log(typeof(answers))
-        } else {
-            console.log('not array')
-            category = 'full'
-            answers = submission.answers[0]
-        }
-        
-        const newUpdate = await handleReviewUpdate(answers, reviewId, category)
+        answers = submission.answers[0]        
+        const newUpdate = await handleReviewUpdate(answers, reviewId)
         if (newUpdate){
             return true
         } else {

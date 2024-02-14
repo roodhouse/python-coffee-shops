@@ -129,8 +129,6 @@ def update_user(current_user, current_user_email, id):
 
     user = db.query(Users).filter_by(id=current_user).one_or_none()
     
-    print(data)
-
     if user and user.id == int(id):
         try:
             # update user with review
