@@ -1,17 +1,22 @@
 import React from 'react'
 import { FaHeartCrack, FaHeart } from "react-icons/fa6";
 import { useMain } from '../../../context/main';
+import { useAddForm } from '../../../context/addFormContext';
 
 // change default heart color to the result of the sum field if the user has a review for this venue
 
 function StoreSummaryIcons() {
 
     const { userAuthenticated, setPage, review } = useMain()
+    const { sendResults } = useAddForm()
 
     let usersOverallRating;
     if (review) {
         console.log(review.answers[0])
+        console.log(review.answers)
         usersOverallRating = review.answers[0].sum
+        console.log(usersOverallRating)
+        console.log(`usersOverallRating typeof: ${typeof(usersOverallRating)}`)
     }
 
     const handleClick = (e) => {
@@ -59,7 +64,23 @@ function StoreSummaryIcons() {
             }
 
             // conditional for what to send to the fetch request
-            // going to need new rating, user data...
+            // need to pass in the entire answer bank and replace sum here then send to db -- here~~~!
+            let submission;
+            if ( iconParent.id === 'noIconContainer' ) {
+                console.log('no')
+                submission = ['sum', 0]
+                console.log(submission)
+                console.log(`typeof submission: ${typeof(submission)}`)
+                
+            } else if (iconParent.id === 'sometimesIconContainer') {
+                 console.log('sometimes')
+                 submission = ['sum', 1]
+            } else {
+                submission = ['sum', 2]
+            }
+            // editTheReview(submission)
+            const category = 'single'
+            sendResults(submission, category)
         } else {
             setPage('join')
         }

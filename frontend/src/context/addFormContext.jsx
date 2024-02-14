@@ -11,7 +11,7 @@ const AddFormContext = createContext();
 
 const AddFormProvider = ({ children }) => {
 
-    const { setPage, userAuthenticated, userData, aggDataUpdated, currentVenue  } = useMain()
+    const { setPage, userAuthenticated, userData, aggDataUpdated, currentVenue, review  } = useMain()
     const [ step, setStep ] = useState('venue')
     const [ formData, setFormData ] = useState({})
     const [ editReview, setEditReview ] = useState(false)
@@ -27,15 +27,22 @@ const AddFormProvider = ({ children }) => {
         setFormData({...formData, ...sentData})
     }
 
-    const reviewId = formData.review_id
-
-    const sendResults = async (submission) => {
+    const sendResults = async (submission, category) => {
+        let reviewId;
+        if (category === 'full') {
+            reviewId = formData.review_id
+        } else {
+            reviewId = review.review_id
+        }
         console.log(`from sendResults currentVenue: ${currentVenue}`)
-        const submissionResults = await sendToDatabase(submission, editReview, userData, userAuthenticated, reviewId, newReviewExistVenue, currentVenue)
+        console.log(reviewId)
+        const submissionResults = await sendToDatabase(submission, category, editReview, userData, userAuthenticated, reviewId, newReviewExistVenue, currentVenue)
         if (submissionResults) {
             const aggSubmission = await aggregateResults()
             if (aggSubmission) {
-                setPage('thankYou')
+                if (category === 'full') {
+                    setPage('thankYou')
+                }
                 setStep('venue')
                 setFormData({})
                 setEditReview(false)
