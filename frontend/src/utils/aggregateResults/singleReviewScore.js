@@ -4,7 +4,15 @@ export async function singleReviewScore(allReviews, venue) {
         return []
     }
  
-    const aggScore = Object.values(reviewForVenue.answers[0]).map(answer => parseFloat(answer))
+    // const aggScore = Object.values(reviewForVenue.answers[0])
+    //     .map(answer => parseFloat(answer))
+    //     .filter(answer => !isNaN(answer))
+
+    const aggScore = Object.values(reviewForVenue.answers[0])
+        .map(answer => {
+            const parsedAnswer = parseFloat(answer)
+            return isNaN(parsedAnswer) ? null : parsedAnswer
+        })
 
     return aggScore
 }

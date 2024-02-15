@@ -24,8 +24,6 @@ const AddFormProvider = ({ children }) => {
 
     // update data from forms
     function updateFormData(sentData) {
-        console.log('sent data from updateFormData funcion')
-        console.log(sentData)
         setFormData({...formData, ...sentData})
     }
 

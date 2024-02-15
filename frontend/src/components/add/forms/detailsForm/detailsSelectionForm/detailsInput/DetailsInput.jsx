@@ -9,36 +9,46 @@ function DetailsInput({id}) {
     const { register, handleSubmit, reset, formState: {errors} } = useForm()
     const { currentStep, updateFormData, detailQuestions, editReview, editTheReview, formData } = useAddForm()
     const [ currentAnswers, setCurrentAnswers ] = useState({})
-
+    const [ isFormSubmitted, setIsFormSubmitted ] = useState(false)
 
     const onSubmit = () => {    
-        currentStep('summary')
-        updateFormData(currentAnswers)
-        reset()
+     console.log(currentAnswers)
+     let comment = document.getElementById(`${id}Comment`)
+     console.log('comment.value before if is:')
+     console.log(comment.value)
+     if (comment.value !== '') {
+        console.log('comment value inside of if is:', comment.value)
+        setCurrentAnswers((prevStates) => {
+            if (!editReview) {
+                return {
+                    ...prevStates,
+                    com: comment.value
+                }
+            } else {
+                return prevStates.map((answer, index) => {
+                    if (index === 0) {
+                        return {
+                            ...answer,
+                            com: comment.value
+                        }
+                    }
+                    return answer
+                })
+            }
+        })
+        
+     }
+        setIsFormSubmitted(true)
     }
 
-    // here !
-
-    // const onSubmit = () => {    
-    //  console.log(currentAnswers)
-    //  let comment = document.getElementById(`${id}Comment`)
-    //  console.log(comment.value)
-    //  if (comment.value !== '') {
-    //     if (!editReview) {
-    //         setCurrentAnswers((prevStates) => ({
-    //             ...prevStates,
-    //             'com' : comment.value
-    //         }))
-    //     } else {
-    //         currentAnswers[0]['com'] = comment.value
-    //     }
-    //  }
-    //     currentStep('summary')
-    //     updateFormData(currentAnswers)
-    //     reset()
-    // }
-
-    // console.log(currentAnswers)
+    useEffect(() => {
+        if (isFormSubmitted) {
+            currentStep('summary')
+            updateFormData(currentAnswers)
+            reset()
+            setIsFormSubmitted(false)
+        }
+    },[isFormSubmitted])
 
     const onError = () => {
         console.log('error in details')
@@ -134,7 +144,7 @@ function DetailsInput({id}) {
                     </div>
                 ))}
                 <div id="commentContainer">
-                    <textarea name={`${id}Comment`} id={`${id}Comment`} cols="10" rows="5" maxLength={100} placeholder={`Leave a short comment about ${formData.venue}`} className='w-full mb-8 bg-[#f5f5f5] rounded p-3'></textarea>
+                    <textarea name={`${id}Comment`} id={`${id}Comment`} cols="10" rows="5" maxLength={100} {...register('comment')} placeholder={`Leave a short comment about ${formData.venue}`} className='w-full mb-8 bg-[#f5f5f5] rounded p-3'></textarea>
                 </div>
                 <div id="detailInputButtonContainer" className='flex justify-between'>
                     <div id="detailInputBackButtonWrapper">
