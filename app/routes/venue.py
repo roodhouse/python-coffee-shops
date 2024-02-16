@@ -55,7 +55,8 @@ def get_venue(name):
                 {
                     'user_email': review.user_email, 
                     'avatar' : db.query(Users.avatar).filter_by(email=review.user_email).scalar(),
-                    'answers' : review.answers
+                    'answers' : review.answers,
+                    'date' : review.date
                 } 
                 
                 for review in venue.reviews]

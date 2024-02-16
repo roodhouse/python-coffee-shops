@@ -8,6 +8,7 @@ class Reviews(Base):
     venue_name = Column(String(250), ForeignKey('venues.name'), nullable=False)
     user_email = Column(String(250), ForeignKey('users.email'), nullable=False)
     answers = Column(JSON)
+    date = Column(String(250), nullable=False)
     
     # define relationships
     venue_rated = relationship('Venues', back_populates='reviews')

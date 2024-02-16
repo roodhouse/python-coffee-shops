@@ -15,6 +15,7 @@ export const sendToDatabase = async (submission, category, editReview, userData,
     const location = submission.location
     const address = submission.address
     const hours = submission.hours
+
     if ( (editReview === false && category === 'full') || (newReviewExistVenue === true && category === 'full' )) {
 
         const ratingAnswer = submission?.Summary?.[0]?.answer

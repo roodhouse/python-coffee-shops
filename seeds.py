@@ -102,7 +102,8 @@ db.add_all([
                 'sp9' : 1,
                 'sum' : 0
             }
-        ]
+        ],
+        date = '01/08/2024'
     ),
     Reviews(
         venue_name = 'Scooter\'s Coffee',
@@ -133,7 +134,8 @@ db.add_all([
                 'sp9' : 1,
                 'sum' : 2
             }
-        ]
+        ],
+        date = '01/13/2024'
     ),
     Reviews(
         venue_name = 'Perky Beans',
@@ -164,7 +166,8 @@ db.add_all([
                 'sp9' : 0,
                 'sum' : 2
             }
-        ]
+        ],
+        date = '02/08/2024'
     ),
     Reviews(
         venue_name = 'Perky Beans',
@@ -195,7 +198,8 @@ db.add_all([
                 'sp9' : 0,
                 'sum' : 1
             }
-        ]
+        ],
+        date = '02/09/2024'
     )
 ])
 
