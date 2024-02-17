@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { FaCaretDown, FaCaretUp } from "react-icons/fa6";
+import avatarGenerateStyle from '../../../utils/miscFunctions/avatarGenerateStyle';
 
 // review count should come from the database
 // on click of arrow then show more comments or hide additional comments
@@ -18,29 +19,7 @@ function Avatar({ align, display, name, pic, user, index }) {
     )
   }
 
-  let avatarStyle;
-  if (user) {
-    if (pic === null) {
-      console.log(user.split("")[0])
-      avatarStyle = user.split("")[0]
-      let initial = document.getElementById(`${index}Avatar`)
-      if (initial) {
-        initial.innerHTML = avatarStyle
-      } 
-    } else {
-      avatarStyle = `url("${pic}")`
-    }
-  }
-
-  // give these classes to the initial avatar above:
-  // text-align: center;
-  //   text-transform: capitalize;
-  //   font-size: 30px;
-  //   background-color: red;
-  //   border-radius: 50%;
-  //   color: white;
-  //   width: 48px
-  //   height: 48px
+  let avatarStyle = avatarGenerateStyle(user, pic, index)
 
   return (
     <>

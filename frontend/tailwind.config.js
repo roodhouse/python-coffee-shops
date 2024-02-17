@@ -13,7 +13,10 @@ module.exports = {
       green: '#4CAF4F',
       yellowBorder: '#F6D95E',
       red: '#FF0000',
-      blue: '#0B58CA'
+      blue: '#0B58CA',
+      orange: '#D35400',
+      purple: '#7D3C98',
+      yellow: '#F4D03F'
     },
   },
   plugins: [],
