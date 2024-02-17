@@ -30,7 +30,8 @@ const AddFormProvider = ({ children }) => {
     const sendResults = async (submission, category) => {
         let reviewId;
         if (category === 'full') {
-            reviewId = formData.review_id
+            // reviewId = formData.review_id
+            reviewId = review.review_id
         } else {
             reviewId = review.review_id
         }

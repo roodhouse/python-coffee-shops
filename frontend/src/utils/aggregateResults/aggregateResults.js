@@ -12,7 +12,6 @@ export async function aggregateResults() {
 
     for (let[venue, count] of Object.entries(venueCount)) {
         let aggScore = count > 1 ? await aggregateScoresForVenue(allReviews, venue) : await singleReviewScore(allReviews, venue)
-        console.log(aggScore)
         let aggUpdateSuccess = await updateAggregateAndVenueRating(venue, aggScore)
         if (!aggUpdateSuccess) {
             allUpdatesSuccessful = false

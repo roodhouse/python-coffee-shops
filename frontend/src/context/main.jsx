@@ -203,8 +203,6 @@ const MainProvider = ({ children }) => {
         })
     },[currentVenue, aggDataUpdate])
 
-    console.log(currentVenueData)
-
     // agg data updated function
     function aggDataUpdated(data) {
         setAggDataUpdate(data)

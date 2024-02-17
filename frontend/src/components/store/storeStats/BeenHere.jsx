@@ -8,7 +8,7 @@ import LeaveReview from './beenHere/LeaveReview'
 
 function BeenHere() {
 
-  const { review } = useMain()
+  const { review, currentVenueData } = useMain()
 
   return (
     <>
@@ -16,9 +16,15 @@ function BeenHere() {
             <div id="beenHereWrapper">
                 <StoreHeading heading={'Been Here'} />
             </div>
-            <div id="beenHereAvatarWrapper" className='mb-5'>
-                <Avatar />
-            </div>
+            
+            <div id='beenHereAvatarWrapper' className='mb-5 flex'>
+            {currentVenueData &&
+        currentVenueData.reviews &&
+        currentVenueData.reviews.length > 0 &&
+        currentVenueData.reviews.map((review, index) =>
+                <Avatar pic={review.avatar} user={review.user_email} key={index} index={index} />
+        )}
+        </div>
             <div id="beenHereCopyWrapper" className='underline'>
                 {review ? (
                     <EditReview review={review} />

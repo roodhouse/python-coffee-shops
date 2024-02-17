@@ -12,12 +12,8 @@ function DetailsInput({id}) {
     const [ isFormSubmitted, setIsFormSubmitted ] = useState(false)
 
     const onSubmit = () => {    
-     console.log(currentAnswers)
      let comment = document.getElementById(`${id}Comment`)
-     console.log('comment.value before if is:')
-     console.log(comment.value)
      if (comment.value !== '') {
-        console.log('comment value inside of if is:', comment.value)
         setCurrentAnswers((prevStates) => {
             if (!editReview) {
                 return {
@@ -25,15 +21,20 @@ function DetailsInput({id}) {
                     com: comment.value
                 }
             } else {
-                return prevStates.map((answer, index) => {
-                    if (index === 0) {
-                        return {
-                            ...answer,
-                            com: comment.value
+                try {
+                    return prevStates.answers.map((answer, index) => {
+                        if (index === 0) {
+                            return {
+                                ...answer,
+                                com: comment.value
+                            }
                         }
-                    }
-                    return answer
-                })
+                        return answer
+                    })
+                } catch (error) {
+                    console.error('error in setCurrentAnswers', error)
+                }
+                
             }
         })
         

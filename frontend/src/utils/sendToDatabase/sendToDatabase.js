@@ -122,7 +122,10 @@ export const sendToDatabase = async (submission, category, editReview, userData,
             console.error('Error in sendToDatabase: handleNewSubmission')
         }
     } else {
-        answers = submission.answers[0]        
+        console.log(reviewId)
+        
+        // answers = submission.answers[0]
+        answers = submission[0]        
         const newUpdate = await handleReviewUpdate(answers, reviewId)
         if (newUpdate){
             return true
