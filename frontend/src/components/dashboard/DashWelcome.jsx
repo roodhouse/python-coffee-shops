@@ -10,9 +10,9 @@ function DashWelcome() {
             <div id="dashUserNameContainer">
                 <p>Welcome username!</p>
             </div>
-            <div id="dashAvatarWrapper">
+            {/* <div id="dashAvatarWrapper">
                 <Avatar />
-            </div>
+            </div> */}
         </div>
     </>
   )

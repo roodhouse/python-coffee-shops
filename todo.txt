@@ -5,7 +5,9 @@
 2. backend setup and connection
                 - pull comment from the review and add to the top of the page -- here!!
                     - will need the comment from review, date and user avatar
-                - avatar is not not appearing in the comment ssection
+                    - current errors
+                        - when not logged in then avatar changing colors even though saved in db -- here
+                - avatar is now not appearing in the comment section
             - create default avatar for users
             - bring in the avatar to the been here page
                 - might have to add user details to the venue upon submit of a review 

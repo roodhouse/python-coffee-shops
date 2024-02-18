@@ -7,7 +7,7 @@ import avatarGenerateStyle from '../../../utils/miscFunctions/avatarGenerateStyl
 
 let reviewCount = 2
 
-function Avatar({ align, display, name, pic, user, index }) {
+function Avatar({ align, display, name, pic, user, userId, index, comment }) {
 
   const [ arrow, setArrow ] = useState('down')
 
@@ -18,13 +18,22 @@ function Avatar({ align, display, name, pic, user, index }) {
       setArrow('down')
     )
   }
-
-  let avatarStyle = avatarGenerateStyle(user, pic, index)
+  
+  let avatarStyle;
+  // if (comment) {
+  //   // need to change this to url... not working because it is not always a url
+  //   avatarStyle = pic
+  //   console.log(avatarStyle)
+  // } else {
+  //   avatarStyle = avatarGenerateStyle(user, userId, pic, index)
+  // }
+  avatarStyle = avatarGenerateStyle(user, userId, pic, index, comment, name)
 
   return (
     <>
         <div id="avatarContainer" className={`${display} ${align}`}>
-            <div id={`${index}Avatar`} className={`w-12 h-12 bg-cover bg-no-repeat rounded-[50%]`} style={{backgroundImage: avatarStyle}}/>
+            <div id={`${index}-${name}-Avatar`} className={`w-12 h-12 bg-cover bg-no-repeat rounded-[50%]`} style={{backgroundImage: avatarStyle}}/>
+            {/* <div id={`${index}Avatar`} className={`w-12 h-12 bg-cover bg-no-repeat rounded-[50%]`} style={comment ? { backgroundImage: `url(${avatarStyle})` } : { backgroundImage: avatarStyle} }/> */}
         </div>
         {name === 'comment' ? (
             reviewCount > 1 ? (

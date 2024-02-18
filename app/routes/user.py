@@ -1,3 +1,4 @@
+from crypt import methods
 from email import message
 import sys
 from os import getenv
@@ -94,7 +95,8 @@ def get_user_info(current_user, current_user_email):
         user_info = {
             'user_id' : user.id,
             'email' : user.email,
-            'reviews' : user.review_ids
+            'reviews' : user.review_ids,
+            'avatar' : user.avatar
         }
         return jsonify(user_info)
     
@@ -113,7 +115,8 @@ def get_user_info_for_post(current_user, current_user_email, id):
         user_info = {
             'user_id' : user.id,
             'email' : user.email,
-            'reviews' : user.review_ids
+            'reviews' : user.review_ids,
+            'avatar' : user.avatar
         }
         return jsonify(user_info)
     
@@ -144,3 +147,27 @@ def update_user(current_user, current_user_email, id):
             return jsonify(message = 'Invalid data'), 400
     else:
         return jsonify({'error': 'Review not added to user'}), 404
+
+# patch user with color for avatar
+@user_bp.route('api/user/<int:id>', methods=['PATCH'])
+def add_color_for_avatar(id):
+    data = request.get_json()
+    db = get_db()
+
+    user = db.query(Users).filter_by(id=id).one_or_none()
+
+    if user:
+        try:
+            # add color to avatar
+            if 'avatar' in data:
+                user.avatar = data['avatar']
+                db.commit()
+                return jsonify({'message': 'Color added to user avatar'})
+            else:
+                return jsonify({'message': 'No color provided'}), 400
+        except Exception as e:
+            logging.error(f'Exception: {e}')
+            db.rollback()
+            return jsonify({'error': 'Failed to update with color'}), 500
+    else:
+        return jsonify({'error': 'User not found'}), 404

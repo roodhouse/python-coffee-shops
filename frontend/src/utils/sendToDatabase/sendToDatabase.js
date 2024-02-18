@@ -16,10 +16,13 @@ export const sendToDatabase = async (submission, category, editReview, userData,
     const address = submission.address
     const hours = submission.hours
 
-    if ( (editReview === false && category === 'full') || (newReviewExistVenue === true && category === 'full' )) {
+    if ( (editReview === false && category === 'new') || (newReviewExistVenue === true && category === 'new' )) {
 
         const ratingAnswer = submission?.Summary?.[0]?.answer
         const rating = ratingAnswer ? parseInt(ratingAnswer) : null
+
+        const summaryAnswer = submission?.Summary?.[0]?.answer
+        const summary = summaryAnswer ? parseInt(summaryAnswer) : ''
 
         const p1Answer = submission?.Productivity?.[0]?.answer
         const p1 = p1Answer ? parseInt(p1Answer) : ''
@@ -40,7 +43,7 @@ export const sendToDatabase = async (submission, category, editReview, userData,
         const p6 = p6Answer ? parseInt(p6Answer) : ''
 
         const c1Answer = submission?.Community?.[0]?.answer
-        const c1 = c1Answer ? parseInt(c1Answer) : null
+        const c1 = c1Answer ? parseInt(c1Answer) : ''
 
         const c2Answer = submission?.Community?.[1]?.answer
         const c2 = c2Answer ? parseInt(c2Answer) : ''
@@ -111,8 +114,8 @@ export const sendToDatabase = async (submission, category, editReview, userData,
                 'sp7' : sp7,
                 'sp8' : sp8,
                 'sp9' : sp9,
-                'sum' : rating,
-                'comment': submission.com
+                'sum' : summary,
+                'xcom': submission.com
             }
         ]
         const newSubmission = await handleNewSubmission(user_id, user_email, venue, image, location, address, hours, rating, answers, editReview, reviewId, newReviewExistVenue)
@@ -122,10 +125,11 @@ export const sendToDatabase = async (submission, category, editReview, userData,
             console.error('Error in sendToDatabase: handleNewSubmission')
         }
     } else {
-        console.log(reviewId)
-        
-        // answers = submission.answers[0]
-        answers = submission[0]        
+        if (submission[0]) {
+            answers = submission[0]
+        } else {
+            answers = submission.answers[0]
+        }
         const newUpdate = await handleReviewUpdate(answers, reviewId)
         if (newUpdate){
             return true

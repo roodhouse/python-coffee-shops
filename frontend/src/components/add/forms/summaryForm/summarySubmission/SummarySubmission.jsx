@@ -4,10 +4,15 @@ import { useAddForm } from '../../../../../context/addFormContext'
 
 function SummarySubmission() {
 
-    const { formData, editTheReview, sendResults } = useAddForm()
+    const { formData, editTheReview, sendResults, editReview } = useAddForm()
 
     const submitReviewForm = () => {
-        const category = 'full'
+        let category
+        if ( editReview ) {
+            category = 'full'
+        } else {
+            category = 'new'
+        }
         sendResults(formData, category)
         editTheReview(false)
     }

@@ -1,11 +1,12 @@
 import randomColorGenerator from "./randomColorGenerator";
+import { userPatch } from "../sendToDatabase/userAPI/userPatch";
 
-const randomColor = randomColorGenerator
+const randomColor = randomColorGenerator;
 
-export default function avatarGenerateStyle(user, pic, index) {
+export default function avatarGenerateStyle(user, userId, pic, index, comment, name) {
   let avatarStyle;
   if (user) {
-    let initial = document.getElementById(`${index}Avatar`);
+    let initial = document.getElementById(`${index}-${name}-Avatar`);
     if (pic === null) {
       let userStyle = user.split("")[0];
       if (initial) {
@@ -19,12 +20,18 @@ export default function avatarGenerateStyle(user, pic, index) {
           "justify-center",
           "items-center"
         );
-        initial.classList.add(`bg-${randomColor()}`)
-        // need to create a random color function
-        // need to patch a request that will save the color to the db for the next time
+
+        // add random bg color
+        const randomBgColor = randomColor();
+        initial.classList.add(`bg-${randomBgColor}`);
+        try {
+          userPatch(userId, randomBgColor);
+        } catch (error) {
+          console.error("Error saving color to db", error);
+        }
         initial.innerHTML = userStyle;
         avatarStyle = "";
-        return avatarStyle
+        return avatarStyle;
       }
     } else {
       const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
@@ -32,12 +39,29 @@ export default function avatarGenerateStyle(user, pic, index) {
         if (urlRegex.test(pic)) {
           avatarStyle = `url("${pic}")`;
           initial.innerHTML = "";
+          return avatarStyle
         } else {
-          initial.classList.add(`${pic}`);
+          console.log('in else block of avatarGenerateStyel')
+          console.log('comment is:', comment)
+          let userStyle = user.split("")[0];
+          console.log(userStyle)
+          initial.classList.add(
+            `bg-${pic}`,
+            "text-center",
+            "capitalize",
+            "rounded-[50%]",
+            "text-white",
+            "text-2xl",
+            "flex",
+            "justify-center",
+            "items-center"
+          );
+          initial.innerHTML = userStyle;
+          avatarStyle = "";
         }
       }
-      return avatarStyle
+      // return avatarStyle;
     }
   }
-  return avatarStyle
+  return avatarStyle;
 }

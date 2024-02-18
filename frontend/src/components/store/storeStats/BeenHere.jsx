@@ -8,7 +8,6 @@ import LeaveReview from "./beenHere/LeaveReview";
 
 function BeenHere() {
   const { review, currentVenueData } = useMain();
-
   return (
     <>
       <div id="beenHereContainer">
@@ -22,10 +21,15 @@ function BeenHere() {
             currentVenueData.reviews.length > 0 &&
             currentVenueData.reviews.map((review, index) => (
               <Avatar
+                align={'center'}
+                display={'flex'}
+                name={'been'}
                 pic={review.avatar}
                 user={review.user_email}
-                key={index}
+                userId={review.user_id}
                 index={index}
+                comment={false}
+                key={index}
               />
             ))}
         </div>

@@ -53,7 +53,8 @@ def get_venue(name):
             'review_count': venue.review_count,
             'reviews' : [
                 {
-                    'user_email': review.user_email, 
+                    'user_email': review.user_email,
+                    'user_id': db.query(Users.id).filter_by(email=review.user_email).scalar(), 
                     'avatar' : db.query(Users.avatar).filter_by(email=review.user_email).scalar(),
                     'answers' : review.answers,
                     'date' : review.date

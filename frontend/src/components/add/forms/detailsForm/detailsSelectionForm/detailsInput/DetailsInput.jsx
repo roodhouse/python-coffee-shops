@@ -18,7 +18,7 @@ function DetailsInput({id}) {
             if (!editReview) {
                 return {
                     ...prevStates,
-                    com: comment.value
+                    xcom: comment.value
                 }
             } else {
                 try {
@@ -26,7 +26,7 @@ function DetailsInput({id}) {
                         if (index === 0) {
                             return {
                                 ...answer,
-                                com: comment.value
+                                xcom: comment.value
                             }
                         }
                         return answer
@@ -48,6 +48,7 @@ function DetailsInput({id}) {
             updateFormData(currentAnswers)
             reset()
             setIsFormSubmitted(false)
+            setCurrentAnswers({})
         }
     },[isFormSubmitted])
 
