@@ -6,6 +6,8 @@ const randomColor = randomColorGenerator;
 export default function avatarGenerateStyle(user, userId, pic, index, comment, name) {
   let avatarStyle;
   if (user) {
+    console.log('user is:', user)
+    console.log('pic is', pic)
     let initial = document.getElementById(`${index}-${name}-Avatar`);
     if (pic === null) {
       let userStyle = user.split("")[0];
@@ -41,10 +43,7 @@ export default function avatarGenerateStyle(user, userId, pic, index, comment, n
           initial.innerHTML = "";
           return avatarStyle
         } else {
-          console.log('in else block of avatarGenerateStyel')
-          console.log('comment is:', comment)
           let userStyle = user.split("")[0];
-          console.log(userStyle)
           initial.classList.add(
             `bg-${pic}`,
             "text-center",
@@ -60,8 +59,9 @@ export default function avatarGenerateStyle(user, userId, pic, index, comment, n
           avatarStyle = "";
         }
       }
-      // return avatarStyle;
     }
+  } else {
+    console.log('user is not')
   }
   return avatarStyle;
 }
