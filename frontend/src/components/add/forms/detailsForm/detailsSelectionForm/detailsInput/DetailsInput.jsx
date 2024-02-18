@@ -7,14 +7,50 @@ import NextButton from '../../../next/NextButton'
 function DetailsInput({id}) { 
 
     const { register, handleSubmit, reset, formState: {errors} } = useForm()
-    const { currentStep, updateFormData, detailQuestions, editReview, editTheReview } = useAddForm()
+    const { currentStep, updateFormData, detailQuestions, editReview, editTheReview, formData } = useAddForm()
     const [ currentAnswers, setCurrentAnswers ] = useState({})
+    const [ isFormSubmitted, setIsFormSubmitted ] = useState(false)
 
     const onSubmit = () => {    
-        currentStep('summary')
-        updateFormData(currentAnswers)
-        reset()
+     let comment = document.getElementById(`${id}Comment`)
+     if (comment.value !== '') {
+        setCurrentAnswers((prevStates) => {
+            if (!editReview) {
+                return {
+                    ...prevStates,
+                    xcom: comment.value
+                }
+            } else {
+                try {
+                    return prevStates.answers.map((answer, index) => {
+                        if (index === 0) {
+                            return {
+                                ...answer,
+                                xcom: comment.value
+                            }
+                        }
+                        return answer
+                    })
+                } catch (error) {
+                    console.error('error in setCurrentAnswers', error)
+                }
+                
+            }
+        })
+        
+     }
+        setIsFormSubmitted(true)
     }
+
+    useEffect(() => {
+        if (isFormSubmitted) {
+            currentStep('summary')
+            updateFormData(currentAnswers)
+            reset()
+            setIsFormSubmitted(false)
+            setCurrentAnswers({})
+        }
+    },[isFormSubmitted])
 
     const onError = () => {
         console.log('error in details')
@@ -109,6 +145,9 @@ function DetailsInput({id}) {
                         ))}
                     </div>
                 ))}
+                <div id="commentContainer">
+                    <textarea name={`${id}Comment`} id={`${id}Comment`} cols="10" rows="5" maxLength={100} {...register('comment')} placeholder={`Leave a short comment about ${formData.venue}`} className='w-full mb-8 bg-[#f5f5f5] rounded p-3'></textarea>
+                </div>
                 <div id="detailInputButtonContainer" className='flex justify-between'>
                     <div id="detailInputBackButtonWrapper">
                         <BackButton back={'image'} />

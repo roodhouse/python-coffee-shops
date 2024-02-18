@@ -179,6 +179,12 @@ const MainProvider = ({ children }) => {
         setCurrentVenue(null)
     }
 
+    // clear current venue data
+    function clearCurrentVenueData() {
+        setCurrentVenueData(null)
+    }
+
+
     // get single venue data
     useEffect(() => {
         const encodedName = encodeURIComponent(currentVenue)
@@ -186,6 +192,7 @@ const MainProvider = ({ children }) => {
         .then((response) => response.json())
         .then((data) => {
             setCurrentVenueData(data)
+            const reviews = data.reviews
             fetch(`http://127.0.0.1:5000/api/aggregate/${encodedName}`)
             .then((aggResponse) => aggResponse.json())
             .then((aggData) => {
@@ -253,7 +260,7 @@ const MainProvider = ({ children }) => {
     {
         {
             home, currentCity, venueCount, listOfStates, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn, successLogin, logout,
-            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review, aggDataUpdated, clearVenue
+            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review, aggDataUpdated, clearVenue, clearCurrentVenueData
         }
     }>
         {children}

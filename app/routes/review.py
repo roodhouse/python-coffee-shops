@@ -47,7 +47,8 @@ def get_review(id):
            "review_id": review.id,
            "venue": review.venue_name,
            "user": review.user_email,
-           "answers": review.answers 
+           "answers": review.answers,
+           "date" : review.date
         }
         return jsonify(review_details)
     else: 
@@ -70,7 +71,8 @@ def get_user_review(current_user, current_user_email, venue_name, user_email):
            "review_id": review.id,
            "venue": review.venue_name,
            "user": review.user_email,
-           "answers": review.answers 
+           "answers": review.answers,
+           "date": review.date 
         }
         return jsonify(review_details)
     else: 
@@ -92,6 +94,7 @@ def new_review(current_user, current_user_email):
             venue_name = data['venue_name'],
             user_email = current_user_email,
             answers = data['answers'],
+            date = data['date']
         )
         db.add(new_review)
 
@@ -120,6 +123,7 @@ def update_review(current_user, current_user_email, id):
             # update review
             if 'answers' in data: 
                 review.answers = [data['answers']]
+                review.date = data['date']
                 db.commit()
                 return jsonify({'message': 'Review answers were updated'})
             else:

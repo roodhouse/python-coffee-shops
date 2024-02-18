@@ -29,8 +29,8 @@ const AddFormProvider = ({ children }) => {
 
     const sendResults = async (submission, category) => {
         let reviewId;
-        if (category === 'full') {
-            reviewId = formData.review_id
+        if (category === 'new') {
+            reviewId = ''
         } else {
             reviewId = review.review_id
         }
@@ -38,7 +38,8 @@ const AddFormProvider = ({ children }) => {
         if (submissionResults) {
             const aggSubmission = await aggregateResults()
             if (aggSubmission) {
-                if (category === 'full') {
+                // did not make it here on new reivew after edit
+                if (category === 'full' || category === 'new') {
                     setPage('thankYou')
                 }
                 setStep('venue')

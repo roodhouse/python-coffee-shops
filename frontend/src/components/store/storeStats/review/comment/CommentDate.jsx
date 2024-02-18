@@ -2,11 +2,11 @@ import React from 'react'
 
 // replace with info from db
 
-function CommentDate() {
+function CommentDate({date}) {
   return (
     <>
         <div id="commentDataContainer" className='text-sm text-[#bbbbbb]'>
-            <p>01/08/2024</p>
+            <p>{date}</p>
         </div>
     </>
   )

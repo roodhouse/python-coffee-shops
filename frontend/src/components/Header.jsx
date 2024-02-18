@@ -6,12 +6,14 @@ import { useAddForm } from '../context/addFormContext'
 
 function Header() {
 
-  const { setPage } = useMain()
+  const { setPage, clearVenue, clearCurrentVenueData } = useMain()
   const { editTheReview } = useAddForm()
 
   const handleClick = () => {
       setPage('home')
       editTheReview(false)
+      clearVenue()
+      clearCurrentVenueData()
   }
   return (
     <>

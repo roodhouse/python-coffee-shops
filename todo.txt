@@ -3,14 +3,9 @@
         update post view
 
 2. backend setup and connection
-            - refactor forms to include what I have called comments
-                - pull comment from the review and add to the top of the page
-                    - will need the comment from review, date and user avatar
-            - create default avatar for users
-            - bring in the avatar to the been here page
-                - might have to add user details to the venue upon submit of a review 
+            - on click of icon or leave review allow to leave comment or review right there without leaving the page
             - change icons on hover and add onClick to allow update of reviews if logged and have reviewed
-            - change review to allow null values
+            
     - dashboard
         - create delete review route
 
@@ -18,13 +13,14 @@
     - google maps
 
 4. Bugs 
-    - login session is deleted after a refresh or navigating away from page
     - after adding new venue and review the form is not cleared -- unless a refresh is made
     - logic for if venue has already been added
     - if view venue, log in, and then view venue again state does not update to see that user has left review or not
     - set up history array so that when a login click happens and a successful login occurs it takes the user back to the page they came from
     - clicking an answer in the form more than once will append a new value instead of overwriting the first value
     - initial load still hows totals as 4500%.. need to run the aggregate results function sometime before a new venue is added 
-    - each venue is getting a new aggregate upon running of function...
     - rating does not round but can be displayed as 33.33333 etc
+    - create new user, color is asssigned, but next click show a different color
+    - a new review for an existing venue first time does not save the comment to the db, editing the review will save the comment
+    - need to pull in the comment to the form when editing
 

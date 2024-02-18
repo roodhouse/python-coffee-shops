@@ -5,7 +5,7 @@ import bcrypt
 
 salt = bcrypt.gensalt()
 
-class Users(Base):
+class Users(Base): 
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
     comment_id = Column(Integer, ForeignKey('comments.id'))

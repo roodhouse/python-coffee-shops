@@ -17,4 +17,4 @@ class Venues(Base):
 
     # define relationship
     reviews = relationship('Reviews', back_populates='venue_rated')
-    comments = relationship('Comments', back_populates='venue')
+    comments = relationship('Comments', back_populates='venue') 
