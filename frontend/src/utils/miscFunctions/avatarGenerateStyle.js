@@ -6,8 +6,6 @@ const randomColor = randomColorGenerator;
 export default function avatarGenerateStyle(user, userId, pic, index, comment, name) {
   let avatarStyle;
   if (user) {
-    console.log('user is:', user)
-    console.log('pic is', pic)
     let initial = document.getElementById(`${index}-${name}-Avatar`);
     if (pic === null) {
       let userStyle = user.split("")[0];

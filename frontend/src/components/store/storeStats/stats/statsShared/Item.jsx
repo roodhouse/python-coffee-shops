@@ -1,17 +1,37 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import SimpleRate from '../../../../add/forms/SimpleRate';
 import { FaWifi, FaPlug, FaUserClock, FaSquarePen, FaVolumeLow, FaHeadphones, FaLaptop, FaUserGroup, 
     FaMugHot, FaUtensils, FaLeaf, FaMartiniGlass, FaCreditCard, FaSun, FaTree, FaArrowsUpDownLeftRight, FaToiletPaper, FaWheelchair, FaTemperatureFull,
     FaBanSmoking, FaDog, FaCar, FaQuestion } from "react-icons/fa6";
 
 function Item({ type, name, rating, width }) {
+    const [ isToggled, setIsToggled ] = useState(false)
+    const wrapperRef = useRef(null)
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+                setIsToggled(false)
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [])
+
+    const handleClick = () => {
+        setIsToggled(!isToggled)
+    }
   return (
     <>
-        <div id={`itemContainer${type}`}>
-                <div id={`${type}Container`} className={type === 'unknown' ? (
+        <div id={`itemContainer-${type}`} onClick={handleClick}>
+                <div id={`${type}-Container`} className={type === 'unknown' ? (
                     "text-[#ddd]"
-                ): null }>
-                    <div id={`${type}IconNameContainer`} className='flex items-center mb-2'>
-                        <div id={`${type}IconContainer`} className='mr-3'>
+                ): null } ref={wrapperRef}>
+                    <div id={`${type}-IconNameContainer`} className='flex flex-wrap items-center mb-2'>
+                        <div id={`${type}-IconContainer`} className='mr-3'>
                             { type === 'wifi' ? (
                                 <FaWifi />
                             ) : type === 'power' ? (
@@ -58,16 +78,19 @@ function Item({ type, name, rating, width }) {
                                 <FaCar />
                             ) : <FaQuestion />   }
                         </div>
-                        <div id={`${type}NameContainer`}>
+                        <div id={`${type}-NameContainer`}>
                             <p className={ rating === 'red' ? (
                                 "line-through"
                             ) : "no-underline" }>
                                 {name}
                             </p>
                         </div>
+                        <div id={`${type}-simpleRateWrapper`} className={isToggled ? 'flex' : 'hidden'}>
+                            <SimpleRate />
+                        </div>
                     </div>
-                    <div id={`${type}ResultsContainer`}>
-                        <div id={`${type}Result`} style={{backgroundColor: rating, width: width}} className={`h-[2px]`} />
+                    <div id={`${type}-ResultsContainer`}>
+                        <div id={`${type}-Result`} style={{backgroundColor: rating, width: width}} className={`h-[2px]`} />
                     </div>
                 </div>
         </div>
