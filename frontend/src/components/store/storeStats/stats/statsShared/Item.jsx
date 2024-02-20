@@ -26,6 +26,10 @@ function Item({ type, current, name, rating, width }) {
         setIsToggled(!isToggled)
     }
 
+    const changeToggle = (data) => {
+        setIsToggled(data)
+    }
+
     let code = null 
     switch (type) {
         case 'wifi':
@@ -165,7 +169,7 @@ function Item({ type, current, name, rating, width }) {
                         <div id={`${type}-Result`} style={{backgroundColor: rating, width: width}} className={`h-[2px]`} />
                     </div>
                     <div id={`${type}-simpleRateWrapper`} className={isToggled ? 'flex' : 'hidden'}>
-                            <SimpleRate type={type} current={current} code={code} />
+                            <SimpleRate type={type} current={current} code={code} toggle={changeToggle} />
                     </div>
                 </div>
         </div>

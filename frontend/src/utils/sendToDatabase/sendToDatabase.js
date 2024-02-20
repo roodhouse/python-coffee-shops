@@ -126,9 +126,14 @@ export const sendToDatabase = async (submission, category, editReview, userData,
         }
     } else {
         if (submission[0]) {
+            // editing single or not full with added comment
             answers = submission[0]
-        } else {
+        } else if (submission.answers && submission.answers[0]) {
+            // editing heart or single from large form
             answers = submission.answers[0]
+        } else {
+            // simple rate update
+            answers = submission
         }
         const newUpdate = await handleReviewUpdate(answers, reviewId)
         if (newUpdate){

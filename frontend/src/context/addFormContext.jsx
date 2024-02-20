@@ -28,7 +28,6 @@ const AddFormProvider = ({ children }) => {
     }
 
     const sendResults = async (submission, category) => {
-        console.log(submission, category)
         let reviewId;
         if (category === 'new') {
             reviewId = ''

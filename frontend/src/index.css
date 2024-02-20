@@ -17,3 +17,13 @@ body {
 .chosenAnswer {
     color: red;
 }
+
+.icons-container {
+    transition: background-color 2s ease-in-out, border-color 2s ease-in-out;
+  }
+  
+  .hidden {
+    opacity: 0;
+    display: none;
+  }
+  
