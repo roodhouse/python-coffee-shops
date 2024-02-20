@@ -2,7 +2,7 @@ import React from 'react'
 import StoreHeading from '../../storeShared/StoreHeading'
 import ProductivityResults from './productivity/ProductivityResults'
 
-function ProductivityStats() {
+function ProductivityStats({current}) {
   return (
     <>
         <div id="productivityStatsContainer">
@@ -10,7 +10,7 @@ function ProductivityStats() {
                 <StoreHeading heading={'Productivity'} />
             </div>
             <div id="productivityCategoryWrapper">
-                <ProductivityResults />
+                <ProductivityResults current={current} />
             </div>
         </div>
     </>

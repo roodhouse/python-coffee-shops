@@ -4,6 +4,7 @@
 
 2. backend setup and connection
             - on click of icon or leave review allow to leave comment or review right there without leaving the page
+                - work on SimpleRate component -- here!
             - change icons on hover and add onClick to allow update of reviews if logged and have reviewed
             
     - dashboard
@@ -23,4 +24,6 @@
     - create new user, color is asssigned, but next click show a different color
     - a new review for an existing venue first time does not save the comment to the db, editing the review will save the comment
     - need to pull in the comment to the form when editing
+    - only show review section on store page if there is a review 
+    - wait to pass over any reivew without xcom and show the first comment with an xcom value if any
 

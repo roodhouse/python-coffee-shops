@@ -2,7 +2,7 @@ import React from 'react'
 import StoreHeading from '../../storeShared/StoreHeading'
 import SpaceResults from './space/SpaceResults'
 
-function SpaceStats() {
+function SpaceStats({current}) {
 
   return (
     <>
@@ -11,7 +11,7 @@ function SpaceStats() {
                 <StoreHeading heading={'Space'} />
             </div>
             <div id="spaceCategoryWrapper">
-                <SpaceResults />
+                <SpaceResults current={current} />
             </div>
         </div>
     </>
