@@ -1,7 +1,7 @@
 import getSiblings from "../miscFunctions/getSiblings"
 import '../../../src/index.css'
 
-export function singleItemRatingChange(e, review, type, iconParent, answer, toggle) {
+export function singleItemRatingChange(e, type, iconParent, answer, toggle) {
     let containerChange = document.getElementById(`${type}-iconsContainer`)
             // containerChange.classList.add('bg-[black]')
             containerChange.classList.replace('justify-between', 'justify-center')

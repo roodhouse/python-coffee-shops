@@ -3,9 +3,9 @@
         update post view
 
 2. backend setup and connection
-            - on click of icon or leave review allow to leave comment or review right there without leaving the page
-                - work on SimpleRate component -- here!
-            - change icons on hover and add onClick to allow update of reviews if logged and have reviewed
+            - simpleRate for new review
+                - the review is being sent as Scooters coffee when venue is perky beans
+                - review is not being retrieve after it is aggregated..
             
     - dashboard
         - create delete review route

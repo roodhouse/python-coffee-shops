@@ -29,17 +29,24 @@ const AddFormProvider = ({ children }) => {
 
     const sendResults = async (submission, category) => {
         let reviewId;
+        let simpleRate = false
         if (category === 'new') {
             reviewId = ''
+        } else if (category === 'simpleRateNew') {
+            simpleRate = true
+            category = 'new'
+            reviewId = ''
+            setNewReviewExistVenue(true)
         } else {
             reviewId = review.review_id
         }
-        const submissionResults = await sendToDatabase(submission, category, editReview, userData, userAuthenticated, reviewId, newReviewExistVenue, currentVenue)
+        console.log('in send results newReviewExistVenue is:', newReviewExistVenue)
+        
+        const submissionResults = await sendToDatabase(submission, category, editReview, userData, userAuthenticated, reviewId, newReviewExistVenue, currentVenue, simpleRate)
         if (submissionResults) {
             const aggSubmission = await aggregateResults()
             if (aggSubmission) {
-                // did not make it here on new review after edit
-                if (category === 'full' || category === 'new') {
+                if ((category === 'full') || (category === 'new' && simpleRate === false)) {
                     setPage('thankYou')
                 }
                 setStep('venue')
@@ -55,7 +62,6 @@ const AddFormProvider = ({ children }) => {
         }
     }
  
-
      // set edit review 
      function editTheReview(data) {
         setEditReview(data)

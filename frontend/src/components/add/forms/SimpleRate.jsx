@@ -19,18 +19,55 @@ function SimpleRate({type, current, code, toggle}) {
   const handleClick = (event) => {
     event.stopPropagation()
     if (userAuthenticated) {
+        const iconParent = event.currentTarget
+        let currentItemName = event.currentTarget.getAttribute('data-name')
+        let key = currentItemName.split('-')[0]
+        let answer =  parseInt(currentItemName.split('-')[1])
         if (review) {
             // when editing review
-            const iconParent = event.currentTarget
-            let currentItemName = event.currentTarget.getAttribute('data-name')
-            let category = 'single'
-            let answer =  parseInt(currentItemName.split('-')[1])
-            review.answers[0][currentItemName.split('-')[0]] = answer
+            review.answers[0][key] = answer
             let submission = review.answers[0]
-            singleItemRatingChange(event, review, type, iconParent, answer, toggle )
+            let category = 'single'
+            singleItemRatingChange(event, type, iconParent, answer, toggle )
             sendResults(submission, category)
         } else {
+            // here! 
             // when review is new
+            let questionsAnswers = [ 
+                {
+                'p1' : '',
+                'p2' : '',
+                'p3' : '',
+                'p4' : '',
+                'p5' : '',
+                'p6' : '',
+                'c1' : '',
+                'c2' : '',
+                'ser1' : '',
+                'ser2' : '',
+                'ser3' : '',
+                'ser4' : '',
+                'ser5' : '',
+                'sp1' : '',
+                'sp2' : '',
+                'sp3' : '',
+                'sp4' : '',
+                'sp5' : '',
+                'sp6' : '',
+                'sp7' : '',
+                'sp8' : '',
+                'sp9' : '',
+                'sum' : '',
+                'xcom': ''
+                }
+            ]
+            console.log(questionsAnswers)
+            questionsAnswers[0][key] = answer
+            console.log(questionsAnswers)
+            let submission = questionsAnswers
+            let category = 'simpleRateNew'
+            singleItemRatingChange(event, type, iconParent, answer, toggle )
+            sendResults(submission, category)
             console.log('new review')
         }
     } else {
