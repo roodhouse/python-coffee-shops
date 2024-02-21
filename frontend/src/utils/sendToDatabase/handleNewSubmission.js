@@ -4,7 +4,6 @@ import { updateUser } from "./userAPI/UserAPI"
 
 export const handleNewSubmission = async (user_id, user_email, venue, image, location, address, hours, rating, answers, editReview, reviewId, newReviewExistVenue, simpleRate) => {
     let newVenue;
-    console.log('newReviewExistVenue in handleNewSubmission is: ', newReviewExistVenue)
     if (newReviewExistVenue || simpleRate) {
         newVenue = true
     } else {
@@ -12,7 +11,7 @@ export const handleNewSubmission = async (user_id, user_email, venue, image, loc
     }
     
     if (newVenue) {
-        const newReview = await reviewAPI(editReview, venue, image, location, address, hours, rating, answers, user_id, user_email, reviewId, newReviewExistVenue)
+        const newReview = await reviewAPI(editReview, venue, image, location, address, hours, rating, answers, user_id, user_email, reviewId, newReviewExistVenue, simpleRate)
         if (newReview) {
             const userUpdate = await updateUser(user_id, venue)
             if (userUpdate) {

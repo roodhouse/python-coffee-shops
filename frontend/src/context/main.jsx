@@ -68,6 +68,7 @@ const MainProvider = ({ children }) => {
 
         // get review of user when currentVenue changes
         useEffect(() => {
+            console.log('ran bc of agg udpdate')
             if (userAuthenticated) {
                 if ( userData.reviews === null ) {
                     setReview(null)
@@ -101,7 +102,7 @@ const MainProvider = ({ children }) => {
                     }
                 }
             }
-        },[currentVenue])
+        },[currentVenue, aggDataUpdate])
     
     // login success
     const successLogin = (e) => {
@@ -150,7 +151,7 @@ const MainProvider = ({ children }) => {
                     console.error('Error fetching user data:', error)
                 })
         }
-    },[loggedIn, venues])
+    },[loggedIn, venues, aggDataUpdate])
 
     useEffect(() => {
         if (venues !== null) {
@@ -207,6 +208,7 @@ const MainProvider = ({ children }) => {
         console.error('Error fetching venue data:', error)
         })
     },[currentVenue, aggDataUpdate])
+
 
     // agg data updated function
     function aggDataUpdated(data) {

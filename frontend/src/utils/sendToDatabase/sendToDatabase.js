@@ -4,8 +4,6 @@ import { handleReviewUpdate } from "./handleReviewUpdate"
 export const sendToDatabase = async (submission, category, editReview, userData, userAuthenticated, reviewId, newReviewExistVenue, currentVenue, simpleRate) => {
     let venue;
     let answers;
-    console.log('in sendToDatabase simpleRate is:', simpleRate)
-    console.log('in sendToDatabase newReviewExistVenue is:', newReviewExistVenue)
     if ( newReviewExistVenue || simpleRate ) {
         venue = currentVenue
     } else {
@@ -17,9 +15,6 @@ export const sendToDatabase = async (submission, category, editReview, userData,
     const location = submission.location
     const address = submission.address
     const hours = submission.hours
-
-    console.log('venue in sendToDataBase is: ', venue)
-    // venue is correct here...
 
     if ( (editReview === false && category === 'new') || (newReviewExistVenue === true && category === 'new' )) {
         let rating;

@@ -30,6 +30,7 @@ const AddFormProvider = ({ children }) => {
     const sendResults = async (submission, category) => {
         let reviewId;
         let simpleRate = false
+        console.log(category)
         if (category === 'new') {
             reviewId = ''
         } else if (category === 'simpleRateNew') {
@@ -40,7 +41,6 @@ const AddFormProvider = ({ children }) => {
         } else {
             reviewId = review.review_id
         }
-        console.log('in send results newReviewExistVenue is:', newReviewExistVenue)
         
         const submissionResults = await sendToDatabase(submission, category, editReview, userData, userAuthenticated, reviewId, newReviewExistVenue, currentVenue, simpleRate)
         if (submissionResults) {

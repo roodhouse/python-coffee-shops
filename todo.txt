@@ -4,8 +4,7 @@
 
 2. backend setup and connection
             - simpleRate for new review
-                - the review is being sent as Scooters coffee when venue is perky beans
-                - review is not being retrieve after it is aggregated..
+                - for a user new review at least the first reviewed item casuses the rating to change at the top
             
     - dashboard
         - create delete review route

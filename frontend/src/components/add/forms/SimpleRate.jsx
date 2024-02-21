@@ -61,9 +61,7 @@ function SimpleRate({type, current, code, toggle}) {
                 'xcom': ''
                 }
             ]
-            console.log(questionsAnswers)
             questionsAnswers[0][key] = answer
-            console.log(questionsAnswers)
             let submission = questionsAnswers
             let category = 'simpleRateNew'
             singleItemRatingChange(event, type, iconParent, answer, toggle )
