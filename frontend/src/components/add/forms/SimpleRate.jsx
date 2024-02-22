@@ -31,7 +31,6 @@ function SimpleRate({type, current, code, toggle}) {
             singleItemRatingChange(event, type, iconParent, answer, toggle )
             sendResults(submission, category)
         } else {
-            // here! 
             // when review is new
             let questionsAnswers = [ 
                 {
@@ -66,7 +65,6 @@ function SimpleRate({type, current, code, toggle}) {
             let category = 'simpleRateNew'
             singleItemRatingChange(event, type, iconParent, answer, toggle )
             sendResults(submission, category)
-            console.log('new review')
         }
     } else {
         setPage('join')

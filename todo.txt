@@ -2,12 +2,13 @@
     dashboard view
         update post view
 
-2. backend setup and connection
-            - simpleRate for new review
-                - for a user new review at least the first reviewed item casuses the rating to change at the top
-            
+2. backend setup and connection 
     - dashboard
         - create delete review route
+    - add logic to comment section
+        - if current user has a comment then display it on top with the choice to delete or edit, 
+        else display the newest comment with a choice to add their overwriting
+        - turn edit review link into edit comment and change view to show input textarea with previous comment loaded
 
 3. API's needed:
     - google maps
@@ -25,6 +26,6 @@
     - need to pull in the comment to the form when editing
     - only show review section on store page if there is a review 
     - wait to pass over any review without xcom and show the first comment with an xcom value if any
-    - after adding several simple rate reviews the it seems to update the wrong component or wrong line
-        - veggie and alcohol are somehow connected...
+         
+
 

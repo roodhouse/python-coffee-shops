@@ -97,6 +97,9 @@ def new_aggregate():
     data = request.get_json()
     db = get_db()
 
+    print('data from aggregate is:')
+    print(data)
+
     try:
         new_aggregate = VenueAggregates(
             name = data['name'],

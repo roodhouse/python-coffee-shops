@@ -68,7 +68,6 @@ const MainProvider = ({ children }) => {
 
         // get review of user when currentVenue changes
         useEffect(() => {
-            console.log('ran bc of agg udpdate')
             if (userAuthenticated) {
                 if ( userData.reviews === null ) {
                     setReview(null)
