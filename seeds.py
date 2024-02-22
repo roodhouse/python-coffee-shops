@@ -20,6 +20,10 @@ db.add_all([
         email='rooinfo@gmail.com', 
         password='12345', 
         review_ids=["Scooter\'s Coffee", "Perky Beans"]
+    ),
+    Users(
+        email='bob@gmail.com', 
+        password='12345'
     )
 ])
 

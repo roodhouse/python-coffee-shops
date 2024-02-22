@@ -1,17 +1,116 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import SimpleRate from '../../../../add/forms/SimpleRate';
 import { FaWifi, FaPlug, FaUserClock, FaSquarePen, FaVolumeLow, FaHeadphones, FaLaptop, FaUserGroup, 
     FaMugHot, FaUtensils, FaLeaf, FaMartiniGlass, FaCreditCard, FaSun, FaTree, FaArrowsUpDownLeftRight, FaToiletPaper, FaWheelchair, FaTemperatureFull,
     FaBanSmoking, FaDog, FaCar, FaQuestion } from "react-icons/fa6";
 
-function Item({ type, name, rating, width }) {
+function Item({ type, current, name, rating, width }) {
+    const [ isToggled, setIsToggled ] = useState(false)
+    const wrapperRef = useRef(null)
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+                setIsToggled(false)
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside)
+        
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [])
+
+    const handleClick = () => {
+        setIsToggled(!isToggled)
+    }
+
+    const changeToggle = (data) => {
+        setIsToggled(data)
+    }
+
+    let code = null 
+    switch (type) {
+        case 'wifi':
+            code = 'p1'
+            break;
+        case 'power':
+            code = 'p2'
+            break;
+        case 'stay':
+            code = 'p3'
+            break;
+        case 'tables':
+            code = 'p4'
+            break;
+        case 'quiet':
+            code = 'p5'
+            break;
+         case 'calls':
+            code = 'p6'
+            break;
+        case 'people':
+            code = 'c1'
+            break;
+        case 'groups':
+            code = 'c2'
+            break;
+        case 'coffee':
+            code = 'ser1'
+            break;
+        case 'food':
+            code = 'ser2'
+            break;
+        case 'veggie':
+            code = 'ser3'
+            break;
+        case 'alcohol':
+            code = 'ser4'
+            break;
+        case 'credit':
+            code = 'ser5'
+            break;
+        case 'light':
+            code = 'sp1'
+            break;
+        case 'outdoor':
+            code = 'sp2'
+            break;
+        case 'spacious':
+            code = 'sp3'
+            break;
+        case 'restroom':
+            code = 'sp4'
+            break;
+        case 'accessible':
+            code = 'sp5'
+            break;
+        case 'air':
+            code = 'sp6'
+            break;
+        case 'smoke':
+            code = 'sp7'
+            break;
+        case 'pet':
+            code = 'sp8'
+            break;
+        case 'parking':
+            code = 'sp9'
+            break;
+        default:
+            console.log('sorry no more cases')
+
+    }
+
   return (
     <>
-        <div id={`itemContainer${type}`}>
-                <div id={`${type}Container`} className={type === 'unknown' ? (
+        <div id={`itemContainer-${type}`} onClick={handleClick} className={isToggled ? 'mb-0' : 'mb-16'}>
+                <div id={`${type}-Container`} className={type === 'unknown' ? (
                     "text-[#ddd]"
-                ): null }>
-                    <div id={`${type}IconNameContainer`} className='flex items-center mb-2'>
-                        <div id={`${type}IconContainer`} className='mr-3'>
+                ): null } ref={wrapperRef}>
+                    <div id={`${type}-IconNameContainer`} className='flex flex-wrap items-center mb-2 mb-'>
+                        <div id={`${type}-IconContainer`} className='mr-3'>
                             { type === 'wifi' ? (
                                 <FaWifi />
                             ) : type === 'power' ? (
@@ -58,7 +157,7 @@ function Item({ type, name, rating, width }) {
                                 <FaCar />
                             ) : <FaQuestion />   }
                         </div>
-                        <div id={`${type}NameContainer`}>
+                        <div id={`${type}-NameContainer`}>
                             <p className={ rating === 'red' ? (
                                 "line-through"
                             ) : "no-underline" }>
@@ -66,8 +165,11 @@ function Item({ type, name, rating, width }) {
                             </p>
                         </div>
                     </div>
-                    <div id={`${type}ResultsContainer`}>
-                        <div id={`${type}Result`} style={{backgroundColor: rating, width: width}} className={`h-[2px]`} />
+                    <div id={`${type}-ResultsContainer`}>
+                        <div id={`${type}-Result`} style={{backgroundColor: rating, width: width}} className={`h-[2px]`} />
+                    </div>
+                    <div id={`${type}-simpleRateWrapper`} className={isToggled ? 'flex' : 'hidden'}>
+                            <SimpleRate type={type} current={current} code={code} toggle={changeToggle} />
                     </div>
                 </div>
         </div>

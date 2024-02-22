@@ -101,7 +101,7 @@ const MainProvider = ({ children }) => {
                     }
                 }
             }
-        },[currentVenue])
+        },[currentVenue, aggDataUpdate])
     
     // login success
     const successLogin = (e) => {
@@ -150,7 +150,7 @@ const MainProvider = ({ children }) => {
                     console.error('Error fetching user data:', error)
                 })
         }
-    },[loggedIn, venues])
+    },[loggedIn, venues, aggDataUpdate])
 
     useEffect(() => {
         if (venues !== null) {
@@ -207,6 +207,7 @@ const MainProvider = ({ children }) => {
         console.error('Error fetching venue data:', error)
         })
     },[currentVenue, aggDataUpdate])
+
 
     // agg data updated function
     function aggDataUpdated(data) {

@@ -2,7 +2,7 @@ import React from 'react'
 import StoreHeading from '../../storeShared/StoreHeading'
 import CommunityResults from './community/CommunityResults'
 
-function CommunityStats() {
+function CommunityStats({current}) {
   return (
     <>
         <div id="communityStatsContainer">
@@ -10,7 +10,7 @@ function CommunityStats() {
                 <StoreHeading heading={'Community'} />
             </div>
             <div id="communityCategoryWrapper">
-                <CommunityResults />
+                <CommunityResults current={current} />
             </div>
         </div>
     </>

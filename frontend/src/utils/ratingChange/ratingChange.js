@@ -1,12 +1,7 @@
+import getSiblings from '../miscFunctions/getSiblings.js'
+
 export function ratingChange(e, review) {
     const iconParent = e.currentTarget
-
-    function getSiblings(element) {
-        const parent = element.parentNode;
-        const children = Array.from(parent.children)
-        const siblings = children.filter(child => child !== element)
-        return siblings
-    }
 
     const siblings = getSiblings(iconParent)
 

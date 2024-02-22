@@ -2,12 +2,13 @@
     dashboard view
         update post view
 
-2. backend setup and connection
-            - on click of icon or leave review allow to leave comment or review right there without leaving the page
-            - change icons on hover and add onClick to allow update of reviews if logged and have reviewed
-            
+2. backend setup and connection 
     - dashboard
         - create delete review route
+    - add logic to comment section
+        - if current user has a comment then display it on top with the choice to delete or edit, 
+        else display the newest comment with a choice to add their overwriting
+        - turn edit review link into edit comment and change view to show input textarea with previous comment loaded
 
 3. API's needed:
     - google maps
@@ -20,7 +21,11 @@
     - clicking an answer in the form more than once will append a new value instead of overwriting the first value
     - initial load still hows totals as 4500%.. need to run the aggregate results function sometime before a new venue is added 
     - rating does not round but can be displayed as 33.33333 etc
-    - create new user, color is asssigned, but next click show a different color
+    - create new user, color is assigned, but next click show a different color
     - a new review for an existing venue first time does not save the comment to the db, editing the review will save the comment
     - need to pull in the comment to the form when editing
+    - only show review section on store page if there is a review 
+    - wait to pass over any review without xcom and show the first comment with an xcom value if any
+         
+
 

@@ -16,7 +16,6 @@ function Comment() {
       currentVenueData.reviews.forEach((review) => {
         if (review.answers[0].xcom) {
           count += 1;
-          console.log(count);
         }
         if (count > 1) {
           setAddReviews(true);
@@ -32,8 +31,6 @@ function Comment() {
   function toSeeReviews(data) {
     setSeeAllReviews(data);
   }
-
-  console.log('see all reviews:', seeAllReviews)
 
   return (
     <>
