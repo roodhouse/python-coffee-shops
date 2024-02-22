@@ -4,8 +4,6 @@ import { useMain } from '../../../../../context/main'
 
 function ServiceResults({current}) {
 
-    console.log('current is: ', current)
-
     const { currentVenueAgg } = useMain()
 
     let ser1, ser2, ser3, ser4, ser5 = 0

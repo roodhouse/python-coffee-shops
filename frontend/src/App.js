@@ -11,6 +11,7 @@ import Register from './components/Register';
 import Store from './components/Store';
 import Dash from './components/Dashboard';
 import NewReview from './components/NewReview';
+import GMap from './components/GMap';
 
 function App() {
 
@@ -43,6 +44,10 @@ function App() {
 
               <div id='newReviewWrapper' style={home === 'newReview' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem] px-[.75rem]'>
                 <NewReview />
+              </div>
+
+              <div id='mapWrapper' style={home === 'map' ? {display: 'block'} : {display: 'none'}} className='w-full h-screen'>
+                <GMap />
               </div>
 
               <div id='dashWrapper' style={home === 'dash' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem] px-[.75rem] w-full'>
