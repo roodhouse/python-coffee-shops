@@ -4,6 +4,8 @@ import { MarkerClusterer } from "@googlemaps/markerclusterer";
 const googleAPI = process.env.REACT_APP_GOOGLE_API_KEY;
 
 export async function initMap() {
+    console.log('map called')
+    
   const loader = new Loader({
     apiKey: googleAPI,
     version: "weekly",
@@ -46,6 +48,16 @@ export async function initMap() {
       });
       return marker;
     });
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+            const pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            }
+            map.setCenter(pos)
+        })
+    }
   });
 
   // Add a marker clusterer to manage the markers.
