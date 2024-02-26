@@ -1,10 +1,14 @@
 import React from 'react'
+import { useAddForm } from '../../../../../../context/addFormContext'
 
 function ConfirmMap() {
+
+  const { userSelectedLocation } = useAddForm()
+  
   return (
     <>
         <div id="confirmMapContainer">
-            <p>Google API with map on selection here</p>
+            <p>{ userSelectedLocation && userSelectedLocation.venue ? userSelectedLocation.venue : ''}</p>
         </div>
     </>
   )

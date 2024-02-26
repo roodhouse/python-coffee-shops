@@ -16,6 +16,12 @@ const AddFormProvider = ({ children }) => {
     const [ formData, setFormData ] = useState({})
     const [ editReview, setEditReview ] = useState(false)
     const [ newReviewExistVenue, setNewReviewExistVenue ] = useState(false)
+    const [ userSelectedLocation, setUserSelectedLocation ] = useState(null)
+
+    // select user location
+    const onLocationSelect = (place) => {
+        setUserSelectedLocation(place)
+    }
 
     // select step
     function currentStep(sentStep) {
@@ -507,7 +513,7 @@ const AddFormProvider = ({ children }) => {
     return <AddFormContext.Provider value = 
     {
         {
-            step, currentStep, formData, updateFormData, googlePhotos, detailQuestions, editReview, editTheReview, sendResults, newReviewExistingVenue, newReviewExistVenue
+            step, currentStep, formData, updateFormData, googlePhotos, detailQuestions, editReview, editTheReview, sendResults, newReviewExistingVenue, newReviewExistVenue, onLocationSelect, userSelectedLocation
         }
     }>
         {children}

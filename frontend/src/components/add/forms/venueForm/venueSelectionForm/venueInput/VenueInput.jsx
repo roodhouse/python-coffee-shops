@@ -1,29 +1,50 @@
-import React, {useState} from 'react'
-import { LoadScript, Autocomplete } from '@react-google-maps/api'
-import { useMain } from '../../../../../../context/main';
+import React, { useState, useEffect } from 'react'
+import { initMap } from '../../../../../../utils/mapFunctions/initMap'
+import { useMain } from '../../../../../../context/main'
+import { useAddForm } from '../../../../../../context/addFormContext'
 
-function VenueInput({ register, errors, onLocationSelect }) {
+function VenueInput({ register, errors }) {
 
-    const { isLoaded } = useMain()
     const [ selectedLocation, setSelectedLocation ] = useState(null)
+    const { home } = useMain()
+    const { step, onLocationSelect } = useAddForm()
 
-    const handlePlaceSelect = (place) => {
-        setSelectedLocation(place)
-    }
+    // const handlePlaceSelect = (place) => {
+    //     setSelectedLocation(place)
+    //     // onLocationSelect(place)
+    // }
 
-    const handleSubmit = () => {
-        onLocationSelect(selectedLocation)
-    }
+    // const handleSubmit = () => {
+    //     onLocationSelect(selectedLocation)
+    // }
 
-    const handleKeyDown = (event) => {
-        if (event.key === 'Enter') {
-            handleSubmit()
-        }
-    }
+    // const handleKeyDown = (event) => {
+    //     if (event.key === 'Enter') {
+    //         handleSubmit()
+    //     }
+    // }
 
-  return isLoaded ? (
-    <LoadScript libraries={['places']}>
-      <Autocomplete onLoad={(autocomplete) => console.log('Autocomplete loaded:', autocomplete)}>
+    // useEffect(() => {
+    //     if ( home === 'suggest' && step === 'venue')
+    //     initMap()
+    // },[home, step])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            if (home === 'suggest' && step === 'venue') {
+                try {
+                    const place = await initMap()
+                    setSelectedLocation(place)
+                    onLocationSelect(place)
+                } catch (error) {
+                    console.error(error)
+                }
+            }
+        };
+        fetchData();
+    }, [home, step]);
+
+  return (
         <div id="venueInputContainer">
           <input
             type="text"
@@ -34,13 +55,11 @@ function VenueInput({ register, errors, onLocationSelect }) {
             {...register("venue", {
               required: "Can't be empty",
             })}
-            onKeyDown={handleKeyDown}
+            // onKeyDown={handleKeyDown}
           />
           {errors.location && <p>{errors.location.message}</p>}
         </div>
-      </Autocomplete>
-    </LoadScript>
-  ) : <></>;
+  )
 }
 
 export default VenueInput
