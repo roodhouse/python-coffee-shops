@@ -1,4 +1,4 @@
-import React from 'react' 
+import React, { useState } from 'react' 
 import VenueForm from './forms/venueForm/VenueForm'
 import MapForm from './forms/mapForm/MapForm'
 import ImageForm from './forms/imageForm/ImageForm'
@@ -17,6 +17,11 @@ import { useMain } from '../../context/main'
 function AddForm() {
 
     const { editReview } = useMain()
+    const { userLocation, setUserLocation } = useState(null)
+
+    const onLocationSelect = (data) => {
+        setUserLocation(data)
+    }
 
   return (
     <>
@@ -24,7 +29,7 @@ function AddForm() {
         {!editReview ? (
             <>
                 <div id="venueFormWrapper">
-                    <VenueForm />
+                    <VenueForm onLocationSelect={onLocationSelect} />
                 </div>
                 <div id="mapFormWrapper">
                     <MapForm />
