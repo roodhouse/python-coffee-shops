@@ -1,10 +1,15 @@
 import { Loader } from "@googlemaps/js-api-loader";
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
 
-const googleAPI = process.env.REACT_APP_GOOGLE_API_KEY;
+// const googleAPI = process.env.REACT_APP_GOOGLE_API_KEY;
 
-export async function initMap() {
+export async function initMap(googleAPI, isLoaded) {
     console.log('map called')
+
+    if ( !isLoaded ) {
+      console.error('Google Maps API is not loaded')
+      return
+    }
     
   const loader = new Loader({
     apiKey: googleAPI,

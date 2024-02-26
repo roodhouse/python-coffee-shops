@@ -3,11 +3,11 @@ import { initMap } from "../utils/mapFunctions/initMap";
 import { useMain } from "../context/main";
 
 function GMap() {
-  const { home } = useMain();
+  const { home, isLoaded, googleAPI } = useMain();
 
   useEffect(() => {
     if (home === "map") {
-      initMap();
+      initMap(googleAPI, isLoaded);
     }
   }, [home]);
 

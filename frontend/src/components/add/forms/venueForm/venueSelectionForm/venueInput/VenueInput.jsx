@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
 import { LoadScript, Autocomplete } from '@react-google-maps/api'
-
-const googleAPI = process.env.REACT_APP_GOOGLE_API_KEY;
+import { useMain } from '../../../../../../context/main';
 
 function VenueInput({ register, errors, onLocationSelect }) {
+
+    const { isLoaded } = useMain()
     const [ selectedLocation, setSelectedLocation ] = useState(null)
 
     const handlePlaceSelect = (place) => {
@@ -20,8 +21,8 @@ function VenueInput({ register, errors, onLocationSelect }) {
         }
     }
 
-  return (
-    <LoadScript googleMapsApiKey={googleAPI}>
+  return isLoaded ? (
+    <LoadScript libraries={['places']}>
       <Autocomplete onLoad={(autocomplete) => console.log('Autocomplete loaded:', autocomplete)}>
         <div id="venueInputContainer">
           <input
@@ -39,7 +40,7 @@ function VenueInput({ register, errors, onLocationSelect }) {
         </div>
       </Autocomplete>
     </LoadScript>
-  );
+  ) : <></>;
 }
 
 export default VenueInput

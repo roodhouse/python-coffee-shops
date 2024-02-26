@@ -1,5 +1,6 @@
 import React, { useContext, createContext, useState, useEffect } from "react";
 import authService from '../utils/auth'
+import { useJsApiLoader } from '@react-google-maps/api'
 
 // create context
 const MainContext = createContext();
@@ -21,6 +22,20 @@ const MainProvider = ({ children }) => {
     const [ allReviews, setAllReviews ] = useState(null)
     const [ review, setReview ] = useState(null)
     const [ aggDataUpdate, setAggDataUpdate] = useState(false)
+    const [ isLoaded, setIsLoaded ] = useState(false)
+
+    const googleAPI = process.env.REACT_APP_GOOGLE_API_KEY;
+
+    const { isLoaded: jsApiIsLoaded } = useJsApiLoader({
+        id: 'google-maps-loader',
+        googleMapsApiKey: googleAPI
+    })
+
+    useEffect(() => {
+        if (jsApiIsLoaded) {
+            setIsLoaded(true)
+        }
+    }, [jsApiIsLoaded])
 
     // Check for token on load
     useEffect(() => {
@@ -261,7 +276,7 @@ const MainProvider = ({ children }) => {
     {
         {
             home, currentCity, venueCount, listOfStates, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn, successLogin, logout,
-            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review, aggDataUpdated, clearVenue, clearCurrentVenueData
+            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review, aggDataUpdated, clearVenue, clearCurrentVenueData, isLoaded, googleAPI
         }
     }>
         {children}
