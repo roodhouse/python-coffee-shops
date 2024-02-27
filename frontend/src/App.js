@@ -47,7 +47,7 @@ function App() {
               </div>
 
               <div id='mapWrapper' style={home === 'map' ? {display: 'block'} : {display: 'none'}} className='w-full h-screen'>
-                <GMap />
+                <GMap longitude={-97.85050201416016} latitude={30.627946853637695} type={'large'} />
               </div>
 
               <div id='dashWrapper' style={home === 'dash' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem] px-[.75rem] w-full'>

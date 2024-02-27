@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useAddForm } from '../../../../../context/addFormContext'
 import VenueInput from './venueInput/VenueInput'
 
-function VenueSelectionForm() {
+function VenueSelectionForm() { 
 
     const { register, handleSubmit, formState: {errors} } = useForm()
     const { updateFormData, currentStep, userSelectedLocation } = useAddForm()

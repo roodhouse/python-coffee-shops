@@ -9,7 +9,6 @@ function MapSelectionForm() {
     const { register, handleSubmit, formState: {errors} } = useForm()
     const { currentStep, updateFormData, formData } = useAddForm()
 
-    console.log(formData)
 
     const onSubmit = () => {
         currentStep('image')

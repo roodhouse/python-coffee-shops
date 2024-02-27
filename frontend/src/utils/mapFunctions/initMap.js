@@ -3,7 +3,7 @@ import { MarkerClusterer } from "@googlemaps/markerclusterer";
 
 const googleAPI = process.env.REACT_APP_GOOGLE_API_KEY;
 
-export function initMap() {
+export function initMap(longitude, latitude) {
     console.log('map called');
     
     return new Promise((resolve, reject) => {
@@ -15,10 +15,17 @@ export function initMap() {
 
         loader.load().then(async (google) => {
             await google.maps.importLibrary('marker');
-            const map = new google.maps.Map(document.getElementById("map"), {
+            
+            const mapSmall = new google.maps.Map(document.getElementById("map-small"), {
+                zoom: 14,
+                center: { lat: latitude, lng: longitude },
+                mapId: "remote_friendly_small",
+            });
+
+            const mapLarge = new google.maps.Map(document.getElementById("map-large"), {
                 zoom: 8,
-                center: { lat: 30.627946853637695, lng: -97.85050201416016 },
-                mapId: "remote_friendly",
+                center: { lat: latitude, lng: longitude },
+                mapId: "remote_friendly_large",
             });
 
             const options = 
@@ -29,7 +36,7 @@ export function initMap() {
             const autoComplete = new google.maps.places.Autocomplete(
                 document.getElementById('venueInput'), options);
 
-            autoComplete.bindTo("bounds", map);
+            autoComplete.bindTo("bounds", mapSmall);
 
             autoComplete.addListener('place_changed', () => {
                 const place = autoComplete.getPlace();
@@ -73,7 +80,7 @@ export function initMap() {
 
                 marker.addListener("click", () => {
                     infoWindow.setContent(position.lat + ", " + position.lng);
-                    infoWindow.open(map, marker);
+                    infoWindow.open(mapLarge, marker);
                 });
                 return marker;
             });
@@ -84,11 +91,11 @@ export function initMap() {
                         lat: position.coords.latitude,
                         lng: position.coords.longitude
                     }
-                    map.setCenter(pos);
+                    mapLarge.setCenter(pos);
                 });
             }
 
-            new MarkerClusterer({ markers, map });
+            new MarkerClusterer({ markers, map: mapLarge });
         }).catch(error => {
             console.error("Error loading Google Maps API:", error);
             reject(error);

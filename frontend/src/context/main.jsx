@@ -24,15 +24,6 @@ const MainProvider = ({ children }) => {
     const [ aggDataUpdate, setAggDataUpdate] = useState(false)
     const [ isLoaded, setIsLoaded ] = useState(false)
 
-    // useEffect(() => {
-    //       const startMap = initMap();
-    //       if (startMap) {
-    //         setIsLoaded(true)
-    //       } else {
-    //         console.error('There was an error starting the map')
-    //       }
-    //   },[]);
-
     // Check for token on load
     useEffect(() => {
         const token = authService.getToken()

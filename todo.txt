@@ -16,6 +16,20 @@
     - google maps
     - setup auto complete
         - need to save data approrpriately
+        data needed:
+            - address_components[3].long_name (city name)
+            - formatted_address (full address)
+            - geometry.viewport.Jh.hi (longitude)
+            - geometry.viewport.Zh.hi (latitude)
+            - name
+            - opening_hours.weekday_text
+            - url (maps location url)
+            - website
+            - where to find images? see link below...
+                - photos[0].raw_reference.fife_url (need 0-5)
+
+        -- next: import map component into map step...
+
     - importing data from json?
         - what do I need from api?
             - lng, lat

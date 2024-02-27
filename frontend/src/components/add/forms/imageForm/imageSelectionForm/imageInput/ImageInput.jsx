@@ -6,13 +6,27 @@ import NextButton from '../../../next/NextButton'
 
 function ImageInput({ register, errors, setValue }) {
 
-    const { googlePhotos } = useAddForm()
+    const { googlePhotos, formData } = useAddForm()
     const [ selectedImage, setSelectedImage ] = useState(googlePhotos[0])
 
     const handleImageClick = (photo) => {
       setSelectedImage(photo)
       setValue('image', photo)
     }
+
+    if (formData && formData.photos && formData.photos[0]) {
+      console.log('from ImageINput formData: ', formData.photos[0])
+      const photo = formData.photos[0]
+      if (typeof photo.getUrl === 'function') {
+        const url = photo.getUrl()
+        console.log(url)
+      } else {
+        console.log('getUrl not available on the photo object')
+      }
+    }
+
+
+    // console.log('ImageInput ', formData.photos[0])
 
   return (
     <>

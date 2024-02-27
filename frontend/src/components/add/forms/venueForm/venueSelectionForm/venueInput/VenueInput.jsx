@@ -7,41 +7,34 @@ function VenueInput({ register, errors }) {
 
     const [ selectedLocation, setSelectedLocation ] = useState(null)
     const { home } = useMain()
-    const { step, onLocationSelect } = useAddForm()
-
-    // const handlePlaceSelect = (place) => {
-    //     setSelectedLocation(place)
-    //     // onLocationSelect(place)
-    // }
-
-    // const handleSubmit = () => {
-    //     onLocationSelect(selectedLocation)
-    // }
-
-    // const handleKeyDown = (event) => {
-    //     if (event.key === 'Enter') {
-    //         handleSubmit()
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     if ( home === 'suggest' && step === 'venue')
-    //     initMap()
-    // },[home, step])
+    const { step, onLocationSelect, formData } = useAddForm()
 
     useEffect(() => {
+
+        let longitude;
+        let latitude;
+        if (formData && formData.geometry && formData.geometry.viewport) {
+          
+          longitude = formData.geometry.viewport.Jh.hi
+          latitude = formData.geometry.viewport.Zh.hi
+        } else {
+          longitude = -97.85050201416016
+          latitude = 30.627946853637695
+        }
+
         const fetchData = async () => {
-            if (home === 'suggest' && step === 'venue') {
+            if (home === 'suggest' && step === 'venue') { 
                 try {
-                    const place = await initMap()
+                    const place = await initMap(longitude, latitude)
                     setSelectedLocation(place)
                     onLocationSelect(place)
                 } catch (error) {
                     console.error(error)
                 }
-            }
-        };
-        fetchData();
+
+              }
+            };
+            fetchData();
     }, [home, step]);
 
   return (
@@ -55,7 +48,6 @@ function VenueInput({ register, errors }) {
             {...register("venue", {
               required: "Can't be empty",
             })}
-            // onKeyDown={handleKeyDown}
           />
           {errors.location && <p>{errors.location.message}</p>}
         </div>

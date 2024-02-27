@@ -1,19 +1,22 @@
 import React, { useEffect } from "react";
 import { initMap } from "../utils/mapFunctions/initMap";
 import { useMain } from "../context/main";
+import { useAddForm } from "../context/addFormContext";
 
-function GMap() {
+function GMap({longitude, latitude, type}) {
   const { home } = useMain();
+  const { step } = useAddForm()
 
   useEffect(() => {
-    if (home === "map") {
-      initMap();
+    if ((home === "map" && type === 'large') || (home === 'suggest' && type === 'small' && step === 'map')) {
+      initMap(longitude, latitude);
     }
-  }, [home]);
+  }, [home, type, step]);
+
 
   return (
-    <div id="mapContainer" className="h-full">
-      <div id="map" className="h-full"></div>
+    <div id={`mapContainer-${type}`} className={ type === 'large' ? 'h-full' : 'h-52'}>
+      <div id={`map-${type}`} className="h-full"></div>
     </div>
   );
 }
