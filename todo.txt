@@ -15,7 +15,7 @@
 3. API's needed:
     - google maps
     - setup auto complete
-        - bug 'google api already presented'
+        - need to save data approrpriately
     - importing data from json?
         - what do I need from api?
             - lng, lat

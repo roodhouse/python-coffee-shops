@@ -5,20 +5,12 @@ import VenueInput from './venueInput/VenueInput'
 
 function VenueSelectionForm() {
 
-    // const [ userSelectedLocation, setUserSelectedLocation ] = useState(null)
-
     const { register, handleSubmit, formState: {errors} } = useForm()
     const { updateFormData, currentStep, userSelectedLocation } = useAddForm()
 
-    // const onLocationSelect = (place) => {
-    //     setUserSelectedLocation(place)
-    // }
-
     const onSubmit = (data) => {
         updateFormData(userSelectedLocation)
-        // onLocationSelect(data)
         currentStep('map')
-        // console.log(userSelectedLocation)
     }
 
     const onError = () => {
