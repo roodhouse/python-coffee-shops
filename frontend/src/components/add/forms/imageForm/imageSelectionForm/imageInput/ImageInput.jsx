@@ -6,41 +6,47 @@ import NextButton from '../../../next/NextButton'
 
 function ImageInput({ register, errors, setValue }) {
 
-    const { googlePhotos, formData } = useAddForm()
-    const [ selectedImage, setSelectedImage ] = useState(googlePhotos[0])
+    // const { googlePhotos, formData } = useAddForm()
+    const { formData, step } = useAddForm()
+    const [ selectedImage, setSelectedImage ] = useState(null)
 
     const handleImageClick = (photo) => {
       setSelectedImage(photo)
       setValue('image', photo)
     }
 
-    if (formData && formData.photos && formData.photos[0]) {
-      console.log('from ImageINput formData: ', formData.photos[0])
-      const photo = formData.photos[0]
-      if (typeof photo.getUrl === 'function') {
-        const url = photo.getUrl()
-        console.log(url)
-      } else {
-        console.log('getUrl not available on the photo object')
+    let googlePhotos = []
+
+      if (step === "image" && formData && formData.photos) {
+        const firstSixPhotos = formData.photos.slice(0,6)
+
+        firstSixPhotos.forEach((photo) => {
+          if (typeof photo.getUrl === "function") {
+            googlePhotos.push(photo.getUrl());
+          } else {
+            console.error("Error getting google photos");
+          }
+        })
       }
-    }
 
-
-    // console.log('ImageInput ', formData.photos[0])
+    console.log(googlePhotos)
 
   return (
     <>
         <div id="imageInputContainer">
-            { googlePhotos.map((photo) => (
-              <div id='imageOptionContainer' key={photo}>
+          <div id='imageChoiceContainer' className='flex flex-wrap justify-between my-7'>
+            { googlePhotos.map((photo, index) => (
+              <div id={`imageOptionContainer-${index}`} key={index} className={`${index === 0 || index === 1 || index === 2 ? 'mb-7' : ''} w-24 h-52`}>
                 <ImageOption
-                  key={photo}
+                  key={index}
                   photo={photo}
                   onClick={() => handleImageClick(photo)}
                   isSelected={selectedImage === photo }
+                  index={index}
                 />
               </div>
             ))}
+          </div>
 
           <input className='inputValue' type="hidden" name='venuePhoto' value={selectedImage || ''} {...register('image')} />
           
