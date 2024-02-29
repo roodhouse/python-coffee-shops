@@ -29,8 +29,6 @@ function ImageInput({ register, errors, setValue }) {
         })
       }
 
-    console.log(googlePhotos)
-
   return (
     <>
         <div id="imageInputContainer">

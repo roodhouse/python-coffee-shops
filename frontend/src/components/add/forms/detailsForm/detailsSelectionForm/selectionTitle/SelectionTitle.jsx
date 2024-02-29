@@ -8,7 +8,7 @@ function SelectionTitle() {
   return (
     <>
         <div id="selectionTitleContainer" className='font-["PT_Serif"] leading-7'>
-            <p>Select details for {formData.venue} in {formData.location} </p>
+            <p>Select details for {formData.venue} in {formData.city} </p>
         </div>
     </>
   )

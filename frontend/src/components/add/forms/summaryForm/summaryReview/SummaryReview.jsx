@@ -25,7 +25,7 @@ function SummaryReview() {
           <div id="locationSummaryContainer" className='mb-4'>
             <p>
               <span className='font-bold'>Location: </span>
-              <span>{formData.location}</span>
+              <span>{formData.address}</span>
             </p>
           </div>
           <div id="productivitySummaryContainer" className='mb-4'>

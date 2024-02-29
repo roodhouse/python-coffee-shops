@@ -5,7 +5,11 @@ import DetailsSelectionForm from './detailsSelectionForm/DetailsSelectionForm'
 
 function DetailsForm({ id }) {
 
-    const { step } = useAddForm()
+    const { step, formData } = useAddForm()
+
+    // if (step === 'details') {
+    //     console.log(formData)
+    // }
 
   return (
     <>

@@ -1,4 +1,4 @@
-import React, { useContext, createContext, useState } from "react";
+import React, { useContext, createContext, useState, useEffect } from "react";
 import { useMain } from "./main";
 import { sendToDatabase } from "../utils/sendToDatabase/sendToDatabase";
 import { aggregateResults } from "../utils/aggregateResults/aggregateResults";
@@ -33,10 +33,26 @@ const AddFormProvider = ({ children }) => {
         setFormData({...formData, ...sentData})
     }
 
+    // clean up formData after map confirm
+    useEffect(() => {
+        console.log(step, formData)
+        if (step === 'image') {
+            delete formData.address_components
+            delete formData.formatted_address
+            delete formData.geometry
+            delete formData.html_attributions
+            delete formData.opening_hours
+        } else if (step === 'details') {
+            delete formData.photos
+        } else if (step === 'summary') {
+            console.log('final form data')
+            console.log(formData)
+        }
+    },[formData, step])
+
     const sendResults = async (submission, category) => {
         let reviewId;
         let simpleRate = false
-        console.log(category)
         if (category === 'new') {
             reviewId = ''
         } else if (category === 'simpleRateNew') {

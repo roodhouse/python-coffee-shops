@@ -28,7 +28,8 @@
             - where to find images? see link below...
                 - photos[0].raw_reference.fife_url (need 0-5)
 
-        -- next: import map component into map step...
+        -- next: check what formData is saving, what how do I need it to save? update for image changes?
+            - issue at summary of venue/review submission... here!
 
     - importing data from json?
         - what do I need from api?

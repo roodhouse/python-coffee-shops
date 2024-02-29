@@ -42,7 +42,7 @@ export function initMap(longitude, latitude) {
                 const place = autoComplete.getPlace();
                 if (!place.geometry) {
                     console.error("No place data available for input: '" + place.name + "'");
-                    reject(new Error("No place data available"));
+                    reject(new Error("No place data available")); 
                     return;
                 }
                 resolve(place);
