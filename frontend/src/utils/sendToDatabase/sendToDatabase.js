@@ -30,6 +30,7 @@ export const sendToDatabase = async (submission, category, editReview, userData,
     const city = submission.city
     const map = submission.map
     const website = submission.website
+    const placeId = submission.place_id
 
     if ( (editReview === false && category === 'new') || (newReviewExistVenue === true && category === 'new' )) {
         let rating;
@@ -139,7 +140,7 @@ export const sendToDatabase = async (submission, category, editReview, userData,
             ]
 
         }
-        const newSubmission = await handleNewSubmission(user_id, user_email, venue, image, location, address, city, map, website, hours, rating, answers, editReview, reviewId, newReviewExistVenue, simpleRate)
+        const newSubmission = await handleNewSubmission(user_id, user_email, venue, image, location, address, city, map, website, placeId, hours, rating, answers, editReview, reviewId, newReviewExistVenue, simpleRate)
         if (newSubmission) {
             return true
         } else {

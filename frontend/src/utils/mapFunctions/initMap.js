@@ -30,11 +30,12 @@ export function initMap(longitude, latitude) {
 
             const options = 
             {
-                fields: ['address_components', 'formatted_address', 'geometry', 'name', 'opening_hours', 'url', 'website', 'photos']
+                fields: ['address_components', 'formatted_address', 'geometry', 'name', 'opening_hours', 'url', 'website', 'photos', 'place_id']
             }
 
             const autoComplete = new google.maps.places.Autocomplete(
                 document.getElementById('venueInput'), options);
+                
 
             autoComplete.bindTo("bounds", mapSmall);
 

@@ -29,7 +29,7 @@
                 - photos[0].raw_reference.fife_url (need 0-5)
 
         -- next: check what formData is saving, what how do I need it to save? update for image changes?
-            - on backend save image then send local file to db - here!
+            - on backend, create route for single image, on frontend fetch the image -- Here!!
 
     - importing data from json?
         - what do I need from api?

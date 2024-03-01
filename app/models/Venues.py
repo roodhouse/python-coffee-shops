@@ -5,6 +5,7 @@ from sqlalchemy.orm import relationship
 class Venues(Base):
     __tablename__ = 'venues'
     id = Column(Integer, primary_key=True)
+    place_id = Column(String(length=250), nullable=False)
     comment_id = Column(Integer, ForeignKey('comments.id'))
     name = Column(String(250), nullable=False, index=True)
     image = Column(String(length=1000), nullable=False)

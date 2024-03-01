@@ -39,6 +39,7 @@ db.add_all([
         city = 'Leander',
         map = 'https://www.google.com',
         website = 'https://www.google.com',
+        place_id = 'TestPlaceId',
         hours = [
             {
                 'Sun': [{'open': '5am','close': '8pm'}],
@@ -61,6 +62,7 @@ db.add_all([
         city = 'Leander',
         map = 'https://www.google.com',
         website = 'https://www.google.com',
+        place_id = 'TestPlaceId',
         hours = [
             {
                 'Sun': [{'open': '5am','close': '8pm'}],
