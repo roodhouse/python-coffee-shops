@@ -15,11 +15,12 @@ function MapSelectionForm() {
         updateFormData(
             {
                 map: formData.url,
-                location: 
-                {
-                    lng: formData.geometry.viewport.Jh.hi,
-                    lat: formData.geometry.viewport.Zh.hi
-                },
+                location: [
+                    {
+                        lng: formData.geometry.viewport.Jh.hi,
+                        lat: formData.geometry.viewport.Zh.hi
+                    }
+                ],
                 address: formData.formatted_address, 
                 hours: formData.opening_hours.weekday_text,
                 city: formData.address_components[3].long_name

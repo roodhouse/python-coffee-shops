@@ -26,6 +26,9 @@ def get_venues():
             'image': venue.image,
             'location': venue.location,
             'address': venue.address,
+            'city': venue.city,
+            'map': venue.map,
+            'website': venue.website,
             'hours': venue.hours,
             'rating': venue.rating,
             'review_count': venue.review_count
@@ -49,6 +52,9 @@ def get_venue(name):
             'image': venue.image,
             'location': venue.location,
             'address': venue.address,
+            'city': venue.city,
+            'map': venue.map,
+            'website': venue.website,
             'rating': venue.rating,
             'review_count': venue.review_count,
             'reviews' : [
@@ -81,6 +87,9 @@ def get_last_venue():
                 'image': latest_venue.image,
                 'location': latest_venue.location,
                 'address': latest_venue.address,
+                'city': latest_venue.city,
+                'map': latest_venue.map,
+                'website': latest_venue.website,
                 'hours': latest_venue.hours,
                 'rating': latest_venue.rating,
                 'review_count': latest_venue.review_count
@@ -97,6 +106,8 @@ def get_last_venue():
 def new_venue(current_user, current_user_email):
     data = request.get_json()
     db = get_db()
+    
+    # get and download the picture here and send my copy to the db
 
     try:
         new_venue = Venues(
@@ -104,6 +115,9 @@ def new_venue(current_user, current_user_email):
             image = data['image'],
             location = data['location'],
             address = data['address'],
+            city = data['city'],
+            map = data['map'],
+            website = data['website'],
             hours = data['hours'],
             rating = data['rating']
         )
@@ -135,6 +149,12 @@ def update_venue(current_user, current_user_email, name):
                 venue.location = data['location']
             if 'address' in data:
                 venue.address = data['address']
+            if 'city' in data:
+                venue.city = data['city']
+            if 'map' in data:
+                venue.map = data['map']
+            if 'website' in data:
+                venue.website = data['website']
             if 'hours' in data:
                 venue.hours = data['hours']
             if 'rating' in data:

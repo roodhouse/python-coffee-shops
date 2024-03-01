@@ -42,6 +42,7 @@ const AddFormProvider = ({ children }) => {
             delete formData.geometry
             delete formData.html_attributions
             delete formData.opening_hours
+            delete formData.url
         } else if (step === 'details') {
             delete formData.photos
         } else if (step === 'summary') {

@@ -1,4 +1,23 @@
-export const postVenue = async (venue, image, location, address, hours, rating) => {
+export const postVenue = async (venue, image, location, address, city, map, website, hours, rating) => {
+    console.log(hours)
+
+    // hours = [
+    //     {
+    //         'Sun': [{'open': '5am','close': '8pm'}],
+    //         'Mon': [{'open' : '5am','close' : '8pm'}],
+    //         'Tues': [{'open' : '5am','close' : '8pm'}],
+    //         'Wed': [{'open' : '5am','close' : '8pm'}],
+    //         'Thurs': [{'open' : '5am','close' : '8pm'}],
+    //         'Fri': [{'open' : '5am','close' : '8pm'}],
+    //         'Sat': [{'open' : '5am','close' : '8pm'}],
+    //     }
+    // ]
+
+    // location = [
+    //     {
+    //         fake: 'location'
+    //     }
+    // ]
 
     try {
         // create venue
@@ -9,6 +28,9 @@ export const postVenue = async (venue, image, location, address, hours, rating) 
                 image,
                 location,
                 address,
+                city,
+                map,
+                website,
                 hours,
                 rating
             }),

@@ -7,14 +7,19 @@ class Venues(Base):
     id = Column(Integer, primary_key=True)
     comment_id = Column(Integer, ForeignKey('comments.id'))
     name = Column(String(250), nullable=False, index=True)
-    image = Column(String(length=250), nullable=False)
-    location = Column(String(length=500), nullable=False)
+    image = Column(String(length=1000), nullable=False)
+    # location = Column(JSON, nullable=False)
+    location = Column(JSON)
     address = Column(String(length=250), nullable=False)
-    hours = Column(JSON, nullable=False)
+    city = Column(String(length=250), nullable=False)
+    map = Column(String(length=250), nullable=False)
+    website = Column(String(length=250), nullable=False)
+    # hours = Column(JSON, nullable=False)
+    hours = Column(JSON)
     rating = Column(Float)
 
     review_count = Column(Integer, default=0)
 
     # define relationship
     reviews = relationship('Reviews', back_populates='venue_rated')
-    comments = relationship('Comments', back_populates='venue') 
+    comments = relationship('Comments', back_populates='venue')

@@ -2,12 +2,12 @@ import { postVenue } from "./venueAPI/VenueAPI"
 import { reviewAPI } from "./reviewAPI/ReviewAPI"
 import { updateUser } from "./userAPI/UserAPI"
 
-export const handleNewSubmission = async (user_id, user_email, venue, image, location, address, hours, rating, answers, editReview, reviewId, newReviewExistVenue, simpleRate) => {
+export const handleNewSubmission = async (user_id, user_email, venue, image, location, address, city, map, website, hours, rating, answers, editReview, reviewId, newReviewExistVenue, simpleRate) => {
     let newVenue;
     if (newReviewExistVenue || simpleRate) {
         newVenue = true
     } else {
-        newVenue = await postVenue(venue, image, location, address, hours, rating)
+        newVenue = await postVenue(venue, image, location, address, city, map, website, hours, rating) // need to change names of these items
     }
     
     if (newVenue) {

@@ -1,20 +1,35 @@
 import { handleNewSubmission } from "./handleNewSubmission"
 import { handleReviewUpdate } from "./handleReviewUpdate"
 
+// need to redefine values coming in from submission..
+
 export const sendToDatabase = async (submission, category, editReview, userData, userAuthenticated, reviewId, newReviewExistVenue, currentVenue, simpleRate) => {
     let venue;
     let answers;
     if ( newReviewExistVenue || simpleRate ) {
         venue = currentVenue
     } else {
-        venue = submission.venue
+        venue = submission.name
     }
     const user_email = userData.user_email
     const user_id = userData.user_id
     const image = submission.image
     const location = submission.location
     const address = submission.address
-    const hours = submission.hours
+    const hours = [
+        {
+            'Sun': submission.hours[6],
+            'Mon': submission.hours[0],
+            'Tues': submission.hours[1],
+            'Wed': submission.hours[2],
+            'Thurs': submission.hours[3],
+            'Fri': submission.hours[4],
+            'Sat': submission.hours[5]
+        }
+    ]
+    const city = submission.city
+    const map = submission.map
+    const website = submission.website
 
     if ( (editReview === false && category === 'new') || (newReviewExistVenue === true && category === 'new' )) {
         let rating;
@@ -124,7 +139,7 @@ export const sendToDatabase = async (submission, category, editReview, userData,
             ]
 
         }
-        const newSubmission = await handleNewSubmission(user_id, user_email, venue, image, location, address, hours, rating, answers, editReview, reviewId, newReviewExistVenue, simpleRate)
+        const newSubmission = await handleNewSubmission(user_id, user_email, venue, image, location, address, city, map, website, hours, rating, answers, editReview, reviewId, newReviewExistVenue, simpleRate)
         if (newSubmission) {
             return true
         } else {
