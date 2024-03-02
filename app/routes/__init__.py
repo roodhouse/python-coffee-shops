@@ -4,3 +4,4 @@ from .venue import venue_bp as venue
 from .review import review_bp as review
 from .comment import comment_bp as comment
 from .venueAggregates import aggregate_bp as venueAggregates
+from .images import images_bp as images

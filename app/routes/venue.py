@@ -1,4 +1,3 @@
-from crypt import methods
 from os import getenv
 import sys
 from dotenv import load_dotenv
