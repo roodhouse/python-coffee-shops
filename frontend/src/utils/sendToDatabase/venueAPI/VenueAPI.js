@@ -1,4 +1,4 @@
-export const postVenue = async (venue, image, location, address, hours, rating) => {
+export const postVenue = async (venue, image, location, address, city, map, website, placeId, hours, rating) => {
 
     try {
         // create venue
@@ -9,6 +9,10 @@ export const postVenue = async (venue, image, location, address, hours, rating) 
                 image,
                 location,
                 address,
+                city,
+                map,
+                website,
+                placeId,
                 hours,
                 rating
             }),

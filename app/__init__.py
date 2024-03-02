@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
-from app.routes import home, user, venue, review, comment, venueAggregates
+from app.routes import home, user, venue, review, comment, venueAggregates, images
 from app.db import init_db
 from datetime import timedelta
 
@@ -19,6 +19,7 @@ def create_app(test_config=None):
     app.register_blueprint(review)
     app.register_blueprint(comment)
     app.register_blueprint(blueprint=venueAggregates)
+    app.register_blueprint(images)
     init_db(app)
 
     # init CORS with flask app

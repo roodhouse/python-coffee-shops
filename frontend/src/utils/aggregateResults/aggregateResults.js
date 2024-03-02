@@ -7,10 +7,6 @@ import { updateAggregateAndVenueRating } from "./updateAggregateAndVenueRating"
 export async function aggregateResults() {
     let allReviews = await fetchAllReviews()
     let venueCount = calculateVenueCounts(allReviews)
-
-
-    console.log('allReviews from aggregateResults: ', allReviews)
-
     let allUpdatesSuccessful = true
 
     for (let[venue, count] of Object.entries(venueCount)) {

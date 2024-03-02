@@ -5,27 +5,22 @@ function SummaryReview() {
 
   const { formData } = useAddForm()
 
-  // style this data
-
   return (
     <>
       <div id="summaryReviewContainer" className='font-["PT_SERIF"]'>
         <div id="imageSummaryContainer" className='mb-4'>
-            <p>
-              {/* replace with image */}
-              {formData.image}
-            </p>
+          <img src={formData.image} alt="summary venue" />
           </div>
           <div id="venueSummaryContainer" className='mb-4'>
             <p>
               <span className='font-bold'>Venue: </span>
-              <span>{formData.venue}</span>
+              <span>{formData.name}</span>
             </p>
           </div>
           <div id="locationSummaryContainer" className='mb-4'>
             <p>
               <span className='font-bold'>Location: </span>
-              <span>{formData.location}</span>
+              <span>{formData.address}</span>
             </p>
           </div>
           <div id="productivitySummaryContainer" className='mb-4'>

@@ -1,5 +1,6 @@
 import React, { useContext, createContext, useState, useEffect } from "react";
 import authService from '../utils/auth'
+import { initMap } from "../utils/mapFunctions/initMap";
 
 // create context
 const MainContext = createContext();
@@ -21,6 +22,7 @@ const MainProvider = ({ children }) => {
     const [ allReviews, setAllReviews ] = useState(null)
     const [ review, setReview ] = useState(null)
     const [ aggDataUpdate, setAggDataUpdate] = useState(false)
+    const [ isLoaded, setIsLoaded ] = useState(false)
 
     // Check for token on load
     useEffect(() => {
@@ -261,7 +263,7 @@ const MainProvider = ({ children }) => {
     {
         {
             home, currentCity, venueCount, listOfStates, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn, successLogin, logout,
-            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review, aggDataUpdated, clearVenue, clearCurrentVenueData
+            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review, aggDataUpdated, clearVenue, clearCurrentVenueData, isLoaded
         }
     }>
         {children}

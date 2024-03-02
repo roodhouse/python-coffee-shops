@@ -7,61 +7,23 @@ import MapInput from './mapInput/MapInput'
 function MapSelectionForm() {
     
     const { register, handleSubmit, formState: {errors} } = useForm()
-    const { currentStep, updateFormData } = useAddForm()
+    const { currentStep, updateFormData, formData } = useAddForm()
+
 
     const onSubmit = () => {
         currentStep('image')
-        // this data should come from api not hard coded
         updateFormData(
             {
-                location: 'google link here', 
-                address: 'address here', 
-                hours: [
+                map: formData.url,
+                location: [
                     {
-                        'Sun': [
-                            {
-                                'open': '5am',
-                                'close': '8pm'
-                            }
-                        ],
-                        'Mon': [
-                            {
-                                'open' : '5am',
-                                'close' : '8pm'
-                            }
-                        ],
-                        'Tues': [
-                            {
-                                'open' : '5am',
-                                'close' : '8pm'
-                            }
-                        ],
-                        'Wed': [
-                            {
-                                'open' : '5am',
-                                'close' : '8pm'
-                            }
-                        ],
-                        'Thurs': [
-                            {
-                                'open' : '5am',
-                                'close' : '8pm'
-                            }
-                        ],
-                        'Fri': [
-                            {
-                                'open' : '5am',
-                                'close' : '8pm'
-                            }
-                        ],
-                        'Sat': [
-                            {
-                                'open' : '5am',
-                                'close' : '8pm'
-                            }
-                        ],
+                        lng: formData.geometry.viewport.Jh.hi,
+                        lat: formData.geometry.viewport.Zh.hi
                     }
-                ] 
+                ],
+                address: formData.formatted_address, 
+                hours: formData.opening_hours.weekday_text,
+                city: formData.address_components[3].long_name
             }
         )
     }
