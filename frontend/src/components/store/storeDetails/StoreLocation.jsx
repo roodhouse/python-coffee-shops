@@ -1,12 +1,19 @@
 import React from 'react'
 import PlaceLocation from '../../home/places/placesCard/placesDetails/placeEssentials/PlaceLocation'
+import { useMain } from '../../../context/main'
 
 function StoreLocation() {
+
+  const { currentVenueData } = useMain()
+
+  if ( currentVenueData && currentVenueData.website ) {
+    console.log(currentVenueData.website)
+  }
   return (
     <>
         <div id="storeLocationContainer" className='underline'>
-            <a href="https://www.google.com" target="_blank" rel="noreferrer">
-                <PlaceLocation margin={'mr-14'} />
+            <a href={ currentVenueData && currentVenueData.map ? currentVenueData.map : ''} target="_blank" rel="noreferrer">
+                <PlaceLocation address={currentVenueData && currentVenueData.address ? currentVenueData.address : ''} margin={'mr-14'} />
             </a>
         </div>
     </>
