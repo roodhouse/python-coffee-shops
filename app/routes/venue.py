@@ -57,6 +57,7 @@ def get_venue(name):
             'map': venue.map,
             'website': venue.website,
             'place_id': venue.place_id,
+            'hours': venue.hours,
             'rating': venue.rating,
             'review_count': venue.review_count,
             'reviews' : [

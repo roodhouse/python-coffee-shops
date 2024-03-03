@@ -1,11 +1,10 @@
 import { handleNewSubmission } from "./handleNewSubmission"
 import { handleReviewUpdate } from "./handleReviewUpdate"
 
-// need to redefine values coming in from submission..
-
 export const sendToDatabase = async (submission, category, editReview, userData, userAuthenticated, reviewId, newReviewExistVenue, currentVenue, simpleRate) => {
     let venue;
     let answers;
+    let hours;
     if ( newReviewExistVenue || simpleRate ) {
         venue = currentVenue
     } else {
@@ -16,17 +15,20 @@ export const sendToDatabase = async (submission, category, editReview, userData,
     const image = submission.image
     const location = submission.location
     const address = submission.address
-    const hours = [
-        {
-            'Sun': submission.hours[6],
-            'Mon': submission.hours[0],
-            'Tues': submission.hours[1],
-            'Wed': submission.hours[2],
-            'Thurs': submission.hours[3],
-            'Fri': submission.hours[4],
-            'Sat': submission.hours[5]
-        }
-    ]
+
+    if ( submission.hours ) {
+        hours = [
+            {
+                'Sun': submission.hours[6],
+                'Mon': submission.hours[0],
+                'Tues': submission.hours[1],
+                'Wed': submission.hours[2],
+                'Thurs': submission.hours[3],
+                'Fri': submission.hours[4],
+                'Sat': submission.hours[5]
+            }
+        ]
+    }
     const city = submission.city
     const map = submission.map
     const website = submission.website
