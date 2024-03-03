@@ -12,12 +12,6 @@
     - change color of filter icon to the aggregate review color
     - when clicking on filter sort list by those venues that have a rating for that filter
 
-3. API's needed:
-    - google maps
-        - map data 
-            - store page
-                - image 
-
 4. Bugs 
     - after adding new venue and review the form is not cleared -- unless a refresh is made
     - logic for if venue has already been added
@@ -32,6 +26,9 @@
     - only show review section on store page if there is a review 
     - wait to pass over any review without xcom and show the first comment with an xcom value if any
     - review comments stopped appearing...
+    - simple rate on venue not from seeds still change wrong category, click on icons is off too
+        - could be for when a category does not have any data
+    - heart icon also not changing aggregate data on a new venue, or reflecting on main page
          
 
 
