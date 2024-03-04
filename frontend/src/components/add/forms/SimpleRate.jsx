@@ -9,13 +9,6 @@ function SimpleRate({type, current, code, toggle}) {
     const { userAuthenticated, setPage, review } = useMain()
     const { sendResults } = useAddForm()
 
-    // have the answers on load, have the face filled for the current answer if there is one,
-    // onclick toggle the face color, send update to database 
-    // if no review then answers should be sent as empty strings other wise send answers again with new overwritten data
-    // change background of element to solid black
-    // move the icon into the middle
-    // close the element
-
   const handleClick = (event) => {
     event.stopPropagation()
     if (userAuthenticated) {

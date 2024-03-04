@@ -168,6 +168,7 @@ const MainProvider = ({ children }) => {
     // select city
     function setCity(city) {
         setCurrentCity(city)
+        setHome('home')
     }
 
     // select venue
