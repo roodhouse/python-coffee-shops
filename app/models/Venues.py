@@ -9,13 +9,11 @@ class Venues(Base):
     comment_id = Column(Integer, ForeignKey('comments.id'))
     name = Column(String(250), nullable=False, index=True)
     image = Column(String(length=1000), nullable=False)
-    # location = Column(JSON, nullable=False)
     location = Column(JSON)
     address = Column(String(length=250), nullable=False)
     city = Column(String(length=250), nullable=False)
     map = Column(String(length=250), nullable=False)
     website = Column(String(length=250), nullable=False)
-    # hours = Column(JSON, nullable=False)
     hours = Column(JSON)
     rating = Column(Float)
 

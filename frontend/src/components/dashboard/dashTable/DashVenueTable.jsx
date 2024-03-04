@@ -1,11 +1,27 @@
-import React from 'react'
-
-// need a table for users reviewed places
-// replace below with items from the real table when ready
+import React, { useState, useEffect } from 'react'
+import { useMain } from '../../../context/main';
 
 function DashVenueTable() {
 
-  const venueReviews = false;
+    const { userData, home } = useMain()
+    const [ venueReviews, setVenueReviews ] = useState(null)
+
+    // need to replace 'order' below with 'venue' and correctly map the data -- here!
+
+    useEffect(() => {
+        if ( home === 'dash' ) {
+            console.log(userData)
+            if ( userData && userData.review_content ) {
+                if ( userData.review_content > 0 ) {
+                    setVenueReviews(userData.review_content)
+                } else {
+                    setVenueReviews([])
+                }
+            } else {
+                console.error('There was an error with userData')
+            }
+        }
+    },[home, userData])
 
   const handleClick = () => {
     console.log('click')
@@ -51,9 +67,7 @@ function DashVenueTable() {
                     </tbody>
                 </table>
             </div>
-                ) : <div id='noVenueReviews'>
-                        <p>You have yet to review any venues.</p>
-                    </div>
+                ) : 'nope'
             }
         </div>
     </>

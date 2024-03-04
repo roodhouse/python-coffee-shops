@@ -8,7 +8,7 @@ function Hours({ hours }) {
   return (
     <>
         <div id="hoursContainer">
-            {currentDay === 0 ? (
+            {/* {currentDay === 0 ? (
               <p className='uppercase'>{hours[0].Sun.split(': ')[1]}</p>
             ) : currentDay === 1 ? (
               <p className='uppercase'>{hours[0].Mon.split(': ')[1]}</p>
@@ -22,7 +22,7 @@ function Hours({ hours }) {
               <p className='uppercase'>{hours[0].Fri.split(': ')[1]}</p>
             ) : currentDay === 6 ? (
               <p className='uppercase'>{hours[0].Sat.split(': ')[1]}</p>
-            ) : '' }
+            ) : '' } */}
         </div>
     </>
   )
