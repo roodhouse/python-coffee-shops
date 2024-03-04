@@ -2,15 +2,15 @@ import React from 'react'
 import StoreHeading from '../../storeShared/StoreHeading'
 import CommunityResults from './community/CommunityResults'
 
-function CommunityStats({current}) {
+function CommunityStats({current, page, data, reviewId}) {
   return (
     <>
-        <div id="communityStatsContainer">
-            <div id="communityStatsHeaderWrapper">
-                <StoreHeading heading={'Community'} />
+        <div id={`communityStatsContainer-${page}`}>
+            <div id={`communityStatsHeaderWrapper-${page}`}>
+                <StoreHeading page={page} heading={'Community'} />
             </div>
-            <div id="communityCategoryWrapper">
-                <CommunityResults current={current} />
+            <div id={`communityCategoryWrapper-${page}`}>
+                <CommunityResults page={page} current={current} data={data} reviewId={reviewId} />
             </div>
         </div>
     </>

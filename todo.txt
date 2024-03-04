@@ -1,7 +1,14 @@
 1. frontend
-    dashboard view
+    - dashboard view
         - connect edit button
+            - need to change data to reflect this users answers not the aggregate... here
         - connect delete button
+    - places page
+        - create city database
+        - send name of city to city db on submit, count as well? logic for state?
+        - pull city table in the places view
+        - change state of currentCity to clicked city and return city name and count on home page
+    
 
 2. backend setup and connection 
     - dashboard

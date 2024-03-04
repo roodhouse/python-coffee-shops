@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { useMain } from '../../../context/main';
-import { FaRegFaceSmile, FaFaceSmile, FaRegFaceMeh, FaFaceMeh, FaRegFaceFrown, FaFaceFrown } from "react-icons/fa6";
+import { FaFaceSmile, FaFaceMeh, FaFaceFrown } from "react-icons/fa6";
+import Stats from '../../store/storeStats/Stats';
+import Divider from '../../shared/divider/Divider';
 
 function DashVenueTable() {
 
     const { userData, home, setVenue, setCity } = useMain()
     const [ venueReviews, setVenueReviews ] = useState(null)
+    const [ editResponse, setEditResponse ] = useState(null)
+    const [ currentAnswers, setCurrentAnswers ] = useState()
 
     useEffect(() => {
         if ( home === 'dash' ) {
@@ -18,11 +22,19 @@ function DashVenueTable() {
             } else {
                 console.error('There was an error with userData')
             }
+        } else {
+            setEditResponse(null)
         }
     },[home, userData])
 
-  const handleClick = () => {
-    console.log('click')
+  const handleEditClick = (reviewId) => {
+    if ( editResponse === reviewId ) {
+        setEditResponse(null)
+    } else {
+        setEditResponse(reviewId)
+        const reviewIndex = venueReviews.findIndex(review => review.review_id === reviewId)
+        setCurrentAnswers(venueReviews[reviewIndex].answers)
+    }
   }
 
   const handleDelete = () => {
@@ -35,10 +47,6 @@ function DashVenueTable() {
 
   const handleLocationClick = (data) => {
     setCity(data)
-  }
-
-  if (venueReviews !== null) {
-    console.log(venueReviews)
   }
 
   return (
@@ -70,7 +78,7 @@ function DashVenueTable() {
                     <tbody className='block md:table-row-group'>
                         {venueReviews.map((review, index) => (
                             <tr key={review.review_id} id={review.review_id} className={`${index % 2 === 0 ? 'bg-almostWhite text-black' : 'bg-[#4c4c4c] text-white'} ${index === venueReviews.length -1 ? 'border-b' : 'border-b-0'} border border-black md:border-none block md:table-row`}>
-                                <td onClick={handleClick} className='p-2 text-left md:text-center block md:table-cell'><span className='inline-block w-1/3 md:hidden font-bold'>Review</span><span className='cursor-pointer hover:text-deepOrange'>{review.review_id}</span></td>
+                                <td className='p-2 text-left md:text-center block md:table-cell'><span className='inline-block w-1/3 md:hidden font-bold'>Review</span><span className='cursor-pointer hover:text-deepOrange'>{review.review_id}</span></td>
                                 <td onClick={() => handleVenueClick(review.venue_name)} className='p-2 text-left md:text-center block md:table-cell'><span className='inline-block w-1/3 md:hidden font-bold'>Venue</span>{review.venue_name}</td>
                                 <td onClick={() => handleLocationClick(review.venue_location)} className='p-2 text-left md:text-center block md:table-cell'><span className='inline-block w-1/3 md:hidden font-bold'>Location</span>{review.venue_location}</td>
                                 { review.answers.xcom ? (
@@ -90,10 +98,25 @@ function DashVenueTable() {
                                     )}</td>
                                 ) : ''}
                                 
-                                <td className='p-2 text-left md:text-center block md:table-cell'>
+                                <td className={editResponse ? 'flex flex-col p-2 text-left md:text-center md:table-cell' : 'flex flex-row p-2 text-left md:text-center md:table-cell'}>
                                     <span className='inline-block w-1/3 md:hidden font-bold'>Actions</span>
-                                    <button onClick={handleClick} id={`${review.review_id}_edit`} className='text-white font-bold py-1 px-2 rounded border border-blue bg-blue hover:bg-black hover:border-black hover:text-white mr-2'>Edit</button>
-                                    <button id={`${review.review_id}_delete`} onClick={handleDelete} className='text-white font-bold py-1 px-2 rounded border border-red bg-red hover:bg-black hover:border-black hover:text-white'>Delete</button>
+                                    {
+                                        editResponse === review.review_id && (
+                                            <>
+                                                <div id={`dashStatsDivider-${index}`}>
+                                                    <Divider />
+                                                </div>
+                                                <div id={`dashStatsWrapper-${index}`}>
+                                                    <Stats page={'dashPage'} data={currentAnswers} reviewId={editResponse} />
+                                                </div>
+                                            </>
+
+                                        )
+                                    }
+                                    <div id='actionContainer' className='flex justify-center'>
+                                        <button onClick={() => handleEditClick(review.review_id)} id={`${review.review_id}_edit`} className='text-white font-bold py-1 px-2 rounded border border-blue bg-blue hover:bg-black hover:border-black hover:text-white mr-2'>{ editResponse ? 'Done' : 'Edit' }</button>
+                                        <button id={`${review.review_id}_delete`} onClick={handleDelete} className='text-white font-bold py-1 px-2 rounded border border-red bg-red hover:bg-black hover:border-black hover:text-white'>Delete</button>
+                                    </div>
                                 </td>
                             </tr>
                         ))}
