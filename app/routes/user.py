@@ -99,6 +99,7 @@ def get_user_info(current_user, current_user_email):
             'avatar' : user.avatar,
             'review_content': [
                 {
+                    'review_id': review.id,
                     'venue_name': review.venue_name,
                     'venue_location': db.query(Venues.city).filter_by(name=review.venue_name).scalar(),
                     'answers': review.answers[0],

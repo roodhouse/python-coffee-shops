@@ -3,16 +3,15 @@ import { useMain } from '../../../context/main';
 
 function DashVenueTable() {
 
-    const { userData, home } = useMain()
+    const { userData, home, setVenue } = useMain()
     const [ venueReviews, setVenueReviews ] = useState(null)
 
     // need to replace 'order' below with 'venue' and correctly map the data -- here!
 
     useEffect(() => {
         if ( home === 'dash' ) {
-            console.log(userData)
             if ( userData && userData.review_content ) {
-                if ( userData.review_content > 0 ) {
+                if ( userData.review_content.length > 0 ) {
                     setVenueReviews(userData.review_content)
                 } else {
                     setVenueReviews([])
@@ -31,6 +30,14 @@ function DashVenueTable() {
     console.log('delete click')
   }
 
+  const handleVenueClick = (data) => {
+    setVenue(data)
+  }
+
+  if (venueReviews !== null) {
+    console.log(venueReviews)
+  }
+
   return (
     <>
         <div id="dashVenueTableContainer">
@@ -40,34 +47,42 @@ function DashVenueTable() {
                 <table className='min-w-full border-collapse block md:table'>
                     <thead className='block md:table-header-group'>
                         <tr className='border border-deepOrange md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto md:relative'>
-                            <th className='bg-black p-2 md:text-center text-white font-bold md:border-deepOrange text-left block md:table-cell'>Order</th>
-                            <th className='bg-black p-2 md:text-center text-white font-bold md:border-deepOrange text-left block md:table-cell'>Date</th>
-                            <th className='bg-black p-2 md:text-center text-white font-bold md:border-deepOrange text-left block md:table-cell'>Name</th>
-                            <th className='bg-black p-2 md:text-center text-white font-bold md:border-deepOrange text-left block md:table-cell'>Total</th>
-                            <th className='bg-black p-2 md:text-center text-white font-bold md:border-deepOrange text-left block md:table-cell'>Status</th>
+                            <th className='bg-black p-2 md:text-center text-white font-bold md:border-deepOrange text-left block md:table-cell'>ID</th>
+                            <th className='bg-black p-2 md:text-center text-white font-bold md:border-deepOrange text-left block md:table-cell'>Venue</th>
+                            <th className='bg-black p-2 md:text-center text-white font-bold md:border-deepOrange text-left block md:table-cell'>Location</th>
+                            { venueReviews.map(review => review.answers.xcom) && (
+                                <th className='bg-black p-2 md:text-center text-white font-bold md:border-deepOrange text-left block md:table-cell'>Comment</th>
+                            ) }
+                            <th className='bg-black p-2 md:text-center text-white font-bold md:border-deepOrange text-left block md:table-cell'>Rating</th>
                             <th className='bg-black p-2 md:text-center text-white font-bold md:border-deepOrange text-left block md:table-cell'>Actions</th>
                         </tr>
                     </thead>
                     <tbody className='block md:table-row-group'>
-                        {venueReviews.map((order) => (
-                            <tr key={order.order_id} id={order.order_id} className={`${order.order_id % 2 === 0 ? 'bg-almostWhite text-black' : 'bg-charcoal text-offWhite'} border border-deepOrange md:border-none block md:table-row`}>
-                                <td onClick={handleClick} className='p-2 text-left md:text-center block md:table-cell'><span className='inline-block w-1/3 md:hidden font-bold'>Order</span><span className='cursor-pointer hover:text-deepOrange'>{order.order_id}</span></td>
-                                <td className='p-2 text-left md:text-center block md:table-cell'><span className='inline-block w-1/3 md:hidden font-bold'>Date</span>{new Date(order.order_date).toLocaleDateString('en-US', { timeZone: 'UTC' }, { year: 'numeric', month: 'long', day: 'numeric'})}</td>
-                                <td className='p-2 text-left md:text-center block md:table-cell'><span className='inline-block w-1/3 md:hidden font-bold'>Name</span>{order.order_name}</td>
-                                <td className='p-2 text-left md:text-center block md:table-cell'><span className='inline-block w-1/3 md:hidden font-bold'>Total</span>${order.order_total.toLocaleString()}</td>
-                                <td className='p-2 text-left md:text-center block md:table-cell'><span className='inline-block w-1/3 md:hidden font-bold'>Status</span>{order.order_status}</td>
+                        {venueReviews.map((review, index) => (
+                            <tr key={review.review_id} id={review.review_id} className={`${index % 2 === 0 ? 'bg-almostWhite text-black' : 'bg-charcoal text-offWhite'} border border-deepOrange md:border-none block md:table-row`}>
+                                <td onClick={handleClick} className='p-2 text-left md:text-center block md:table-cell'><span className='inline-block w-1/3 md:hidden font-bold'>Review</span><span className='cursor-pointer hover:text-deepOrange'>{review.review_id}</span></td>
+                                <td onClick={() => handleVenueClick(review.venue_name)} className='p-2 text-left md:text-center block md:table-cell'><span className='inline-block w-1/3 md:hidden font-bold'>Venue</span>{review.venue_name}</td>
+                                <td className='p-2 text-left md:text-center block md:table-cell'><span className='inline-block w-1/3 md:hidden font-bold'>Location</span>{review.venue_location}</td>
+                                { review.answers.xcom ? (
+                                    <td className='p-2 text-left md:text-center block md:table-cell'><span className='inline-block w-1/3 md:hidden font-bold'>Comment</span>{review.answers.xcom}</td>
+
+                                ) : '' }
+
+                                { review.answers.sum ? (
+                                    <td className='p-2 text-left md:text-center block md:table-cell'><span className='inline-block w-1/3 md:hidden font-bold'>Rating</span>{review.answers.sum}</td>
+                                ) : ''}
                                 
                                 <td className='p-2 text-left md:text-center block md:table-cell'>
                                     <span className='inline-block w-1/3 md:hidden font-bold'>Actions</span>
-                                    <button onClick={handleClick} id={`${order.order_id}_edit`} className='text-white font-bold py-1 px-2 rounded border border-deepOrange bg-deepOrange hover:bg-lightOrange mr-2'>Edit</button>
-                                    <button id={`${order.order_id}_delete`} onClick={handleDelete} className='text-white font-bold py-1 px-2 rounded border border-black bg-black hover:bg-offWhite hover:text-black'>Delete</button>
+                                    <button onClick={handleClick} id={`${review.review_id}_edit`} className='text-white font-bold py-1 px-2 rounded border border-blue bg-blue hover:bg-black hover:border-black hover:text-white mr-2'>Edit</button>
+                                    <button id={`${review.review_id}_delete`} onClick={handleDelete} className='text-white font-bold py-1 px-2 rounded border border-red bg-red hover:bg-black hover:border-black hover:text-white'>Delete</button>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
-                ) : 'nope'
+                ) : ''
             }
         </div>
     </>

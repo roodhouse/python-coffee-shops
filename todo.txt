@@ -1,6 +1,9 @@
 1. frontend
     dashboard view
-        update post view
+        - connect city click
+        - change rating to a word in lieu of the number
+        - connect edit button
+        - connect delete button
 
 2. backend setup and connection 
     - dashboard

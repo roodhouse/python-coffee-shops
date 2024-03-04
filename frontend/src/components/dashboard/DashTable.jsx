@@ -5,11 +5,11 @@ import DashVenueTable from './dashTable/DashVenueTable'
 function DashTable() {
   return (
     <>
-        <div id="dashTableContainer">
-            <div id="dashTableCopyWrapper" className='mb-9'>
+        <div id="dashTableContainer" className='flex flex-col items-center'>
+            <div id="dashTableCopyWrapper" className='w-full mb-9'>
                 <DashTableCopy />
             </div>
-            <div id="dashVenueTableWrapper" className='font-["PT_SERIF"]'>
+            <div id="dashVenueTableWrapper" className='w-full font-["PT_SERIF"]'>
                 <DashVenueTable />
             </div>
         </div>
