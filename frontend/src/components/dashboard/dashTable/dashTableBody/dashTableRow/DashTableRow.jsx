@@ -1,62 +1,33 @@
-import React, { useState, useEffect } from 'react'
-import { useMain } from '../../../context/main';
-import { useAddForm } from '../../../context/addFormContext';
-import { useDashContext } from '../../../context/dashContext';
-import { FaFaceSmile, FaFaceMeh, FaFaceFrown } from "react-icons/fa6";
-import Stats from '../../store/storeStats/Stats';
-import Divider from '../../shared/divider/Divider';
-import DashTableHead from './dashTableHead/DashTableHead';
-import DashTableBody from './dashTableBody/DashTableBody';
+import React from 'react'
+import { useDashContext } from '../../../../../context/dashContext'
+import DashTableData from './dashTableData/DashTableData'
+import getReviewDataByHeading from '../../../../../utils/miscFunctions/getReviewDataByHeading'
 
-function DashVenueTable() {
+function DashTableRow() {
 
-    const { setVenue, setCity } = useMain()
-    const { venueReviews } = useDashContext()
-    const { sendResults } = useAddForm()
-    const [ editResponse, setEditResponse ] = useState(null)
-    const [ currentAnswers, setCurrentAnswers ] = useState()
-    const [ currentComment, setCurrentComment ]= useState(null)
-
-  const handleEditClick = (reviewId) => {
-    if ( editResponse === reviewId ) {
-        setEditResponse(null)
-    } else {
-        setEditResponse(reviewId)
-        const reviewIndex = venueReviews.findIndex(review => review.review_id === reviewId)
-        setCurrentAnswers(venueReviews[reviewIndex].answers)
-    }
-  }
-
-  const handleDelete = () => {
-    console.log('delete click')
-  }
-
-  const updateCurrentComment = (comment) => {
-    setCurrentComment(comment)
-  }
-
-
-  const handleSubmitCommentClick = (reviewId) => {
-    const commentValue = document.getElementById(`${reviewId}-editComment`).value
-    let category = 'singleDash'
-    currentAnswers.xcom = commentValue
-    let submission = currentAnswers
-    sendResults(submission, category, reviewId)
-  }
+    const { venueReviews, tableHeadings } = useDashContext()
 
   return (
     <>
-        <div id="dashVenueTableContainer">
-            {
-                venueReviews ? (
-            <div id="ordersTableContainer">
-                <table className='min-w-full border-collapse block md:table'>
-                    <DashTableHead />
-                    <DashTableBody />
-                    {/* <tbody className='block md:table-row-group'>
-                        {venueReviews.map((review, index) => (
+        {venueReviews.map((review, index) => (
                             <tr key={review.review_id} id={review.review_id} className={`${index % 2 === 0 ? 'bg-almostWhite text-black' : 'bg-[#4c4c4c] text-white'} ${index === venueReviews.length -1 ? 'border-b' : 'border-b-0'} border border-black md:border-none block md:table-row`}>
-                                <td className='p-2 text-left md:text-center block md:table-cell'><span className='inline-block w-1/3 md:hidden font-bold'>Review</span><span className='cursor-pointer hover:text-deepOrange'>{review.review_id}</span></td>
+                                {tableHeadings.map((heading) => {
+                                    const shouldRenderCall = (() => {
+                                        switch (heading) {
+                                            case 'Comment':
+                                                return !!review.answers?.xcom
+                                            case 'Rating':
+                                                return !!review.answers?.sum
+                                            default:
+                                                return true
+                                        }
+                                    })();
+                                    return shouldRenderCall ? (
+                                        <DashTableData key={heading} reviewData={getReviewDataByHeading(review, heading)} index={index} heading={heading} />
+                                    ) : null;
+
+                                })}
+                                {/* <td className='p-2 text-left md:text-center block md:table-cell'><span className='inline-block w-1/3 md:hidden font-bold'>Review</span><span className='cursor-pointer hover:text-deepOrange'>{review.review_id}</span></td>
                                 <td onClick={() => handleVenueClick(review.venue_name)} className='p-2 text-left md:text-center block md:table-cell'><span className='inline-block w-1/3 md:hidden font-bold'>Venue</span>{review.venue_name}</td>
                                 <td onClick={() => handleLocationClick(review.venue_location)} className='p-2 text-left md:text-center block md:table-cell'><span className='inline-block w-1/3 md:hidden font-bold'>Location</span>{review.venue_location}</td>
                                
@@ -121,17 +92,11 @@ function DashVenueTable() {
                                             <button id={`${review.review_id}_delete`} onClick={handleDelete} className='text-white font-bold py-1 px-2 rounded border border-red bg-red hover:bg-black hover:border-black hover:text-white'>Delete</button>
                                         </div>
                                     </div>
-                                </td>
+                                </td> */}
                             </tr>
                         ))}
-                    </tbody> */}
-                </table>
-            </div>
-                ) : ''
-            }
-        </div>
     </>
   )
 }
 
-export default DashVenueTable
+export default DashTableRow
