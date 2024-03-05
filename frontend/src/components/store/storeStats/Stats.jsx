@@ -26,7 +26,6 @@ function Stats({page, data, reviewId}) {
         } 
     } else {
         if (data !== null) {
-            console.log(data)
             currentProductivity = [data.p1, data.p2, data.p3, data.p4, data.p5, data.p6]
             currentCommunity = [data.c1, data.c2]
             currentService = [data.ser1, data.ser2, data.ser3, data.ser4, data.ser5]

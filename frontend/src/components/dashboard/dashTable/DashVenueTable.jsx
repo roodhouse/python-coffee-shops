@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useMain } from '../../../context/main';
+import { useAddForm } from '../../../context/addFormContext';
 import { FaFaceSmile, FaFaceMeh, FaFaceFrown } from "react-icons/fa6";
 import Stats from '../../store/storeStats/Stats';
 import Divider from '../../shared/divider/Divider';
@@ -7,6 +8,7 @@ import Divider from '../../shared/divider/Divider';
 function DashVenueTable() {
 
     const { userData, home, setVenue, setCity } = useMain()
+    const { sendResults } = useAddForm()
     const [ venueReviews, setVenueReviews ] = useState(null)
     const [ editResponse, setEditResponse ] = useState(null)
     const [ currentAnswers, setCurrentAnswers ] = useState()
@@ -51,10 +53,27 @@ function DashVenueTable() {
     setCity(data)
   }
 
-  const handleCommentClick = (data) => {
-    console.log(data)
-    setCurrentComment(data)
 
+  const handleCommentClick = (reviewId, event) => {
+    if (event.target.closest('#commentContainer')) {
+        return
+    }
+    
+    if ( currentComment === reviewId ) {
+        setCurrentComment(null)
+    } else {
+        setCurrentComment(reviewId)
+        const reviewIndex = venueReviews.findIndex(review => review.review_id === reviewId)
+        setCurrentAnswers(venueReviews[reviewIndex].answers)
+    }
+  }
+
+  const handleSubmitCommentClick = (reviewId) => {
+    const commentValue = document.getElementById(`${reviewId}-editComment`).value
+    let category = 'singleDash'
+    currentAnswers.xcom = commentValue
+    let submission = currentAnswers
+    sendResults(submission, category, reviewId)
   }
 
   return (
@@ -90,14 +109,32 @@ function DashVenueTable() {
                                 <td onClick={() => handleVenueClick(review.venue_name)} className='p-2 text-left md:text-center block md:table-cell'><span className='inline-block w-1/3 md:hidden font-bold'>Venue</span>{review.venue_name}</td>
                                 <td onClick={() => handleLocationClick(review.venue_location)} className='p-2 text-left md:text-center block md:table-cell'><span className='inline-block w-1/3 md:hidden font-bold'>Location</span>{review.venue_location}</td>
                                
-                                {/* here code is not working */}
                                 { review.answers.xcom ? (
-                                    <td onClick={() => handleCommentClick(review.answers.xcom)} className='p-2 text-left md:text-center block md:table-cell'>
-                                        <span className='inline-block w-1/3 md:hidden font-bold'>Comment</span>{review.answers.xcom ? review.answers.xcom : review.answers.xcom && currentComment !== null ? (
-                                        <div id="commentContainer">
-                                            <textarea name={`${review.review_id}Comment`} id={`${review.review_id}Comment`} cols="10" rows="5" maxLength={100} className='w-full mb-8 bg-[#f5f5f5] rounded p-3'>{review.answers.xcom}</textarea>
-                                        </div>
-                                    ) : ''}</td>
+                                    <td onClick={(event) => handleCommentClick(review.review_id, event)} className='p-2 text-left md:text-center block md:table-cell'>
+                                        <span className='inline-block w-1/3 md:hidden font-bold'>Comment</span>
+                                        {currentComment !== null ? (
+                                            <>
+                                                <div id="commentContainer">
+                                                    <textarea 
+                                                        name={`${review.review_id}-editComment`} 
+                                                        id={`${review.review_id}-editComment`} 
+                                                        cols="10" 
+                                                        rows="5" 
+                                                        maxLength={100} 
+                                                        className='w-full mb-8 bg-[#f5f5f5] rounded p-3'
+                                                        defaultValue={review.answers.xcom}>
+                                                    </textarea>
+                                                </div>
+                                                <div id='actionContainer' className='flex justify-center'>
+                                                    <button onClick={() => handleSubmitCommentClick(review.review_id)} id={`${review.review_id}_edit`} className='text-white font-bold py-1 px-2 rounded border border-blue bg-blue hover:bg-black hover:border-black hover:text-white mr-2'>Submit</button>
+                                                    <button id={`${review.review_id}_delete`} onClick={handleDelete} className='text-white font-bold py-1 px-2 rounded border border-red bg-red hover:bg-black hover:border-black hover:text-white'>Delete</button>
+                                                </div>
+                                            </>
+                                    ) : (
+                                        review.answers.xcom
+                                    )}
+                                    
+                                    </td>
 
                                 ) : '' }
 

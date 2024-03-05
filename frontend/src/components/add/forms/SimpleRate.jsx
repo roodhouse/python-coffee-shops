@@ -25,11 +25,9 @@ function SimpleRate({page, type, current, code, toggle, data, reviewId}) {
                 review.answers[0][key] = answer
                 submission = review.answers[0]
             } else {
-                console.log('else block', review, key, answer, data)
                 category = 'singleDash'
                 data[key] = answer
                 submission = data
-                console.log(submission)
             }
 
             singleItemRatingChange(event, page, type, iconParent, answer, toggle )

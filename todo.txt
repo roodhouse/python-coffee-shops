@@ -1,7 +1,7 @@
 1. frontend
     - dashboard view
-        - edit comment on click
-        - connect delete button
+        - connect delete button for entire review -- here
+        - connect delete button for comment
         - confirm avatar image is correctly mapping
         - replace 'username' with email '@'..
     - places page
