@@ -40,17 +40,7 @@ db.add_all([
         map = 'https://www.google.com',
         website = 'https://www.google.com',
         place_id = 'TestPlaceId',
-        hours = [
-            {
-                'Sun': [{'open': '5am','close': '8pm'}],
-                'Mon': [{'open' : '5am','close' : '8pm'}],
-                'Tues': [{'open' : '5am','close' : '8pm'}],
-                'Wed': [{'open' : '5am','close' : '8pm'}],
-                'Thurs': [{'open' : '5am','close' : '8pm'}],
-                'Fri': [{'open' : '5am','close' : '8pm'}],
-                'Sat': [{'open' : '5am','close' : '8pm'}],
-            }
-        ],
+        hours = [{"Fri": "Friday: 7:00 AM – 9:00 PM", "Mon": "Monday: 7:00 AM – 9:00 PM", "Sat": "Saturday: 7:00 AM – 9:00 PM", "Sun": "Sunday: 8:00 AM – 9:00 PM", "Wed": "Wednesday: 7:00 AM – 9:00 PM", "Tues": "Tuesday: 7:00 AM – 9:00 PM", "Thurs": "Thursday: 7:00 AM – 9:00 PM"}],
         rating = 1.5,
         review_count = 2
     ),
@@ -63,17 +53,7 @@ db.add_all([
         map = 'https://www.google.com',
         website = 'https://www.google.com',
         place_id = 'TestPlaceId',
-        hours = [
-            {
-                'Sun': [{'open': '5am','close': '8pm'}],
-                'Mon': [{'open' : '5am','close' : '8pm'}],
-                'Tues': [{'open' : '5am','close' : '8pm'}],
-                'Wed': [{'open' : '5am','close' : '8pm'}],
-                'Thurs': [{'open' : '5am','close' : '8pm'}],
-                'Fri': [{'open' : '5am','close' : '8pm'}],
-                'Sat': [{'open' : '5am','close' : '8pm'}],
-            }
-        ],
+        hours = [{"Fri": "Friday: 7:00 AM – 9:00 PM", "Mon": "Monday: 7:00 AM – 9:00 PM", "Sat": "Saturday: 7:00 AM – 9:00 PM", "Sun": "Sunday: 8:00 AM – 9:00 PM", "Wed": "Wednesday: 7:00 AM – 9:00 PM", "Tues": "Tuesday: 7:00 AM – 9:00 PM", "Thurs": "Thursday: 7:00 AM – 9:00 PM"}],
         rating = 1,
         review_count = 2
     )

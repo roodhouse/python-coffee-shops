@@ -2,15 +2,16 @@ import React from 'react'
 import StoreHeading from '../../storeShared/StoreHeading'
 import ProductivityResults from './productivity/ProductivityResults'
 
-function ProductivityStats({current}) {
+function ProductivityStats({current, page, data, reviewId}) {
+  
   return (
     <>
-        <div id="productivityStatsContainer">
-            <div id="productivityStatsHeaderWrapper">
-                <StoreHeading heading={'Productivity'} />
+        <div id={`productivityStatsContainer-${page}`}>
+            <div id={`productivityStatsHeaderWrapper-${page}`}>
+                <StoreHeading page={page} heading={'Productivity'} />
             </div>
-            <div id="productivityCategoryWrapper">
-                <ProductivityResults current={current} />
+            <div id={`productivityCategoryWrapper-${page}`}>
+                <ProductivityResults current={current} page={page} data={data} reviewId={reviewId} />
             </div>
         </div>
     </>

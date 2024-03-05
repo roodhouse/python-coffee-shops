@@ -6,9 +6,6 @@ function StoreLocation() {
 
   const { currentVenueData } = useMain()
 
-  if ( currentVenueData && currentVenueData.website ) {
-    console.log(currentVenueData.website)
-  }
   return (
     <>
         <div id="storeLocationContainer" className='underline'>

@@ -14,7 +14,7 @@ function StoreStats() {
           <Review />
         </div>
         <div id="statsWrapper">
-          <Stats />
+          <Stats page={'storePage'} data={null} reviewId={null} />
         </div>
       </div>
     </>

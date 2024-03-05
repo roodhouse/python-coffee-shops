@@ -4,7 +4,7 @@ import { FaWifi, FaPlug, FaUserClock, FaSquarePen, FaVolumeLow, FaHeadphones, Fa
     FaMugHot, FaUtensils, FaLeaf, FaMartiniGlass, FaCreditCard, FaSun, FaTree, FaArrowsUpDownLeftRight, FaToiletPaper, FaWheelchair, FaTemperatureFull,
     FaBanSmoking, FaDog, FaCar, FaQuestion } from "react-icons/fa6";
 
-function Item({ type, current, name, rating, width }) {
+function Item({ page, type, current, name, rating, width, data, reviewId }) {
     const [ isToggled, setIsToggled ] = useState(false)
     const wrapperRef = useRef(null)
 
@@ -26,8 +26,8 @@ function Item({ type, current, name, rating, width }) {
         setIsToggled(!isToggled)
     }
 
-    const changeToggle = (data) => {
-        setIsToggled(data)
+    const changeToggle = (style) => {
+        setIsToggled(style)
     }
 
     let code = null 
@@ -105,12 +105,12 @@ function Item({ type, current, name, rating, width }) {
 
   return (
     <>
-        <div id={`itemContainer-${type}`} onClick={handleClick} className={isToggled ? 'mb-0' : 'mb-16'}>
-                <div id={`${type}-Container`} className={type === 'unknown' ? (
+        <div id={`${type}-${page}-itemContainer`} onClick={handleClick} className={isToggled ? 'mb-0' : 'mb-16'}>
+                <div id={`${type}-${page}-Container`} className={type === 'unknown' ? (
                     "text-[#ddd]"
                 ): null } ref={wrapperRef}>
-                    <div id={`${type}-IconNameContainer`} className='flex flex-wrap items-center mb-2 mb-'>
-                        <div id={`${type}-IconContainer`} className='mr-3'>
+                    <div id={`${type}-${page}-IconNameContainer`} className='flex flex-wrap items-center mb-2 mb-'>
+                        <div id={`${type}-${page}-IconContainer`} className='mr-3'>
                             { type === 'wifi' ? (
                                 <FaWifi />
                             ) : type === 'power' ? (
@@ -157,7 +157,7 @@ function Item({ type, current, name, rating, width }) {
                                 <FaCar />
                             ) : <FaQuestion />   }
                         </div>
-                        <div id={`${type}-NameContainer`}>
+                        <div id={`${type}-${page}-NameContainer`}>
                             <p className={ rating === 'red' ? (
                                 "line-through"
                             ) : "no-underline" }>
@@ -165,11 +165,11 @@ function Item({ type, current, name, rating, width }) {
                             </p>
                         </div>
                     </div>
-                    <div id={`${type}-ResultsContainer`}>
-                        <div id={`${type}-Result`} style={{backgroundColor: rating, width: width}} className={`h-[2px]`} />
+                    <div id={`${type}-${page}-ResultsContainer`}>
+                        <div id={`${type}-${page}-Result`} style={{backgroundColor: rating, width: width}} className={`h-[2px]`} />
                     </div>
-                    <div id={`${type}-simpleRateWrapper`} className={isToggled ? 'flex' : 'hidden'}>
-                            <SimpleRate type={type} current={current} code={code} toggle={changeToggle} />
+                    <div id={`${type}-${page}-simpleRateWrapper`} className={isToggled ? 'flex' : 'hidden'}>
+                            <SimpleRate page={page} type={type} current={current} code={code} toggle={changeToggle} data={data} reviewId={reviewId} />
                     </div>
                 </div>
         </div>

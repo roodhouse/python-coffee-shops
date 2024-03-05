@@ -1,8 +1,8 @@
 import getSiblings from "../miscFunctions/getSiblings"
 import '../../../src/index.css'
 
-export function singleItemRatingChange(e, type, iconParent, answer, toggle) {
-    let containerChange = document.getElementById(`${type}-iconsContainer`)
+export function singleItemRatingChange(e, page, type, iconParent, answer, toggle) {
+    let containerChange = document.getElementById(`${type}-${page}-iconsContainer`)
             // containerChange.classList.add('bg-[black]')
             containerChange.classList.replace('justify-between', 'justify-center')
             // change border of element

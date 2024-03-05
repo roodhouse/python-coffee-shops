@@ -28,6 +28,7 @@ const AddFormProvider = ({ children }) => {
         setStep(sentStep)
     }
 
+
     // update data from forms
     function updateFormData(sentData) {
         setFormData({...formData, ...sentData})
@@ -35,7 +36,6 @@ const AddFormProvider = ({ children }) => {
 
     // clean up formData after map confirm
     useEffect(() => {
-        console.log(step, formData)
         if (step === 'image') {
             delete formData.address_components
             delete formData.formatted_address
@@ -51,9 +51,9 @@ const AddFormProvider = ({ children }) => {
         }
     },[formData, step])
 
-    const sendResults = async (submission, category) => {
-        let reviewId;
+    const sendResults = async (submission, category, id) => {
         let simpleRate = false
+        let reviewId;
         if (category === 'new') {
             reviewId = ''
         } else if (category === 'simpleRateNew') {
@@ -61,6 +61,9 @@ const AddFormProvider = ({ children }) => {
             category = 'new'
             reviewId = ''
             setNewReviewExistVenue(true)
+        } else if (category === 'singleDash') {
+            simpleRate = true
+            reviewId = id
         } else {
             reviewId = review.review_id
         }

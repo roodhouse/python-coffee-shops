@@ -5,7 +5,7 @@ from os import getenv
 from dotenv import load_dotenv
 from flask import Blueprint, jsonify, request, session
 from pymysql import IntegrityError
-from app.models import Users
+from app.models import Users, Venues
 from app.db import get_db
 import logging
 import jwt
@@ -96,7 +96,18 @@ def get_user_info(current_user, current_user_email):
             'user_id' : user.id,
             'email' : user.email,
             'reviews' : user.review_ids,
-            'avatar' : user.avatar
+            'avatar' : user.avatar,
+            'review_content': [
+                {
+                    'review_id': review.id,
+                    'venue_name': review.venue_name,
+                    'venue_location': db.query(Venues.city).filter_by(name=review.venue_name).scalar(),
+                    'answers': review.answers[0],
+                }
+
+                for review in user.reviews
+            ]
+
         }
         return jsonify(user_info)
     

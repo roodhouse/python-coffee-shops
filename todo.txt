@@ -1,6 +1,15 @@
 1. frontend
-    dashboard view
-        update post view
+    - dashboard view
+        - connect delete button for entire review -- here
+        - connect delete button for comment
+        - confirm avatar image is correctly mapping
+        - replace 'username' with email '@'..
+    - places page
+        - create city database
+        - send name of city to city db on submit, count as well? logic for state?
+        - pull city table in the places view
+        - change state of currentCity to clicked city and return city name and count on home page
+    
 
 2. backend setup and connection 
     - dashboard

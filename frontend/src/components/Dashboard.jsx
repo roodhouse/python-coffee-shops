@@ -16,7 +16,7 @@ function Dashboard() {
             <div id="dashWelcomeWrapper" className='w-full mb-9'>
                 <DashWelcome />
             </div>
-            <div id="dashTableWrapper" className='mb-9'>
+            <div id="dashTableWrapper" className='w-full mb-9'>
                 <DashTable />
             </div>
             <div id="dashLogoutContainer" className='flex w-full justify-center'>
