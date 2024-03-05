@@ -1,8 +1,9 @@
 1. frontend
     - dashboard view
-        - connect edit button
-            - need to change data to reflect this users answers not the aggregate... here
+        - edit comment on click
         - connect delete button
+        - confirm avatar image is correctly mapping
+        - replace 'username' with email '@'..
     - places page
         - create city database
         - send name of city to city db on submit, count as well? logic for state?

@@ -24,8 +24,6 @@ function SimpleRate({page, type, current, code, toggle, data, reviewId}) {
                 category = 'singleStore'
                 review.answers[0][key] = answer
                 submission = review.answers[0]
-                // singleItemRatingChange(event, page, type, iconParent, answer, toggle )
-                // sendResults(submission, category)
             } else {
                 console.log('else block', review, key, answer, data)
                 category = 'singleDash'
