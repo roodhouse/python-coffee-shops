@@ -1,5 +1,6 @@
 import { useMain } from './context/main';
 import { AddFormProvider } from './context/addFormContext';
+import { DashProvider } from './context/dashContext';
 import Header from './components/Header'
 import Home from './components/Home';
 import Cities from './components/Cities';
@@ -49,10 +50,12 @@ function App() {
               <div id='mapWrapper' style={home === 'map' ? {display: 'block'} : {display: 'none'}} className='w-full h-screen'>
                 <GMap longitude={-97.85050201416016} latitude={30.627946853637695} type={'large'} />
               </div>
-
-              <div id='dashWrapper' style={home === 'dash' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem] px-[.75rem] w-full'>
-                <Dash />
-              </div>
+              
+              <DashProvider>
+                <div id='dashWrapper' style={home === 'dash' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem] px-[.75rem] w-full'>
+                  <Dash />
+                </div>
+              </DashProvider>
             
             <div id='joinWrapper' style={home === 'join' ? {display: 'block'} : {display: 'none'}} className='w-full px-[.75rem]'>
               <Join />
