@@ -1,8 +1,14 @@
-import React from 'react'
+import React from "react";
 
 function DashTableHead() {
-
-    const tableHeadings = ['ID', 'Venue', 'Location', 'Comment', 'Rating', 'Actions']
+  const tableHeadings = [
+    "ID",
+    "Venue",
+    "Location",
+    "Comment",
+    "Rating",
+    "Actions",
+  ];
   return (
     <>
       <thead className="block md:table-header-group">
@@ -21,4 +27,4 @@ function DashTableHead() {
   );
 }
 
-export default DashTableHead
+export default DashTableHead;

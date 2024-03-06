@@ -1,10 +1,12 @@
 import React, { useContext, createContext, useState, useEffect } from "react";
 import { useMain } from "./main";
+import { useAddForm } from "./addFormContext";
 
 const DashboardContext = createContext()
 
 const DashProvider = ({children}) => {
     const { userData, home, setVenue, setCity } = useMain()
+    const { sendResults } = useAddForm()
     const [ venueReviews, setVenueReviews ] = useState(null)
     const [ editResponse, setEditResponse ] = useState(null)
     const [ currentAnswers, setCurrentAnswers ] = useState()
@@ -42,7 +44,7 @@ const DashProvider = ({children}) => {
     }
 
     // handle onClick types --- continue below here!
-    const clickType = (heading, reviewData, event) => {
+    const clickType = (heading, reviewData, event, id) => {
         switch (heading) {
             case 'ID':
                 return
@@ -53,7 +55,11 @@ const DashProvider = ({children}) => {
             case 'Rating':
                 return
             case 'Comment':
-                return handleCommentClick(reviewData, event)
+                return handleCommentClick(reviewData, event, id)
+            case 'Actions':
+                return ''
+            default:
+                return
         }
 
     }
@@ -70,24 +76,51 @@ const DashProvider = ({children}) => {
       }
 
       // comment click
-      const handleCommentClick = (reviewId, event) => {
+      const handleCommentClick = (reviewData, event, id) => {
+        console.log(reviewData)
         if (event.target.closest('#commentContainer')) {
             return
         }
         
-        if ( currentComment === reviewId ) {
+        if ( currentComment === reviewData ) {
             setCurrentComment(null)
         } else {
-            setCurrentComment(reviewId)
+            setCurrentComment(reviewData)
+            console.log(venueReviews)
+            const reviewIndex = venueReviews.findIndex(review => review.review_id === id)
+            setCurrentAnswers(venueReviews[reviewIndex].answers)
+        }
+      }
+
+      // handle submit of comment click
+      const handleSubmitCommentClick = (reviewId) => {
+        const commentValue = document.getElementById(`${reviewId}-editComment`).value
+        let category = 'singleDash'
+        currentAnswers.xcom = commentValue
+        let submission = currentAnswers
+        sendResults(submission, category, reviewId)
+      }
+
+      // review edit button click
+      const handleEditClick = (reviewId) => {
+        if ( editResponse === reviewId ) {
+            setEditResponse(null)
+        } else {
+            setEditResponse(reviewId)
             const reviewIndex = venueReviews.findIndex(review => review.review_id === reviewId)
             setCurrentAnswers(venueReviews[reviewIndex].answers)
         }
       }
 
+      // review delete button click
+      const handleDelete = () => {
+        console.log('delete click')
+      }
+
     return <DashboardContext.Provider value =
         {
             {
-                venueReviews, setVenueReviews, editResponse, currentAnswers, currentComment, tableHeadings, clickType
+                venueReviews, setVenueReviews, editResponse, currentAnswers, currentComment, tableHeadings, clickType, handleEditClick, handleDelete, handleSubmitCommentClick
             }
         }>
             {children}
