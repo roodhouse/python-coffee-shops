@@ -27,7 +27,7 @@ function ActionData({ review, reviewData, index, heading }) {
         <div
           id="actionWrapper"
           className={
-            editResponse
+            editResponse === review.review_id
               ? `mb-9 flex items-center w-full`
               : `flex items-center w-full`
           }
