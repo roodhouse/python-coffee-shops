@@ -18,7 +18,6 @@ const DashProvider = ({children}) => {
     const [ tableHeadings, setTableHeadings ] = useState(['ID', 'Venue', 'Location', 'Actions']) 
 
     useEffect(() => {
-        console.log(userData)
         if ( home === 'dash' ) {
             if ( userData && userData.review_content ) {
                 if ( userData.review_content.length > 0 ) {
@@ -82,7 +81,6 @@ const DashProvider = ({children}) => {
 
       // comment click
       const handleCommentClick = (reviewData, event, id) => {
-        console.log(reviewData)
         if (event.target.closest('#commentContainer')) {
             return
         }
@@ -91,7 +89,6 @@ const DashProvider = ({children}) => {
             setCurrentComment(null)
         } else {
             setCurrentComment(reviewData)
-            console.log(venueReviews)
             const reviewIndex = venueReviews.findIndex(review => review.review_id === id)
             setCurrentAnswers(venueReviews[reviewIndex].answers)
         }

@@ -1,24 +1,18 @@
 1. frontend
     - dashboard view
-        - confirm avatar image is correctly mapping
         - onClick edit avatar
-        - replace 'username' with email '@'..
     - places page
         - create city database
         - send name of city to city db on submit, count as well? logic for state?
         - pull city table in the places view
-        - change state of currentCity to clicked city and return city name and count on home page
-    
-
-2. backend setup and connection 
-    - dashboard
-        - create delete review route
+        - change state of currentCity to clicked city and return city name and count on home page       
     - add logic to comment section
         - if current user has a comment then display it on top with the choice to delete or edit, 
         else display the newest comment with a choice to add their overwriting
         - turn edit review link into edit comment and change view to show input textarea with previous comment loaded
-    - change color of filter icon to the aggregate review color
-    - when clicking on filter sort list by those venues that have a rating for that filter
+    - add filter logic
+        - change color of filter icon to the aggregate review color
+        - when clicking on filter sort list by those venues that have a rating for that filter
 
 4. Bugs 
     - after adding new venue and review the form is not cleared -- unless a refresh is made
