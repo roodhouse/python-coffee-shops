@@ -45,7 +45,7 @@ function ActionData({ review, reviewData, index, heading }) {
             </button>
             <button
               id={`${review.review_id}_delete`}
-              onClick={handleDelete}
+              onClick={() => handleDelete('full', review)}
               className="text-white font-bold py-1 px-2 rounded border border-red bg-red hover:bg-black hover:border-black hover:text-white"
             >
               Delete

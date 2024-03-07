@@ -1,11 +1,15 @@
 import React, { useContext, createContext, useState, useEffect } from "react";
 import { useMain } from "./main";
 import { useAddForm } from "./addFormContext";
+import { deleteReview } from "../utils/deleteReview/deleteReview";
+import { updateUser } from "../utils/sendToDatabase/userAPI/UserAPI";
+import { aggregateResults } from "../utils/aggregateResults/aggregateResults";
+
 
 const DashboardContext = createContext()
 
 const DashProvider = ({children}) => {
-    const { userData, home, setVenue, setCity } = useMain()
+    const { userData, home, setVenue, setCity, setPage, aggDataUpdated } = useMain()
     const { sendResults } = useAddForm()
     const [ venueReviews, setVenueReviews ] = useState(null)
     const [ editResponse, setEditResponse ] = useState(null)
@@ -14,6 +18,7 @@ const DashProvider = ({children}) => {
     const [ tableHeadings, setTableHeadings ] = useState(['ID', 'Venue', 'Location', 'Actions']) 
 
     useEffect(() => {
+        console.log(userData)
         if ( home === 'dash' ) {
             if ( userData && userData.review_content ) {
                 if ( userData.review_content.length > 0 ) {
@@ -113,8 +118,42 @@ const DashProvider = ({children}) => {
       }
 
       // review delete button click
-      const handleDelete = () => {
-        console.log('delete click')
+      const handleDelete = async (data, review) => {
+        let reviewId = review.review_id
+        if (data === 'comment') {
+            // delete comment
+           review.answers.xcom = ''
+           let submission = review.answers
+           let category = 'singleDash'
+           sendResults(submission, category, reviewId)
+        } else if (data === 'full') {
+            try {
+                // delete entire review
+                let delRev = await deleteReview(reviewId)
+                if (delRev) {
+                    let type = data
+                    try {
+                        // update user review array
+                        let userUpdate = await updateUser(userData.user_id, review.venue_name, type)
+                        if (userUpdate) {
+                            try {
+                                // rerun aggregate results
+                                let aggUpdate = aggregateResults()
+                                if (aggUpdate) {
+                                    aggDataUpdated(true)
+                                }
+                            } catch (error) {
+                                console.error('Error aggregating results', error)
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Error updating user', error)
+                    }
+                }
+            } catch(error) {
+                console.error('Error deleting review', error)
+            }
+        }
       }
 
     return <DashboardContext.Provider value =
