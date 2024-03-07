@@ -1,8 +1,7 @@
 1. frontend
     - dashboard view
-        - connect delete button for entire review -- here
-        - connect delete button for comment
         - confirm avatar image is correctly mapping
+        - onClick edit avatar
         - replace 'username' with email '@'..
     - places page
         - create city database

@@ -13,7 +13,8 @@ export const handleNewSubmission = async (user_id, user_email, venue, image, loc
     if (newVenue) {
         const newReview = await reviewAPI(editReview, venue, image, location, address, hours, rating, answers, user_id, user_email, reviewId, newReviewExistVenue, simpleRate)
         if (newReview) {
-            const userUpdate = await updateUser(user_id, venue)
+            const type = 'new'
+            const userUpdate = await updateUser(user_id, venue, type)
             if (userUpdate) {
                 return true
             } else {

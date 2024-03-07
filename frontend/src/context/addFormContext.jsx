@@ -78,7 +78,7 @@ const AddFormProvider = ({ children }) => {
                 setStep('venue')
                 setFormData({})
                 setEditReview(false)
-                aggDataUpdated(true)
+                aggDataUpdated(true) 
                 setNewReviewExistVenue(false)
             } else {
                 console.error('Error in sendResults: aggSubmission')
