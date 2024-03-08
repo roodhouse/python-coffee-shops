@@ -4,7 +4,11 @@ import React from 'react'
 
 function AvatarMod() {
   return (
-    <div>AvatarMod</div>
+    <>
+        <div id="avatarModContainer" className='w-full h-52 bg-white rounded-lg'>
+            test
+        </div>
+    </>
   )
 }
 

@@ -53,7 +53,7 @@ function App() {
               </div>
               
               <DashProvider>
-                <div id='dashWrapper' style={home === 'dash' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem] px-[.75rem] w-full'>
+                <div id='dashWrapper' style={home === 'dash' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem] w-full'>
                   <Dash />
                 </div>
               </DashProvider>

@@ -15,7 +15,7 @@ function DashWelcome() {
     console.log('avatar click')
     disableScroll()
     let avatarMask = document.getElementById('avatarMask')
-    avatarMask.classList.add('bg-gray', 'w-full', 'absolute', 'h-screen', 'opacity-25', 'z-40', 'pointer-events-none')
+    avatarMask.classList.add('bg-gray', 'w-full', 'absolute', 'h-screen', 'opacity-25', 'pointer-events-none')
     setAvatarMod(true)
     console.log(avatarMask)
     
@@ -24,10 +24,10 @@ function DashWelcome() {
   return (
     <>
         <div id="dashWelcomeContainer" className='flex items-center justify-between'>
-            <div id="dashUserNameContainer">
+            <div id="dashUserNameContainer" className='pl-3'>
                 <p>Welcome @{userData && userData.email ? userData.email.split('@')[0] : ''}!</p>
             </div>
-            <div onClick={handleAvatarClick} id="dashAvatarWrapper">
+            <div onClick={handleAvatarClick} id="dashAvatarWrapper" className='pr-3'>
               { userData ? (
                 <Avatar
                   align={'center'}
@@ -41,7 +41,7 @@ function DashWelcome() {
                 />
               ) : '' }
             </div>
-            <div id='avatarModWrapper' className={avatarMod ? 'absolute block z-60' : 'hidden'}>
+            <div id='avatarModWrapper' className={avatarMod ? 'absolute block z-60 top-56 w-full px-2' : 'hidden'}>
               { avatarMod ? (
                 <AvatarMod user={userData} />
               ) : ''}
