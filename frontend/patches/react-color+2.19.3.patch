@@ -1,0 +1,37 @@
+diff --git a/node_modules/react-color/es/components/chrome/ChromeFields.js b/node_modules/react-color/es/components/chrome/ChromeFields.js
+index 8270061..bada79a 100644
+--- a/node_modules/react-color/es/components/chrome/ChromeFields.js
++++ b/node_modules/react-color/es/components/chrome/ChromeFields.js
+@@ -38,6 +38,10 @@ export var ChromeFields = function (_React$Component) {
+       }
+     };
+ 
++    _this.checkValue = (value) => {
++      return (!value || value < 0) ? false : true
++    }
++
+     _this.handleChange = function (data, e) {
+       if (data.hex) {
+         color.isValidHex(data.hex) && _this.props.onChange({
+@@ -46,9 +50,10 @@ export var ChromeFields = function (_React$Component) {
+         }, e);
+       } else if (data.r || data.g || data.b) {
+         _this.props.onChange({
+-          r: data.r || _this.props.rgb.r,
+-          g: data.g || _this.props.rgb.g,
+-          b: data.b || _this.props.rgb.b,
++          r: _this.checkValue(data.r)? data.r : _this.props.rgb.r,
++          g: _this.checkValue(data.g)? data.g : _this.props.rgb.g,
++          b: _this.checkValue(data.b)? data.b : _this.props.rgb.b,
++          a: _this.checkValue(data.a)? data.a : _this.props.rgb.a,
+           source: 'rgb'
+         }, e);
+       } else if (data.a) {
+@@ -85,6 +90,7 @@ export var ChromeFields = function (_React$Component) {
+           h: data.h || _this.props.hsl.h,
+           s: Number(!isUndefined(data.s) ? data.s : _this.props.hsl.s),
+           l: Number(!isUndefined(data.l) ? data.l : _this.props.hsl.l),
++          a: data.a || _this.props.hsl.a,
+           source: 'hsl'
+         }, e);
+       }
