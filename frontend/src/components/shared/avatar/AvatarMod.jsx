@@ -9,7 +9,7 @@ function AvatarMod({user}) {
   return (
     <>
         <div id="avatarModContainer" className='w-full h-52 bg-white rounded-lg'>
-            <div id="avatarModHeaderContainer" className='flex items-center p-3'>
+            <div id="avatarModHeaderContainer" className='flex items-center p-3 pb-6'>
                 <div id="modAvatarWrapper">
                 { user && user.avatar ? (
                     user.avatar.includes('http') ? (
