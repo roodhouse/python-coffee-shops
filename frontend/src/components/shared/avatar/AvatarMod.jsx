@@ -15,21 +15,17 @@ function AvatarMod({user}) {
                     user.avatar.includes('http') ? (
                         <div
                         id='avatarModImageContainer'
-                        className='w-12 h-12 text-center capitalize rounded-[50%] text-white text-2xl flex justify-center items-center bg-black'
+                        className='w-12 h-12 text-center capitalize rounded-[50%] text-white text-2xl flex justify-center items-center bg-cover bg-no-repeat'
+                        style={{ backgroundImage: `url(${user.avatar})`}}
                     />
-                    ) : ''
-                    // <Avatar
-                    // align={'center'}
-                    // display={'flex'}
-                    // name={'mod'}
-                    // pic={user.avatar}
-                    // user={user.email}
-                    // userId={user.user_id}
-                    // index={user.user_id}
-                    // comment={false}
-                    // amount={'mod'}
-                    // seeAllReviews={false}
-                    // />
+                    ) : (
+                        <div
+                        id='avatarModImageContainer'
+                        className={`w-12 h-12 text-center capitalize rounded-[50%] text-white text-2xl flex justify-center items-center bg-cover bg-no-repeat bg-${user.avatar}`}
+                    >
+                        {user.email.split("")[0]}
+                    </div>
+                    )
                 ) : '' }
                 </div>
                 <div id="avatarModHeaderCopyWrapper" className='pl-7'>

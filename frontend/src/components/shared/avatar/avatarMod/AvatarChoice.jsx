@@ -23,7 +23,6 @@ function AvatarChoice({user}) {
         }
     }
 
-    let change = ['green']
   return (
     <>
         <div id='avatarChoiceContainer' className='flex justify-between px-3'>
@@ -31,11 +30,20 @@ function AvatarChoice({user}) {
                 user.avatar.includes('http') ? (
                     <div
                         id='avatarModImageContainer'
-                        className='w-12 h-12 text-center capitalize rounded-[50%] text-white text-2xl flex justify-center items-center'
+                        className='w-12 h-12 text-center capitalize rounded-[50%] text-white text-2xl flex justify-center items-center bg-cover bg-no-repeat'
+                        style={{ backgroundImage: `url(${user.avatar})`}}
                         onClick={() => handleClick(user.avatar, 'image')}
                     />
 
-                ) : ('')
+                ) : (
+                    <div
+                        id='avatarModImageContainer'
+                        className={`w-12 h-12 text-center capitalize rounded-[50%] text-white text-2xl flex justify-center items-center bg-cover bg-no-repeat bg-${user.avatar}`}
+                        onClick={() => handleClick(user.avatar, 'color')}
+                    >
+                        {user.email.split("")[0]}
+                    </div>
+                )
                 //  change ? (
                 //     change.map((color, index) => (
                 //         <div 
