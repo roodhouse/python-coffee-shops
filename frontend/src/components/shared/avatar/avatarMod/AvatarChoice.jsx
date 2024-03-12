@@ -13,27 +13,41 @@ function AvatarChoice({user}) {
 
     console.log(user)
 
-    const handleClick = () => {
-        // setModOpen(true)
+    const handleClick = (avatar, type) => {
+        console.log(avatar)
         setModOpen(!modOpen)
+        if ( type === 'image' ) {
+            console.log('image')
+        } else {
+            console.log('color')
+        }
     }
 
     let change = ['green']
   return (
     <>
         <div id='avatarChoiceContainer' className='flex justify-between px-3'>
-            { change ? (
-                change.map((color, index) => (
-                    <div 
-                        key={index}
-                        onClick={handleClick}
-                        className={`text-center capitalize w-12 h-12 rounded-[50%] text-white text-2xl flex justify-center items-center bg-[${color}]`}>
-                            {user.email.split("")[0]}
-                    </div>
-                )
-               )
-            ) : 'hi'
-        }
+            { user && user.avatar ? (
+                user.avatar.includes('http') ? (
+                    <div
+                        id='avatarModImageContainer'
+                        className='w-12 h-12 text-center capitalize rounded-[50%] text-white text-2xl flex justify-center items-center'
+                        onClick={() => handleClick(user.avatar, 'image')}
+                    />
+
+                ) : ('')
+                //  change ? (
+                //     change.map((color, index) => (
+                //         <div 
+                //             key={index}
+                //             onClick={handleClick}
+                //             className={`text-center capitalize w-12 h-12 rounded-[50%] text-white text-2xl flex justify-center items-center bg-[${color}]`}>
+                //                 {user.email.split("")[0]}
+                //         </div>
+                //     )
+                //    )
+                // ) : 'hi'  
+            ) : '' }
             {
 
                 modOpen ? (

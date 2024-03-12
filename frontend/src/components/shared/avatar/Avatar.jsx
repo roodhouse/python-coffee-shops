@@ -5,6 +5,7 @@ function Avatar({ align, display, name, pic, user, userId, index, comment, amoun
 
   useEffect(() => {
     avatarGenerateStyle(user, userId, pic, index, comment, name)
+    console.log(user, userId, pic, index, comment, name)
   },[seeAllReviews, user, userId, pic, index, comment, name])
   
   let avatarStyle;
