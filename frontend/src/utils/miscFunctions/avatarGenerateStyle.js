@@ -23,7 +23,7 @@ export default function avatarGenerateStyle(user, userId, pic, index, comment, n
 
         // add random bg color
         const randomBgColor = randomColor();
-        initial.classList.add(`bg-${randomBgColor}`);
+        initial.classList.add(`bg-[${randomBgColor}]`);
         try {
           userPatch(userId, randomBgColor);
         } catch (error) {
@@ -43,7 +43,6 @@ export default function avatarGenerateStyle(user, userId, pic, index, comment, n
         } else {
           let userStyle = user.split("")[0];
           initial.classList.add(
-            `bg-${pic}`,
             "text-center",
             "capitalize",
             "rounded-[50%]",
@@ -53,6 +52,7 @@ export default function avatarGenerateStyle(user, userId, pic, index, comment, n
             "justify-center",
             "items-center"
           );
+          initial.style.backgroundColor = pic
           initial.innerHTML = userStyle;
           avatarStyle = "";
         }

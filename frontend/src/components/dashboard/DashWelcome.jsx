@@ -12,12 +12,10 @@ function DashWelcome() {
   const [ avatarMod, setAvatarMod ] = useState(false)
 
   const handleAvatarClick = () => {
-    console.log('avatar click')
     disableScroll()
     let avatarMask = document.getElementById('avatarMask')
     avatarMask.classList.add('bg-gray', 'w-full', 'absolute', 'h-screen', 'opacity-25', 'pointer-events-none')
     setAvatarMod(true)
-    console.log(avatarMask)
     
   }
   

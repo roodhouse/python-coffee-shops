@@ -1,26 +1,11 @@
-import React, {useState} from 'react'
-import { ChromePicker } from 'react-color'
+import React from 'react'
 
-function AvatarChoice({user}) {
+function AvatarChoice({ user, currentColor, toggleDrawer }) {
 
-    const [ color, setColor ] = useState({ r: 255, g: 0, b: 0, a: 1})
-    const [ modOpen, setModOpen ] = useState(false)
+    
 
-    const handleColorChange = (newColor) => {
-        console.log(newColor)
-        setColor(newColor.rgb)
-    }
-
-    console.log(user)
-
-    const handleClick = (avatar, type) => {
-        console.log(avatar)
-        setModOpen(!modOpen)
-        if ( type === 'image' ) {
-            console.log('image')
-        } else {
-            console.log('color')
-        }
+    const handleClick = (type) => {
+        toggleDrawer(type)
     }
 
   return (
@@ -38,7 +23,7 @@ function AvatarChoice({user}) {
                         <div
                             id='avatarModColorContainer'
                             className={`w-12 h-12 text-center capitalize rounded-[50%] text-white text-2xl flex justify-center items-center bg-cover bg-no-repeat bg-black`}
-                            onClick={() => handleClick(user.avatar, 'color')}
+                            onClick={() => handleClick('color')}
                         >
                             {user.email.split("")[0]}
                         </div>
@@ -48,8 +33,9 @@ function AvatarChoice({user}) {
                     <>
                         <div
                             id='avatarModColorContainer'
-                            className={`w-12 h-12 text-center capitalize rounded-[50%] text-white text-2xl flex justify-center items-center bg-cover bg-no-repeat bg-${user.avatar}`}
+                            className={`w-12 h-12 text-center capitalize rounded-[50%] text-white text-2xl flex justify-center items-center bg-cover bg-no-repeat`}
                             onClick={() => handleClick(user.avatar, 'color')}
+                            style={{backgroundColor: currentColor}}
                         >
                             {user.email.split("")[0]}
                         </div>
@@ -64,13 +50,6 @@ function AvatarChoice({user}) {
                 )
                 
             ) : '' }
-            {
-
-                modOpen ? (
-                    <ChromePicker color={color} onChange={handleColorChange} />
-                ) : ''
-
-            }
         </div>
     </>
   )

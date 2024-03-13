@@ -1,6 +1,8 @@
 1. frontend
     - dashboard view
         - onClick edit avatar
+            - click outside of mod and mod closes -- here!
+            - upload window
     - places page
         - create city database
         - send name of city to city db on submit, count as well? logic for state?
