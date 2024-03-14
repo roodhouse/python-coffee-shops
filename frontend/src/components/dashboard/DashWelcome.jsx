@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Avatar from '../shared/avatar/Avatar'
 import { useMain } from '../../context/main'
 import disableScroll from '../../utils/scroll/disableScroll'
@@ -8,15 +8,10 @@ import AvatarMod from '../shared/avatar/AvatarMod'
 // need to enableScroll on confirm or cancel click
 
 function DashWelcome() {
-  const { userData } = useMain()
-  const [ avatarMod, setAvatarMod ] = useState(false)
+  const { userData, showMod, avatarMod } = useMain()
 
   const handleAvatarClick = () => {
-    disableScroll()
-    let avatarMask = document.getElementById('avatarMask')
-    avatarMask.classList.add('bg-gray', 'w-full', 'absolute', 'h-screen', 'opacity-25', 'pointer-events-none')
-    setAvatarMod(true)
-    
+    showMod()
   }
   
   return (

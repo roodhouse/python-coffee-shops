@@ -1,6 +1,8 @@
 import React, { useContext, createContext, useState, useEffect } from "react";
 import authService from '../utils/auth'
 import { initMap } from "../utils/mapFunctions/initMap";
+import disableScroll from "../utils/scroll/disableScroll";
+import enableScroll from "../utils/scroll/enableScroll";
 
 // create context
 const MainContext = createContext();
@@ -23,6 +25,7 @@ const MainProvider = ({ children }) => {
     const [ review, setReview ] = useState(null)
     const [ aggDataUpdate, setAggDataUpdate] = useState(false)
     const [ isLoaded, setIsLoaded ] = useState(false)
+    const [ avatarMod, setAvatarMod ] = useState(false)
 
     // Check for token on load
     useEffect(() => {
@@ -240,6 +243,22 @@ const MainProvider = ({ children }) => {
         setPlaceIcons(currentIcons)
     }
 
+    // display avatar mask and module
+    const showMod = () => {
+        disableScroll()
+        let avatarMask = document.getElementById('avatarMask')
+        avatarMask.classList.add('bg-gray', 'w-full', 'absolute', 'h-screen', 'opacity-25')
+        setAvatarMod(true) 
+    }
+
+    // close the avatar mask and module
+     const closeMod = () => {
+        enableScroll()
+        let avatarMask = document.getElementById('avatarMask')
+        avatarMask.classList.remove('bg-gray', 'w-full', 'absolute', 'h-screen', 'opacity-25')
+        setAvatarMod(false) 
+  }
+
     // List of States, should retrieve from DB but for now hard code
     const listOfStates = [
         {
@@ -264,7 +283,7 @@ const MainProvider = ({ children }) => {
     {
         {
             home, currentCity, venueCount, listOfStates, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn, successLogin, logout,
-            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review, aggDataUpdated, clearVenue, clearCurrentVenueData, isLoaded
+            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review, aggDataUpdated, clearVenue, clearCurrentVenueData, isLoaded, showMod, avatarMod, closeMod
         }
     }>
         {children}
