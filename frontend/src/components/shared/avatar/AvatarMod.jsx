@@ -8,6 +8,7 @@ import AvatarChoice from './avatarMod/AvatarChoice'
 function AvatarMod({user}) {
 
     const [ modOpen, setModOpen ] = useState(false)
+    const [ modType, setModType ] = useState(null)
     const [ currentColor, setCurrentColor ] = useState(user.avatar)
 
     const handleColorChange = (color) => {
@@ -17,7 +18,10 @@ function AvatarMod({user}) {
     const toggleDrawer = (type) => {
         if ( type === 'image' ) {
             console.log('image')
+            setModType(type)
+            setModOpen(!modOpen)
         } else {
+            setModType(type)
             setModOpen(!modOpen)
                 
         }
@@ -63,7 +67,7 @@ function AvatarMod({user}) {
         <div
           id="modDrawerWrapper"
         >
-          <ModDrawer currentColor={currentColor} onColorChange={handleColorChange} user={user.user_id} />
+          <ModDrawer type={modType} currentColor={currentColor} onColorChange={handleColorChange} user={user.user_id} />
         </div>
       ) : (
         ""

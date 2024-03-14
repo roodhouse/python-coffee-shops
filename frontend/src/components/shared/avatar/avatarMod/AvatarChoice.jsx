@@ -18,7 +18,7 @@ function AvatarChoice({ user, currentColor, toggleDrawer }) {
                             id='avatarModImageContainer'
                             className='w-12 h-12 text-center capitalize rounded-[50%] text-white text-2xl flex justify-center items-center bg-cover bg-no-repeat'
                             style={{ backgroundImage: `url(${user.avatar})`}}
-                            onClick={() => handleClick(user.avatar, 'image')}
+                            onClick={() => handleClick('image')}
                         />
                         <div
                             id='avatarModColorContainer'
@@ -34,7 +34,7 @@ function AvatarChoice({ user, currentColor, toggleDrawer }) {
                         <div
                             id='avatarModColorContainer'
                             className={`w-12 h-12 text-center capitalize rounded-[50%] text-white text-2xl flex justify-center items-center bg-cover bg-no-repeat`}
-                            onClick={() => handleClick(user.avatar, 'color')}
+                            onClick={() => handleClick('color')}
                             style={{backgroundColor: currentColor}}
                         >
                             {user.email.split("")[0]}
@@ -42,7 +42,7 @@ function AvatarChoice({ user, currentColor, toggleDrawer }) {
                         <div
                             id='avatarModImageContainer'
                             className='w-12 h-12 text-center capitalize rounded-[50%] text-black text-2xl flex justify-center items-center bg-cover bg-no-repeat bg-white border border-dotted border-black'
-                            onClick={() => handleClick(user.avatar, 'image')}
+                            onClick={() => handleClick('image')}
                         >
                             U
                         </div>
