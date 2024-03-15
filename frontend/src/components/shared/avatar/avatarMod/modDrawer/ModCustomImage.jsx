@@ -8,15 +8,6 @@ import '@uppy/drag-drop/dist/style.min.css'
 
 function ModCustomImage({user}) {
 
-  // const [uppy] = useState(() => new Uppy().use(XHR, { 
-  //     endpoint: `http://127.0.0.1:5000/user/${user}`, 
-  //     method: 'PATCH',
-  //     headers: {
-  //       'Authorization' : `Bearer ${localStorage.getItem('id_token')}`
-  //     },
-  //     limit: 1
-  //   }))
-
   const [ uppy, setUppy ] = useState(() => {
     const up = new Uppy({
       debug: true,

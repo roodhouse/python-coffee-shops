@@ -10,8 +10,6 @@ function Store() {
 
     const { currentVenueData } = useMain()
 
-
-
   return (
     <>
         <div id="storeContainer">
