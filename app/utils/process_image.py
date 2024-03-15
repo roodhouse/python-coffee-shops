@@ -1,5 +1,6 @@
 import requests
 import os
+import uuid
 from werkzeug.utils import secure_filename
 
 def process_image(image, id, type):
@@ -26,7 +27,7 @@ def process_image(image, id, type):
         # handle as file upload for users
         if hasattr(image, 'filename'):
             secure_filename(image.filename)
-            filepath = os.path.join(base_dir, 'users', f'{id}.jpg')
+            filepath = os.path.join(base_dir, 'users', f'{id}_{uuid.uuid4().hex}.jpg')
             image.save(filepath)
             return f'http://127.0.0.1:5000/{filepath}'
         else:

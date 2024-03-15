@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import ModDrawer from './avatarMod/ModDrawer';
 import AvatarHeadCopy from './avatarMod/AvatarHeadCopy'
-import AvatarChoice from './avatarMod/AvatarChoice'
-
-// create mod here
+import AvatarChoiceCopy from './avatarMod/avatarChoiceCopy/AvatarChoiceCopy';
 
 function AvatarMod({user}) {
 
@@ -17,7 +15,6 @@ function AvatarMod({user}) {
     
     const toggleDrawer = (type) => {
         if ( type === 'image' ) {
-            console.log('image')
             setModType(type)
             setModOpen(!modOpen)
         } else {
@@ -59,15 +56,15 @@ function AvatarMod({user}) {
             <AvatarHeadCopy />
           </div>
         </div>
-        <div id="avatarChoiceWrapper">
-          <AvatarChoice user={user} currentColor={currentColor} toggleDrawer={toggleDrawer} />
+        <div id="choiceCopyWrapper">
+              <AvatarChoiceCopy open={modOpen} user={user} currentColor={currentColor} toggleDrawer={toggleDrawer} />
         </div>
       </div>
       {modOpen ? (
         <div
           id="modDrawerWrapper"
         >
-          <ModDrawer type={modType} currentColor={currentColor} onColorChange={handleColorChange} user={user.user_id} />
+          <ModDrawer type={modType} currentColor={currentColor} onColorChange={handleColorChange} user={user.user_id} toggleDrawer={toggleDrawer} />
         </div>
       ) : (
         ""

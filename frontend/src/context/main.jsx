@@ -146,6 +146,7 @@ const MainProvider = ({ children }) => {
             })
                 .then((response) => response.json())
                 .then((data) => {
+                    console.log(data)
                     if (data.user_id) {
                         setUserAuthenticated(true)
                         setUserData(data)
@@ -217,6 +218,7 @@ const MainProvider = ({ children }) => {
 
     // agg data updated function
     function aggDataUpdated(data) {
+        console.log('hi')
         setAggDataUpdate(data)
     }
 

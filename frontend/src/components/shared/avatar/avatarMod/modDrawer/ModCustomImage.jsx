@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useMain } from '../../../../../context/main'
 import Uppy from '@uppy/core'
 import { DragDrop } from '@uppy/react'
 import XHR from '@uppy/xhr-upload'
@@ -6,7 +7,9 @@ import XHR from '@uppy/xhr-upload'
 import '@uppy/core/dist/style.min.css'
 import '@uppy/drag-drop/dist/style.min.css'
 
-function ModCustomImage({user}) {
+function ModCustomImage({ user, toggleDrawer }) {
+
+  const { aggDataUpdated } = useMain()
 
   const [ uppy, setUppy ] = useState(() => {
     const up = new Uppy({
@@ -29,6 +32,8 @@ function ModCustomImage({user}) {
     // listen for upload success event
     up.on('upload-success', (file, response) => {
       console.log('Upload Successful: ', file, response)
+      toggleDrawer('off')
+      aggDataUpdated(true)
     })
 
     // listen for upload error event
@@ -44,21 +49,6 @@ function ModCustomImage({user}) {
     return () => uppy.close()
   }, [uppy])
   
-  const handleDragOver = () => {
-    console.log('over')
-  }
-
-  const handleDragLeave = () => {
-    console.log('leave')
-  }
-
-  const handleDrop = () => {
-    console.log('drop')
-  }
-
-  console.log(uppy)
-  console.log(user)
-
   return (
     <>
         <div id="modCustomUserContainer">
@@ -66,9 +56,6 @@ function ModCustomImage({user}) {
               uppy={uppy} 
               note={'Images only'} 
               locale={{strings: {dropHereOr: 'drop it like it is hot'}}}
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop}
             />
         </div>
     </>

@@ -1,5 +1,6 @@
 import sys
 import os
+import uuid
 from dotenv import load_dotenv
 from flask import Blueprint, jsonify, request, send_file
 from app.db import get_db
