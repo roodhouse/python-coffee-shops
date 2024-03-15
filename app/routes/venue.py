@@ -112,7 +112,7 @@ def new_venue(current_user, current_user_email):
     db = get_db()
     
     # get and download the picture here and send my copy to the db
-    image_path = process_image(data['image'], data['placeId'])
+    image_path = process_image(data['image'], data['placeId'], 'venue')
 
     try:
         new_venue = Venues(

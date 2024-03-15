@@ -1,6 +1,4 @@
 1. frontend
-    - dashboard view
-        - onClick edit avatar
     - places page
         - create city database
         - send name of city to city db on submit, count as well? logic for state?

@@ -1,7 +1,9 @@
 from crypt import methods
 from email import message
+import json
 import sys
 from os import getenv
+from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
 from flask import Blueprint, jsonify, request, session
 from pymysql import IntegrityError
@@ -11,6 +13,7 @@ import logging
 import jwt
 import datetime
 from app.utils import token_required
+from app.utils import process_image
 
 load_dotenv()
 
@@ -162,23 +165,41 @@ def update_user(current_user, current_user_email, id):
 # patch user with color for avatar
 @user_bp.route('api/user/<int:id>', methods=['PATCH'])
 def add_color_for_avatar(id):
-    data = request.get_json()
     db = get_db()
 
     user = db.query(Users).filter_by(id=id).one_or_none()
 
-    if user:
-        try:
-            # add color to avatar
-            if 'avatar' in data:
+    if user is None:
+        return jsonify({'error': 'User not found'}), 404
+    
+    # check if req has a file name
+    if 'file' in request.files:
+        file = request.files['file']
+
+        if file.filename == '':
+            return jsonify({'error': 'No selected file'}), 400
+        
+        if file:
+            # save the file and process
+            image_path = process_image(file, id, 'user')
+            user.avatar = image_path
+            db.commit()
+            return jsonify({'message': 'File uploaded and user avatar updated'}), 200
+        else:
+            return jsonify({'error': 'Unsupported file'}), 415
+    
+    else:
+        data = request.get_json()
+
+        if 'avatar' in data:
+            try:
                 user.avatar = data['avatar']
                 db.commit()
                 return jsonify({'message': 'Color added to user avatar'})
-            else:
-                return jsonify({'message': 'No color provided'}), 400
-        except Exception as e:
-            logging.error(f'Exception: {e}')
-            db.rollback()
-            return jsonify({'error': 'Failed to update with color'}), 500
-    else:
-        return jsonify({'error': 'User not found'}), 404
+            except Exception as e:
+                logging.error(f'Exception: {e}')
+                db.rollback()
+                return jsonify({'error': 'Failed to update with color'}), 500
+            
+        else:
+            return jsonify({'message': 'No avatar update data provided'}), 400

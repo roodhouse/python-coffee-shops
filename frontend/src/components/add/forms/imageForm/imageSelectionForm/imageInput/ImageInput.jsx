@@ -6,7 +6,6 @@ import NextButton from '../../../next/NextButton'
 
 function ImageInput({ register, errors, setValue }) {
 
-    // const { googlePhotos, formData } = useAddForm()
     const { formData, step } = useAddForm()
     const [ selectedImage, setSelectedImage ] = useState(null)
 

@@ -16,7 +16,7 @@ import GMap from './components/GMap';
 
 function App() {
 
-  const  { home } = useMain()
+  const  { home, closeMod } = useMain()
 
   return (
     <div id='app'>
@@ -25,7 +25,7 @@ function App() {
           <div id='headerWrapper' className='w-full bg-gray px-[.75rem] py-[1rem]'>
             <Header />
           </div>
-          <div id='avatarMask' />
+          <div id='avatarMask' onClick={closeMod} />
           <div id='mainContainer' className='min-h-[75svh] w-full flex items-center justify-center'>
           
               <div id='homeWrapper' style={home === 'home' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem] px-[.75rem]'>
