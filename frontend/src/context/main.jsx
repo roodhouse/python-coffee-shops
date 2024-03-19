@@ -26,6 +26,7 @@ const MainProvider = ({ children }) => {
     const [ aggDataUpdate, setAggDataUpdate] = useState(false)
     const [ isLoaded, setIsLoaded ] = useState(false)
     const [ avatarMod, setAvatarMod ] = useState(false)
+    const [ currentPlaceId, setCurrentPlaceId ] = useState()
 
     // Check for token on load
     useEffect(() => {
@@ -175,9 +176,10 @@ const MainProvider = ({ children }) => {
     }
 
     // select venue
-    function setVenue(venue) { 
+    function setVenue(placeId, venue) { 
         setHome('store')
         setCurrentVenue(venue)
+        setCurrentPlaceId(placeId)
     }
 
     // clear venue
