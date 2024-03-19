@@ -1,5 +1,5 @@
-export const postVenue = async (venue, image, location, address, city, map, website, placeId, hours, rating) => {
-
+export const postVenue = async (venue, image, location, address, city, state, map, website, placeId, hours, rating) => {
+    console.log('website is:', website)
     try {
         // create venue
         const venueResponse = await fetch('http://127.0.0.1:5000/api/venues/', {
@@ -10,6 +10,7 @@ export const postVenue = async (venue, image, location, address, city, map, webs
                 location,
                 address,
                 city,
+                state,
                 map,
                 website,
                 placeId,
