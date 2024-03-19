@@ -217,7 +217,6 @@ const MainProvider = ({ children }) => {
 
     // agg data updated function
     function aggDataUpdated(data) {
-        console.log('hi')
         setAggDataUpdate(data)
     }
 
