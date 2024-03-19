@@ -3,13 +3,19 @@ import { useForm } from 'react-hook-form'
 import { useAddForm } from '../../../../../context/addFormContext'
 import ConfirmMap from './confirmMap/ConfirmMap'
 import MapInput from './mapInput/MapInput'
+import { getState } from '../../../../../utils/mapFunctions/getState'
 
 function MapSelectionForm() {
     
     const { register, handleSubmit, formState: {errors} } = useForm()
-    const { currentStep, updateFormData, formData } = useAddForm()
+    const { currentStep, updateFormData, formData, step } = useAddForm()
 
+    let state;
 
+    if (formData && step === 'map') {
+        state = getState(formData.formatted_address)
+    }
+    
     const onSubmit = () => {
         currentStep('image')
         updateFormData(
@@ -23,7 +29,8 @@ function MapSelectionForm() {
                 ],
                 address: formData.formatted_address, 
                 hours: formData.opening_hours.weekday_text,
-                city: formData.address_components[3].long_name
+                city: formData.address_components[3].long_name,
+                state: state
             }
         )
     }
