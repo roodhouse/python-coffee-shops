@@ -5,8 +5,7 @@ from flask import Blueprint, jsonify, request
 from app.models import Venues, VenueAggregates, Users
 from app.db import get_db
 import logging
-from app.utils import token_required
-from app.utils import process_image
+from app.utils import token_required, process_image, city_state_data, update_city_state_data
 
 load_dotenv()
 
@@ -104,6 +103,12 @@ def get_last_venue():
         return jsonify({'venues': []})
 
 
+# route to get current city and state data
+@venue_bp.route('/api/venues/city', methods=['GET'])
+def get_city_data():
+    print('getting the city state data: ', city_state_data)
+    return jsonify(city_state_data)
+
 # venues post route
 @venue_bp.route('/api/venues', methods=['POST'])
 @token_required
@@ -111,17 +116,19 @@ def new_venue(current_user, current_user_email):
     data = request.get_json()
     db = get_db()
     
+    # send city/state data to add to dictionary if new
+    update_city_state_data(data['city'], data['state'])
     # get and download the picture here and send my copy to the db
     image_path = process_image(data['image'], data['placeId'], 'venue')
 
     try:
         new_venue = Venues(
             name = data['venue'],
-            # image = data['image'],
             image = image_path,
             location = data['location'],
             address = data['address'],
             city = data['city'],
+            state = data['state'],
             map = data['map'],
             website = data['website'],
             place_id = data['placeId'],
