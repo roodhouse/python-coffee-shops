@@ -11,7 +11,7 @@ const AddFormContext = createContext();
 
 const AddFormProvider = ({ children }) => {
 
-    const { setPage, userAuthenticated, userData, aggDataUpdated, currentVenue, review  } = useMain()
+    const { setPage, userAuthenticated, userData, aggDataUpdated, currentVenue, review, currentPlaceId  } = useMain()
     const [ step, setStep ] = useState('venue')
     const [ formData, setFormData ] = useState({})
     const [ editReview, setEditReview ] = useState(false)
@@ -68,7 +68,7 @@ const AddFormProvider = ({ children }) => {
             reviewId = review.review_id
         }
         
-        const submissionResults = await sendToDatabase(submission, category, editReview, userData, userAuthenticated, reviewId, newReviewExistVenue, currentVenue, simpleRate)
+        const submissionResults = await sendToDatabase(submission, category, editReview, userData, userAuthenticated, reviewId, newReviewExistVenue, currentVenue, simpleRate, currentPlaceId)
         if (submissionResults) {
             const aggSubmission = await aggregateResults()
             if (aggSubmission) {

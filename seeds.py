@@ -13,13 +13,13 @@ db.add_all([
     Users(
         email='rughjm@gmail.com', 
         password='12345', 
-        review_ids=["Perky Beans", "Scooter\'s Coffee"],
+        review_ids=["TestPlaceId", "TestPlaceId01"],
         avatar = 'http://127.0.0.1:5000/assets/meAgain.jpeg'
     ),
     Users(
         email='rooinfo@gmail.com', 
         password='12345', 
-        review_ids=["Scooter\'s Coffee", "Perky Beans"]
+        review_ids=["TestPlaceId01", "TestPlaceId"]
     ),
     Users(
         email='bob@gmail.com', 

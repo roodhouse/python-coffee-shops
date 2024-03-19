@@ -40,11 +40,11 @@ def get_venues():
     return jsonify({'venues': venues_data})
 
 # venues get single route
-@venue_bp.route('/api/venues/<string:name>', methods=['GET'])
-def get_venue(name):
+@venue_bp.route('/api/venues/<string:place_id>', methods=['GET'])
+def get_venue(place_id):
     db = get_db()
 
-    venue = db.query(Venues).filter_by(name = name).one_or_none()
+    venue = db.query(Venues).filter_by(place_id = place_id).one_or_none() 
     
     if venue:
         venue_details = {
@@ -146,13 +146,13 @@ def new_venue(current_user, current_user_email):
         return jsonify(message = 'venue failed to be added'), 500
 
 # venues update route
-@venue_bp.route('/api/venues/<string:name>', methods=['PUT'])
+@venue_bp.route('/api/venues/<string:place_id>', methods=['PUT'])
 @token_required
-def update_venue(current_user, current_user_email, name):
+def update_venue(current_user, current_user_email, place_id):
     data = request.get_json()
     db = get_db()
 
-    venue = db.query(Venues).filter_by(name=name).one_or_none()
+    venue = db.query(Venues).filter_by(place_id=place_id).one_or_none()
 
     if venue:
         try:

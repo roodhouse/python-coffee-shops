@@ -6,7 +6,7 @@ import PlacesNew from './places/PlacesNew'
 
 function Places() {
 
-    const { setVenue, venues } = useMain()
+    const { setVenue, venues, review } = useMain()
 
     const handleClick = (e) => { 
         let placeCard = e.currentTarget
@@ -15,7 +15,7 @@ function Places() {
         setVenue(placeId, placeName)
     }
 
-    console.log(venues)
+    console.log(review)
 
   return (
     <>

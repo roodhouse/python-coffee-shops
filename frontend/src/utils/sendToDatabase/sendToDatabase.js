@@ -1,14 +1,17 @@
 import { handleNewSubmission } from "./handleNewSubmission"
 import { handleReviewUpdate } from "./handleReviewUpdate"
 
-export const sendToDatabase = async (submission, category, editReview, userData, userAuthenticated, reviewId, newReviewExistVenue, currentVenue, simpleRate) => {
+export const sendToDatabase = async (submission, category, editReview, userData, userAuthenticated, reviewId, newReviewExistVenue, currentVenue, simpleRate, currentPlaceId) => {
     let venue;
     let answers;
     let hours;
+    let placeId;
     if ( newReviewExistVenue || simpleRate ) {
         venue = currentVenue
+        placeId = currentPlaceId
     } else {
         venue = submission.name
+        placeId = submission.place_id
     }
     const user_email = userData.user_email
     const user_id = userData.user_id
@@ -33,7 +36,6 @@ export const sendToDatabase = async (submission, category, editReview, userData,
     const state = submission.state
     const map = submission.map
     const website = submission.website
-    const placeId = submission.place_id
 
     if ( (editReview === false && category === 'new') || (newReviewExistVenue === true && category === 'new' )) {
         let rating;

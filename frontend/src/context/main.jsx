@@ -75,15 +75,16 @@ const MainProvider = ({ children }) => {
         // get review of user when currentVenue changes
         useEffect(() => {
             if (userAuthenticated) {
+                console.log(userData)
                 if ( userData.reviews === null ) {
                     setReview(null)
                 } else {
-                    if (userData.reviews.includes(currentVenue)) {
+                    if (userData.reviews.includes(currentPlaceId)) {
                         
-                        const encodedVenue = encodeURIComponent(currentVenue)
+                        const encodedId = encodeURIComponent(currentPlaceId)
                         const encodedUser = encodeURIComponent(userData.email)
                         
-                        fetch(`http://127.0.0.1:5000/api/reviews/${encodedVenue}/${encodedUser}`, {
+                        fetch(`http://127.0.0.1:5000/api/reviews/${encodedId}/${encodedUser}`, {
                             credentials: 'include',
                             headers: {
                                 'Content-Type' : 'application/json',
@@ -97,6 +98,7 @@ const MainProvider = ({ children }) => {
                             return response.json()
                         })
                         .then((data) => {
+                            console.log(data)
                             setReview(data)
                         })
                         .catch((error) => {
@@ -196,7 +198,8 @@ const MainProvider = ({ children }) => {
     // get single venue data
     useEffect(() => {
         const encodedName = encodeURIComponent(currentVenue)
-        fetch(`http://127.0.0.1:5000/api/venues/${encodedName}`)
+        const encodedId = encodeURIComponent(currentPlaceId)
+        fetch(`http://127.0.0.1:5000/api/venues/${encodedId}`)
         .then((response) => response.json())
         .then((data) => {
             setCurrentVenueData(data)
@@ -285,7 +288,7 @@ const MainProvider = ({ children }) => {
     {
         {
             home, currentCity, venueCount, listOfStates, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn, successLogin, logout,
-            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review, aggDataUpdated, clearVenue, clearCurrentVenueData, isLoaded, showMod, avatarMod, closeMod
+            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review, aggDataUpdated, clearVenue, clearCurrentVenueData, isLoaded, showMod, avatarMod, closeMod, currentPlaceId
         }
     }>
         {children}

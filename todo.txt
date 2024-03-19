@@ -2,21 +2,8 @@
     - places page
         - create city database
             - audit places that use currentVenue 
-                - NewReviewText.jsx
-                - StoreTitle.jsx
-                - addFormContext.jsx
-                    - sendToDatabase
-                        - changes to venue
-                        - handleNewSubmission
-                            - postVenue
-                            - ReviewAPI.js
-                                - postReview.js
-                                    - reviewFetch.js
-                            - updateUser
-                - main.jsx
-                    - get review of user when currentVenue changes useEffect
-                    - setVenue function is where it is set
-                    - get single venue data useEffect
+                - aggregateResults - here
+                
             - need to get places ID to be the unique value in placeCard, set it to something and keep currentVenue as is... 2nd route to handle when placeId is used?
             issue is that there can be multiple shops with the same name
         - send name of city to city db on submit, count as well? logic for state?
