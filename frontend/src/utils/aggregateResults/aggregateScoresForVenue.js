@@ -1,11 +1,11 @@
-export async function aggregateScoresForVenue(allReviews, venue) {
+export async function aggregateScoresForVenue(allReviews, placeId, venue) {
     let pairedAnswers = []
     let c1 = [], c2 = [], p1 = [], p2 = [], p3 = [], p4 = [], p5 = [], p6 = [], ser1 = [], ser2 = [], ser3 = [], ser4 = [], ser5 = [];
     let sp1 = [], sp2 = [], sp3 = [], sp4 = [], sp5 = [], sp6 = [], sp7 = [], sp8 = [], sp9 = [], sum = [];
     let aggScore = []
 
     const allReviewsForVenue = []
-        allReviewsForVenue.push(allReviews.reviews.filter(review => review.venue === venue))
+        allReviewsForVenue.push(allReviews.reviews.filter(review => review.venue_rated.place_id === placeId))
 
         allReviewsForVenue[0].forEach(review => {
 

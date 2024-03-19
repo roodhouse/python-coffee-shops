@@ -75,7 +75,6 @@ const MainProvider = ({ children }) => {
         // get review of user when currentVenue changes
         useEffect(() => {
             if (userAuthenticated) {
-                console.log(userData)
                 if ( userData.reviews === null ) {
                     setReview(null)
                 } else {
@@ -98,7 +97,6 @@ const MainProvider = ({ children }) => {
                             return response.json()
                         })
                         .then((data) => {
-                            console.log(data)
                             setReview(data)
                         })
                         .catch((error) => {
@@ -204,7 +202,7 @@ const MainProvider = ({ children }) => {
         .then((data) => {
             setCurrentVenueData(data)
             const reviews = data.reviews
-            fetch(`http://127.0.0.1:5000/api/aggregate/${encodedName}`)
+            fetch(`http://127.0.0.1:5000/api/aggregate/${encodedId}`) 
             .then((aggResponse) => aggResponse.json())
             .then((aggData) => {
                 setCurrentVenueAgg(aggData)

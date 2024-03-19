@@ -3,6 +3,7 @@
         - create city database
             - audit places that use currentVenue 
                 - aggregateResults - here
+                    - issue with aggscore coming into udpateAggregateAndVenueRating... here
                 
             - need to get places ID to be the unique value in placeCard, set it to something and keep currentVenue as is... 2nd route to handle when placeId is used?
             issue is that there can be multiple shops with the same name

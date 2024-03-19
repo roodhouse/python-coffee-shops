@@ -7,10 +7,6 @@ function DetailsForm({ id }) {
 
     const { step, formData } = useAddForm()
 
-    // if (step === 'details') {
-    //     console.log(formData)
-    // }
-
   return (
     <>
         <div id="detailsFormContainer">

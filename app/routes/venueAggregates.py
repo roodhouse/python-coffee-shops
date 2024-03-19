@@ -21,6 +21,7 @@ def get_aggregates():
     aggregates_data = [
         {
             'id' : aggregate.id,
+            'placeId': aggregate.placeId,
             'venue' : aggregate.name,
             'community 1' : aggregate.c1,
             'community 2' : aggregate.c2,
@@ -62,6 +63,7 @@ def get_aggregate(name):
     if aggregate:
         aggregate_details = {
             'aggregate_id': aggregate.id,
+            'placeId': aggregate.placeId,
             'aggregate_name': aggregate.name,
             'c1': aggregate.c1,
             'c2': aggregate.c2,
@@ -97,11 +99,12 @@ def new_aggregate():
     data = request.get_json()
     db = get_db()
 
-    print('data from aggregate is:')
+    print('data from aggregate is:') 
     print(data)
 
     try:
         new_aggregate = VenueAggregates(
+            placeId = data['placeId'],
             name = data['name'],
             c1 = data['c1'],
             c2 = data['c2'],

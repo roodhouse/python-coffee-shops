@@ -23,15 +23,17 @@ def get_reviews():
 
     reviews = db.query(Reviews).order_by(Reviews.id).all()
 
-    reviews_data = [
-        {
-            'id' : review.id,
-            'venue' : review.venue_name,
-            'user' : review.user_email,
-            'answers' : review.answers
-        }
-        for review in reviews
-    ]
+    if reviews: 
+        reviews_data = [
+            {
+                'id' : review.id,
+                'venue' : review.venue_name,
+                'user' : review.user_email,
+                'answers' : review.answers,
+                'venue_rated': review.venue_rated.place_id
+            }
+            for review in reviews
+        ]
 
     return jsonify({'reviews': reviews_data})
 
