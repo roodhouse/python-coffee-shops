@@ -1,10 +1,7 @@
 import { updateRatingAfterAggregate } from "./updateRatingAfterAggregate";
 
 export async function updateAggregateAndVenueRating(placeId, venue, aggScore) {
-  console.log('from updateAggregateAndVenueRating the venue is: ', venue)
-  console.log('from updateAggregateAndVenueRating the placeId is: ', placeId)
-  console.log('from updateAggregateAndVenueRating the aggScore is: ', aggScore)
-  // issue with agg score above...
+  
   let rating = aggScore[22]
   let venueName = venue.name
 

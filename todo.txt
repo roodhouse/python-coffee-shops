@@ -1,9 +1,9 @@
 1. frontend
     - places page
-        - create city database
-            - audit places that use currentVenue 
-                - aggregateResults - here
-                    - issue with aggscore coming into udpateAggregateAndVenueRating... here
+        - getting 404 not found on all api/aggregate/placeID...
+            -- aggregate changes do reflect in db
+            -- the correct results are not being pulled into site correctly... 
+            -- locate fetch requests for these agg results and troubleshoot - here!
                 
             - need to get places ID to be the unique value in placeCard, set it to something and keep currentVenue as is... 2nd route to handle when placeId is used?
             issue is that there can be multiple shops with the same name

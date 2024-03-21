@@ -5,9 +5,15 @@ export async function aggregateScoresForVenue(allReviews, placeId, venue) {
     let aggScore = []
 
     const allReviewsForVenue = []
-        allReviewsForVenue.push(allReviews.reviews.filter(review => review.venue_rated.place_id === placeId))
 
-        allReviewsForVenue[0].forEach(review => {
+        allReviews.reviews.forEach(review => {
+            let venue = review.venue_rated
+            if (venue === placeId) {
+                allReviewsForVenue.push(review)
+            }
+        })
+
+        allReviewsForVenue.forEach(review => {
 
             if (!review.answers[0]) {
                 console.error("Review answers are missing or malformed", review)

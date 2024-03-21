@@ -9,8 +9,6 @@ export async function aggregateResults() {
     let venueCount = calculateVenueCounts(allReviews)
     let allUpdatesSuccessful = true
 
-    console.log(venueCount)
-
     let venueObj = venueCount[0]
 
     for (let[placeId, count] of Object.entries(venueObj)) {
