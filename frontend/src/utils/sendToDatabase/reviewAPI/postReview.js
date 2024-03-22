@@ -1,7 +1,7 @@
 import { lastVenue } from "../venueAPI/lastVenue"
 import { reviewFetch } from "./reviewFetch"
 
-export const postReview = async (venue, image, location, address, hours, rating, answers, user_id, user_email, newReviewExistVenue, simpleRate) => {
+export const postReview = async (venue, image, location, address, placeId, hours, rating, answers, user_id, user_email, newReviewExistVenue, simpleRate) => {
     try {
         // fetch the last venue created
         if (newReviewExistVenue === false && simpleRate === false) {
@@ -17,7 +17,7 @@ export const postReview = async (venue, image, location, address, hours, rating,
             }
         }
             try {
-                const postNewReview = await reviewFetch(venue, answers, user_id, user_email)
+                const postNewReview = await reviewFetch(venue, answers, placeId, user_id, user_email)
                 if ( postNewReview ) {
                     return true
                 } else {

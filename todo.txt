@@ -1,6 +1,12 @@
 1. frontend
     - places page
-        - create city database
+        - getting 404 not found on all api/aggregate/placeID...
+            -- aggregate changes do reflect in db
+            -- the correct results are not being pulled into site correctly... 
+            -- locate fetch requests for these agg results and troubleshoot - here!
+                
+            - need to get places ID to be the unique value in placeCard, set it to something and keep currentVenue as is... 2nd route to handle when placeId is used?
+            issue is that there can be multiple shops with the same name
         - send name of city to city db on submit, count as well? logic for state?
         - pull city table in the places view
         - change state of currentCity to clicked city and return city name and count on home page       

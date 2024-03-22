@@ -1,4 +1,4 @@
-export const updateUser = async (user_id, venue, type) => {
+export const updateUser = async (user_id, venue, placeId, type) => { 
     try {
         const getCurrentUserReviews = await fetch(`http://127.0.0.1:5000/api/user/${user_id}`, {
             method: 'GET',
@@ -12,9 +12,9 @@ export const updateUser = async (user_id, venue, type) => {
             const currentReviews = Array.isArray(currentUserData.reviews) ? currentUserData.reviews : []
             let updatedReviewIds;
             if (type === 'new') {
-                updatedReviewIds = [ ...currentReviews, venue]
+                updatedReviewIds = [ ...currentReviews, placeId]
             } else if (type === 'full') {   
-                updatedReviewIds = currentReviews.filter(item => item !== venue)                
+                updatedReviewIds = currentReviews.filter(item => item !== placeId)                
             }
             const updateUserResponse = await fetch(`http://127.0.0.1:5000/api/user/${user_id}`, {
                 method: 'PUT',

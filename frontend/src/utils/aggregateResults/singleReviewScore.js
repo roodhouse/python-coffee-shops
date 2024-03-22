@@ -1,5 +1,12 @@
-export async function singleReviewScore(allReviews, venue) {
-    const reviewForVenue = allReviews.reviews.find(review => review.venue === venue)
+export async function singleReviewScore(allReviews, placeId, venue) {
+    let reviewForVenue = null
+
+    allReviews.reviews.forEach(review => {
+        if (review.venue_rated === placeId) 
+        reviewForVenue = review
+        return
+    })
+
     if (!reviewForVenue || !reviewForVenue.answers || !reviewForVenue.answers[0]) {
         return []
     }

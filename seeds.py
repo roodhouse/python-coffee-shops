@@ -13,13 +13,13 @@ db.add_all([
     Users(
         email='rughjm@gmail.com', 
         password='12345', 
-        review_ids=["Perky Beans", "Scooter\'s Coffee"],
+        review_ids=["TestPlaceId", "TestPlaceId01"],
         avatar = 'http://127.0.0.1:5000/assets/meAgain.jpeg'
     ),
     Users(
         email='rooinfo@gmail.com', 
         password='12345', 
-        review_ids=["Scooter\'s Coffee", "Perky Beans"]
+        review_ids=["TestPlaceId01", "TestPlaceId"]
     ),
     Users(
         email='bob@gmail.com', 
@@ -37,6 +37,7 @@ db.add_all([
         location = 'https://www.google.com/maps/place/Perky+Beans+Coffee+%26+PB+Cafe/@30.6271539,-97.867737,17z/data=!3m1!4b1!4m6!3m5!1s0x865b2d6421c093a1:0xbb3c0b4e28b76730!8m2!3d30.6271493!4d-97.8651621!16s%2Fg%2F11h4pl1cck?entry=ttu',
         address = '2080 N US Hwy 183 #210, Leander, TX 78641',
         city = 'Leander',
+        state = 'Texas',
         map = 'https://www.google.com',
         website = 'https://www.google.com',
         place_id = 'TestPlaceId',
@@ -50,9 +51,10 @@ db.add_all([
         location = "https://www.google.com/maps/place/Scooter's+Coffee/@30.6029998,-97.8604322,15z/data=!4m6!3m5!1s0x865b2b4b56f3004b:0xa41ff8f6994ee64a!8m2!3d30.6029998!4d-97.8604322!16s%2Fg%2F11vbc6yn_g?entry=ttu",
         address = '3625 N US Hwy 183, Leander, TX 78641',
         city = 'Leander',
+        state = 'Texas',
         map = 'https://www.google.com',
         website = 'https://www.google.com',
-        place_id = 'TestPlaceId',
+        place_id = 'TestPlaceId01',
         hours = [{"Fri": "Friday: 7:00 AM – 9:00 PM", "Mon": "Monday: 7:00 AM – 9:00 PM", "Sat": "Saturday: 7:00 AM – 9:00 PM", "Sun": "Sunday: 8:00 AM – 9:00 PM", "Wed": "Wednesday: 7:00 AM – 9:00 PM", "Tues": "Tuesday: 7:00 AM – 9:00 PM", "Thurs": "Thursday: 7:00 AM – 9:00 PM"}],
         rating = 1,
         review_count = 2

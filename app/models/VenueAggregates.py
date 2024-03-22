@@ -5,7 +5,8 @@ import requests
 class VenueAggregates(Base):
     __tablename__ = 'aggregates'
     id = Column(Integer)
-    name = Column(String(250), nullable=False, primary_key=True)
+    placeId = Column(String(250), nullable=False, primary_key=True)
+    name = Column(String(250), nullable=False)
     c1 = Column(Float)
     c2 = Column(Float)
     p1 = Column(Float)

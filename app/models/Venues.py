@@ -12,6 +12,7 @@ class Venues(Base):
     location = Column(JSON)
     address = Column(String(length=250), nullable=False)
     city = Column(String(length=250), nullable=False)
+    state = Column(String(length=250), nullable=False)
     map = Column(String(length=250), nullable=False)
     website = Column(String(length=250), nullable=False)
     hours = Column(JSON)
@@ -20,5 +21,5 @@ class Venues(Base):
     review_count = Column(Integer, default=0)
 
     # define relationship
-    reviews = relationship('Reviews', back_populates='venue_rated')
+    reviews = relationship('Reviews', back_populates='venue_rated') 
     comments = relationship('Comments', back_populates='venue')

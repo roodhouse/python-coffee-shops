@@ -26,6 +26,7 @@ const MainProvider = ({ children }) => {
     const [ aggDataUpdate, setAggDataUpdate] = useState(false)
     const [ isLoaded, setIsLoaded ] = useState(false)
     const [ avatarMod, setAvatarMod ] = useState(false)
+    const [ currentPlaceId, setCurrentPlaceId ] = useState()
 
     // Check for token on load
     useEffect(() => {
@@ -77,12 +78,12 @@ const MainProvider = ({ children }) => {
                 if ( userData.reviews === null ) {
                     setReview(null)
                 } else {
-                    if (userData.reviews.includes(currentVenue)) {
+                    if (userData.reviews.includes(currentPlaceId)) {
                         
-                        const encodedVenue = encodeURIComponent(currentVenue)
+                        const encodedId = encodeURIComponent(currentPlaceId)
                         const encodedUser = encodeURIComponent(userData.email)
                         
-                        fetch(`http://127.0.0.1:5000/api/reviews/${encodedVenue}/${encodedUser}`, {
+                        fetch(`http://127.0.0.1:5000/api/reviews/${encodedId}/${encodedUser}`, {
                             credentials: 'include',
                             headers: {
                                 'Content-Type' : 'application/json',
@@ -146,7 +147,6 @@ const MainProvider = ({ children }) => {
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log(data)
                     if (data.user_id) {
                         setUserAuthenticated(true)
                         setUserData(data)
@@ -176,9 +176,10 @@ const MainProvider = ({ children }) => {
     }
 
     // select venue
-    function setVenue(venue) { 
+    function setVenue(placeId, venue) { 
         setHome('store')
         setCurrentVenue(venue)
+        setCurrentPlaceId(placeId)
     }
 
     // clear venue
@@ -195,12 +196,13 @@ const MainProvider = ({ children }) => {
     // get single venue data
     useEffect(() => {
         const encodedName = encodeURIComponent(currentVenue)
-        fetch(`http://127.0.0.1:5000/api/venues/${encodedName}`)
+        const encodedId = encodeURIComponent(currentPlaceId)
+        fetch(`http://127.0.0.1:5000/api/venues/${encodedId}`)
         .then((response) => response.json())
         .then((data) => {
             setCurrentVenueData(data)
             const reviews = data.reviews
-            fetch(`http://127.0.0.1:5000/api/aggregate/${encodedName}`)
+            fetch(`http://127.0.0.1:5000/api/aggregate/${encodedId}`) 
             .then((aggResponse) => aggResponse.json())
             .then((aggData) => {
                 setCurrentVenueAgg(aggData)
@@ -218,7 +220,6 @@ const MainProvider = ({ children }) => {
 
     // agg data updated function
     function aggDataUpdated(data) {
-        console.log('hi')
         setAggDataUpdate(data)
     }
 
@@ -285,7 +286,7 @@ const MainProvider = ({ children }) => {
     {
         {
             home, currentCity, venueCount, listOfStates, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn, successLogin, logout,
-            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review, aggDataUpdated, clearVenue, clearCurrentVenueData, isLoaded, showMod, avatarMod, closeMod
+            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review, aggDataUpdated, clearVenue, clearCurrentVenueData, isLoaded, showMod, avatarMod, closeMod, currentPlaceId
         }
     }>
         {children}

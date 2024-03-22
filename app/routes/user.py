@@ -104,8 +104,9 @@ def get_user_info(current_user, current_user_email):
                 {
                     'review_id': review.id,
                     'venue_name': review.venue_name,
-                    'venue_location': db.query(Venues.city).filter_by(name=review.venue_name).scalar(),
+                    'venue_location': db.query(Venues.city).filter_by(place_id=review.venue_rated.place_id).scalar(),
                     'answers': review.answers[0],
+                    'place_id': review.venue_rated.place_id
                 }
 
                 for review in user.reviews

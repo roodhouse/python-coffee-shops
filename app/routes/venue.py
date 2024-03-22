@@ -5,7 +5,7 @@ from flask import Blueprint, jsonify, request
 from app.models import Venues, VenueAggregates, Users
 from app.db import get_db
 import logging
-from app.utils import token_required, process_image, city_state_data, update_city_state_data
+from app.utils import token_required, process_image, update_city_state_data, city_state_data
 
 load_dotenv()
 
@@ -26,6 +26,7 @@ def get_venues():
             'location': venue.location,
             'address': venue.address,
             'city': venue.city,
+            'state': venue.state,
             'map': venue.map,
             'website': venue.website,
             'place_id': venue.place_id,
@@ -39,11 +40,11 @@ def get_venues():
     return jsonify({'venues': venues_data})
 
 # venues get single route
-@venue_bp.route('/api/venues/<string:name>', methods=['GET'])
-def get_venue(name):
+@venue_bp.route('/api/venues/<string:place_id>', methods=['GET'])
+def get_venue(place_id):
     db = get_db()
 
-    venue = db.query(Venues).filter_by(name = name).one_or_none()
+    venue = db.query(Venues).filter_by(place_id = place_id).one_or_none() 
     
     if venue:
         venue_details = {
@@ -53,6 +54,7 @@ def get_venue(name):
             'location': venue.location,
             'address': venue.address,
             'city': venue.city,
+            'state': venue.state,
             'map': venue.map,
             'website': venue.website,
             'place_id': venue.place_id,
@@ -90,6 +92,7 @@ def get_last_venue():
                 'location': latest_venue.location,
                 'address': latest_venue.address,
                 'city': latest_venue.city,
+                'state': latest_venue.state,
                 'map': latest_venue.map,
                 'website': latest_venue.website,
                 'hours': latest_venue.hours,
@@ -101,7 +104,6 @@ def get_last_venue():
         return jsonify({'venues': [venue_data]})
     else:
         return jsonify({'venues': []})
-
 
 # route to get current city and state data
 @venue_bp.route('/api/venues/city', methods=['GET'])
@@ -138,19 +140,19 @@ def new_venue(current_user, current_user_email):
         db.add(new_venue)
         db.commit()
         return jsonify(message = 'venue added'), 200
-    except:
-        print(sys.exc_info()[0])
+    except KeyError as e:
+        print(f"KeyError: {e}")
         db.rollback()
         return jsonify(message = 'venue failed to be added'), 500
 
 # venues update route
-@venue_bp.route('/api/venues/<string:name>', methods=['PUT'])
+@venue_bp.route('/api/venues/<string:place_id>', methods=['PUT'])
 @token_required
-def update_venue(current_user, current_user_email, name):
+def update_venue(current_user, current_user_email, place_id):
     data = request.get_json()
     db = get_db()
 
-    venue = db.query(Venues).filter_by(name=name).one_or_none()
+    venue = db.query(Venues).filter_by(place_id=place_id).one_or_none()
 
     if venue:
         try:
@@ -165,6 +167,8 @@ def update_venue(current_user, current_user_email, name):
                 venue.address = data['address']
             if 'city' in data:
                 venue.city = data['city']
+            if 'state' in data:
+                venue.state = data['state']
             if 'map' in data:
                 venue.map = data['map']
             if 'website' in data:

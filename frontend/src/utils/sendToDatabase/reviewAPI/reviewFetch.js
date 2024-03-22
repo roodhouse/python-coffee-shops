@@ -1,12 +1,13 @@
 import getCurrentDate from "../../miscFunctions/getDate"
 
-export async function reviewFetch(venue, answers, user_id, user_email) {
+export async function reviewFetch(venue, answers, placeId, user_id, user_email) {
     const date = getCurrentDate()
     const reviewResponse = await fetch('http://127.0.0.1:5000/api/reviews', {
         method: 'POST',
         body: JSON.stringify({
             venue_name: venue,
             answers,
+            placeId,
             user_email,
             date
         }),

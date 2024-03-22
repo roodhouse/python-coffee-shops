@@ -1,13 +1,19 @@
-export async function aggregateScoresForVenue(allReviews, venue) {
+export async function aggregateScoresForVenue(allReviews, placeId, venue) {
     let pairedAnswers = []
     let c1 = [], c2 = [], p1 = [], p2 = [], p3 = [], p4 = [], p5 = [], p6 = [], ser1 = [], ser2 = [], ser3 = [], ser4 = [], ser5 = [];
     let sp1 = [], sp2 = [], sp3 = [], sp4 = [], sp5 = [], sp6 = [], sp7 = [], sp8 = [], sp9 = [], sum = [];
     let aggScore = []
 
     const allReviewsForVenue = []
-        allReviewsForVenue.push(allReviews.reviews.filter(review => review.venue === venue))
 
-        allReviewsForVenue[0].forEach(review => {
+        allReviews.reviews.forEach(review => {
+            let venue = review.venue_rated
+            if (venue === placeId) {
+                allReviewsForVenue.push(review)
+            }
+        })
+
+        allReviewsForVenue.forEach(review => {
 
             if (!review.answers[0]) {
                 console.error("Review answers are missing or malformed", review)

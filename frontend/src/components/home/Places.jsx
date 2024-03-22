@@ -6,12 +6,13 @@ import PlacesNew from './places/PlacesNew'
 
 function Places() {
 
-    const { setVenue, venues } = useMain()
+    const { setVenue, venues, review } = useMain()
 
     const handleClick = (e) => { 
         let placeCard = e.currentTarget
-        placeCard = placeCard.getAttribute('data-uniqueplaceid')
-        setVenue(placeCard)
+        let placeId = placeCard.getAttribute('data-uniqueplaceid')
+        let placeName = placeCard.getAttribute('data-placename')
+        setVenue(placeId, placeName)
     }
 
   return (
@@ -22,7 +23,7 @@ function Places() {
             </div>
             {venues !== null ? (
                 venues.venues.map((venue) => (
-                    <div key={venue.id} id="placesCardWrapper-perkyBeans" className='pb-4' data-uniqueplaceid={venue.name} onClick={handleClick}>
+                    <div key={venue.id} id="placesCardWrapper-perkyBeans" className='pb-4' data-uniqueplaceid={venue.place_id} data-placename={venue.name} onClick={handleClick}>
                         <PlacesCard image={venue.image} rating={(venue.rating/2) * 100} name={venue.name} hours={venue.hours} address={venue.address} />
                     </div>    
                 ))
