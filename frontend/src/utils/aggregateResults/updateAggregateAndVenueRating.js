@@ -6,7 +6,7 @@ export async function updateAggregateAndVenueRating(placeId, venue, aggScore) {
   let venueName = venue.name
 
   try {
-    let response = await fetch("http://127.0.0.1:5000/api/aggregate", {
+    let response = await fetch("http://127.0.0.1:5000/api/aggregate", { 
       method: "POST",
       body: JSON.stringify({
         placeId: placeId,

@@ -58,8 +58,6 @@ def get_aggregates():
 def get_aggregate(placeId):
     db = get_db()
 
-    print(f'the placeId is {placeId}')
-
     aggregate = db.query(VenueAggregates).filter_by(placeId = placeId).one_or_none()
 
     if aggregate:
