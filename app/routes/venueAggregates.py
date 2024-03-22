@@ -54,11 +54,13 @@ def get_aggregates():
     return jsonify({'aggregates': aggregates_data})
 
 # get single aggregate
-@aggregate_bp.route('/api/aggregate/<string:name>', methods=['GET'])
-def get_aggregate(name):
+@aggregate_bp.route('/api/aggregate/<string:placeId>', methods=['GET'])
+def get_aggregate(placeId):
     db = get_db()
 
-    aggregate = db.query(VenueAggregates).filter_by(name = name).one_or_none()
+    print(f'the placeId is {placeId}')
+
+    aggregate = db.query(VenueAggregates).filter_by(placeId = placeId).one_or_none()
 
     if aggregate:
         aggregate_details = {
