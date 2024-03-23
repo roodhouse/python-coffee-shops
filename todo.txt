@@ -1,6 +1,7 @@
 1. frontend
     - places page
         -- issue with review fetch req when clicking on newly created venue... bug -- here!
+            -- need to add place_id directly to review model then refactor code to include it everywhere -- here!
         - on fetch req in Main: need to change req to only get results from currentCity, pass req currentCity and 
         adjust route on backend -- here!     
         - fix so that city returns despite order of data from api

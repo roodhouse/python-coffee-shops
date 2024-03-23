@@ -84,7 +84,9 @@ const MainProvider = ({ children }) => {
                         const encodedId = encodeURIComponent(currentPlaceId)
                         const encodedUser = encodeURIComponent(userData.email)
                         
+                        console.log(encodedId, encodedUser)
                         fetch(`http://127.0.0.1:5000/api/reviews/${encodedId}/${encodedUser}`, {
+                            method: 'GET',
                             credentials: 'include',
                             headers: {
                                 'Content-Type' : 'application/json',
@@ -191,6 +193,7 @@ const MainProvider = ({ children }) => {
     // clear current venue data
     function clearCurrentVenueData() {
         setCurrentVenueData(null)
+        setCurrentPlaceId(null)
     }
 
 
