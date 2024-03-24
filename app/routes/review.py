@@ -67,7 +67,13 @@ def get_user_review(current_user, current_user_email, place_id, user_email):
     if user.email != user_email:
         return jsonify({'error': 'Unauthorized access to this review'}), 403
 
-    review = db.query(Reviews).join(Venues, Reviews.venue_name == Venues.name).filter(Venues.place_id == place_id, Reviews.user_email == user_email).options(joinedload(Reviews.venue_rated)).one_or_none()
+    # review = db.query(Reviews).join(Venues, Reviews.venue_name == Venues.name).filter(Venues.place_id == place_id, Reviews.user_email == user_email).options(joinedload(Reviews.venue_rated)).one_or_none()
+
+    review = db.query(Reviews)\
+        .join(Venues, Reviews.venue_name == Venues.name)\
+        .filter(Venues.place_id == place_id, Reviews.user_email == user_email)\
+        .options(joinedload(Reviews.venue_rated))\
+        .one_or_none()
 
     # review = db.query(Reviews).filter(Reviews.venue_rated.place_id == place_id)    
 

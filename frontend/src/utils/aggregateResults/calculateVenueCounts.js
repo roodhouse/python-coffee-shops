@@ -5,7 +5,7 @@ export function calculateVenueCounts(allReviews) {
         let venueId = review.venue_rated
         let venue = review.venue
 
-        if(!venueList.some(v => v.place_id == venueId)) {
+        if(!venueList.some(v => v.place_id === venueId)) {
             venueList.push({
                 place_id: venueId,
                 name: venue
