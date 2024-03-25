@@ -5,6 +5,7 @@ from sqlalchemy.orm import relationship
 class Reviews(Base):
     __tablename__ = 'reviews'
     id = Column(Integer, primary_key=True)
+    # place_id = Column(String(250), ForeignKey=('venues.place_id'), nullable=False)
     venue_name = Column(String(250), ForeignKey('venues.name'), nullable=False)
     user_email = Column(String(250), ForeignKey('users.email'), nullable=False)
     answers = Column(JSON)

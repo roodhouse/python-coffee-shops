@@ -21,5 +21,5 @@ class Venues(Base):
     review_count = Column(Integer, default=0)
 
     # define relationship
-    reviews = relationship('Reviews', back_populates='venue_rated') 
+    reviews = relationship('Reviews', back_populates='venue_rated')
     comments = relationship('Comments', back_populates='venue')
