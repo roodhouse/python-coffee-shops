@@ -1,23 +1,33 @@
 import React from 'react'
 import State from './citiesList/State'
-import { useMain } from '../../context/main'
 
-// move loop function here, encompass everything inside of the data coming from main context
-// so that states city data inside them
+function CitiesList({ currentCityStateData }) {
 
-function CitiesList() {
+   let finalStateArray = []
 
-  const { listOfStates } = useMain()
+  if (currentCityStateData) {
+    const stateArray = Object.entries(currentCityStateData.state)
+    stateArray.forEach(([key,value]) => {
+    finalStateArray.push(key)
+    })
+  }
+
+  console.log(currentCityStateData)
+  console.log(finalStateArray)
 
   return (
     <>
         <div id="citiesListContainer">
-            { listOfStates.map((stateName) => (
-                <div id={stateName.state + 'Wrapper'} key={stateName.state+'Wrapper'} className='mb-8'>
-                    <State state={stateName.state} cities={stateName.cities} />
+            { finalStateArray ? (
+              finalStateArray.map((state) => (
+                <div id={state + 'Wrapper'} key={state} className='mb-8'>
+                  <State state={state} cities={currentCityStateData.state[state].city} />
                 </div>
-            ))}
-        </div>
+              ))
+            ) : (
+              ''
+            )}
+        </div>    
     </>
   )
 }

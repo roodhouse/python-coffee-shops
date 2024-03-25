@@ -31,10 +31,6 @@ function Cities() {
     }
   }, [home])
 
-  if (currentCityStateData) {
-    console.log(currentCityStateData)
-  }
-
   return (
     <>
         <div id="citiesContainer">
@@ -42,7 +38,7 @@ function Cities() {
                 <CitiesTitle />
             </div>
             <div id="citiesListWrapper">
-                <CitiesList />
+                <CitiesList currentCityStateData={currentCityStateData} />
             </div>
         </div>
     </>

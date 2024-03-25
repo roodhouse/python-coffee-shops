@@ -43,6 +43,7 @@ const MainProvider = ({ children }) => {
 
     // fetch requests
     useEffect(() => {
+        // need to adjust this to get only the venues with the same city name as currentCity --- here!
         fetch("http://127.0.0.1:5000/api/venues/")
             .then((response) => {
                 if (!response.ok) {
@@ -83,7 +84,9 @@ const MainProvider = ({ children }) => {
                         const encodedId = encodeURIComponent(currentPlaceId)
                         const encodedUser = encodeURIComponent(userData.email)
                         
+                        console.log(encodedId, encodedUser)
                         fetch(`http://127.0.0.1:5000/api/reviews/${encodedId}/${encodedUser}`, {
+                            method: 'GET',
                             credentials: 'include',
                             headers: {
                                 'Content-Type' : 'application/json',
@@ -190,6 +193,7 @@ const MainProvider = ({ children }) => {
     // clear current venue data
     function clearCurrentVenueData() {
         setCurrentVenueData(null)
+        setCurrentPlaceId(null)
     }
 
 

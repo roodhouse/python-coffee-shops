@@ -5,6 +5,9 @@ import { singleReviewScore } from "./singleReviewScore"
 import { updateAggregateAndVenueRating } from "./updateAggregateAndVenueRating"
 
 export async function aggregateResults() { 
+
+    console.log('inside aggregateResults')
+    
     let allReviews = await fetchAllReviews()
     let venueCount = calculateVenueCounts(allReviews)
     let allUpdatesSuccessful = true

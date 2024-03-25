@@ -1,15 +1,10 @@
 1. frontend
     - places page
-        - getting 404 not found on all api/aggregate/placeID...
-            -- aggregate changes do reflect in db
-            -- the correct results are not being pulled into site correctly... 
-            -- locate fetch requests for these agg results and troubleshoot - here!
-                
-            - need to get places ID to be the unique value in placeCard, set it to something and keep currentVenue as is... 2nd route to handle when placeId is used?
-            issue is that there can be multiple shops with the same name
-        - send name of city to city db on submit, count as well? logic for state?
-        - pull city table in the places view
-        - change state of currentCity to clicked city and return city name and count on home page       
+        -- issue with review fetch req when clicking on newly created venue... bug -- here!
+            -- something to do with the aggregate of the 2nd venue with the same name, it overwrites the first venue of same name aggregate... here! 
+        - on fetch req in Main: need to change req to only get results from currentCity, pass req currentCity and 
+        adjust route on backend -- here!     
+        - fix so that city returns despite order of data from api
     - add logic to comment section
         - if current user has a comment then display it on top with the choice to delete or edit, 
         else display the newest comment with a choice to add their overwriting
