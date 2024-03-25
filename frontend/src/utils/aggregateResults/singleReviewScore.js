@@ -1,10 +1,9 @@
 export async function singleReviewScore(allReviews, placeId, venue) {
 
-    console.log('inside singleReviewScore')
     let reviewForVenue = null
 
     allReviews.reviews.forEach(review => {
-        if (review.venue_rated === placeId) 
+        if (review.venue_place_id === placeId) 
         reviewForVenue = review
         return
     })
