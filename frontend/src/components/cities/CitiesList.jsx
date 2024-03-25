@@ -12,9 +12,6 @@ function CitiesList({ currentCityStateData }) {
     })
   }
 
-  console.log(currentCityStateData)
-  console.log(finalStateArray)
-
   return (
     <>
         <div id="citiesListContainer">

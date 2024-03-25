@@ -1,7 +1,6 @@
 1. frontend
     - places page
-        - on fetch req in Main: need to change req to only get results from currentCity, pass req currentCity and 
-        adjust route on backend -- here!     
+        - in useEffect in main, issue fetching venue data -- here!     
         - fix so that city returns despite order of data from api -- because counties are being returned right now
     - add logic to comment section
         - if current user has a comment then display it on top with the choice to delete or edit, 

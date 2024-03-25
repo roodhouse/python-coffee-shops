@@ -44,34 +44,36 @@ const MainProvider = ({ children }) => {
     // fetch requests
     useEffect(() => {
         // need to adjust this to get only the venues with the same city name as currentCity --- here!
-        fetch("http://127.0.0.1:5000/api/venues/")
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok")
-                }
-                return response.json()
-            })
-            .then((data) => {
-                setVenues(data)
-            })
-            .catch((error) => {
-                console.error("Error fetching data:", error)
-            })
-        
-        fetch("http://127.0.0.1:5000/api/reviews/")
-            .then((response) => {
-                if (!response.ok ) {
-                    throw new Error("Network response was not ok")
-                }
-                return response.json()
-            })
-            .then((data) => {
-                setAllReviews(data)
-            })
-            .catch((error) => {
-                console.error("Error fetching data:", error)
-            })
-    },[home]) 
+        if (home === 'home') {
+            fetch(`http://127.0.0.1:5000/api/venues/${currentCity}`)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok")
+                    }
+                    return response.json()
+                })
+                .then((data) => {
+                    setVenues(data)
+                })
+                .catch((error) => {
+                    console.error("Error fetching data:", error)
+                })
+            
+            fetch("http://127.0.0.1:5000/api/reviews/")
+                .then((response) => {
+                    if (!response.ok ) {
+                        throw new Error("Network response was not ok")
+                    }
+                    return response.json()
+                })
+                .then((data) => {
+                    setAllReviews(data)
+                })
+                .catch((error) => {
+                    console.error("Error fetching data:", error)
+                })
+        }
+    },[home, currentCity]) 
 
         // get review of user when currentVenue changes
         useEffect(() => {
@@ -84,7 +86,6 @@ const MainProvider = ({ children }) => {
                         const encodedId = encodeURIComponent(currentPlaceId)
                         const encodedUser = encodeURIComponent(userData.email)
                         
-                        console.log(encodedId, encodedUser)
                         fetch(`http://127.0.0.1:5000/api/reviews/${encodedId}/${encodedUser}`, {
                             method: 'GET',
                             credentials: 'include',
@@ -180,6 +181,7 @@ const MainProvider = ({ children }) => {
 
     // select venue
     function setVenue(placeId, venue) { 
+        console.log(placeId, venue)
         setHome('store')
         setCurrentVenue(venue)
         setCurrentPlaceId(placeId)
@@ -197,29 +199,41 @@ const MainProvider = ({ children }) => {
     }
 
 
+    // data not being fetched any more here !! 
     // get single venue data
     useEffect(() => {
-        const encodedName = encodeURIComponent(currentVenue)
-        const encodedId = encodeURIComponent(currentPlaceId)
-        fetch(`http://127.0.0.1:5000/api/venues/${encodedId}`)
-        .then((response) => response.json())
-        .then((data) => {
-            setCurrentVenueData(data)
-            const reviews = data.reviews
-            fetch(`http://127.0.0.1:5000/api/aggregate/${encodedId}`) 
-            .then((aggResponse) => aggResponse.json())
-            .then((aggData) => {
-                setCurrentVenueAgg(aggData)
-                setAggDataUpdate(false)
+        if (home === 'store') {
+            console.log('in currentVenue useEffect')
+            console.log(currentVenue, currentPlaceId)
+            const encodedId = encodeURIComponent(currentPlaceId)
+            try {
+                fetch(`http://127.0.0.1:5000/api/venues/${encodedId}`)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data)
+                setCurrentVenueData(data)
+                const reviews = data.reviews
+                fetch(`http://127.0.0.1:5000/api/aggregate/${encodedId}`) 
+                .then((aggResponse) => aggResponse.json())
+                .then((aggData) => {
+                    setCurrentVenueAgg(aggData)
+                    setAggDataUpdate(false)
+                })
+                .catch ((error) => {
+                    console.error('Error fetching venue data:', error)
+                })
             })
             .catch ((error) => {
-                console.error('Error fetching venue data:', error)
+            console.error('Error fetching venue data:', error)
             })
-        })
-        .catch ((error) => {
-        console.error('Error fetching venue data:', error)
-        })
-    },[currentVenue, aggDataUpdate])
+
+            console.log('currentVenueData is: ', currentVenueData)
+            } catch(error) {
+                console.error('error occurred in useEffect to get single venue data', error)
+            }
+            
+        }
+    },[currentVenue, aggDataUpdate, home, currentPlaceId])
 
 
     // agg data updated function
