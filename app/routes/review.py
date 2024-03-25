@@ -9,7 +9,6 @@ from app.models import Reviews, Users
 from app.db import get_db
 import logging
 from app.utils import token_required
-from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 
 from app.models.Venues import Venues
@@ -29,10 +28,10 @@ def get_reviews():
         reviews_data = [
             {
                 'id' : review.id,
+                'venue_place_id': review.venue_place_id,
                 'venue' : review.venue_name,
                 'user' : review.user_email,
-                'answers' : review.answers,
-                'venue_rated': review.venue_rated.place_id
+                'answers' : review.answers
             }
             for review in reviews
         ]
@@ -49,6 +48,7 @@ def get_review(id):
     if review:
         review_details = {
            "review_id": review.id,
+           "venue_place_id": review.place_id,
            "venue": review.venue_name,
            "user": review.user_email,
            "answers": review.answers,
@@ -67,29 +67,19 @@ def get_user_review(current_user, current_user_email, place_id, user_email):
     if user.email != user_email:
         return jsonify({'error': 'Unauthorized access to this review'}), 403
 
-    # review = db.query(Reviews).join(Venues, Reviews.venue_name == Venues.name).filter(Venues.place_id == place_id, Reviews.user_email == user_email).options(joinedload(Reviews.venue_rated)).one_or_none()
-
     review = db.query(Reviews)\
-        .join(Venues, Reviews.venue_name == Venues.name)\
-        .filter(Venues.place_id == place_id, Reviews.user_email == user_email)\
-        .options(joinedload(Reviews.venue_rated))\
+        .filter(Reviews.venue_place_id == place_id, Reviews.user_email == user_email)\
         .one_or_none()
-
-    # review = db.query(Reviews).filter(Reviews.venue_rated.place_id == place_id)    
 
     if review:
         
-        venue_rated = {
-            'place_id': review.venue_rated.place_id
-        }
-
         review_details = {
            "review_id": review.id,
+           "venue_place_id": review.venue_place_id,
            "venue": review.venue_name,
            "user": review.user_email,
            "answers": review.answers,
-           "date": review.date,
-           "venue_rated": venue_rated
+           "date": review.date
         }
         return jsonify(review_details)
     else: 
@@ -109,6 +99,7 @@ def new_review(current_user, current_user_email):
     try:
         new_review = Reviews(
             venue_name = data['venue_name'],
+            venue_place_id = data['placeId'],
             user_email = current_user_email,
             answers = data['answers'],
             date = data['date']

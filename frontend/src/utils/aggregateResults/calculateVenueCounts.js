@@ -1,16 +1,11 @@
 export function calculateVenueCounts(allReviews) {
-
-    console.log('inside calculateVenueCounts')
-    console.log(allReviews)
     
     let venueCount = {}
     let venueList = []
+    
     allReviews.reviews.forEach( review => {
-        let venueId = review.venue_rated
+        let venueId = review.venue_place_id
         let venue = review.venue
-
-        console.log('venueId is: ', venueId)
-        console.log('venue is: ', venue)
 
         if(!venueList.some(v => v.place_id === venueId)) {
             venueList.push({

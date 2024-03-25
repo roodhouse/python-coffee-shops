@@ -1,6 +1,4 @@
 export async function aggregateScoresForVenue(allReviews, placeId, venue) {
-
-    console.log('inside aggregateScoresForVenue')
     
     let pairedAnswers = []
     let c1 = [], c2 = [], p1 = [], p2 = [], p3 = [], p4 = [], p5 = [], p6 = [], ser1 = [], ser2 = [], ser3 = [], ser4 = [], ser5 = [];
@@ -10,7 +8,7 @@ export async function aggregateScoresForVenue(allReviews, placeId, venue) {
     const allReviewsForVenue = []
 
         allReviews.reviews.forEach(review => {
-            let venue = review.venue_rated
+            let venue = review.venue_place_id
             if (venue === placeId) {
                 allReviewsForVenue.push(review)
             }

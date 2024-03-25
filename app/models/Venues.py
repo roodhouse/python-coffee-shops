@@ -5,9 +5,9 @@ from sqlalchemy.orm import relationship
 class Venues(Base):
     __tablename__ = 'venues'
     id = Column(Integer, primary_key=True)
-    place_id = Column(String(length=250), nullable=False)
+    place_id = Column(String(length=250), nullable=False, index=True)
     comment_id = Column(Integer, ForeignKey('comments.id'))
-    name = Column(String(250), nullable=False, index=True)
+    name = Column(String(250), nullable=False)
     image = Column(String(length=1000), nullable=False)
     location = Column(JSON)
     address = Column(String(length=250), nullable=False)
@@ -21,5 +21,5 @@ class Venues(Base):
     review_count = Column(Integer, default=0)
 
     # define relationship
-    reviews = relationship('Reviews', back_populates='venue_rated')
+    reviews = relationship('Reviews', back_populates='venue')
     comments = relationship('Comments', back_populates='venue')

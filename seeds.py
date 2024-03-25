@@ -68,6 +68,7 @@ user_instance = db.query(Users).filter_by(id=1).first()
 
 db.add_all([
     Reviews(
+        venue_place_id = 'TestPlaceId01',
         venue_name = 'Scooter\'s Coffee',
         user_email = 'rooinfo@gmail.com',
         answers = [
@@ -100,6 +101,7 @@ db.add_all([
         date = '01/08/2024'
     ),
     Reviews(
+        venue_place_id = 'TestPlaceId01',
         venue_name = 'Scooter\'s Coffee',
         user_email = 'rughjm@gmail.com',
         answers = [
@@ -132,6 +134,7 @@ db.add_all([
         date = '01/13/2024'
     ),
     Reviews(
+        venue_place_id = 'TestPlaceId',
         venue_name = 'Perky Beans',
         user_email = 'rughjm@gmail.com',
         answers = [
@@ -164,6 +167,7 @@ db.add_all([
         date = '02/08/2024'
     ),
     Reviews(
+        venue_place_id = 'TestPlaceId',
         venue_name = 'Perky Beans',
         user_email = 'rooinfo@gmail.com',
         answers = [
