@@ -207,6 +207,7 @@ const MainProvider = ({ children }) => {
             console.log(currentVenue, currentPlaceId)
             const encodedId = encodeURIComponent(currentPlaceId)
             try {
+                console.log('test')
                 fetch(`http://127.0.0.1:5000/api/venues/${encodedId}`)
             .then((response) => response.json())
             .then((data) => {
@@ -216,6 +217,7 @@ const MainProvider = ({ children }) => {
                 fetch(`http://127.0.0.1:5000/api/aggregate/${encodedId}`) 
                 .then((aggResponse) => aggResponse.json())
                 .then((aggData) => {
+                    console.log(aggData)
                     setCurrentVenueAgg(aggData)
                     setAggDataUpdate(false)
                 })

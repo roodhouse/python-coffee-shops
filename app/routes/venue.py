@@ -39,43 +39,12 @@ def get_venues():
 
     return jsonify({'venues': venues_data})
 
-# venues get current city route
-@venue_bp.route('/api/venues/<string:city>', methods=['GET'])
-def get_current_city_venues(city):
-    db = get_db()
-    # venues = db.query(Venues).order_by(Venues.id).all()
-    venues = db.query(Venues).filter_by(city = city)
-
-    # convert venues data to a list of dictionaries
-    venues_data = [
-        {
-            'id': venue.id,
-            'name': venue.name,
-            'image': venue.image,
-            'location': venue.location,
-            'address': venue.address,
-            'city': venue.city,
-            'state': venue.state,
-            'map': venue.map,
-            'website': venue.website,
-            'place_id': venue.place_id,
-            'hours': venue.hours,
-            'rating': venue.rating,
-            'review_count': venue.review_count
-        }
-        for venue in venues
-    ]
-
-    return jsonify({'venues': venues_data})
-
 # venues get single route
-@venue_bp.route('/api/venues/<string:place_id>', methods=['GET'])
+@venue_bp.route('/api/venues/<string(length=27):place_id>', methods=['GET'])
 def get_venue(place_id):
     db = get_db()
 
     venue = db.query(Venues).filter_by(place_id = place_id).one_or_none()
-
-    print('hit venue')
     
     if venue:
         venue_details = {
@@ -106,12 +75,39 @@ def get_venue(place_id):
         return jsonify(venue_details)
     else:
         return jsonify({"error": "venue not found"}), 404
+    
+# venues get current city route
+@venue_bp.route('/api/venues/<string:city>', methods=['GET'])
+def get_current_city_venues(city):
+    db = get_db()
+    # venues = db.query(Venues).order_by(Venues.id).all()
+    venues = db.query(Venues).filter_by(city = city)
+    # convert venues data to a list of dictionaries
+    venues_data = [
+        {
+            'id': venue.id,
+            'name': venue.name,
+            'image': venue.image,
+            'location': venue.location,
+            'address': venue.address,
+            'city': venue.city,
+            'state': venue.state,
+            'map': venue.map,
+            'website': venue.website,
+            'place_id': venue.place_id,
+            'hours': venue.hours,
+            'rating': venue.rating,
+            'review_count': venue.review_count
+        }
+        for venue in venues
+    ]
+
+    return jsonify({'venues': venues_data})
 
 # venues latest
 @venue_bp.route('api/venues/last', methods=['GET'])
 def get_last_venue():
     db = get_db()
-
     latest_venue = db.query(Venues).order_by(Venues.id.desc()).limit(1).first()
 
     if latest_venue:
@@ -139,7 +135,6 @@ def get_last_venue():
 # route to get current city and state data
 @venue_bp.route('/api/venues/city', methods=['GET'])
 def get_city_data():
-    print('getting the city state data: ', city_state_data)
     return jsonify(city_state_data)
 
 # venues post route
