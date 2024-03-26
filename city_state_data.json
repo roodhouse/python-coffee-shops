@@ -5,6 +5,21 @@
                 "Birmingham"
             ]
         },
+        "Arizona": {
+            "city": [
+                "Tempe"
+            ]
+        },
+        "California": {
+            "city": [
+                "Mountain View"
+            ]
+        },
+        "New York": {
+            "city": [
+                "New York"
+            ]
+        },
         "Oklahoma": {
             "city": [
                 "Oklahoma City"

@@ -20,6 +20,7 @@ const AddFormProvider = ({ children }) => {
 
     // select user location
     const onLocationSelect = (place) => {
+        console.log('on location select')
         setUserSelectedLocation(place)
     }
 
@@ -102,10 +103,6 @@ const AddFormProvider = ({ children }) => {
         setStep('details')
         setNewReviewExistVenue(true)
     }
-
-
-    // Photos from api
-    const googlePhotos = ['Photo 1', 'Photo 2', 'Photo 3', 'Photo 4', 'Photo 5', 'Photo 6']
 
     // Detail Questions
     const detailQuestions = [
@@ -530,7 +527,7 @@ const AddFormProvider = ({ children }) => {
     return <AddFormContext.Provider value = 
     {
         {
-            step, currentStep, formData, updateFormData, googlePhotos, detailQuestions, editReview, editTheReview, sendResults, newReviewExistingVenue, newReviewExistVenue, onLocationSelect, userSelectedLocation
+            step, currentStep, formData, updateFormData, detailQuestions, editReview, editTheReview, sendResults, newReviewExistingVenue, newReviewExistVenue, onLocationSelect, userSelectedLocation
         }
     }>
         {children}

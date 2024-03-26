@@ -198,8 +198,6 @@ const MainProvider = ({ children }) => {
         setCurrentPlaceId(null)
     }
 
-
-    // data not being fetched any more here !! 
     // get single venue data
     useEffect(() => {
         if (home === 'store') {
@@ -282,30 +280,10 @@ const MainProvider = ({ children }) => {
         setAvatarMod(false) 
   }
 
-    // List of States, should retrieve from DB but for now hard code
-    const listOfStates = [
-        {
-            state: 'Alabama',
-            cities: ['Birmingham', 'Huntsville'],
-        },
-        {
-            state: 'New York',
-            cities: ['New York City', 'Queens', 'Brooklyn','Buffalo'],
-        },
-        {
-            state: 'Texas',
-            cities: ['Austin', 'Leander', 'Houston'],
-        },
-        {
-            state: 'Virginia',
-            cities: ['Richmond'],
-        }
-    ]
-
     return <MainContext.Provider value = 
     {
         {
-            home, currentCity, venueCount, listOfStates, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn, successLogin, logout,
+            home, currentCity, venueCount, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn, successLogin, logout,
             venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review, aggDataUpdated, clearVenue, clearCurrentVenueData, isLoaded, showMod, avatarMod, closeMod, currentPlaceId
         }
     }>

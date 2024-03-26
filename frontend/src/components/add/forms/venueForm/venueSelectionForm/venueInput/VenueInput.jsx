@@ -3,11 +3,13 @@ import { initMap } from '../../../../../../utils/mapFunctions/initMap'
 import { useMain } from '../../../../../../context/main'
 import { useAddForm } from '../../../../../../context/addFormContext'
 
-function VenueInput({ register, errors }) {
+function VenueInput({ register, errors, reset }) {
 
     const [ selectedLocation, setSelectedLocation ] = useState(null)
     const { home } = useMain()
     const { step, onLocationSelect, formData } = useAddForm()
+
+    console.log(selectedLocation)
 
     useEffect(() => {
 
@@ -32,6 +34,10 @@ function VenueInput({ register, errors }) {
                     console.error(error)
                 }
 
+              } else if (home !== 'suggest') {
+                onLocationSelect(null)
+                setSelectedLocation(null)
+                reset()
               }
             };
             fetchData();

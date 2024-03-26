@@ -1,6 +1,7 @@
 1. frontend
     - places page   
-        - clear venue field on form submit -- here
+        - can't add 2 venues in a row, or update an existing venue form because of state not updating -- here!
+        - style of places page
     - add logic to comment section
         - if current user has a comment then display it on top with the choice to delete or edit, 
         else display the newest comment with a choice to add their overwriting
