@@ -40,6 +40,7 @@ function DetailsInput({id}) {
         
      }
         setIsFormSubmitted(true)
+        reset()
     }
 
     useEffect(() => {
@@ -49,6 +50,10 @@ function DetailsInput({id}) {
             reset()
             setIsFormSubmitted(false)
             setCurrentAnswers({})
+            let resetAnswers = Array.from(document.getElementsByClassName('chosenAnswer'))
+            resetAnswers.forEach((answer) => {
+                answer.classList.remove('chosenAnswer')
+            } )
         }
     },[isFormSubmitted])
 

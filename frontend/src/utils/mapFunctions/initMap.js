@@ -41,6 +41,7 @@ export function initMap(longitude, latitude) {
 
             autoComplete.addListener('place_changed', () => {
                 const place = autoComplete.getPlace();
+                console.log('the place is: ', place)
                 if (!place.geometry) {
                     console.error("No place data available for input: '" + place.name + "'");
                     reject(new Error("No place data available")); 
