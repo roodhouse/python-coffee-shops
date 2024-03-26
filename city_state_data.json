@@ -1,8 +1,49 @@
 {
     "state": {
+        "Florida": {
+            "city": [
+                "Orlando"
+            ]
+        },
+        "Massachusetts": {
+            "city": [
+                "Boston"
+            ]
+        },
+        "Michigan": {
+            "city": [
+                "Grand Rapids"
+            ]
+        },
+        "New Hampshire": {
+            "city": [
+                "Dover"
+            ]
+        },
+        "New York": {
+            "city": [
+                "New York"
+            ]
+        },
+        "Oklahoma": {
+            "city": [
+                "Oklahoma Avenue"
+            ]
+        },
+        "Oregon": {
+            "city": [
+                "Portland"
+            ]
+        },
         "Texas": {
             "city": [
+                "Houston",
                 "Leander"
+            ]
+        },
+        "Vermont": {
+            "city": [
+                "Rutland"
             ]
         }
     }

@@ -72,12 +72,20 @@ const AddFormProvider = ({ children }) => {
             if (aggSubmission) {
                 if ((category === 'full') || (category === 'new' && simpleRate === false)) {
                     setPage('thankYou')
+                    console.log(submission)
+                    localStorage.setItem("recentCity", submission.city)
+                    setTimeout(() => {
+                        // force refresh of app
+                        window.location.reload()
+                    }, 1000)
                 }
-                setStep('venue')
+                // setStep('venue')
                 setFormData({})
                 setEditReview(false)
                 aggDataUpdated(true) 
                 setNewReviewExistVenue(false)
+                
+                
             } else {
                 console.error('Error in sendResults: aggSubmission')
             }
@@ -93,7 +101,7 @@ const AddFormProvider = ({ children }) => {
             setPage('suggest')
             setStep('details')
         } else {
-            setStep('venue')
+            // setStep('venue')
         }
     }
 

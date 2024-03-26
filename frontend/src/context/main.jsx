@@ -28,6 +28,8 @@ const MainProvider = ({ children }) => {
     const [ avatarMod, setAvatarMod ] = useState(false)
     const [ currentPlaceId, setCurrentPlaceId ] = useState()
 
+    const googleAPI = process.env.REACT_APP_GOOGLE_API_KEY;
+
     // Check for token on load
     useEffect(() => {
         const token = authService.getToken()
@@ -41,9 +43,35 @@ const MainProvider = ({ children }) => {
         }
     }, [])
 
+    // set current city
+    useEffect(() => {
+        if (localStorage.getItem('recentCity') !== '') {
+            setCurrentCity(localStorage.getItem('recentCity'))
+            localStorage.setItem('recentCity', '')
+        } else {
+            navigator.geolocation.getCurrentPosition((position) => {
+                const { latitude, longitude } = position.coords
+                fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${googleAPI}`)
+                .then(response => response.json())
+                .then(data => {
+                    const addressComponents = data.results[0].address_components
+                    const cityComponent = addressComponents.find(component => component.types.includes('locality'))
+                    const city = cityComponent ? cityComponent.long_name : 'Unknown'
+                    setCurrentCity(city)
+                    console.log('setting city to navigator')
+                })
+                .catch(error => {
+                    console.error('Error fetching geolocation data:', error)
+                })
+            }, 
+            (error) => {
+                console.error('Error retrieving geolocation:', error)
+            })
+        }
+    },[])
+
     // fetch requests
     useEffect(() => {
-        // need to adjust this to get only the venues with the same city name as currentCity --- here!
         if (home === 'home') {
             fetch(`http://127.0.0.1:5000/api/venues/${currentCity}`)
                 .then((response) => {

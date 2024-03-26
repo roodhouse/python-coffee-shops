@@ -1,7 +1,6 @@
 1. frontend
     - places page   
         - can't add 2 venues in a row, or update an existing venue form -- here!
-            - adding a 2nd venue without refresh causes the data to not include most options
             - after selecting a venue in the venue form, if you erase and select a new one then the first data is carried over to the next step
         - style of places page
     - add logic to comment section
