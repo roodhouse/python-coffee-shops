@@ -11,9 +11,15 @@ function MapSelectionForm() {
     const { currentStep, updateFormData, formData, step } = useAddForm()
 
     let state;
+    let city;
 
     if (formData && step === 'map') {
         state = getState(formData.formatted_address)
+        if (formData.address_components.length === 8) {
+            city = formData.address_components[3].long_name
+        } else {
+            city = formData.address_components[2].long_name
+        }
     }
     
     const onSubmit = () => {
@@ -29,7 +35,7 @@ function MapSelectionForm() {
                 ],
                 address: formData.formatted_address, 
                 hours: formData.opening_hours.weekday_text,
-                city: formData.address_components[3].long_name,
+                city: city,
                 state: state
             }
         )

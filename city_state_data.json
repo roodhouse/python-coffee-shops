@@ -5,8 +5,14 @@
                 "Birmingham"
             ]
         },
+        "Oklahoma": {
+            "city": [
+                "Oklahoma City"
+            ]
+        },
         "Texas": {
             "city": [
+                "Cedar Park",
                 "Leander"
             ]
         }
