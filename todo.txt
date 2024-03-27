@@ -1,6 +1,8 @@
 1. frontend
     - add logic to comment section -- here!
         - what issues are outstanding with comment section?
+            - comment does not update when editing form from editReview...
+                - comment does update from dashboard though...
             - while logged out
                 - with comments
             - while logged in
@@ -32,6 +34,8 @@
     - simple rate on venue not from seeds still change wrong category, click on icons is off too
         - could be for when a category does not have any data
     - heart icon also not changing aggregate data on a new venue, or reflecting on main page
+    - edit form on summary nothing is being pulled in (image etc) and it is registering as undefined for the venue
+    - on pages page in mobile view a state with only 2 cities, the 2nd city does not fit the container
          
 
 

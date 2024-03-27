@@ -76,10 +76,10 @@ const AddFormProvider = ({ children }) => {
                 if ((category === 'full') || (category === 'new' && simpleRate === false)) {
                     setPage('thankYou')
                     localStorage.setItem("recentCity", submission.city)
-                    setTimeout(() => {
-                        // force refresh of app
-                        window.location.reload()
-                    }, 1000)
+                    // setTimeout(() => {
+                    //     // force refresh of app
+                    //     window.location.reload()
+                    // }, 1000)
                 }
                 // setStep('venue')
                 setFormData({})

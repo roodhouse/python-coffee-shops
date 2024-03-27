@@ -140,7 +140,7 @@ export const sendToDatabase = async (submission, category, editReview, userData,
                     'sp8' : sp8,
                     'sp9' : sp9,
                     'sum' : summary,
-                    'xcom': submission.com
+                    'xcom': submission.xcom
                 }
             ]
 

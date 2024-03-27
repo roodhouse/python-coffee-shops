@@ -16,7 +16,7 @@ function SummarySubmission() {
         sendResults(formData, category)
         editTheReview(false)
     }
-
+    
   return (
     <>
         <div id="summarySubmissionContainer" className='flex justify-between'>

@@ -14,13 +14,15 @@ function DetailsInput({id}) {
     const onSubmit = () => {    
      let comment = document.getElementById(`${id}Comment`)
      if (comment.value !== '') {
+        let newXcom = comment.value
         setCurrentAnswers((prevStates) => {
             if (!editReview) {
                 return {
                     ...prevStates,
-                    xcom: comment.value
+                    xcom: newXcom
                 }
             } else {
+                console.log('editReview is true and comment value is: ', comment.value)
                 try {
                     return prevStates.answers.map((answer, index) => {
                         if (index === 0) {
@@ -45,6 +47,7 @@ function DetailsInput({id}) {
 
     useEffect(() => {
         if (isFormSubmitted) {
+            console.log('from userEffect currentAnswers: ',currentAnswers)
             currentStep('summary')
             updateFormData(currentAnswers)
             reset()
@@ -122,9 +125,12 @@ function DetailsInput({id}) {
     // if edit review is true then set the currentAnswers to the answers in the db
     useEffect(() => {
         if (editReview) {
+            console.log('editReview from DetailsInput: ', editReview)
             setCurrentAnswers(editReview)
         }
     },[editReview])
+
+    console.log('currentAnswers from DetailsInput: ', currentAnswers)
 
   return (
     <>
@@ -151,7 +157,20 @@ function DetailsInput({id}) {
                     </div>
                 ))}
                 <div id="commentContainer">
-                    <textarea name={`${id}Comment`} id={`${id}Comment`} cols="10" rows="5" maxLength={100} {...register('comment')} placeholder={`Leave a short comment about ${formData.venue}`} className='w-full mb-8 bg-[#f5f5f5] rounded p-3'></textarea>
+                    <textarea 
+                        name={`${id}Comment`} 
+                        id={`${id}Comment`} 
+                        cols="10" 
+                        rows="5" 
+                        maxLength={100} 
+                        {...register('comment')} 
+                        className='w-full mb-8 bg-[#f5f5f5] rounded p-3'
+                        defaultValue={editReview ? (currentAnswers?.answers?.[0]?.xcom || '') : ''}
+                        // placeholder={editReview ? '' : `Leave a short comment about ${formData.venue}`}
+                        placeholder={`Leave a short comment about ${formData.venue}`} 
+                        // value={editReview && currentAnswers && currentAnswers.answers && currentAnswers.answers[0] ? currentAnswers.answers[0].xcom : ''}
+                        >
+                        </textarea>
                 </div>
                 <div id="detailInputButtonContainer" className='flex justify-between'>
                     <div id="detailInputBackButtonWrapper">
