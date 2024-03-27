@@ -1,7 +1,6 @@
 1. frontend
     - places page   
-        - style of places page - here!
-        - add scroll up to top of page on all pages...
+        - add scroll up to top of page on all pages... - here! 
     - add logic to comment section
         - if current user has a comment then display it on top with the choice to delete or edit, 
         else display the newest comment with a choice to add their overwriting
