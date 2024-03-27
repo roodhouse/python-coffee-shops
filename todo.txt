@@ -1,10 +1,9 @@
 1. frontend
     - add logic to comment section -- here!
         - what issues are outstanding with comment section?
-            - comment does not update when editing form from editReview...
-                - comment does update from dashboard though...
-            - while logged out
+            - while logged out -- here!
                 - with comments
+                - without comments
             - while logged in
                 - with own comment
                 - with other user comment

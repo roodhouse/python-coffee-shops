@@ -22,13 +22,12 @@ function DetailsInput({id}) {
                     xcom: newXcom
                 }
             } else {
-                console.log('editReview is true and comment value is: ', comment.value)
                 try {
                     return prevStates.answers.map((answer, index) => {
                         if (index === 0) {
                             return {
                                 ...answer,
-                                xcom: comment.value
+                                xcom: newXcom
                             }
                         }
                         return answer
@@ -47,7 +46,6 @@ function DetailsInput({id}) {
 
     useEffect(() => {
         if (isFormSubmitted) {
-            console.log('from userEffect currentAnswers: ',currentAnswers)
             currentStep('summary')
             updateFormData(currentAnswers)
             reset()
@@ -125,12 +123,9 @@ function DetailsInput({id}) {
     // if edit review is true then set the currentAnswers to the answers in the db
     useEffect(() => {
         if (editReview) {
-            console.log('editReview from DetailsInput: ', editReview)
             setCurrentAnswers(editReview)
         }
     },[editReview])
-
-    console.log('currentAnswers from DetailsInput: ', currentAnswers)
 
   return (
     <>
@@ -166,9 +161,7 @@ function DetailsInput({id}) {
                         {...register('comment')} 
                         className='w-full mb-8 bg-[#f5f5f5] rounded p-3'
                         defaultValue={editReview ? (currentAnswers?.answers?.[0]?.xcom || '') : ''}
-                        // placeholder={editReview ? '' : `Leave a short comment about ${formData.venue}`}
                         placeholder={`Leave a short comment about ${formData.venue}`} 
-                        // value={editReview && currentAnswers && currentAnswers.answers && currentAnswers.answers[0] ? currentAnswers.answers[0].xcom : ''}
                         >
                         </textarea>
                 </div>
