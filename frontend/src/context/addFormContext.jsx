@@ -20,7 +20,6 @@ const AddFormProvider = ({ children }) => {
 
     // select user location
     const onLocationSelect = (place) => {
-        console.log('on location select')
         setUserSelectedLocation(place)
     }
 
@@ -35,18 +34,17 @@ const AddFormProvider = ({ children }) => {
         setFormData({...formData, ...sentData})
     }
 
-    // clean up formData after map confirm
+    // clean up formData at summary
     useEffect(() => {
-        if (step === 'image') {
+        if (step === 'summary') {
             delete formData.address_components
             delete formData.formatted_address
             delete formData.geometry
             delete formData.html_attributions
             delete formData.opening_hours
             delete formData.url
-        } else if (step === 'details') {
             delete formData.photos
-        } 
+        }
     },[formData, step])
 
     const sendResults = async (submission, category, id) => {

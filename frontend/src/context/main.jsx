@@ -58,7 +58,6 @@ const MainProvider = ({ children }) => {
                     const cityComponent = addressComponents.find(component => component.types.includes('locality'))
                     const city = cityComponent ? cityComponent.long_name : 'Unknown'
                     setCurrentCity(city)
-                    console.log('setting city to navigator')
                 })
                 .catch(error => {
                     console.error('Error fetching geolocation data:', error)

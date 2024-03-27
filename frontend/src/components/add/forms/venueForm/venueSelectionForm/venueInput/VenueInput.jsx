@@ -3,13 +3,12 @@ import { initMap } from '../../../../../../utils/mapFunctions/initMap'
 import { useMain } from '../../../../../../context/main'
 import { useAddForm } from '../../../../../../context/addFormContext'
 
-function VenueInput({ register, errors, reset }) {
+function VenueInput({ register, errors, reset, watch, onSubmitCallback }) {
 
-    const [ selectedLocation, setSelectedLocation ] = useState(null)
     const { home } = useMain()
     const { step, onLocationSelect, formData } = useAddForm()
 
-    console.log(selectedLocation)
+    const selectedLocation = watch('venue')
 
     useEffect(() => {
 
@@ -27,8 +26,7 @@ function VenueInput({ register, errors, reset }) {
         const fetchData = async () => {
             if (home === 'suggest' && step === 'venue') { 
                 try {
-                    const place = await initMap(longitude, latitude)
-                    setSelectedLocation(place)
+                    const place = await initMap(longitude, latitude, onSubmitCallback)
                     onLocationSelect(place)
                 } catch (error) {
                     console.error(error)
@@ -36,12 +34,11 @@ function VenueInput({ register, errors, reset }) {
 
               } else if (home !== 'suggest') {
                 onLocationSelect(null)
-                setSelectedLocation(null)
                 reset()
               }
             };
             fetchData();
-    }, [home, step]);
+    }, [home, step, selectedLocation,]);
 
   return (
         <div id="venueInputContainer">

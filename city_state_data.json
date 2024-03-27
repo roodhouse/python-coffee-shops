@@ -2,6 +2,8 @@
     "state": {
         "Florida": {
             "city": [
+                "Marathon",
+                "Miramar",
                 "Orlando"
             ]
         },
@@ -37,6 +39,9 @@
         },
         "Texas": {
             "city": [
+                "Austin",
+                "Cedar Park",
+                "Crestview",
                 "Houston",
                 "Leander"
             ]

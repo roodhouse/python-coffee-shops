@@ -3,7 +3,7 @@ import { MarkerClusterer } from "@googlemaps/markerclusterer";
 
 const googleAPI = process.env.REACT_APP_GOOGLE_API_KEY;
 
-export function initMap(longitude, latitude) {
+export function initMap(longitude, latitude, onSubmitCallback) {
     console.log('map called');
     
     return new Promise((resolve, reject) => {
@@ -47,6 +47,9 @@ export function initMap(longitude, latitude) {
                     return;
                 }
                 resolve(place);
+                if (onSubmitCallback) {
+                    onSubmitCallback()
+                }
             });
 
             const infoWindow = new google.maps.InfoWindow({

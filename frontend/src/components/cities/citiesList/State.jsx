@@ -2,7 +2,6 @@ import React from 'react'
 import City from './City'
 
 function State({state, cities}) {
-  console.log(state, cities)
 
   return (
     <>
@@ -11,8 +10,8 @@ function State({state, cities}) {
             <p>{state}</p>
           </div>
           <div id={state+'CityNames'} className='flex justify-around flex-wrap'>
-            { cities.map((cityName) => (
-                <div id={cityName + 'Wrapper'} key={cityName+'Wrapper'} className='cursor-pointer mb-4'>
+            { cities.map((cityName, index) => (
+                <div id={cityName + 'Wrapper'} key={cityName+'Wrapper'} className={!index % 2 ? 'w-full cursor-pointer mb-4' : 'cursor-pointer mb-4'}>
                     <City city={cityName} />
                 </div>
               ))}
