@@ -30,6 +30,11 @@ const MainProvider = ({ children }) => {
 
     const googleAPI = process.env.REACT_APP_GOOGLE_API_KEY;
 
+    // scroll to top on home change
+    useEffect(() => {
+        window.scrollTo(0,0)
+    },[home])
+
     // Check for token on load
     useEffect(() => {
         const token = authService.getToken()
@@ -207,8 +212,7 @@ const MainProvider = ({ children }) => {
     }
 
     // select venue
-    function setVenue(placeId, venue) { 
-        console.log(placeId, venue)
+    function setVenue(placeId, venue) {
         setHome('store')
         setCurrentVenue(venue)
         setCurrentPlaceId(placeId)
@@ -228,21 +232,16 @@ const MainProvider = ({ children }) => {
     // get single venue data
     useEffect(() => {
         if (home === 'store') {
-            console.log('in currentVenue useEffect')
-            console.log(currentVenue, currentPlaceId)
             const encodedId = encodeURIComponent(currentPlaceId)
             try {
-                console.log('test')
                 fetch(`http://127.0.0.1:5000/api/venues/${encodedId}`)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
                 setCurrentVenueData(data)
                 const reviews = data.reviews
                 fetch(`http://127.0.0.1:5000/api/aggregate/${encodedId}`) 
                 .then((aggResponse) => aggResponse.json())
                 .then((aggData) => {
-                    console.log(aggData)
                     setCurrentVenueAgg(aggData)
                     setAggDataUpdate(false)
                 })
@@ -253,8 +252,6 @@ const MainProvider = ({ children }) => {
             .catch ((error) => {
             console.error('Error fetching venue data:', error)
             })
-
-            console.log('currentVenueData is: ', currentVenueData)
             } catch(error) {
                 console.error('error occurred in useEffect to get single venue data', error)
             }

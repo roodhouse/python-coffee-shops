@@ -1,13 +1,12 @@
 1. frontend
-    - places page   
-        - add scroll up to top of page on all pages... - here! 
-    - add logic to comment section
+    - add logic to comment section -- here!
         - if current user has a comment then display it on top with the choice to delete or edit, 
         else display the newest comment with a choice to add their overwriting
         - turn edit review link into edit comment and change view to show input textarea with previous comment loaded
     - add filter logic
         - change color of filter icon to the aggregate review color
         - when clicking on filter sort list by those venues that have a rating for that filter
+    - add info to map markers
 
 4. Bugs 
     - after adding new venue and review the form is not cleared -- unless a refresh is made

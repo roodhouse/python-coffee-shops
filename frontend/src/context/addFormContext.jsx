@@ -18,6 +18,11 @@ const AddFormProvider = ({ children }) => {
     const [ newReviewExistVenue, setNewReviewExistVenue ] = useState(false)
     const [ userSelectedLocation, setUserSelectedLocation ] = useState(null)
 
+    // scroll to top while filling out form
+    useEffect(() => {
+        window.scrollTo(0,0)
+    },[step])
+
     // select user location
     const onLocationSelect = (place) => {
         setUserSelectedLocation(place)
@@ -70,7 +75,6 @@ const AddFormProvider = ({ children }) => {
             if (aggSubmission) {
                 if ((category === 'full') || (category === 'new' && simpleRate === false)) {
                     setPage('thankYou')
-                    console.log(submission)
                     localStorage.setItem("recentCity", submission.city)
                     setTimeout(() => {
                         // force refresh of app
