@@ -12,15 +12,12 @@ function CitiesList({ currentCityStateData }) {
     })
   }
 
-  console.log(currentCityStateData)
-  console.log(finalStateArray)
-
   return (
     <>
         <div id="citiesListContainer">
             { finalStateArray ? (
               finalStateArray.map((state) => (
-                <div id={state + 'Wrapper'} key={state} className='mb-8'>
+                <div id={state + 'Wrapper'} key={state} className='mb-4'>
                   <State state={state} cities={currentCityStateData.state[state].city} />
                 </div>
               ))

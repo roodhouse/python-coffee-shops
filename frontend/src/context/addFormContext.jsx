@@ -18,6 +18,11 @@ const AddFormProvider = ({ children }) => {
     const [ newReviewExistVenue, setNewReviewExistVenue ] = useState(false)
     const [ userSelectedLocation, setUserSelectedLocation ] = useState(null)
 
+    // scroll to top while filling out form
+    useEffect(() => {
+        window.scrollTo(0,0)
+    },[step])
+
     // select user location
     const onLocationSelect = (place) => {
         setUserSelectedLocation(place)
@@ -34,18 +39,17 @@ const AddFormProvider = ({ children }) => {
         setFormData({...formData, ...sentData})
     }
 
-    // clean up formData after map confirm
+    // clean up formData at summary
     useEffect(() => {
-        if (step === 'image') {
+        if (step === 'summary') {
             delete formData.address_components
             delete formData.formatted_address
             delete formData.geometry
             delete formData.html_attributions
             delete formData.opening_hours
             delete formData.url
-        } else if (step === 'details') {
             delete formData.photos
-        } 
+        }
     },[formData, step])
 
     const sendResults = async (submission, category, id) => {
@@ -71,12 +75,19 @@ const AddFormProvider = ({ children }) => {
             if (aggSubmission) {
                 if ((category === 'full') || (category === 'new' && simpleRate === false)) {
                     setPage('thankYou')
+                    localStorage.setItem("recentCity", submission.city)
+                    setTimeout(() => {
+                        // force refresh of app
+                        window.location.reload()
+                    }, 1000)
                 }
-                setStep('venue')
+                // setStep('venue')
                 setFormData({})
                 setEditReview(false)
                 aggDataUpdated(true) 
                 setNewReviewExistVenue(false)
+                
+                
             } else {
                 console.error('Error in sendResults: aggSubmission')
             }
@@ -92,7 +103,7 @@ const AddFormProvider = ({ children }) => {
             setPage('suggest')
             setStep('details')
         } else {
-            setStep('venue')
+            // setStep('venue')
         }
     }
 
@@ -102,10 +113,6 @@ const AddFormProvider = ({ children }) => {
         setStep('details')
         setNewReviewExistVenue(true)
     }
-
-
-    // Photos from api
-    const googlePhotos = ['Photo 1', 'Photo 2', 'Photo 3', 'Photo 4', 'Photo 5', 'Photo 6']
 
     // Detail Questions
     const detailQuestions = [
@@ -530,7 +537,7 @@ const AddFormProvider = ({ children }) => {
     return <AddFormContext.Provider value = 
     {
         {
-            step, currentStep, formData, updateFormData, googlePhotos, detailQuestions, editReview, editTheReview, sendResults, newReviewExistingVenue, newReviewExistVenue, onLocationSelect, userSelectedLocation
+            step, currentStep, formData, updateFormData, detailQuestions, editReview, editTheReview, sendResults, newReviewExistingVenue, newReviewExistVenue, onLocationSelect, userSelectedLocation
         }
     }>
         {children}

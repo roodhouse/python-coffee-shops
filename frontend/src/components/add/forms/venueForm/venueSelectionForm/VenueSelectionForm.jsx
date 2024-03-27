@@ -1,31 +1,50 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useAddForm } from '../../../../../context/addFormContext'
 import VenueInput from './venueInput/VenueInput'
 
 function VenueSelectionForm() { 
 
-    const { register, handleSubmit, formState: {errors} } = useForm()
+    const { register, formState: {errors}, reset, watch } = useForm()
     const { updateFormData, currentStep, userSelectedLocation } = useAddForm()
+    const [ triggerSubmit, setTriggerSubmit ] = useState(false)
 
-    const onSubmit = (data) => {
-        updateFormData(userSelectedLocation)
-        currentStep('map')
+    // reset the form when component is unmounted
+    useEffect(() => {
+        return () => {
+            reset()
+        }
+    },[])
+
+    const onSubmitCallback = () => {
+        setTriggerSubmit(true)
     }
 
-    const onError = () => {
-        console.log('big time error')
-    }
+    useEffect(() => {
+        if (userSelectedLocation) {
+            setTriggerSubmit(true)
+        }
+    },[userSelectedLocation])
+
+    useEffect(() => {
+        if (triggerSubmit === true) {
+            updateFormData(userSelectedLocation)
+            reset()
+            currentStep('map')
+            setTriggerSubmit(false)
+        }
+    },[triggerSubmit, currentStep, reset, userSelectedLocation, updateFormData])
 
   return (
     <>
         <div id="venueSelectionFormContainer">
-            <form noValidate onSubmit={handleSubmit(onSubmit, onError)}>
+            <form id='venueSelectionForm' noValidate>
                 <div id="venueInputWrapper">
-                    <VenueInput register={register} errors={errors} />
+                    <VenueInput register={register} errors={errors} reset={reset} watch={watch} onSubmitCallback={onSubmitCallback} />
                 </div>
             </form>
         </div>
+        {triggerSubmit && <input type='submit' style={{display: 'none'}} />}
     </>
   )
 }

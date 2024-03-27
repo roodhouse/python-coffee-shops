@@ -28,6 +28,13 @@ const MainProvider = ({ children }) => {
     const [ avatarMod, setAvatarMod ] = useState(false)
     const [ currentPlaceId, setCurrentPlaceId ] = useState()
 
+    const googleAPI = process.env.REACT_APP_GOOGLE_API_KEY;
+
+    // scroll to top on home change
+    useEffect(() => {
+        window.scrollTo(0,0)
+    },[home])
+
     // Check for token on load
     useEffect(() => {
         const token = authService.getToken()
@@ -41,37 +48,64 @@ const MainProvider = ({ children }) => {
         }
     }, [])
 
+    // set current city
+    useEffect(() => {
+        if (localStorage.getItem('recentCity') !== '') {
+            setCurrentCity(localStorage.getItem('recentCity'))
+            localStorage.setItem('recentCity', '')
+        } else {
+            navigator.geolocation.getCurrentPosition((position) => {
+                const { latitude, longitude } = position.coords
+                fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${googleAPI}`)
+                .then(response => response.json())
+                .then(data => {
+                    const addressComponents = data.results[0].address_components
+                    const cityComponent = addressComponents.find(component => component.types.includes('locality'))
+                    const city = cityComponent ? cityComponent.long_name : 'Unknown'
+                    setCurrentCity(city)
+                })
+                .catch(error => {
+                    console.error('Error fetching geolocation data:', error)
+                })
+            }, 
+            (error) => {
+                console.error('Error retrieving geolocation:', error)
+            })
+        }
+    },[])
+
     // fetch requests
     useEffect(() => {
-        // need to adjust this to get only the venues with the same city name as currentCity --- here!
-        fetch("http://127.0.0.1:5000/api/venues/")
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok")
-                }
-                return response.json()
-            })
-            .then((data) => {
-                setVenues(data)
-            })
-            .catch((error) => {
-                console.error("Error fetching data:", error)
-            })
-        
-        fetch("http://127.0.0.1:5000/api/reviews/")
-            .then((response) => {
-                if (!response.ok ) {
-                    throw new Error("Network response was not ok")
-                }
-                return response.json()
-            })
-            .then((data) => {
-                setAllReviews(data)
-            })
-            .catch((error) => {
-                console.error("Error fetching data:", error)
-            })
-    },[home]) 
+        if (home === 'home') {
+            fetch(`http://127.0.0.1:5000/api/venues/${currentCity}`)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok")
+                    }
+                    return response.json()
+                })
+                .then((data) => {
+                    setVenues(data)
+                })
+                .catch((error) => {
+                    console.error("Error fetching data:", error)
+                })
+            
+            fetch("http://127.0.0.1:5000/api/reviews/")
+                .then((response) => {
+                    if (!response.ok ) {
+                        throw new Error("Network response was not ok")
+                    }
+                    return response.json()
+                })
+                .then((data) => {
+                    setAllReviews(data)
+                })
+                .catch((error) => {
+                    console.error("Error fetching data:", error)
+                })
+        }
+    },[home, currentCity]) 
 
         // get review of user when currentVenue changes
         useEffect(() => {
@@ -84,7 +118,6 @@ const MainProvider = ({ children }) => {
                         const encodedId = encodeURIComponent(currentPlaceId)
                         const encodedUser = encodeURIComponent(userData.email)
                         
-                        console.log(encodedId, encodedUser)
                         fetch(`http://127.0.0.1:5000/api/reviews/${encodedId}/${encodedUser}`, {
                             method: 'GET',
                             credentials: 'include',
@@ -179,7 +212,7 @@ const MainProvider = ({ children }) => {
     }
 
     // select venue
-    function setVenue(placeId, venue) { 
+    function setVenue(placeId, venue) {
         setHome('store')
         setCurrentVenue(venue)
         setCurrentPlaceId(placeId)
@@ -196,30 +229,35 @@ const MainProvider = ({ children }) => {
         setCurrentPlaceId(null)
     }
 
-
     // get single venue data
     useEffect(() => {
-        const encodedName = encodeURIComponent(currentVenue)
-        const encodedId = encodeURIComponent(currentPlaceId)
-        fetch(`http://127.0.0.1:5000/api/venues/${encodedId}`)
-        .then((response) => response.json())
-        .then((data) => {
-            setCurrentVenueData(data)
-            const reviews = data.reviews
-            fetch(`http://127.0.0.1:5000/api/aggregate/${encodedId}`) 
-            .then((aggResponse) => aggResponse.json())
-            .then((aggData) => {
-                setCurrentVenueAgg(aggData)
-                setAggDataUpdate(false)
+        if (home === 'store') {
+            const encodedId = encodeURIComponent(currentPlaceId)
+            try {
+                fetch(`http://127.0.0.1:5000/api/venues/${encodedId}`)
+            .then((response) => response.json())
+            .then((data) => {
+                setCurrentVenueData(data)
+                const reviews = data.reviews
+                fetch(`http://127.0.0.1:5000/api/aggregate/${encodedId}`) 
+                .then((aggResponse) => aggResponse.json())
+                .then((aggData) => {
+                    setCurrentVenueAgg(aggData)
+                    setAggDataUpdate(false)
+                })
+                .catch ((error) => {
+                    console.error('Error fetching venue data:', error)
+                })
             })
             .catch ((error) => {
-                console.error('Error fetching venue data:', error)
+            console.error('Error fetching venue data:', error)
             })
-        })
-        .catch ((error) => {
-        console.error('Error fetching venue data:', error)
-        })
-    },[currentVenue, aggDataUpdate])
+            } catch(error) {
+                console.error('error occurred in useEffect to get single venue data', error)
+            }
+            
+        }
+    },[currentVenue, aggDataUpdate, home, currentPlaceId])
 
 
     // agg data updated function
@@ -266,30 +304,10 @@ const MainProvider = ({ children }) => {
         setAvatarMod(false) 
   }
 
-    // List of States, should retrieve from DB but for now hard code
-    const listOfStates = [
-        {
-            state: 'Alabama',
-            cities: ['Birmingham', 'Huntsville'],
-        },
-        {
-            state: 'New York',
-            cities: ['New York City', 'Queens', 'Brooklyn','Buffalo'],
-        },
-        {
-            state: 'Texas',
-            cities: ['Austin', 'Leander', 'Houston'],
-        },
-        {
-            state: 'Virginia',
-            cities: ['Richmond'],
-        }
-    ]
-
     return <MainContext.Provider value = 
     {
         {
-            home, currentCity, venueCount, listOfStates, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn, successLogin, logout,
+            home, currentCity, venueCount, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn, successLogin, logout,
             venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review, aggDataUpdated, clearVenue, clearCurrentVenueData, isLoaded, showMod, avatarMod, closeMod, currentPlaceId
         }
     }>

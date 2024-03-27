@@ -13,13 +13,13 @@ db.add_all([
     Users(
         email='rughjm@gmail.com', 
         password='12345', 
-        review_ids=["TestPlaceId", "TestPlaceId01"],
+        review_ids=["ChIJN-MzkTkpTYYRvEg5lueeeee", "ChIJN-MzkTkpTYYRvEg5lurrrrr"],
         avatar = 'http://127.0.0.1:5000/assets/meAgain.jpeg'
     ),
     Users(
         email='rooinfo@gmail.com', 
         password='12345', 
-        review_ids=["TestPlaceId01", "TestPlaceId"]
+        review_ids=["ChIJN-MzkTkpTYYRvEg5lurrrrr", "ChIJN-MzkTkpTYYRvEg5lueeeee"]
     ),
     Users(
         email='bob@gmail.com', 
@@ -40,7 +40,7 @@ db.add_all([
         state = 'Texas',
         map = 'https://www.google.com',
         website = 'https://www.google.com',
-        place_id = 'TestPlaceId',
+        place_id = 'ChIJN-MzkTkpTYYRvEg5lueeeee',
         hours = [{"Fri": "Friday: 7:00 AM – 9:00 PM", "Mon": "Monday: 7:00 AM – 9:00 PM", "Sat": "Saturday: 7:00 AM – 9:00 PM", "Sun": "Sunday: 8:00 AM – 9:00 PM", "Wed": "Wednesday: 7:00 AM – 9:00 PM", "Tues": "Tuesday: 7:00 AM – 9:00 PM", "Thurs": "Thursday: 7:00 AM – 9:00 PM"}],
         rating = 1.5,
         review_count = 2
@@ -54,7 +54,7 @@ db.add_all([
         state = 'Texas',
         map = 'https://www.google.com',
         website = 'https://www.google.com',
-        place_id = 'TestPlaceId01',
+        place_id = 'ChIJN-MzkTkpTYYRvEg5lurrrrr',
         hours = [{"Fri": "Friday: 7:00 AM – 9:00 PM", "Mon": "Monday: 7:00 AM – 9:00 PM", "Sat": "Saturday: 7:00 AM – 9:00 PM", "Sun": "Sunday: 8:00 AM – 9:00 PM", "Wed": "Wednesday: 7:00 AM – 9:00 PM", "Tues": "Tuesday: 7:00 AM – 9:00 PM", "Thurs": "Thursday: 7:00 AM – 9:00 PM"}],
         rating = 1,
         review_count = 2
@@ -68,7 +68,7 @@ user_instance = db.query(Users).filter_by(id=1).first()
 
 db.add_all([
     Reviews(
-        venue_place_id = 'TestPlaceId01',
+        venue_place_id = 'ChIJN-MzkTkpTYYRvEg5lurrrrr',
         venue_name = 'Scooter\'s Coffee',
         user_email = 'rooinfo@gmail.com',
         answers = [
@@ -101,7 +101,7 @@ db.add_all([
         date = '01/08/2024'
     ),
     Reviews(
-        venue_place_id = 'TestPlaceId01',
+        venue_place_id = 'ChIJN-MzkTkpTYYRvEg5lurrrrr',
         venue_name = 'Scooter\'s Coffee',
         user_email = 'rughjm@gmail.com',
         answers = [
@@ -134,7 +134,7 @@ db.add_all([
         date = '01/13/2024'
     ),
     Reviews(
-        venue_place_id = 'TestPlaceId',
+        venue_place_id = 'ChIJN-MzkTkpTYYRvEg5lueeeee',
         venue_name = 'Perky Beans',
         user_email = 'rughjm@gmail.com',
         answers = [
@@ -167,7 +167,7 @@ db.add_all([
         date = '02/08/2024'
     ),
     Reviews(
-        venue_place_id = 'TestPlaceId',
+        venue_place_id = 'ChIJN-MzkTkpTYYRvEg5lueeeee',
         venue_name = 'Perky Beans',
         user_email = 'rooinfo@gmail.com',
         answers = [
