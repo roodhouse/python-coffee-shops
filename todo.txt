@@ -1,6 +1,7 @@
 1. frontend
     - add logic to comment section -- here!
         - what issues are outstanding with comment section?
+            -- see Comment.jsx
             - while logged out -- here!
                 - with comments
                 - without comments
