@@ -6,7 +6,7 @@ function DashTableData({ review, reviewData, index, heading }) {
   const { clickType } = useDashContext();
 
   const handleClick = (heading, event) => {
-    clickType(heading, reviewData, event, review.review_id);
+    clickType(heading, reviewData, event, review.review_id, review.place_id);
   };
 
   return (

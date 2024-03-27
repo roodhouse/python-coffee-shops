@@ -48,12 +48,12 @@ const DashProvider = ({children}) => {
     }
 
     // handle onClick types --- continue below here!
-    const clickType = (heading, reviewData, event, id) => {
+    const clickType = (heading, reviewData, event, id, place_id) => {
         switch (heading) {
             case 'ID':
                 return
             case 'Venue':
-                return handleVenueClick(reviewData)
+                return handleVenueClick(reviewData, place_id)
             case 'Location':
                 return handleLocationClick(reviewData)
             case 'Rating':
@@ -70,8 +70,9 @@ const DashProvider = ({children}) => {
 
     // onClick functions
     // venue click
-    const handleVenueClick = (reviewData) => {
-        setVenue(reviewData)
+    const handleVenueClick = (reviewData, place_id) => {
+        console.log(reviewData)
+        setVenue(place_id)
       }
     
       // location click
