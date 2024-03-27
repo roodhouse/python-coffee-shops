@@ -1,27 +1,13 @@
 {
     "state": {
-        "Arkansas": {
+        "Illinois": {
             "city": [
-                "Little Rock"
-            ]
-        },
-        "New Mexico": {
-            "city": [
-                "Santa Fe"
-            ]
-        },
-        "New York": {
-            "city": [
-                "New York"
+                "Chicago"
             ]
         },
         "Texas": {
             "city": [
-                "Austin",
-                "Cedar Park",
-                "Houston",
-                "Leander",
-                "Round Rock"
+                "Leander"
             ]
         }
     }

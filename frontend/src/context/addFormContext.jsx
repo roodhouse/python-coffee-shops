@@ -75,7 +75,7 @@ const AddFormProvider = ({ children }) => {
             if (aggSubmission) {
                 if ((category === 'full') || (category === 'new' && simpleRate === false)) {
                     setPage('thankYou')
-                    localStorage.setItem("recentCity", submission.city)
+                    // localStorage.setItem("recentCity", submission.city)
                     // setTimeout(() => {
                     //     // force refresh of app
                     //     window.location.reload()
