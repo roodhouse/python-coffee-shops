@@ -4,29 +4,27 @@ import CommentDate from "./comment/CommentDate";
 import CommentBody from "./comment/CommentBody";
 import { useMain } from "../../../../context/main";
 import MoreReviews from "../../../shared/avatar/MoreReviews";
+import commentObjectCreation from "../../../../utils/miscFunctions/createCommentObject";
 
 function Comment() {
-  const { currentVenueData, review } = useMain();
+  const { currentVenueData, home } = useMain();
   const [addReviews, setAddReviews] = useState(false);
   const [seeAllReviews, setSeeAllReviews] = useState(false);
+  const [ commentObject, setCommentObject ] = useState([])
 
   useEffect(() => {
-    if (currentVenueData && currentVenueData.review_count > 1) {
-      let count = 0;
-      currentVenueData.reviews.forEach((review) => {
-        if (review.answers[0].xcom) {
-          count += 1;
-        }
-        if (count > 1) {
-          setAddReviews(true);
-        } else {
-          setAddReviews(false);
-        }
-      });
-    } else {
-      setAddReviews(false);
+    if (home === 'store' && currentVenueData && currentVenueData.reviews) {
+      setCommentObject(commentObjectCreation(currentVenueData.reviews))
     }
-  }, [currentVenueData]);
+  },[currentVenueData, home])
+
+  useEffect(() => {
+    console.log(commentObject[1])
+    if (commentObject[1] > 1) {
+      setAddReviews(true)
+      console.log('in useEffect')
+    }
+  },[commentObject])
 
   function toSeeReviews(data) {
     setSeeAllReviews(data);
@@ -34,31 +32,30 @@ function Comment() {
 
   return (
     <>
-      {seeAllReviews ? (
-        currentVenueData &&
-        currentVenueData.reviews &&
-        currentVenueData.reviews.length > 0 &&
-        currentVenueData.reviews.map((review, index) =>
-          review.answers && review.answers[0] && review.answers[0].xcom ? (
+      
+        {seeAllReviews ? (
+          commentObject &&
+          commentObject[0] &&
+          commentObject[0].map((comment, index) => (
             <div
               id={`${index}CommentContainer`}
               key={index}
               className='font-["PT_SERIF"]'
             >
               <div id={`${index}CommentDateWrapper`}>
-                <CommentDate date={review.date} />
+                <CommentDate date={comment.date} />
               </div>
               <div id={`${index}CommentBodyWrapper`}>
-                <CommentBody comment={review.answers[0].xcom} />
+                <CommentBody comment={comment.comment} />
               </div>
               <div id={`${index}commentAvatarWrapper`}>
                 <Avatar
                   align={"justify-end"}
                   display={"flex"}
                   name={"comment"}
-                  pic={review.avatar}
-                  user={review.user_email}
-                  userId={review.user_id}
+                  pic={comment.avatar}
+                  user={comment.userEmail}
+                  userId={comment.userId}
                   index={index}
                   comment={true}
                   amount={'multiple'}
@@ -66,49 +63,49 @@ function Comment() {
                 />
               </div>
             </div>
-          ) : (
-            ""
-          )
-        )
-      ) : currentVenueData &&
-        currentVenueData.reviews &&
-        currentVenueData.reviews[0] ? (
-        <div id={`commentContainer`} className='font-["PT_SERIF"]'>
-          <div id={`commentDateWrapper`}>
-            <CommentDate date={currentVenueData.reviews[0].date} />
-          </div>
-          <div id={`commentBodyWrapper`}>
-            <CommentBody comment={currentVenueData.reviews[0].answers[0].xcom} />
-          </div>
-          <div id={`commentAvatarWrapper`}>
-            <Avatar
-              align={"justify-end"}
-              display={"flex"}
-              name={"comment"}
-              pic={currentVenueData.reviews[0].avatar}
-              user={currentVenueData.reviews[0].user_email}
-              userId={currentVenueData.reviews[0].user_id}
-              index={0}
-              comment={true}
-              amount={'single'}
-              seeAllReviews={seeAllReviews}
-            />
-          </div>
-        </div>
-      ) : (
-        "t4wxs"
-      )}
-        <div id='commentActionContainer' className='flex justify-between mt-9'>
-        { review && review.answers && review.answers[0] && review.answers[0].xcom ? (
-          <div id="storeEditCommentWrapper" className='order-2 underline'>
-            <p>Edit your comment</p>
-          </div>
+          ))
         ) : (
-          <div id="storeLeaveCommentWrapper" className='order-2 underline'>
-            <p>leave a comment</p>
-          </div>
+          // return just the first review comment
+          commentObject && commentObject[0] && commentObject[0][0] ? (
+          <div
+              id={`commentContainer`}
+              className='font-["PT_SERIF"]'
+            >
+              <div id={`commentDateWrapper`}>
+                <CommentDate date={commentObject[0][0].date} />
+              </div>
+              <div id={`commentBodyWrapper`}>
+                <CommentBody comment={commentObject[0][0].comment} />
+              </div>
+              <div id={`commentAvatarWrapper`}>
+                <Avatar
+                  align={"justify-end"}
+                  display={"flex"}
+                  name={"comment"}
+                  pic={commentObject[0][0].avatar}
+                  user={commentObject[0][0].userEmail}
+                  userId={commentObject[0][0].userId}
+                  index={0}
+                  comment={true}
+                  amount={'multiple'}
+                  seeAllReviews={seeAllReviews}
+                />
+              </div>
+            </div>
+          
+          ) : (
+            <div id="noCommentsWrapper">
+              {/* #1 create component here that will invite to click to add comment
+              if user logged in then the textarea appears 
+              if user is not logged in then it takes to the login page */}
+              <p>There are no comments</p>
+            </div>
+          )
         )}
 
+        {/* #2 create component to be the parent of leave/edit/delete comment & moreReviews below
+        then create the leave/edit/delete component and adjust css */}
+      
       {addReviews ? (
         <div id="moreReviewsWrapper">
           <MoreReviews toSeeReviews={toSeeReviews} />
@@ -116,7 +113,6 @@ function Comment() {
       ) : (
         ""
       )}
-        </div>
     </>
   );
 }

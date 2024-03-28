@@ -1,14 +1,17 @@
 1. frontend
     - add logic to comment section -- here!
         - what issues are outstanding with comment section?
+            - see notes in Comment.jsx -- here
             - while logged out -- here!
                 - without comments
+                - with comments
             - while logged in
                 - with own comment
                 - with other user comment
                 - with no comment
         - if current user has a comment then display it on top with the choice to delete or edit, 
         else display the newest comment with a choice to add their overwriting
+        - fix above links
         - turn edit link to change view to show input textarea with previous comment loaded for edit comment or the textarea fresh for a new comment
     - add filter logic
         - change color of filter icon to the aggregate review color
