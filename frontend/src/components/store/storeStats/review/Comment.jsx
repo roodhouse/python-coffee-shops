@@ -5,6 +5,7 @@ import CommentBody from "./comment/CommentBody";
 import { useMain } from "../../../../context/main";
 import MoreReviews from "../../../shared/avatar/MoreReviews";
 import commentObjectCreation from "../../../../utils/miscFunctions/createCommentObject";
+import NoCommentTease from "./comment/NoCommentTease";
 
 function Comment() {
   const { currentVenueData, home } = useMain();
@@ -98,7 +99,7 @@ function Comment() {
               {/* #1 create component here that will invite to click to add comment
               if user logged in then the textarea appears 
               if user is not logged in then it takes to the login page */}
-              <p>There are no comments</p>
+              <NoCommentTease />
             </div>
           )
         )}
