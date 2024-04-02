@@ -47,7 +47,7 @@ const DashProvider = ({children}) => {
         setTableHeadings(baseHeadings)
     }
 
-    // handle onClick types --- continue below here!
+    // handle onClick types
     const clickType = (heading, reviewData, event, id, place_id) => {
         switch (heading) {
             case 'ID':

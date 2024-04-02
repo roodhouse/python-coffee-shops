@@ -9,8 +9,8 @@ import NoCommentTease from "./comment/NoCommentTease";
 
 function Comment() {
   const { currentVenueData, home } = useMain();
-  const [addReviews, setAddReviews] = useState(false);
-  const [seeAllReviews, setSeeAllReviews] = useState(false);
+  const [ addReviews, setAddReviews ] = useState(false);
+  const [ seeAllReviews, setSeeAllReviews ] = useState(false);
   const [ commentObject, setCommentObject ] = useState([])
 
   useEffect(() => {
