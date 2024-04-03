@@ -2,6 +2,7 @@
     - add logic to comment section -- here!
         - what issues are outstanding with comment section?
             - see notes in Comment.jsx -- here
+                - want the two links to be on the same level but doing this has created other issues -- here!
             - while logged out -- here!
                 - without comments
                 - with comments

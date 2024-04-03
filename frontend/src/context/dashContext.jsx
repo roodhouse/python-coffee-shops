@@ -108,11 +108,11 @@ const DashProvider = ({children}) => {
       const handleSubmitStoreCommentClick = (reviewId) => {
         const commentValue = document.getElementById(`${reviewId}-storeEditComment`).value
         let category = 'singleStore'
-        console.log(review)
-        console.log(currentAnswers)
-        // currentAnswers.xcom = commentValue
         review.answers[0].xcom = commentValue
         let submission = review.answers[0]
+        // kids.forEach((kid) => {
+        //     kid.classList.remove('hidden')
+        // })
         sendResults(submission, category, reviewId)
       }
 
@@ -127,7 +127,7 @@ const DashProvider = ({children}) => {
         }
       }
 
-      // review delete button click
+      // review delete button click from dash
       const handleDelete = async (data, review) => {
         let reviewId = review.review_id
         if (data === 'comment') {
@@ -166,10 +166,23 @@ const DashProvider = ({children}) => {
         }
       }
 
+       // review delete button click from dash
+       const handleDeleteCommentFromStore = async (data, review) => {
+        let reviewId = review.review_id
+        console.log(review)
+        if (data === 'comment') {
+            // delete comment
+           review.answers.xcom = null
+           let submission = review.answers
+           let category = 'singleStore'
+           sendResults(submission, category, reviewId)
+        } 
+      }
+
     return <DashboardContext.Provider value =
         {
             {
-                venueReviews, setVenueReviews, editResponse, currentAnswers, currentComment, tableHeadings, clickType, handleEditClick, handleDelete, handleSubmitCommentClick, handleSubmitStoreCommentClick
+                venueReviews, setVenueReviews, editResponse, currentAnswers, currentComment, tableHeadings, clickType, handleEditClick, handleDelete, handleSubmitCommentClick, handleSubmitStoreCommentClick, handleDeleteCommentFromStore
             }
         }>
             {children}

@@ -2,10 +2,15 @@ import React from 'react'
 import { useMain } from '../../../../../../context/main'
 import { useDashContext } from '../../../../../../context/dashContext'
 
-function StoreNewComment() {
+function StoreNewComment({toggleComponents}) {
 
     const { review } = useMain()
-    const { handleDelete, handleSubmitStoreCommentClick } = useDashContext()
+    const { handleDeleteCommentFromStore, handleSubmitStoreCommentClick } = useDashContext()
+
+    const handleClick = () => {
+        handleSubmitStoreCommentClick(review.review_id)
+        toggleComponents()
+    }
 
   return review !== null ? (
     <>
@@ -23,7 +28,7 @@ function StoreNewComment() {
       </div>
       <div id="storeActionContainer" className="flex justify-center">
         <button
-          onClick={() => handleSubmitStoreCommentClick(review.review_id)}
+          onClick={handleClick}
           id={`${review.review_id}_storeEdit`}
           className="text-white font-bold py-1 px-2 rounded border border-blue bg-blue hover:bg-black hover:border-black hover:text-white mr-2"
         >
@@ -31,7 +36,7 @@ function StoreNewComment() {
         </button>
         <button
           id={`${review.review_id}_storeDelete`}
-          onClick={() => handleDelete('comment', review)}
+          onClick={() => handleDeleteCommentFromStore('comment', review)}
           className="text-white font-bold py-1 px-2 rounded border border-red bg-red hover:bg-black hover:border-black hover:text-white"
         >
           Delete

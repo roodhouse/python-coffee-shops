@@ -8,14 +8,29 @@ import commentObjectCreation from "../../../../utils/miscFunctions/createComment
 import NoCommentTease from "./comment/NoCommentTease";
 
 function Comment() {
-  const { currentVenueData, home } = useMain();
+  const { currentVenueData, home, userData } = useMain();
   const [ addReviews, setAddReviews ] = useState(false);
   const [ seeAllReviews, setSeeAllReviews ] = useState(false);
   const [ commentObject, setCommentObject ] = useState([])
+  const [ currentPlaceStoreId, setCurrentPlaceStoreId ] = useState(null)
+  const [ found, setFound ] = useState(undefined)
+
+  useEffect(() => {
+    if (currentVenueData) {
+        setCurrentPlaceStoreId(currentVenueData.place_id)
+    }
+},[currentVenueData])
+
+useEffect(() => {
+    if (userData) {
+        setFound(userData.review_content.find((review) => review.place_id === currentPlaceStoreId ))
+    }
+},[currentPlaceStoreId, userData, found])
 
   useEffect(() => {
     if (home === 'store' && currentVenueData && currentVenueData.reviews) {
       setCommentObject(commentObjectCreation(currentVenueData.reviews))
+      console.log('object creation useEffect')
     }
   },[currentVenueData, home])
 
@@ -23,7 +38,8 @@ function Comment() {
     console.log(commentObject[1])
     if (commentObject[1] > 1) {
       setAddReviews(true)
-      console.log('in useEffect')
+    } else {
+      setAddReviews(false)
     }
   },[commentObject])
 
@@ -63,6 +79,7 @@ function Comment() {
                   seeAllReviews={seeAllReviews}
                 />
               </div>
+              <div>test for comment with multiple</div>
             </div>
           ))
         ) : (
@@ -92,20 +109,29 @@ function Comment() {
                   seeAllReviews={seeAllReviews}
                 />
               </div>
+              { found !== undefined ? (
+                <div id="withCommentTeaseWrapper">                
+                { commentObject[0][0].comment === found.answers.xcom ? (
+                  <NoCommentTease count={1} />
+                ) : (
+                  <NoCommentTease count={2} />
+                )}
+                </div>
+              ) : '' }
             </div>
           
           ) : (
             <div id="noCommentsWrapper">
-              {/* #1 create component here that will invite to click to add comment
-              if user logged in then the textarea appears 
-              if user is not logged in then it takes to the login page */}
-              <NoCommentTease />
+              <NoCommentTease count={0} />
             </div>
           )
         )}
 
         {/* #2 create component to be the parent of leave/edit/delete comment & moreReviews below
         then create the leave/edit/delete component and adjust css */}
+        <div id="storeCommentActionsWrapper">
+          <p>test</p>
+        </div>
       
       {addReviews ? (
         <div id="moreReviewsWrapper">
