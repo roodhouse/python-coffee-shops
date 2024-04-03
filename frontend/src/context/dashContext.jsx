@@ -9,7 +9,7 @@ import { aggregateResults } from "../utils/aggregateResults/aggregateResults";
 const DashboardContext = createContext()
 
 const DashProvider = ({children}) => {
-    const { userData, home, setVenue, setCity, setPage, aggDataUpdated } = useMain()
+    const { userData, home, setVenue, setCity, setPage, aggDataUpdated, review } = useMain()
     const { sendResults } = useAddForm()
     const [ venueReviews, setVenueReviews ] = useState(null)
     const [ editResponse, setEditResponse ] = useState(null)
@@ -95,12 +95,24 @@ const DashProvider = ({children}) => {
         }
       }
 
-      // handle submit of comment click
+      // handle submit of comment click from dash
       const handleSubmitCommentClick = (reviewId) => {
         const commentValue = document.getElementById(`${reviewId}-editComment`).value
         let category = 'singleDash'
         currentAnswers.xcom = commentValue
         let submission = currentAnswers
+        sendResults(submission, category, reviewId)
+      }
+
+      // handle submit of comment click from store page
+      const handleSubmitStoreCommentClick = (reviewId) => {
+        const commentValue = document.getElementById(`${reviewId}-storeEditComment`).value
+        let category = 'singleStore'
+        console.log(review)
+        console.log(currentAnswers)
+        // currentAnswers.xcom = commentValue
+        review.answers[0].xcom = commentValue
+        let submission = review.answers[0]
         sendResults(submission, category, reviewId)
       }
 
@@ -157,7 +169,7 @@ const DashProvider = ({children}) => {
     return <DashboardContext.Provider value =
         {
             {
-                venueReviews, setVenueReviews, editResponse, currentAnswers, currentComment, tableHeadings, clickType, handleEditClick, handleDelete, handleSubmitCommentClick
+                venueReviews, setVenueReviews, editResponse, currentAnswers, currentComment, tableHeadings, clickType, handleEditClick, handleDelete, handleSubmitCommentClick, handleSubmitStoreCommentClick
             }
         }>
             {children}

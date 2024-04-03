@@ -27,7 +27,6 @@ const MainProvider = ({ children }) => {
     const [ isLoaded, setIsLoaded ] = useState(false)
     const [ avatarMod, setAvatarMod ] = useState(false)
     const [ currentPlaceId, setCurrentPlaceId ] = useState()
-    const [ addComment, setAddComment ] = useState(false)
 
     const googleAPI = process.env.REACT_APP_GOOGLE_API_KEY;
 
@@ -275,15 +274,6 @@ const MainProvider = ({ children }) => {
         }
     }
 
-    // toggle comment from store page
-    function toggleComment() {
-        if (addComment) {
-            setAddComment(false)
-        } else {
-            setAddComment(true)
-        }
-    }
-
     // set place icons
     function addPlaceIcons(icon) {
         let currentIcons = [...placeIcons]
@@ -318,8 +308,7 @@ const MainProvider = ({ children }) => {
     {
         {
             home, currentCity, venueCount, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn, successLogin, logout,
-            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review, aggDataUpdated, clearVenue, clearCurrentVenueData, isLoaded, showMod, avatarMod, closeMod, currentPlaceId,
-            addComment, toggleComment
+            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review, aggDataUpdated, clearVenue, clearCurrentVenueData, isLoaded, showMod, avatarMod, closeMod, currentPlaceId
         }
     }>
         {children}

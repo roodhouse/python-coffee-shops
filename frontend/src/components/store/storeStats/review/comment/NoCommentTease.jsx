@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useMain } from '../../../../../context/main'
-import CommentData from '../../../../dashboard/dashTable/dashTableBody/dashTableRow/dashTableData/tableData/data/CommentData'
+import StoreNewComment from './storeNewComment/StoreNewComment'
 
 
 // here ! need to figure out what the equal to review, reviewData, index and heading are compared to what they are while on the dashboard
@@ -8,19 +8,25 @@ import CommentData from '../../../../dashboard/dashTable/dashTableBody/dashTable
 // toggle comment is not changing some part of state and causing an error when the header is clicked
 function NoCommentTease() {
 
-    const { userAuthenticated, currentVenue, setPage, review, addComment, toggleComment } = useMain()
+    const [ addComment, setAddComment ] = useState(false)
+
+    const { userAuthenticated, currentVenue, setPage, review } = useMain()
 
     const handleClick = () => {
         if (!userAuthenticated) {
             setPage('join')
         } else {
-            toggleComment(true)
+            setAddComment(true)
         }
     }
+
+    console.log(review)
+
   return (
     <>
         { addComment ? (
-            <CommentData review={review} reviewData={'none'} />
+            // <CommentData review={review} reviewData={'none'} />
+            <StoreNewComment  />
         ) : (
         <div id="noCommentContainer" className='underline cursor-pointer' onClick={handleClick}>
             <p>Leave a comment about {currentVenue}</p>

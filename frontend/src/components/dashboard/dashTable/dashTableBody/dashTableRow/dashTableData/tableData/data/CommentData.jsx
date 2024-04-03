@@ -1,19 +1,12 @@
 import React from "react";
 import { useDashContext } from "../../../../../../../../context/dashContext";
-import { useMain } from "../../../../../../../../context/main";
 
 function CommentData({ review, reviewData, index, heading }) {
   
   const { currentComment, handleSubmitCommentClick, handleDelete } =
     useDashContext();
 
-  const { addComment } = useMain()
-
-    if (reviewData === 'none') {
-      console.log(review)
-    }
-
-  return currentComment !== null || addComment === true ? (
+  return currentComment !== null ? (
     <>
       <div id="commentContainer">
         <textarea
