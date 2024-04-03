@@ -8,12 +8,61 @@ import commentObjectCreation from "../../../../utils/miscFunctions/createComment
 import NoCommentTease from "./comment/NoCommentTease";
 
 function Comment() {
-  const { currentVenueData, home, userData, userAuthenticated } = useMain();
+  const { currentVenueData, home, userData, userAuthenticated, count, changeCount } = useMain();
   const [ addReviews, setAddReviews ] = useState(false);
   const [ seeAllReviews, setSeeAllReviews ] = useState(false);
   const [ commentObject, setCommentObject ] = useState([])
   const [ currentPlaceStoreId, setCurrentPlaceStoreId ] = useState(null)
   const [ found, setFound ] = useState(undefined)
+  
+
+  console.log(found)
+  console.log(commentObject)
+  console.log(commentObject[1])
+  useEffect(() => {
+    if (!userAuthenticated) {
+      if (commentObject[1] === 1) {
+        // not logged in with one comment
+        changeCount(1)
+      } else if (commentObject[1] > 1) {
+        // not logged in and more than one comment
+        changeCount(2)
+      } else {
+        // not logged in with no comments
+        changeCount(0)
+      }
+    } else {
+      // issue below..... .
+      // user is logged in
+      // if (commentObject && commentObject[0] && commentObject[0][0] && found) {
+      //   // issue here because the needed comment will not always be at commentObject[0][0].comment --- issue here!!
+      //   if (commentObject[0][0].comment === found.answers.xcom) {
+      //     console.log('found answers?')
+      //     // a comment belongs to the users
+      //     if (commentObject[1] === 1) {
+      //       // the only comment is the users
+      //       changeCount(3)
+      //     } else if (commentObject[1] > 1) {
+      //       // one of many comments is users
+      //       changeCount(4)
+      //     }
+      //   } 
+      // } else {
+
+      //   // no comment belongs to the user
+      //   if (commentObject[1] === 1) {
+      //     // only single comment
+      //     changeCount(5)
+      //   } else if (commentObject[1] > 1) {
+      //     // more than one comment
+      //     changeCount(6)
+      //   } else if (commentObject[1] < 1) {
+      //     console.log('go')
+      //     changeCount(0)
+      //   }
+      // }
+    }
+  },[userAuthenticated, commentObject])
 
   useEffect(() => {
     if (currentVenueData) {
@@ -79,7 +128,6 @@ useEffect(() => {
                   seeAllReviews={seeAllReviews}
                 />
               </div>
-              <div>test for comment with multiple</div>
             </div>
           ))
         ) : (
@@ -109,35 +157,19 @@ useEffect(() => {
                   seeAllReviews={seeAllReviews}
                 />
               </div>
-              { found !== undefined ? (
-                <div id="withCommentTeaseWrapper">                
-                { commentObject[0][0].comment === found.answers.xcom ? (
-                  <NoCommentTease count={1} />
-                ) : (
-                  <NoCommentTease count={4} />
-                )}
-                </div>
-              ) : userAuthenticated ? (
-                <NoCommentTease count={2} />
-              ) : (
-                <NoCommentTease count={4} />
-              ) }
+ 
             </div>
           
-          ) : (
-            <div id="noCommentsWrapper">
-              <NoCommentTease count={0} />
+          ) : '' )}
+
+            <div id="commentStoreActionsWrapper">
+              <div id="commentsTeaseWrapper">
+                <NoCommentTease count={count} addReviews={addReviews} toSeeReviews={toSeeReviews} />
+              </div>
             </div>
-          )
-        )}
+            
               
-      {addReviews ? (
-        <div id="moreReviewsWrapper">
-          <MoreReviews toSeeReviews={toSeeReviews} />
-        </div>
-      ) : (
-        ""
-      )}
+      
     </>
   );
 }
