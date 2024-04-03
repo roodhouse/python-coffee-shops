@@ -8,7 +8,7 @@ import commentObjectCreation from "../../../../utils/miscFunctions/createComment
 import NoCommentTease from "./comment/NoCommentTease";
 
 function Comment() {
-  const { currentVenueData, home, userData } = useMain();
+  const { currentVenueData, home, userData, userAuthenticated } = useMain();
   const [ addReviews, setAddReviews ] = useState(false);
   const [ seeAllReviews, setSeeAllReviews ] = useState(false);
   const [ commentObject, setCommentObject ] = useState([])
@@ -114,10 +114,14 @@ useEffect(() => {
                 { commentObject[0][0].comment === found.answers.xcom ? (
                   <NoCommentTease count={1} />
                 ) : (
-                  <NoCommentTease count={2} />
+                  <NoCommentTease count={4} />
                 )}
                 </div>
-              ) : '' }
+              ) : userAuthenticated ? (
+                <NoCommentTease count={2} />
+              ) : (
+                <NoCommentTease count={4} />
+              ) }
             </div>
           
           ) : (
@@ -126,13 +130,7 @@ useEffect(() => {
             </div>
           )
         )}
-
-        {/* #2 create component to be the parent of leave/edit/delete comment & moreReviews below
-        then create the leave/edit/delete component and adjust css */}
-        <div id="storeCommentActionsWrapper">
-          <p>test</p>
-        </div>
-      
+              
       {addReviews ? (
         <div id="moreReviewsWrapper">
           <MoreReviews toSeeReviews={toSeeReviews} />

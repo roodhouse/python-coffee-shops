@@ -15,6 +15,8 @@ function NoCommentTease({count}) {
 
     let hideOriginal;
 
+    console.log(count)
+
     let toggleComponents = () => {
         setAddComment(false)
         if (count === 1) {
@@ -51,7 +53,7 @@ function NoCommentTease({count}) {
   return (
     <>
         { addComment ? (
-            <StoreNewComment toggleComponents={toggleComponents} />
+            <StoreNewComment toggleComponents={toggleComponents} mt={true} />
         ) : (
              count === 0 ? (
             <div id="noCommentContainer" className='underline cursor-pointer' onClick={(event) => handleClick(count, event)}>
@@ -63,9 +65,11 @@ function NoCommentTease({count}) {
                         <p>Edit your comment</p>
                     </div>
                 ) : (
-                    <div id="storeLeaveCommentContainer" onClick={(event) => handleClick(count, event)} className='cursor-pointer underline text-left mt-1'>
-                        <p>Leave a comment</p>
-                    </div>
+                    count === 4 ? (
+                        <div id="noCommentLoggedOutContainer" className='underline cursor-pointer' onClick={(event) => handleClick(count, event)}>
+                            <p>Leave a comment.</p>
+                        </div>
+                    ) : ''
                 )
             )
         )}

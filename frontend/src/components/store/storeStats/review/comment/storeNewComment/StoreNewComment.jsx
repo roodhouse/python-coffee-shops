@@ -2,7 +2,7 @@ import React from 'react'
 import { useMain } from '../../../../../../context/main'
 import { useDashContext } from '../../../../../../context/dashContext'
 
-function StoreNewComment({toggleComponents}) {
+function StoreNewComment({toggleComponents, mt}) {
 
     const { review } = useMain()
     const { handleDeleteCommentFromStore, handleSubmitStoreCommentClick } = useDashContext()
@@ -21,7 +21,7 @@ function StoreNewComment({toggleComponents}) {
           cols="10"
           rows="5"
           maxLength={100}
-          className="w-full mb-8 bg-[#f5f5f5] rounded p-3 text-black"
+          className={`${mt ? 'mt-9' : '' } w-full mb-8 bg-[#f5f5f5] rounded p-3 text-black`}
           defaultValue={review ? (review?.answers?.[0]?.xcom || '') : ''}
           placeholder={`Leave a short comment about ${review.venue}`} 
         ></textarea>
