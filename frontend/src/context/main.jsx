@@ -232,7 +232,6 @@ const MainProvider = ({ children }) => {
 
     // change count on store page for comments
     let changeCount = (data) => {
-        console.log('changeCount called')
         setCount(data)
     }
 

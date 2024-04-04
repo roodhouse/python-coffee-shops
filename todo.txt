@@ -1,8 +1,7 @@
 1. frontend
     - add logic to comment section -- here!
         - what issues are outstanding with comment section?
-            - see notes in Comment.jsx -- here
-                - see 'issue here' places in Comment.jsx -- here!
+            -- need to walk through each situation, make sure the change count from Comment.jsx makes the correct UI adjustment in NoCommentTease.jsx --- here!
                 - want the two links to be on the same level but doing this has created other issues
                 - want to current users comment to always be at the top
                 - want the edit comment link to always be with the current users comment

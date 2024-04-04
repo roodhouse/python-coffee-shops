@@ -16,9 +16,6 @@ function Comment() {
   const [ found, setFound ] = useState(undefined)
   
 
-  console.log(found)
-  console.log(commentObject)
-  console.log(commentObject[1])
   useEffect(() => {
     if (!userAuthenticated) {
       if (commentObject[1] === 1) {
@@ -32,22 +29,78 @@ function Comment() {
         changeCount(0)
       }
     } else {
+      console.log('user is in ')
       // issue below..... .
       // user is logged in
-      // if (commentObject && commentObject[0] && commentObject[0][0] && found) {
-      //   // issue here because the needed comment will not always be at commentObject[0][0].comment --- issue here!!
-      //   if (commentObject[0][0].comment === found.answers.xcom) {
-      //     console.log('found answers?')
-      //     // a comment belongs to the users
-      //     if (commentObject[1] === 1) {
-      //       // the only comment is the users
-      //       changeCount(3)
-      //     } else if (commentObject[1] > 1) {
-      //       // one of many comments is users
-      //       changeCount(4)
-      //     }
-      //   } 
-      // } else {
+      if (commentObject && commentObject[0] && found) {
+        console.log('found: ', found)
+        console.log(commentObject)
+        console.log(commentObject[1])
+        if (found.answers.xcom && found.answers.xcom !== '') {
+          console.log('time to compare the comment')
+          let foundComment = commentObject[0].find(comment => {
+            return comment.comment === found.answers.xcom
+          })
+          if (foundComment) {
+            console.log('found the comment: ', foundComment)
+            if (commentObject[1] === 1) {
+              console.log('only one comment and it is by the logged in user')
+              changeCount(3)
+            } else {
+              console.log('there are many comments here.')
+              changeCount(4)
+            }
+          } else {
+            console.log('no comment was found from user therefore different UI needed')
+            if (commentObject[1] === 1) {
+              console.log('only a single comment but not our signed in users')
+              changeCount(5)
+            } else if (commentObject[1] > 1) {
+              console.log('many comments and none are our signed in users')
+              changeCount(6)
+            } else {
+              changeCount(0)
+            }
+          }
+        } else {
+          console.log('this guy has a review for this venue but does not have a comment for the venue')
+          if (commentObject[1] === 1) {
+            // here, leaving a quick review leaves a comment value in xcom
+            console.log('only one comment for the reviewed venue by our user who did not leave a comment')
+            changeCount(7)
+          } else if (commentObject[1] > 1) {
+            console.log('there are many comments here.')
+            changeCount(8)
+          } else {
+            changeCount(0)
+          }
+        }
+        
+        // issue here because the needed comment will not always be at commentObject[0][0].comment --- issue here!!
+        // if (commentObject[0][0].comment === found.answers.xcom) {
+        //   console.log('found answers?')
+        //   // a comment belongs to the users
+        //   if (commentObject[1] === 1) {
+        //     // the only comment is the users
+        //     changeCount(3)
+        //   } else if (commentObject[1] > 1) {
+        //     // one of many comments is users
+        //     changeCount(4)
+        //   }
+        // } 
+      } else {
+        console.log('this guy does not have a review for this venue and no comment')
+        if (commentObject[1] === 1) {
+          console.log('only one comment for the reviewed venue by that our user has not reviewed and does not have a comment')
+          changeCount(9)
+        } else if (commentObject[1] > 1) {
+          console.log('there are many comments here at the venue our user has not left a review or comment for.')
+          changeCount(10)
+        } else {
+          changeCount(0)
+        }
+      }
+      // else {
 
       //   // no comment belongs to the user
       //   if (commentObject[1] === 1) {
@@ -67,24 +120,26 @@ function Comment() {
   useEffect(() => {
     if (currentVenueData) {
         setCurrentPlaceStoreId(currentVenueData.place_id)
+        if (userData) {
+          setFound(userData.review_content.find((review) => review.place_id === currentVenueData.place_id))
+        }
     }
-},[currentVenueData])
+    
+},[currentVenueData, userData])
 
-useEffect(() => {
-    if (userData) {
-        setFound(userData.review_content.find((review) => review.place_id === currentPlaceStoreId ))
-    }
-},[currentPlaceStoreId, userData, found])
+// useEffect(() => {
+//     if (userData) {
+//         setFound(userData.review_content.find((review) => review.place_id === currentPlaceStoreId ))
+//     }
+// },[currentPlaceStoreId, userData])
 
   useEffect(() => {
     if (home === 'store' && currentVenueData && currentVenueData.reviews) {
       setCommentObject(commentObjectCreation(currentVenueData.reviews))
-      console.log('object creation useEffect')
     }
   },[currentVenueData, home])
 
   useEffect(() => {
-    console.log(commentObject[1])
     if (commentObject[1] > 1) {
       setAddReviews(true)
     } else {
