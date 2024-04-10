@@ -195,6 +195,24 @@ function NoCommentTease({ count, addReviews, toSeeReviews }) {
         >
           <p>Leave a comment.</p>
         </div>
+      ) : count === 11 ? (
+        // user logged in and more than one comment and none are user comments
+        <div id="commentActionContainer" className="flex mt-9 justify-between">
+          <div
+            id={`noCommentContainer-${count}`}
+            onClick={(event) => handleClick(count, event)}
+            className="cursor-pointer underline text-right"
+          >
+            <p>Leave a comment</p>
+          </div>
+          {addReviews ? (
+            <div id="moreReviewsWrapper" className="order-[-1]">
+              <MoreReviews toSeeReviews={toSeeReviews} />
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
       ) : '' }
     </>
   );

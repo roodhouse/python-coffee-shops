@@ -2,6 +2,7 @@ import { handleNewSubmission } from "./handleNewSubmission"
 import { handleReviewUpdate } from "./handleReviewUpdate"
 
 export const sendToDatabase = async (submission, category, editReview, userData, userAuthenticated, reviewId, newReviewExistVenue, currentVenue, simpleRate, currentPlaceId) => {
+    console.log('at top of sendToDatabase')
     let venue;
     let answers;
     let hours;
@@ -40,8 +41,15 @@ export const sendToDatabase = async (submission, category, editReview, userData,
     if ( (editReview === false && category === 'new') || (newReviewExistVenue === true && category === 'new' )) {
         let rating;
         if (simpleRate === true) {
+            if (submission[0].xcom === '') {
+
+                // here ! i need to replace the blank comment with something that will not show up on the screen
+                console.log('empty comment')
+            }
             answers = submission
             rating = submission[0].sum
+            console.log('inside if near answers construct')
+            console.log(submission)
         } else {
             const ratingAnswer = submission?.Summary?.[0]?.answer
             rating = ratingAnswer ? parseInt(ratingAnswer) : null
@@ -114,6 +122,9 @@ export const sendToDatabase = async (submission, category, editReview, userData,
     
             const sp9Answer = submission?.Space?.[8]?.answer
             const sp9 = sp9Answer ? parseInt(sp9Answer) : ''
+
+            console.log('inside else near answers construct')
+            console.log(submission.xcom)
     
             answers = [
                 {
@@ -155,11 +166,14 @@ export const sendToDatabase = async (submission, category, editReview, userData,
         if (submission[0]) {
             // editing single or not full with added comment
             answers = submission[0]
+            console.log('// editing single or not full with added comment')
         } else if (submission.answers && submission.answers[0]) {
             // editing heart or single from large form
             answers = submission.answers[0]
+            console.log('// editing heart or single from large form')
         } else {
             // simple rate update
+            console.log('in simple rate update')
             answers = submission
         }
         const newUpdate = await handleReviewUpdate(answers, reviewId)

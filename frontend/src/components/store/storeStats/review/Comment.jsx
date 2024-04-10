@@ -29,20 +29,13 @@ function Comment() {
         changeCount(0)
       }
     } else {
-      console.log('user is in ')
-      // issue below..... .
       // user is logged in
       if (commentObject && commentObject[0] && found) {
-        console.log('found: ', found)
-        console.log(commentObject)
-        console.log(commentObject[1])
         if (found.answers.xcom && found.answers.xcom !== '') {
-          console.log('time to compare the comment')
           let foundComment = commentObject[0].find(comment => {
             return comment.comment === found.answers.xcom
           })
           if (foundComment) {
-            console.log('found the comment: ', foundComment)
             if (commentObject[1] === 1) {
               console.log('only one comment and it is by the logged in user')
               changeCount(3)
@@ -75,19 +68,6 @@ function Comment() {
             changeCount(0)
           }
         }
-        
-        // issue here because the needed comment will not always be at commentObject[0][0].comment --- issue here!!
-        // if (commentObject[0][0].comment === found.answers.xcom) {
-        //   console.log('found answers?')
-        //   // a comment belongs to the users
-        //   if (commentObject[1] === 1) {
-        //     // the only comment is the users
-        //     changeCount(3)
-        //   } else if (commentObject[1] > 1) {
-        //     // one of many comments is users
-        //     changeCount(4)
-        //   }
-        // } 
       } else {
         console.log('this guy does not have a review for this venue and no comment')
         if (commentObject[1] === 1) {
@@ -96,25 +76,11 @@ function Comment() {
         } else if (commentObject[1] > 1) {
           // here ! 
           console.log('there are many comments here at the venue our user has not left a review or comment for.')
-          changeCount(2)
+          changeCount(11)
         } else {
           changeCount(0)
         }
       }
-      // else {
-
-      //   // no comment belongs to the user
-      //   if (commentObject[1] === 1) {
-      //     // only single comment
-      //     changeCount(5)
-      //   } else if (commentObject[1] > 1) {
-      //     // more than one comment
-      //     changeCount(6)
-      //   } else if (commentObject[1] < 1) {
-      //     console.log('go')
-      //     changeCount(0)
-      //   }
-      // }
     }
   },[userAuthenticated, commentObject])
 
@@ -127,12 +93,6 @@ function Comment() {
     }
     
 },[currentVenueData, userData])
-
-// useEffect(() => {
-//     if (userData) {
-//         setFound(userData.review_content.find((review) => review.place_id === currentPlaceStoreId ))
-//     }
-// },[currentPlaceStoreId, userData])
 
   useEffect(() => {
     if (home === 'store' && currentVenueData && currentVenueData.reviews) {
