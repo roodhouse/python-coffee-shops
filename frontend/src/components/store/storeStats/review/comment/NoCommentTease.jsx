@@ -56,6 +56,7 @@ function NoCommentTease({ count, addReviews, toSeeReviews }) {
       } else if (count === 10) {
         console.log('Ten!')
         // why does addComment change to false here in this scenerio?
+        // because in StoreNewComment review is equal to null.... need to change that .. to show the form...
         console.log('addComment should be true and it is: ', addComment)
       }
     }

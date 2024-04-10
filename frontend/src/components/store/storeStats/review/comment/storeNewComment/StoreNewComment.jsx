@@ -44,7 +44,7 @@ function StoreNewComment({toggleComponents, mt}) {
       </div>
     </>
   ) : (
-    ''
+    'hi'
   )
 }
 
