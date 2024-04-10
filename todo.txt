@@ -4,6 +4,7 @@
 
         this is where I a currently am: 
             -- need to walk through each situation, make sure the change count from Comment.jsx makes the correct UI adjustment in NoCommentTease.jsx --- here!
+             - see !here in Comment.jsx to find place again... 
                 - // user logged in and is owner of one of the many comments @ count 4
                     - it shows the same comment at top for each user, want it to show the logged in users comment first
                     - if see less comments is active, then it shows the 2nd comment avatar, if it is closed then when opened the 2nd comment avatar is not seen

@@ -106,14 +106,50 @@ const DashProvider = ({children}) => {
 
       // handle submit of comment click from store page
       const handleSubmitStoreCommentClick = (reviewId) => {
-        const commentValue = document.getElementById(`${reviewId}-storeEditComment`).value
-        let category = 'singleStore'
-        review.answers[0].xcom = commentValue
-        let submission = review.answers[0]
-        // kids.forEach((kid) => {
-        //     kid.classList.remove('hidden')
-        // })
-        sendResults(submission, category, reviewId)
+          const commentValue = document.getElementById(`${reviewId}-storeEditComment`).value
+
+        if (reviewId === 'newComment') {
+            console.log(reviewId)
+            // this is a new review submission with only a comment
+             // when review is new
+             let questionsAnswers = [ 
+                {
+                'p1' : '',
+                'p2' : '',
+                'p3' : '',
+                'p4' : '',
+                'p5' : '',
+                'p6' : '',
+                'c1' : '',
+                'c2' : '',
+                'ser1' : '',
+                'ser2' : '',
+                'ser3' : '',
+                'ser4' : '',
+                'ser5' : '',
+                'sp1' : '',
+                'sp2' : '',
+                'sp3' : '',
+                'sp4' : '',
+                'sp5' : '',
+                'sp6' : '',
+                'sp7' : '',
+                'sp8' : '',
+                'sp9' : '',
+                'sum' : '',
+                'xcom': ''
+                }
+            ]
+            questionsAnswers[0]['xcom'] = commentValue
+            let submission = questionsAnswers
+            let category = 'simpleRateNew'
+            sendResults(submission, category)
+        } else {
+            let category = 'singleStore'
+            review.answers[0].xcom = commentValue
+            let submission = review.answers[0]
+            sendResults(submission, category, reviewId)
+        }
       }
 
       // review edit button click
