@@ -92,10 +92,10 @@ function Comment() {
         console.log('this guy does not have a review for this venue and no comment')
         if (commentObject[1] === 1) {
           console.log('only one comment for the reviewed venue by that our user has not reviewed and does not have a comment')
-          changeCount(9)
+          changeCount(10)
         } else if (commentObject[1] > 1) {
           console.log('there are many comments here at the venue our user has not left a review or comment for.')
-          changeCount(10)
+          changeCount(2)
         } else {
           changeCount(0)
         }

@@ -31,6 +31,7 @@ function NoCommentTease({ count, addReviews, toSeeReviews }) {
   };
 
   const handleClick = (count, event) => {
+    console.log(count, event)
     if (!userAuthenticated) {
       setPage("join");
     } else {
@@ -38,6 +39,7 @@ function NoCommentTease({ count, addReviews, toSeeReviews }) {
       if (count === 1) {
         let parentContainer = event.currentTarget.parentElement.parentElement;
         hideOriginal = Array.from(parentContainer.children).slice(0, 3);
+        console.log(hideOriginal)
         setKids(hideOriginal);
         hideOriginal.forEach((child) => {
           child.classList.add("hidden");
@@ -51,6 +53,10 @@ function NoCommentTease({ count, addReviews, toSeeReviews }) {
         console.log("count 5");
       } else if (count === 6) {
         console.log("count 6");
+      } else if (count === 10) {
+        console.log('Ten!')
+        // why does addComment change to false here in this scenerio?
+        console.log('addComment should be true and it is: ', addComment)
       }
     }
   };
@@ -60,7 +66,8 @@ function NoCommentTease({ count, addReviews, toSeeReviews }) {
       {addComment ? (
         <StoreNewComment toggleComponents={toggleComponents} mt={true} />
       ) : count === 0 ? (
-        // user not logged in and there are no comments
+        // user not logged in and there are no comments or user logged in 
+        // works
         <div
           id={`noCommentContainer-${count}`}
           className="underline cursor-pointer"
@@ -70,6 +77,7 @@ function NoCommentTease({ count, addReviews, toSeeReviews }) {
         </div>
       ) : count === 1 ? (
         // user is not logged in and there is a comment
+        // works
         <div
           id={`noCommentContainer-${count}`}
           className="underline cursor-pointer"
@@ -78,7 +86,8 @@ function NoCommentTease({ count, addReviews, toSeeReviews }) {
           <p>Leave a comment.</p>
         </div>
       ) : count === 2 ? (
-        // user not logged in and more than one comment
+        // user not logged in and more than one comment or user logged in and none of the comments to user
+        // works
         <div id="commentActionContainer" className="flex mt-9 justify-between">
           <div
             id={`noCommentContainer-${count}`}
@@ -97,6 +106,7 @@ function NoCommentTease({ count, addReviews, toSeeReviews }) {
         </div>
       ) : count === 3 ? (
         // user is logged in and the only comment is theirs
+        // works
         <div
           id="storeEditCommentContainer"
           onClick={(event) => handleClick(count, event)}
@@ -105,7 +115,8 @@ function NoCommentTease({ count, addReviews, toSeeReviews }) {
           <p>Edit your comment</p>
         </div>
       ) : count === 4 ? (
-        // user logged in and is owner of one of the many comments
+        // user logged in and is owner of one of the many comments @ count 4
+        // works but.. see notes in todo.txt
         <div id="commentActionContainer" className="flex mt-9 justify-between">
           <div
             id={`noCommentContainer-${count}`}
@@ -124,6 +135,7 @@ function NoCommentTease({ count, addReviews, toSeeReviews }) {
         </div>
       ) : count === 5 ? (
         // user logged in, single comment that is not users
+        // works
         <div
           id={`noCommentContainer-${count}`}
           className="underline cursor-pointer"
@@ -176,7 +188,16 @@ function NoCommentTease({ count, addReviews, toSeeReviews }) {
             ""
           )}
         </div>
-      ) : ''}
+      ) : count === 10 ? (
+        //user is logged in and there is a single comment not by the user
+        <div
+          id={`noCommentContainer-${count}`}
+          className="underline cursor-pointer"
+          onClick={(event) => handleClick(count, event)}
+        >
+          <p>Leave a comment.</p>
+        </div>
+      ) : '' }
     </>
   );
 }
