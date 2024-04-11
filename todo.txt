@@ -1,13 +1,9 @@
 1. frontend
     - add logic to comment section -- here!
         - what issues are outstanding with comment section?
-
-        this is where I a currently am: 
-            -- need to walk through each situation again to be sure then pick up below -- !here!
                 - // user logged in and is owner of one of the many comments @ count 4
                     - it shows the same comment at top for each user, want it to show the logged in users comment first
                     - if see less comments is active, then it shows the 2nd comment avatar, if it is closed then when opened the 2nd comment avatar is not seen
-                    - upon delete of comment the comment still shows up but only as a blank comment
                 - want the two links to be on the same level but doing this has created other issues
                 - want to current users comment to always be at the top
                 - want the edit comment link to always be with the current users comment

@@ -3,9 +3,6 @@ import { useMain } from "../../../../../context/main";
 import StoreNewComment from "./storeNewComment/StoreNewComment";
 import MoreReviews from "../../../../shared/avatar/MoreReviews";
 
-// here ! need to figure out what the equal to review, reviewData, index and heading are compared to what they are while on the dashboard
-// does not close when leaving view, if click on site name then error is thrown, will not submit
-// toggle comment is not changing some part of state and causing an error when the header is clicked
 function NoCommentTease({ count, addReviews, toSeeReviews }) {
   const [addComment, setAddComment] = useState(false);
   const [kids, setKids] = useState();
@@ -39,7 +36,6 @@ function NoCommentTease({ count, addReviews, toSeeReviews }) {
       if (count === 1) {
         let parentContainer = event.currentTarget.parentElement.parentElement;
         hideOriginal = Array.from(parentContainer.children).slice(0, 3);
-        console.log(hideOriginal)
         setKids(hideOriginal);
         hideOriginal.forEach((child) => {
           child.classList.add("hidden");
@@ -49,12 +45,6 @@ function NoCommentTease({ count, addReviews, toSeeReviews }) {
           "withCommentTeaseWrapper"
         );
         commentTeaseStyle.classList.add("mt-[2.25rem]");
-      } else if (count === 5) {
-        console.log("count 5");
-      } else if (count === 6) {
-        console.log("count 6");
-      } else if (count === 10) {
-        console.log('Ten!')
       }
     }
   };
@@ -64,8 +54,6 @@ function NoCommentTease({ count, addReviews, toSeeReviews }) {
       {addComment ? (
         <StoreNewComment toggleComponents={toggleComponents} mt={true} formTrigger={true} />
       ) : count === 0 ? (
-        // user not logged in and there are no comments or user logged in 
-        // works
         <div
           id={`noCommentContainer-${count}`}
           className="underline cursor-pointer"
@@ -75,7 +63,6 @@ function NoCommentTease({ count, addReviews, toSeeReviews }) {
         </div>
       ) : count === 1 ? (
         // user is not logged in and there is a comment
-        // works
         <div
           id={`noCommentContainer-${count}`}
           className="underline cursor-pointer"
@@ -85,7 +72,6 @@ function NoCommentTease({ count, addReviews, toSeeReviews }) {
         </div>
       ) : count === 2 ? (
         // user not logged in and more than one comment or user logged in and none of the comments to user
-        // works
         <div id="commentActionContainer" className="flex mt-9 justify-between">
           <div
             id={`noCommentContainer-${count}`}
@@ -104,7 +90,6 @@ function NoCommentTease({ count, addReviews, toSeeReviews }) {
         </div>
       ) : count === 3 ? (
         // user is logged in and the only comment is theirs
-        // works
         <div
           id="storeEditCommentContainer"
           onClick={(event) => handleClick(count, event)}
@@ -133,7 +118,6 @@ function NoCommentTease({ count, addReviews, toSeeReviews }) {
         </div>
       ) : count === 5 ? (
         // user logged in, single comment that is not users
-        // works
         <div
           id={`noCommentContainer-${count}`}
           className="underline cursor-pointer"

@@ -37,45 +37,32 @@ function Comment() {
           })
           if (foundComment) {
             if (commentObject[1] === 1) {
-              console.log('only one comment and it is by the logged in user')
               changeCount(3)
             } else {
-              console.log('there are many comments here.')
               changeCount(4)
             }
           } else {
-            console.log('no comment was found from user therefore different UI needed')
             if (commentObject[1] === 1) {
-              console.log('only a single comment but not our signed in users')
               changeCount(5)
             } else if (commentObject[1] > 1) {
-              console.log('many comments and none are our signed in users')
               changeCount(6)
             } else {
               changeCount(0)
             }
           }
         } else {
-          console.log('this guy has a review for this venue but does not have a comment for the venue')
           if (commentObject[1] === 1) {
-            // here, leaving a quick review leaves a comment value in xcom
-            console.log('only one comment for the reviewed venue by our user who did not leave a comment')
             changeCount(7)
           } else if (commentObject[1] > 1) {
-            console.log('there are many comments here.')
             changeCount(8)
           } else {
             changeCount(0)
           }
         }
       } else {
-        console.log('this guy does not have a review for this venue and no comment')
         if (commentObject[1] === 1) {
-          console.log('only one comment for the reviewed venue by that our user has not reviewed and does not have a comment')
           changeCount(10)
         } else if (commentObject[1] > 1) {
-          // here ! 
-          console.log('there are many comments here at the venue our user has not left a review or comment for.')
           changeCount(11)
         } else {
           changeCount(0)

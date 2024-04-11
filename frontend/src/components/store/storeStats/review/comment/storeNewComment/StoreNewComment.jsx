@@ -17,9 +17,6 @@ function StoreNewComment({toggleComponents, mt, formTrigger}) {
       review !== null || formTrigger === true ? setShowForm(true) : setShowForm(false)
     },[formTrigger, review])
 
-    console.log(showForm, currentVenueData)
-
-
   return showForm ? (
     <>
         <div id="storeCommentContainer">
