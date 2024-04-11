@@ -3,7 +3,6 @@ import { reviewAPI } from "./reviewAPI/ReviewAPI"
 import { updateUser } from "./userAPI/UserAPI"
 
 export const handleNewSubmission = async (user_id, user_email, venue, image, location, address, city, state, map, website, placeId, hours, rating, answers, editReview, reviewId, newReviewExistVenue, simpleRate) => {
-    console.log('at the top of handleNewSubmission')
     let newVenue;
     if (newReviewExistVenue || simpleRate) {
         newVenue = true

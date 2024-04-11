@@ -97,18 +97,12 @@ function Comment() {
             return 0
           }
         })
-        console.log(sortedComments)
-      console.log(allComments[0])
       // replace allComments[0] with the new sorted comments
       allComments[0] = sortedComments
-      console.log(allComments[0])
       setCommentObject(allComments)
       } else {
         setCommentObject(allComments)
-      }
-      
-      
-      
+      } 
     }
   },[currentVenueData, home])
 
