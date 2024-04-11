@@ -84,6 +84,31 @@ function Comment() {
   useEffect(() => {
     if (home === 'store' && currentVenueData && currentVenueData.reviews) {
       setCommentObject(commentObjectCreation(currentVenueData.reviews))
+      let allComments = commentObjectCreation(currentVenueData.reviews)
+      let sortedComments;
+      // sort the comments based on if userData is the same
+      if (userData) {
+        sortedComments = [...allComments[0]].sort((a,b) => {
+          if (a.userEmail === userData.email) {
+            return -1
+          } else if (b.userEmail === userData.email) {
+            return 1
+          } else {
+            return 0
+          }
+        })
+        console.log(sortedComments)
+      console.log(allComments[0])
+      // replace allComments[0] with the new sorted comments
+      allComments[0] = sortedComments
+      console.log(allComments[0])
+      setCommentObject(allComments)
+      } else {
+        setCommentObject(allComments)
+      }
+      
+      
+      
     }
   },[currentVenueData, home])
 
@@ -98,8 +123,6 @@ function Comment() {
   function toSeeReviews(data) {
     setSeeAllReviews(data);
   }
-
-  console.log(commentObject)
 
   return (
     <>

@@ -1,27 +1,9 @@
 1. frontend
-    - add logic to comment section -- here!
-        - what issues are outstanding with comment section?
-                - // user logged in and is owner of one of the many comments @ count 4
-                    - it shows the same comment at top for each user, want it to show the logged in users comment first
-                    - if see less comments is active, then it shows the 2nd comment avatar, if it is closed then when opened the 2nd comment avatar is not seen
-                - want the two links to be on the same level but doing this has created other issues
-                - want to current users comment to always be at the top
-                - want the edit comment link to always be with the current users comment
-            - while logged out -- here!
-                - without comments
-                - with comments
-            - while logged in
-                - with own comment
-                - with other user comment
-                - with no comment
-        - if current user has a comment then display it on top with the choice to delete or edit, 
-        else display the newest comment with a choice to add their overwriting
-        - fix above links
-        - turn edit link to change view to show input textarea with previous comment loaded for edit comment or the textarea fresh for a new comment
     - add filter logic
         - change color of filter icon to the aggregate review color
         - when clicking on filter sort list by those venues that have a rating for that filter
     - add info to map markers
+    - change hearts to faces
 
 4. Bugs 
     - after adding new venue and review the form is not cleared -- unless a refresh is made
@@ -42,6 +24,7 @@
     - heart icon also not changing aggregate data on a new venue, or reflecting on main page
     - edit form on summary nothing is being pulled in (image etc) and it is registering as undefined for the venue
     - on pages page in mobile view a state with only 2 cities, the 2nd city does not fit the container
+    - comment section: - if see less comments is active, then it shows the 2nd comment avatar, if it is closed then when opened the 2nd comment avatar is not seen, seems to only happen when logged in
          
 
 
