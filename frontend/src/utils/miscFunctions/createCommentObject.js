@@ -2,7 +2,7 @@ export default function commentObjectCreation(reviews) {
     let commentObject = []
     let count = 0
     reviews.map((review) => {
-    if (review.answers[0].xcom !== undefined) {
+    if (review.answers[0].xcom !== undefined && review.answers[0].xcom !== '') {
         count++
         commentObject = [...commentObject, {
             'userId': review.user_id, 

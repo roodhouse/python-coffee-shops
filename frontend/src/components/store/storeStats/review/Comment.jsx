@@ -112,6 +112,8 @@ function Comment() {
     setSeeAllReviews(data);
   }
 
+  console.log(commentObject)
+
   return (
     <>
       
@@ -119,7 +121,8 @@ function Comment() {
           commentObject &&
           commentObject[0] &&
           commentObject[0].map((comment, index) => (
-            <div
+            comment !== '' ? (
+              <div
               id={`${index}CommentContainer`}
               key={index}
               className='font-["PT_SERIF"]'
@@ -145,6 +148,7 @@ function Comment() {
                 />
               </div>
             </div>
+            ) : ''
           ))
         ) : (
           // return just the first review comment
