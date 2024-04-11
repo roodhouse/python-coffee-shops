@@ -36,9 +36,11 @@ function App() {
                 <Cities />
               </div>
 
-              <div id='storeWrapper' style={home === 'store' ? {display: 'block'} : {display: 'none'}} className='w-full'>
-                <Store />
-              </div>
+              <DashProvider>
+                <div id='storeWrapper' style={home === 'store' ? {display: 'block'} : {display: 'none'}} className='w-full'>
+                  <Store />
+                </div>
+              </DashProvider>
 
               <div id='addWrapper' style={home === 'suggest' ? {display: 'block'} : {display: 'none'}} className='mt-[2rem] px-[.75rem]'>
                 <Add />

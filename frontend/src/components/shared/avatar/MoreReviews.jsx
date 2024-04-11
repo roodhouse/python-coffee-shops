@@ -25,7 +25,7 @@ function MoreReviews({toSeeReviews}) {
                    : (
                       <FaCaretUp />
                   )}</span>
-                  <span className='underline' onClick={handleClick}>{arrow === 'up' ? 'See less reviews' : 'See all reviews'}</span>
+                  <span className='underline' onClick={handleClick}>{arrow === 'up' ? 'See less comments' : 'See all comments'}</span>
                 </p>
               </div>
     </>

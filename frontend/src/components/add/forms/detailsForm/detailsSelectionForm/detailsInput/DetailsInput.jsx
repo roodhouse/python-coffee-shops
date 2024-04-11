@@ -14,11 +14,12 @@ function DetailsInput({id}) {
     const onSubmit = () => {    
      let comment = document.getElementById(`${id}Comment`)
      if (comment.value !== '') {
+        let newXcom = comment.value
         setCurrentAnswers((prevStates) => {
             if (!editReview) {
                 return {
                     ...prevStates,
-                    xcom: comment.value
+                    xcom: newXcom
                 }
             } else {
                 try {
@@ -26,7 +27,7 @@ function DetailsInput({id}) {
                         if (index === 0) {
                             return {
                                 ...answer,
-                                xcom: comment.value
+                                xcom: newXcom
                             }
                         }
                         return answer
@@ -151,7 +152,18 @@ function DetailsInput({id}) {
                     </div>
                 ))}
                 <div id="commentContainer">
-                    <textarea name={`${id}Comment`} id={`${id}Comment`} cols="10" rows="5" maxLength={100} {...register('comment')} placeholder={`Leave a short comment about ${formData.venue}`} className='w-full mb-8 bg-[#f5f5f5] rounded p-3'></textarea>
+                    <textarea 
+                        name={`${id}Comment`} 
+                        id={`${id}Comment`} 
+                        cols="10" 
+                        rows="5" 
+                        maxLength={100} 
+                        {...register('comment')} 
+                        className='w-full mb-8 bg-[#f5f5f5] rounded p-3'
+                        defaultValue={editReview ? (currentAnswers?.answers?.[0]?.xcom || '') : ''}
+                        placeholder={`Leave a short comment about ${formData.venue}`} 
+                        >
+                        </textarea>
                 </div>
                 <div id="detailInputButtonContainer" className='flex justify-between'>
                     <div id="detailInputBackButtonWrapper">

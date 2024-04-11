@@ -27,6 +27,7 @@ const MainProvider = ({ children }) => {
     const [ isLoaded, setIsLoaded ] = useState(false)
     const [ avatarMod, setAvatarMod ] = useState(false)
     const [ currentPlaceId, setCurrentPlaceId ] = useState()
+    const [ count, setCount ] = useState(0)
 
     const googleAPI = process.env.REACT_APP_GOOGLE_API_KEY;
 
@@ -229,6 +230,11 @@ const MainProvider = ({ children }) => {
         setCurrentPlaceId(null)
     }
 
+    // change count on store page for comments
+    let changeCount = (data) => {
+        setCount(data)
+    }
+
     // get single venue data
     useEffect(() => {
         if (home === 'store') {
@@ -308,7 +314,7 @@ const MainProvider = ({ children }) => {
     {
         {
             home, currentCity, venueCount, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn, successLogin, logout,
-            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review, aggDataUpdated, clearVenue, clearCurrentVenueData, isLoaded, showMod, avatarMod, closeMod, currentPlaceId
+            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review, aggDataUpdated, clearVenue, clearCurrentVenueData, isLoaded, showMod, avatarMod, closeMod, currentPlaceId, count, changeCount
         }
     }>
         {children}

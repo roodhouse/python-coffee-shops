@@ -8,7 +8,7 @@ function Review() {
     <>
       <div id="reviewContainer">
         <div id="reviewHeadingWrapper">
-          <StoreHeading heading={"Reviews"} />
+          <StoreHeading heading={"Comments"} />
         </div>
         <div id="commentWrapper">
           <Comment />

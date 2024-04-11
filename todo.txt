@@ -1,12 +1,9 @@
 1. frontend
-    - add logic to comment section -- here!
-        - if current user has a comment then display it on top with the choice to delete or edit, 
-        else display the newest comment with a choice to add their overwriting
-        - turn edit review link into edit comment and change view to show input textarea with previous comment loaded
     - add filter logic
         - change color of filter icon to the aggregate review color
         - when clicking on filter sort list by those venues that have a rating for that filter
     - add info to map markers
+    - change hearts to faces
 
 4. Bugs 
     - after adding new venue and review the form is not cleared -- unless a refresh is made
@@ -25,6 +22,9 @@
     - simple rate on venue not from seeds still change wrong category, click on icons is off too
         - could be for when a category does not have any data
     - heart icon also not changing aggregate data on a new venue, or reflecting on main page
+    - edit form on summary nothing is being pulled in (image etc) and it is registering as undefined for the venue
+    - on pages page in mobile view a state with only 2 cities, the 2nd city does not fit the container
+    - comment section: - if see less comments is active, then it shows the 2nd comment avatar, if it is closed then when opened the 2nd comment avatar is not seen, seems to only happen when logged in
          
 
 

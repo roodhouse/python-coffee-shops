@@ -1,7 +1,5 @@
 import React from 'react'
 
-// replace with info from db
-
 function CommentBody({comment}) {
   return (
     <>

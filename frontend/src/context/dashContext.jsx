@@ -9,7 +9,7 @@ import { aggregateResults } from "../utils/aggregateResults/aggregateResults";
 const DashboardContext = createContext()
 
 const DashProvider = ({children}) => {
-    const { userData, home, setVenue, setCity, setPage, aggDataUpdated } = useMain()
+    const { userData, home, setVenue, setCity, setPage, aggDataUpdated, review } = useMain()
     const { sendResults } = useAddForm()
     const [ venueReviews, setVenueReviews ] = useState(null)
     const [ editResponse, setEditResponse ] = useState(null)
@@ -47,13 +47,13 @@ const DashProvider = ({children}) => {
         setTableHeadings(baseHeadings)
     }
 
-    // handle onClick types --- continue below here!
-    const clickType = (heading, reviewData, event, id) => {
+    // handle onClick types
+    const clickType = (heading, reviewData, event, id, place_id) => {
         switch (heading) {
             case 'ID':
                 return
             case 'Venue':
-                return handleVenueClick(reviewData)
+                return handleVenueClick(reviewData, place_id)
             case 'Location':
                 return handleLocationClick(reviewData)
             case 'Rating':
@@ -70,8 +70,9 @@ const DashProvider = ({children}) => {
 
     // onClick functions
     // venue click
-    const handleVenueClick = (reviewData) => {
-        setVenue(reviewData)
+    const handleVenueClick = (reviewData, place_id) => {
+        console.log(reviewData)
+        setVenue(place_id)
       }
     
       // location click
@@ -94,13 +95,61 @@ const DashProvider = ({children}) => {
         }
       }
 
-      // handle submit of comment click
+      // handle submit of comment click from dash
       const handleSubmitCommentClick = (reviewId) => {
         const commentValue = document.getElementById(`${reviewId}-editComment`).value
         let category = 'singleDash'
         currentAnswers.xcom = commentValue
         let submission = currentAnswers
         sendResults(submission, category, reviewId)
+      }
+
+      // handle submit of comment click from store page
+      const handleSubmitStoreCommentClick = (reviewId) => {
+          const commentValue = document.getElementById(`${reviewId}-storeEditComment`).value
+
+        if (reviewId === 'newComment') {
+            console.log(reviewId)
+            // this is a new review submission with only a comment
+             // when review is new
+             let questionsAnswers = [ 
+                {
+                'p1' : '',
+                'p2' : '',
+                'p3' : '',
+                'p4' : '',
+                'p5' : '',
+                'p6' : '',
+                'c1' : '',
+                'c2' : '',
+                'ser1' : '',
+                'ser2' : '',
+                'ser3' : '',
+                'ser4' : '',
+                'ser5' : '',
+                'sp1' : '',
+                'sp2' : '',
+                'sp3' : '',
+                'sp4' : '',
+                'sp5' : '',
+                'sp6' : '',
+                'sp7' : '',
+                'sp8' : '',
+                'sp9' : '',
+                'sum' : '',
+                'xcom': ''
+                }
+            ]
+            questionsAnswers[0]['xcom'] = commentValue
+            let submission = questionsAnswers
+            let category = 'simpleRateNew'
+            sendResults(submission, category)
+        } else {
+            let category = 'singleStore'
+            review.answers[0].xcom = commentValue
+            let submission = review.answers[0]
+            sendResults(submission, category, reviewId)
+        }
       }
 
       // review edit button click
@@ -114,7 +163,7 @@ const DashProvider = ({children}) => {
         }
       }
 
-      // review delete button click
+      // review delete button click from dash
       const handleDelete = async (data, review) => {
         let reviewId = review.review_id
         if (data === 'comment') {
@@ -153,10 +202,23 @@ const DashProvider = ({children}) => {
         }
       }
 
+       // review delete button click from dash
+       const handleDeleteCommentFromStore = async (data, review) => {
+        let reviewId = review.review_id
+        console.log(review)
+        if (data === 'comment') {
+            // delete comment
+           review.answers.xcom = null
+           let submission = review.answers
+           let category = 'singleStore'
+           sendResults(submission, category, reviewId)
+        } 
+      }
+
     return <DashboardContext.Provider value =
         {
             {
-                venueReviews, setVenueReviews, editResponse, currentAnswers, currentComment, tableHeadings, clickType, handleEditClick, handleDelete, handleSubmitCommentClick
+                venueReviews, setVenueReviews, editResponse, currentAnswers, currentComment, tableHeadings, clickType, handleEditClick, handleDelete, handleSubmitCommentClick, handleSubmitStoreCommentClick, handleDeleteCommentFromStore
             }
         }>
             {children}

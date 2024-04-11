@@ -2,8 +2,10 @@ import React from "react";
 import { useDashContext } from "../../../../../../../../context/dashContext";
 
 function CommentData({ review, reviewData, index, heading }) {
+  
   const { currentComment, handleSubmitCommentClick, handleDelete } =
     useDashContext();
+
   return currentComment !== null ? (
     <>
       <div id="commentContainer">
@@ -13,7 +15,7 @@ function CommentData({ review, reviewData, index, heading }) {
           cols="10"
           rows="5"
           maxLength={100}
-          className="w-full mb-8 bg-[#f5f5f5] rounded p-3"
+          className="w-full mb-8 bg-[#f5f5f5] rounded p-3 text-black"
           defaultValue={review.answers.xcom}
         ></textarea>
       </div>
