@@ -15,8 +15,6 @@ function Places() {
         setVenue(placeId, placeName)
     }
 
-    console.log(venues)
-
   return (
     <>
         <div id="placesContainer">

@@ -8,9 +8,6 @@ function PlaceEssentials({ name, hours, address, aggregate }) {
 
   const { placeIcons } = useMain()
 
-  console.log(placeIcons)
-  console.log(aggregate)
-
   return (
     <>
         <div id="placeEssentialsContainer">
