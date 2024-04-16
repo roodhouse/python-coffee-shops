@@ -25,6 +25,7 @@
     - edit form on summary nothing is being pulled in (image etc) and it is registering as undefined for the venue
     - on pages page in mobile view a state with only 2 cities, the 2nd city does not fit the container
     - comment section: - if see less comments is active, then it shows the 2nd comment avatar, if it is closed then when opened the 2nd comment avatar is not seen, seems to only happen when logged in
+    - filter: when all icons in space are selected then the layout breaks
          
 
 

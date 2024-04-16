@@ -4,9 +4,12 @@ import PlaceLocation from './placeEssentials/PlaceLocation'
 import PlaceHours from './placeEssentials/PlaceHours'
 import { useMain } from '../../../../../context/main'
 
-function PlaceEssentials({ name, hours, address }) {
+function PlaceEssentials({ name, hours, address, aggregate }) {
 
   const { placeIcons } = useMain()
+
+  console.log(placeIcons)
+  console.log(aggregate)
 
   return (
     <>
@@ -21,11 +24,19 @@ function PlaceEssentials({ name, hours, address }) {
                 <PlaceLocation address={address} margin={'mr-2'} />
             </div>
             <div id="placeFilterIconsContainer" style={placeIcons.length > 0 ? {display: 'flex'} : {display: 'none'}} className=''>
-                {placeIcons.length > 0 ? (
+                {placeIcons.length > 0 && aggregate ? (
                     placeIcons.map((icon) => (
-                        <div key={icon.label} id={icon.label+'PlaceContainer'} className='border-2 text-red border-red p-1 rounded mr-2 mt-2'>
+                        aggregate[icon.label] !== null ? (
+                        <div 
+                            key={icon.label} 
+                            id={icon.label+'PlaceContainer'} 
+                            className='border-2 p-1 rounded mr-2 mt-2'
+                            style={{borderColor: aggregate[icon.label] === 0 ? 'red' : aggregate[icon.label] >= 1 && aggregate[icon.label] < 2 ? '#F6D95E' : aggregate[icon.label] === 2 ? '#4CAF4F' : '', color: aggregate[icon.label] === 0 ? 'red' : aggregate[icon.label] >= 1 && aggregate[icon.label] < 2 ? '#F6D95E' : aggregate[icon.label] === 2 ? '#4CAF4F' : ''}}
+                            >
                             {icon.icon}
                         </div>
+
+                        ) : ''
                     ))
                 ) : ''}
             </div>

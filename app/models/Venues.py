@@ -19,7 +19,8 @@ class Venues(Base):
     rating = Column(Float)
 
     review_count = Column(Integer, default=0)
-
+    
     # define relationship
+    aggregates = relationship('VenueAggregates', back_populates='venue')
     reviews = relationship('Reviews', back_populates='venue')
     comments = relationship('Comments', back_populates='venue')
