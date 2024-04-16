@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useMain } from '../../context/main'
 import PlacesTitle from './places/PlacesTitle'
 import PlacesCard from './places/PlacesCard'
 import PlacesNew from './places/PlacesNew'
+import sortVenues from '../../utils/miscFunctions/sortVenues'
 
 function Places() {
 
-    const { setVenue, venues } = useMain() 
+    const { setVenue, venues } = useMain()
+    const [ sortedVenues, setSortedVenues ] = useState()
 
     const handleClick = (e) => { 
         let placeCard = e.currentTarget
@@ -15,6 +17,8 @@ function Places() {
         setVenue(placeId, placeName)
     }
 
+    sortVenues(venues)
+    
   return (
     <>
         <div id="placesContainer">

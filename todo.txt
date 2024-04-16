@@ -1,7 +1,7 @@
 1. frontend
     - add filter logic
-        - change color of filter icon to the aggregate review color
-        - when clicking on filter sort list by those venues that have a rating for that filter
+        - when clicking on filter sort list by those venues that have a rating for that filter - here!
+            -- see sortVenues.js
     - add info to map markers
     - change hearts to faces
 
