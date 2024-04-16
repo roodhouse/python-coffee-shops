@@ -109,7 +109,6 @@ const DashProvider = ({children}) => {
           const commentValue = document.getElementById(`${reviewId}-storeEditComment`).value
 
         if (reviewId === 'newComment') {
-            console.log(reviewId)
             // this is a new review submission with only a comment
              // when review is new
              let questionsAnswers = [ 
@@ -205,7 +204,6 @@ const DashProvider = ({children}) => {
        // review delete button click from dash
        const handleDeleteCommentFromStore = async (data, review) => {
         let reviewId = review.review_id
-        console.log(review)
         if (data === 'comment') {
             // delete comment
            review.answers.xcom = null

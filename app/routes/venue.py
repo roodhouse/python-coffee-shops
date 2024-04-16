@@ -77,31 +77,62 @@ def get_venue(place_id):
         return jsonify({"error": "venue not found"}), 404
     
 # venues get current city route
-@venue_bp.route('/api/venues/<string:city>', methods=['GET'])
+@venue_bp.route('/api/venues/<string:city>', methods=['GET']) 
 def get_current_city_venues(city):
     db = get_db()
     # venues = db.query(Venues).order_by(Venues.id).all()
     venues = db.query(Venues).filter_by(city = city)
     # convert venues data to a list of dictionaries
-    venues_data = [
-        {
-            'id': venue.id,
-            'name': venue.name,
-            'image': venue.image,
-            'location': venue.location,
-            'address': venue.address,
-            'city': venue.city,
-            'state': venue.state,
-            'map': venue.map,
-            'website': venue.website,
-            'place_id': venue.place_id,
-            'hours': venue.hours,
-            'rating': venue.rating,
-            'review_count': venue.review_count
-        }
-        for venue in venues
-    ]
+    venues_data = []
+    for venue in venues:    
+        venues_dict = {
+                'id': venue.id,
+                'name': venue.name,
+                'image': venue.image,
+                'location': venue.location,
+                'address': venue.address,
+                'city': venue.city,
+                'state': venue.state,
+                'map': venue.map,
+                'website': venue.website,
+                'place_id': venue.place_id,
+                'hours': venue.hours,
+                'rating': venue.rating,
+                'review_count': venue.review_count,
+                'aggregates': None
+            }
+        
+        # include agg data for venue
+        if venue.aggregates:
+            aggregate = venue.aggregates[0]
+            venues_dict['aggregates'] = {
+                'Work Vibe': aggregate.c1,
+                'Groups': aggregate.c2,
+                'Wi-Fi': aggregate.p1,
+                'Sockets': aggregate.p2,
+                'Long Stays': aggregate.p3,
+                'Tables': aggregate.p4,
+                'Quiet': aggregate.p5,
+                'Calls': aggregate.p6,
+                'Coffee': aggregate.ser1,
+                'Food': aggregate.ser2,
+                'Veggie': aggregate.ser3,
+                'Alcohol': aggregate.ser4,
+                'Cards': aggregate.ser5,
+                'Light': aggregate.sp1,
+                'Outdoor': aggregate.sp2,
+                'Spacious': aggregate.sp3,
+                'Restroom': aggregate.sp4,
+                'Accessible': aggregate.sp5,
+                'A/C': aggregate.sp6,
+                'No smoke': aggregate.sp7,
+                'Pets': aggregate.sp8,
+                'Parking': aggregate.sp9,
+                'Summary': aggregate.sum
+            }
 
+        venues_data.append(venues_dict)
+    
     return jsonify({'venues': venues_data})
 
 # venues latest

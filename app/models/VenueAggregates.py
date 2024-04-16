@@ -1,11 +1,11 @@
 from app.db import Base
-from sqlalchemy import Column, Integer, String, JSON, Float
-import requests
+from sqlalchemy import Column, ForeignKey, Integer, String, Float
+from sqlalchemy.orm import relationship
 
 class VenueAggregates(Base):
     __tablename__ = 'aggregates'
     id = Column(Integer)
-    placeId = Column(String(250), nullable=False, primary_key=True)
+    placeId = Column(String(250), ForeignKey('venues.place_id'), nullable=False, primary_key=True)
     name = Column(String(250), nullable=False)
     c1 = Column(Float)
     c2 = Column(Float)
@@ -30,4 +30,7 @@ class VenueAggregates(Base):
     sp8 = Column(Float)
     sp9 = Column(Float)
     sum = Column(Float)
+
+    # define relationships
+    venue = relationship('Venues', back_populates='aggregates')
 

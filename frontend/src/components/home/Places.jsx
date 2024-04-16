@@ -6,7 +6,7 @@ import PlacesNew from './places/PlacesNew'
 
 function Places() {
 
-    const { setVenue, venues, review } = useMain()
+    const { setVenue, venues } = useMain() 
 
     const handleClick = (e) => { 
         let placeCard = e.currentTarget
@@ -24,7 +24,7 @@ function Places() {
             {venues !== null ? (
                 venues.venues.map((venue) => (
                     <div key={venue.id} id={`placesCardWrapper-${venue.name}`} className='pb-4' data-uniqueplaceid={venue.place_id} data-placename={venue.name} onClick={handleClick}>
-                        <PlacesCard image={venue.image} rating={(venue.rating/2) * 100} name={venue.name} hours={venue.hours} address={venue.address} />
+                        <PlacesCard image={venue.image} rating={(venue.rating/2) * 100} name={venue.name} hours={venue.hours} address={venue.address} aggregate={venue.aggregates} />
                     </div>    
                 ))
             ) : ''}
