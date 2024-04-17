@@ -16,6 +16,7 @@ const MainProvider = ({ children }) => {
     const [ currentVenueData, setCurrentVenueData ] = useState()
     const [ currentVenueAgg, setCurrentVenueAgg ] = useState()
     const [ filter, setFilter ] = useState(false)
+    const [ currentFilter, setCurrentFilter ] = useState([])
     const [ placeIcons, setPlaceIcons ] = useState([])
     const [ loggedIn, setLoggedIn ] = useState(false)
     const [ userData, setUserData ] = useState(null)
@@ -282,16 +283,23 @@ const MainProvider = ({ children }) => {
 
     // set place icons
     function addPlaceIcons(icon) {
+        console.log(icon)
         let currentIcons = [...placeIcons]
+        let currentLabels = [...currentFilter]
         currentIcons.push(icon)
+        currentLabels.push(icon.label)
         setPlaceIcons(currentIcons)
+        setCurrentFilter(currentLabels)
     }
 
     // remove place icons
     function removePlaceIcons(icon) {
         let currentIcons = [...placeIcons]
+        let currentLabels = [...currentFilter]
         currentIcons.splice(icon, 1)
+        currentLabels.splice(icon.label, 1)
         setPlaceIcons(currentIcons)
+        setCurrentFilter(currentLabels)
     }
 
     // display avatar mask and module
@@ -314,7 +322,8 @@ const MainProvider = ({ children }) => {
     {
         {
             home, currentCity, venueCount, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn, successLogin, logout,
-            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review, aggDataUpdated, clearVenue, clearCurrentVenueData, isLoaded, showMod, avatarMod, closeMod, currentPlaceId, count, changeCount
+            venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review, aggDataUpdated, clearVenue, clearCurrentVenueData, isLoaded, showMod, avatarMod, closeMod, currentPlaceId, count, changeCount,
+            currentFilter
         }
     }>
         {children}

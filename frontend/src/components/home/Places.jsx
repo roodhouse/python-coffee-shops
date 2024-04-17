@@ -7,7 +7,7 @@ import sortVenues from '../../utils/miscFunctions/sortVenues'
 
 function Places() {
 
-    const { setVenue, venues } = useMain()
+    const { setVenue, venues, currentFilter } = useMain()
     const [ sortedVenues, setSortedVenues ] = useState()
 
     const handleClick = (e) => { 
@@ -17,7 +17,7 @@ function Places() {
         setVenue(placeId, placeName)
     }
 
-    sortVenues(venues)
+    sortVenues(venues, currentFilter)
     
   return (
     <>
