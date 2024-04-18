@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useMain } from '../../context/main'
 import PlacesTitle from './places/PlacesTitle'
 import PlacesCard from './places/PlacesCard'
@@ -17,7 +17,11 @@ function Places() {
         setVenue(placeId, placeName)
     }
 
-    sortVenues(venues, currentFilter)
+    useEffect(() => {
+        setSortedVenues(sortVenues(venues, currentFilter))
+    },[venues, currentFilter])
+
+    console.log('The sorted Venues are: ', sortedVenues)
     
   return (
     <>
