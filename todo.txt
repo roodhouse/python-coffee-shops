@@ -1,7 +1,7 @@
 1. frontend
     - add filter logic
         - when clicking on filter sort list by those venues that have a rating for that filter - here!
-            -- see sortVenues.js
+            -- see here on sortVenues.js
     - add info to map markers
     - change hearts to faces
 

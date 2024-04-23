@@ -20,8 +20,6 @@ function Places() {
     useEffect(() => {
         setSortedVenues(sortVenues(venues, currentFilter))
     },[venues, currentFilter])
-
-    console.log('The sorted Venues are: ', sortedVenues)
     
   return (
     <>
@@ -29,8 +27,15 @@ function Places() {
             <div id="placesTitleWrapper" className='pb-4'>
                 <PlacesTitle />
             </div>
-            {venues !== null ? (
+            {/* {venues !== null ? (
                 venues.venues.map((venue) => (
+                    <div key={venue.id} id={`placesCardWrapper-${venue.name}`} className='pb-4' data-uniqueplaceid={venue.place_id} data-placename={venue.name} onClick={handleClick}>
+                        <PlacesCard image={venue.image} rating={(venue.rating/2) * 100} name={venue.name} hours={venue.hours} address={venue.address} aggregate={venue.aggregates} />
+                    </div>    
+                ))
+            ) : ''} */}
+            {sortedVenues !== undefined ? (
+                sortedVenues.map((venue) => (
                     <div key={venue.id} id={`placesCardWrapper-${venue.name}`} className='pb-4' data-uniqueplaceid={venue.place_id} data-placename={venue.name} onClick={handleClick}>
                         <PlacesCard image={venue.image} rating={(venue.rating/2) * 100} name={venue.name} hours={venue.hours} address={venue.address} aggregate={venue.aggregates} />
                     </div>    

@@ -283,7 +283,6 @@ const MainProvider = ({ children }) => {
 
     // set place icons
     function addPlaceIcons(icon) {
-        console.log(icon)
         let currentIcons = [...placeIcons]
         let currentLabels = [...currentFilter]
         currentIcons.push(icon)
