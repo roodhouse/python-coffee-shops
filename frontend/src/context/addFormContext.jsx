@@ -154,7 +154,7 @@ const AddFormProvider = ({ children }) => {
                 {
                     question: 'How long can you comfortably stay and work?',
                     key: 'p3',
-                    label: 'Long stays',
+                    label: 'Long Stays',
                     icon: <FaUserClock />,
                     answers: [
                         {

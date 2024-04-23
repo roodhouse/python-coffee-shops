@@ -28,12 +28,20 @@ function PlaceEssentials({ name, hours, address, aggregate }) {
                             key={icon.label} 
                             id={icon.label+'PlaceContainer'} 
                             className='border-2 p-1 rounded mr-2 mt-2'
-                            style={{borderColor: aggregate[icon.label] === 0 ? 'red' : aggregate[icon.label] >= 1 && aggregate[icon.label] < 2 ? '#F6D95E' : aggregate[icon.label] === 2 ? '#4CAF4F' : '', color: aggregate[icon.label] === 0 ? 'red' : aggregate[icon.label] >= 1 && aggregate[icon.label] < 2 ? '#F6D95E' : aggregate[icon.label] === 2 ? '#4CAF4F' : ''}}
+                            style={{borderColor: aggregate[icon.label] < 1 ? 'red' : aggregate[icon.label] >= 1 && aggregate[icon.label] < 2 ? '#F6D95E' : aggregate[icon.label] === 2 ? '#4CAF4F' : '', color: aggregate[icon.label] < 1 ? 'red' : aggregate[icon.label] >= 1 && aggregate[icon.label] < 2 ? '#F6D95E' : aggregate[icon.label] === 2 ? '#4CAF4F' : ''}}
                             >
                             {icon.icon}
                         </div>
 
-                        ) : ''
+                        ) : (
+                            <div
+                            key={icon.label} 
+                            id={icon.label+'PlaceContainer'} 
+                            className='border-[gray] text-[gray] border-2 p-1 rounded mr-2 mt-2'
+                            >
+                                {icon.icon}
+                            </div>
+                        )
                     ))
                 ) : ''}
             </div>

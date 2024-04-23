@@ -1,8 +1,5 @@
 1. frontend
-    - add filter logic
-        - change color of filter icon to the aggregate review color
-        - when clicking on filter sort list by those venues that have a rating for that filter
-    - add info to map markers
+    - add info to map markers - here!
     - change hearts to faces
 
 4. Bugs 
