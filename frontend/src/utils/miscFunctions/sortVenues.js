@@ -1,5 +1,4 @@
 export default function sortVenues(venues, currentFilter) {
-    console.log(currentFilter)
     if (venues) {
         let newVenuesObject = []
         let venuesArray = Object.entries(venues)
@@ -30,13 +29,32 @@ export default function sortVenues(venues, currentFilter) {
                 return sortResult
             })
     } else {
-        console.log('more than 1')
-        // here!
-        // more than one filter is being used
-        // total the values for the filters of the venues
-        // sort newVeunesObject by values 
+        let scores = {}
+        newVenuesObject.forEach((venue) => {
+            let total = 0
+            for (const filter of Object.values(currentFilter)) {
+                if (venue.aggregates && venue.aggregates[filter]) {
+                    total += venue.aggregates[filter]
+                }
+                scores[venue.name] = total
+            }
+        })
+
+        newVenuesObject.sort((venueA, venueB) => {
+            const scoreA = scores[venueA.name] || 0
+            const scoreB = scores[venueB.name] || 0
+
+            if (scoreA < scoreB) {
+                return 1
+            }
+
+            if (scoreA > scoreB) {
+                return -1
+            }
+
+            return 0
+        })
     }
-    
         return newVenuesObject
     }
 }
