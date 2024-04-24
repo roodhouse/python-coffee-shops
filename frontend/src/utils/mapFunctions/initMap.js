@@ -59,6 +59,7 @@ export function initMap(longitude, latitude, onSubmitCallback) {
 
             const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+            // todo, all the coordinates from the data as the locations...
             const locations = [
                 {
                     lat: 30.627946853637695,
@@ -83,7 +84,8 @@ export function initMap(longitude, latitude, onSubmitCallback) {
                 });
 
                 marker.addListener("click", () => {
-                    infoWindow.setContent(position.lat + ", " + position.lng);
+                    // todo: add location info here
+                    infoWindow.setContent(position.lat + ", " + position.lng + 'test');
                     infoWindow.open(mapLarge, marker);
                 });
                 return marker;
