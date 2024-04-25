@@ -60,25 +60,28 @@ export function initMap(longitude, latitude, venues, onSubmitCallback) {
             const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
             // todo, all the coordinates from the data as the locations...
-            // const locations = [
-            //     {
-            //         lat: 30.627946853637695,
-            //         lng: -97.85050201416016,
-            //     },
-            //     {
-            //         lat: 30.647946853637695,
-            //         lng: -97.85050201416016,
-            //     },
-            // ];
-
-            // error here ... 
-            let locations = venues.forEach((venue) => {
-                return {
-                    lat: venue.location[0].lat,
-                    lng: venue.location[0].lng
-                }
+            
+            const locations = []
+            const venuesArray = Object.entries(venues)
+            console.log(venuesArray)
+            venuesArray[0][1].forEach((venue) => {
+                locations.push(
+                    {
+                        'id': venue.id,
+                        'place_id': venue.place_id,
+                        'name': venue.name,
+                        'image': venue.image,
+                        'rating': venue.rating,
+                        'hours': venue.hours,
+                        'address': venue.address,
+                        'aggregates': venue.aggregates,
+                        'lat': venue.location[0].lat,
+                        'lng': venue.location[0].lng
+                    }
+                )
             })
 
+            console.log(locations)
             const markers = locations.map((position, i) => {
                 const label = labels[i % labels.length];
                 const pinGlyph = new google.maps.marker.PinElement({
@@ -93,7 +96,15 @@ export function initMap(longitude, latitude, venues, onSubmitCallback) {
 
                 marker.addListener("click", () => {
                     // todo: add location info here
-                    infoWindow.setContent(position.lat + ", " + position.lng + 'test');
+                    infoWindow.setContent(`
+                                        <div id='${position.id}-markerContentContainer' class='w-[218px] h-[218px]'>
+                                            <div id='${position.id}-markerHeading' class='text-xl'>
+                                                <h1>${position.name}</h1>
+                                            </div>
+                                            <div id='${position.id}-markerImage' class='w-full h-[40%]'>
+                                                <img src='${position.image}' alt='${position.name}' class='w-full h-full object-cover' />
+                                            </div>
+                                        </div>`);
                     infoWindow.open(mapLarge, marker);
                 });
                 return marker;

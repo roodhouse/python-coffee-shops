@@ -1,5 +1,6 @@
 1. frontend
     - add info to map markers - here!
+        - new error in ConfirmMap. Need to fix that and then get back to the pop up -- here!
         - see initMap.js for passing locations coordinates -- see error
         - add marker info, see todo for add location info
     - change hearts to faces
