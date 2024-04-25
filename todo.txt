@@ -1,6 +1,6 @@
 1. frontend
     - add info to map markers - here!
-        - see initMap.js for passing locations coordinates
+        - see initMap.js for passing locations coordinates -- see error
         - add marker info, see todo for add location info
     - change hearts to faces
 

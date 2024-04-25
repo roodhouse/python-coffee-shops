@@ -3,8 +3,8 @@ import { MarkerClusterer } from "@googlemaps/markerclusterer";
 
 const googleAPI = process.env.REACT_APP_GOOGLE_API_KEY;
 
-export function initMap(longitude, latitude, onSubmitCallback) {
-    console.log('map called');
+export function initMap(longitude, latitude, venues, onSubmitCallback) {
+    console.log('map called', venues);
     
     return new Promise((resolve, reject) => {
         const loader = new Loader({
@@ -60,16 +60,24 @@ export function initMap(longitude, latitude, onSubmitCallback) {
             const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
             // todo, all the coordinates from the data as the locations...
-            const locations = [
-                {
-                    lat: 30.627946853637695,
-                    lng: -97.85050201416016,
-                },
-                {
-                    lat: 30.647946853637695,
-                    lng: -97.85050201416016,
-                },
-            ];
+            // const locations = [
+            //     {
+            //         lat: 30.627946853637695,
+            //         lng: -97.85050201416016,
+            //     },
+            //     {
+            //         lat: 30.647946853637695,
+            //         lng: -97.85050201416016,
+            //     },
+            // ];
+
+            // error here ... 
+            let locations = venues.forEach((venue) => {
+                return {
+                    lat: venue.location[0].lat,
+                    lng: venue.location[0].lng
+                }
+            })
 
             const markers = locations.map((position, i) => {
                 const label = labels[i % labels.length];
