@@ -5,7 +5,7 @@ import { useAddForm } from '../../../../../../context/addFormContext'
 
 function VenueInput({ register, errors, reset, watch, onSubmitCallback }) {
 
-    const { home } = useMain()
+    const { home, venues } = useMain()
     const { step, onLocationSelect, formData } = useAddForm()
 
     const selectedLocation = watch('venue')
@@ -16,8 +16,8 @@ function VenueInput({ register, errors, reset, watch, onSubmitCallback }) {
         let latitude;
         if (formData && formData.geometry && formData.geometry.viewport) {
           
-          longitude = formData.geometry.viewport.Jh.hi
-          latitude = formData.geometry.viewport.Zh.hi
+          longitude = formData.geometry.viewport.Gh.hi
+          latitude = formData.geometry.viewport.Vh.hi
         } else {
           longitude = -97.85050201416016
           latitude = 30.627946853637695
@@ -26,7 +26,7 @@ function VenueInput({ register, errors, reset, watch, onSubmitCallback }) {
         const fetchData = async () => {
             if (home === 'suggest' && step === 'venue') { 
                 try {
-                    const place = await initMap(longitude, latitude, onSubmitCallback)
+                    const place = await initMap(longitude, latitude, venues, onSubmitCallback)
                     onLocationSelect(place)
                 } catch (error) {
                     console.error(error)

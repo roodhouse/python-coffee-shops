@@ -4,12 +4,16 @@ import { useMain } from "../context/main";
 import { useAddForm } from "../context/addFormContext";
 
 function GMap({longitude, latitude, type}) {
-  const { home } = useMain();
+  const { home, venues, setVenue } = useMain();
   const { step } = useAddForm()
+
+  const handleMarkerClick = (placeId, venue) => {
+    setVenue(placeId, venue)
+  }
 
   useEffect(() => {
     if ((home === "map" && type === 'large') || (home === 'suggest' && type === 'small' && step === 'map')) {
-      initMap(longitude, latitude);
+      initMap(longitude, latitude, venues, handleMarkerClick);
     }
   }, [home, type, step]);
 

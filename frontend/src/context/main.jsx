@@ -1,6 +1,5 @@
 import React, { useContext, createContext, useState, useEffect } from "react";
 import authService from '../utils/auth'
-import { initMap } from "../utils/mapFunctions/initMap";
 import disableScroll from "../utils/scroll/disableScroll";
 import enableScroll from "../utils/scroll/enableScroll";
 
@@ -203,7 +202,7 @@ const MainProvider = ({ children }) => {
     },[venues])
 
     // select view
-    function setPage(page) {
+    function setPage(page) { 
         setHome(page)
     }
 

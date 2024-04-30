@@ -1,6 +1,5 @@
 1. frontend
-    - add info to map markers - here!
-    - change hearts to faces
+    - change hearts to faces - here!
 
 4. Bugs 
     - after adding new venue and review the form is not cleared -- unless a refresh is made
@@ -23,6 +22,9 @@
     - on pages page in mobile view a state with only 2 cities, the 2nd city does not fit the container
     - comment section: - if see less comments is active, then it shows the 2nd comment avatar, if it is closed then when opened the 2nd comment avatar is not seen, seems to only happen when logged in
     - filter: when all icons in space are selected then the layout breaks
+    - on large map the zoom should be more so that the area is more in center
+    - css changes to map features, like map icons etc
+    - only allow return on cofeeshops etc when using google search
          
 
 

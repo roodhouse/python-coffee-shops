@@ -29,8 +29,8 @@ function MapSelectionForm() {
                 map: formData.url,
                 location: [
                     {
-                        lng: formData.geometry.viewport.Jh.hi,
-                        lat: formData.geometry.viewport.Zh.hi
+                        lng: formData.geometry.viewport.Gh.hi,
+                        lat: formData.geometry.viewport.Vh.hi
                     }
                 ],
                 address: formData.formatted_address, 

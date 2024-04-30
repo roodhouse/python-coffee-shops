@@ -9,10 +9,18 @@ function ConfirmMap() {
  let longitude = -97.85050201416016; 
  let latitude = 30.627946853637695;
 
- if (formData && formData.geometry && formData.geometry.viewport) {
-  longitude = formData.geometry.viewport.Jh.hi
-  latitude = formData.geometry.viewport.Zh.hi
- }
+ if (
+    formData && 
+    formData.geometry && 
+    formData.geometry.viewport && 
+    formData.geometry.viewport.Gh && 
+    formData.geometry.viewport.Gh.hi && 
+    formData.geometry.viewport.Vh &&
+    formData.geometry.viewport.Vh.hi
+  ) {
+  longitude = formData.geometry.viewport.Gh.hi
+  latitude = formData.geometry.viewport.Vh.hi
+ } 
 
   
   return (
