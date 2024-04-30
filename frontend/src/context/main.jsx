@@ -202,7 +202,7 @@ const MainProvider = ({ children }) => {
     },[venues])
 
     // select view
-    function setPage(page) {
+    function setPage(page) { 
         setHome(page)
     }
 
