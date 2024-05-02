@@ -15,9 +15,8 @@ function VenueInput({ register, errors, reset, watch, onSubmitCallback }) {
         let longitude;
         let latitude;
         if (formData && formData.geometry && formData.geometry.viewport) {
-          
           longitude = formData.geometry.viewport.Gh.hi
-          latitude = formData.geometry.viewport.Vh.hi
+          latitude = formData.geometry.viewport.Wh.hi
         } else {
           longitude = -97.85050201416016
           latitude = 30.627946853637695

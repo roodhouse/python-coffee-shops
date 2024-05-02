@@ -1,24 +1,25 @@
 
 4. Bugs 
-    - after adding new venue and review the form is not cleared -- unless a refresh is made
-    - logic for if venue has already been added
-    - if view venue, log in, and then view venue again state does not update to see that user has left review or not
-    - set up history array so that when a login click happens and a successful login occurs it takes the user back to the page they came from
-    - clicking an answer in the form more than once will append a new value instead of overwriting the first value
-    - initial load still hows totals as 4500%.. need to run the aggregate results function sometime before a new venue is added 
-    - rating does not round but can be displayed as 33.33333 etc
-    - create new user, color is assigned, but next click show a different color
-    - a new review for an existing venue first time does not save the comment to the db, editing the review will save the comment
-    - simple rate on venue not from seeds still change wrong category, click on icons is off too
+    2. adding two new venues in a row throws error
+        - bob can't add a venue... can other users?
+    3. logic for if venue has already been added
+    4. if view venue, log in, and then view venue again state does not update to see that user has left review or not
+    5. set up history array so that when a login click happens and a successful login occurs it takes the user back to the page they came from
+    6. clicking an answer in the form more than once will append a new value instead of overwriting the first value
+    7. initial load still hows totals as 4500%.. need to run the aggregate results function sometime before a new venue is added 
+    8. rating does not round but can be displayed as 33.33333 etc
+    9. create new user, color is assigned, but next click show a different color
+    10. a new review for an existing venue first time does not save the comment to the db, editing the review will save the comment
+    11. simple rate on venue not from seeds still change wrong category, click on icons is off too
         - could be for when a category does not have any data
-    - heart icon also not changing aggregate data on a new venue, or reflecting on main page
-    - edit form on summary nothing is being pulled in (image etc) and it is registering as undefined for the venue
-    - on pages page in mobile view a state with only 2 cities, the 2nd city does not fit the container
-    - comment section: - if see less comments is active, then it shows the 2nd comment avatar, if it is closed then when opened the 2nd comment avatar is not seen, seems to only happen when logged in
-    - filter: when all icons in space are selected then the layout breaks
-    - on large map the zoom should be more so that the area is more in center
-    - css changes to map features, like map icons etc
-    - only allow return on cofeeshops etc when using google search
+    12. heart icon also not changing aggregate data on a new venue, or reflecting on main page
+    13. edit form on summary nothing is being pulled in (image etc) and it is registering as undefined for the venue
+    14. on pages page in mobile view a state with only 2 cities, the 2nd city does not fit the container
+    15. comment section: - if see less comments is active, then it shows the 2nd comment avatar, if it is closed then when opened the 2nd comment avatar is not seen, seems to only happen when logged in
+    16. filter: when all icons in space are selected then the layout breaks
+    17. on large map the zoom should be more so that the area is more in center
+    18. css changes to map features, like map icons etc
+    19. only allow return on cofeeshops etc when using google search
          
 
 
