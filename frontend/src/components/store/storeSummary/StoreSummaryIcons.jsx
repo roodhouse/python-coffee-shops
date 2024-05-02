@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaHeartCrack, FaHeart } from "react-icons/fa6";
+import { FaFaceFrown, FaFaceMeh, FaFaceSmile } from "react-icons/fa6";
 import { useMain } from '../../../context/main';
 import { useAddForm } from '../../../context/addFormContext';
 import { ratingChange } from '../../../utils/ratingChange/ratingChange';
@@ -30,7 +30,7 @@ function StoreSummaryIcons() {
             }
         } else {
             setPage('join')
-        }
+        } 
 
     }
 
@@ -38,13 +38,13 @@ function StoreSummaryIcons() {
     <>
         <div id="storeSummaryIconsContainer" className='flex justify-evenly text-5xl'>
             <div id="noIconContainer" className={usersOverallRating === 0 ? 'text-red' : 'text-[#ddd]'} onClick={handleClick}>
-                <FaHeartCrack />
+                <FaFaceFrown />
             </div>
             <div id="sometimesIconContainer" className={usersOverallRating === 1 ? 'text-[#f6D95E]' : 'text-[#ddd]'} onClick={handleClick}>
-                <FaHeart />
+                <FaFaceMeh />
             </div>
             <div id="yesIconContainer" className={usersOverallRating === 2 ? 'text-green' : 'text-[#ddd]'} onClick={handleClick}>
-                <FaHeart />
+                <FaFaceSmile />
             </div>
         </div>
     </>

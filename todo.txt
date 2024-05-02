@@ -1,5 +1,3 @@
-1. frontend
-    - change hearts to faces - here!
 
 4. Bugs 
     - after adding new venue and review the form is not cleared -- unless a refresh is made
@@ -11,10 +9,6 @@
     - rating does not round but can be displayed as 33.33333 etc
     - create new user, color is assigned, but next click show a different color
     - a new review for an existing venue first time does not save the comment to the db, editing the review will save the comment
-    - need to pull in the comment to the form when editing
-    - only show review section on store page if there is a review 
-    - wait to pass over any review without xcom and show the first comment with an xcom value if any
-    - review comments stopped appearing...
     - simple rate on venue not from seeds still change wrong category, click on icons is off too
         - could be for when a category does not have any data
     - heart icon also not changing aggregate data on a new venue, or reflecting on main page
