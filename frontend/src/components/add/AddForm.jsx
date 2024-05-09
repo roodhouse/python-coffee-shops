@@ -4,15 +4,23 @@ import MapForm from './forms/mapForm/MapForm'
 import ImageForm from './forms/imageForm/ImageForm'
 import DetailsForm from './forms/detailsForm/DetailsForm'
 import SummaryForm from './forms/summaryForm/SummaryForm'
+import RedundantVenue from './forms/redundantReview/RedundantVenue'
 import { useMain } from '../../context/main'
+import { useAddForm } from '../../context/addFormContext'
 
 function AddForm() {
 
     const { editReview } = useMain()
+    const { step } = useAddForm()
     
   return (
     <>
-        <div id="addFormContainer">
+        { step === 'redundant' ? (
+            <div id='redundantVenueWrapper'>
+                <RedundantVenue />
+            </div>
+        ) : (
+            <div id="addFormContainer">
         {!editReview ? (
             <>
                 <div id="venueFormWrapper">
@@ -33,6 +41,8 @@ function AddForm() {
                 <SummaryForm />
             </div>
         </div>
+        )}
+        
     </>
   )
 }
