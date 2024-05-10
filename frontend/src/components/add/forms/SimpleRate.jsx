@@ -6,7 +6,7 @@ import { singleItemRatingChange } from '../../../utils/ratingChange/singleItemRa
 
 function SimpleRate({page, type, current, code, toggle, data, reviewId}) {
 
-    const { userAuthenticated, setPage, review } = useMain()
+    const { userAuthenticated, setPage, review, home, currentVenue, setHistory } = useMain()
     const { sendResults } = useAddForm()
 
   const handleClick = (event) => {
@@ -69,6 +69,7 @@ function SimpleRate({page, type, current, code, toggle, data, reviewId}) {
             sendResults(submission, category)
         }
     } else {
+        setHistory([home, currentVenue])
         setPage('join')
     }
   }

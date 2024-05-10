@@ -6,7 +6,7 @@ import { ratingChange } from '../../../utils/ratingChange/ratingChange';
 
 function StoreSummaryIcons() {
 
-    const { userAuthenticated, setPage, review } = useMain()
+    const { userAuthenticated, setPage, review, home, currentVenue, setHistory } = useMain()
     const { sendResults } = useAddForm()
 
     let usersOverallRating;
@@ -29,6 +29,7 @@ function StoreSummaryIcons() {
                 console.error(`Error in StoreSummaryIcons: ratingChange`, error)
             }
         } else {
+            setHistory([home, currentVenue])
             setPage('join')
         } 
 

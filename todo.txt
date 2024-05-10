@@ -1,7 +1,6 @@
 
 4. Bugs 
     
-    3. if view venue, log in, and then view venue again state does not update to see that user has left review or not
     5. set up history array so that when a login click happens and a successful login occurs it takes the user back to the page they came from
     6. clicking an answer in the form more than once will append a new value instead of overwriting the first value
     7. initial load still hows totals as 4500%.. need to run the aggregate results function sometime before a new venue is added 
