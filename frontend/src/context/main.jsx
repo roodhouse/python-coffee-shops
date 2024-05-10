@@ -28,6 +28,7 @@ const MainProvider = ({ children }) => {
     const [ avatarMod, setAvatarMod ] = useState(false)
     const [ currentPlaceId, setCurrentPlaceId ] = useState()
     const [ count, setCount ] = useState(0)
+    const [ history, setHistory ] = useState(null)
 
     const googleAPI = process.env.REACT_APP_GOOGLE_API_KEY;
 
@@ -149,7 +150,13 @@ const MainProvider = ({ children }) => {
     // login success
     const successLogin = (e) => {
         setLoggedIn(true)
-        setHome('dash')
+        if (history) {
+            setHome(history[0])
+            setCurrentVenue(history[1])
+            setHistory(null)
+        } else {
+            setHome('dash')
+        }
     }
 
     // logout
@@ -321,7 +328,7 @@ const MainProvider = ({ children }) => {
         {
             home, currentCity, venueCount, setPage, setCity, setVenue, currentVenue, toggleFilter, filter, placeIcons, addPlaceIcons, removePlaceIcons, loggedIn, successLogin, logout,
             venues, userAuthenticated, userData, currentVenueData, currentVenueAgg, review, aggDataUpdated, clearVenue, clearCurrentVenueData, isLoaded, showMod, avatarMod, closeMod, currentPlaceId, count, changeCount,
-            currentFilter
+            currentFilter, setHistory, history
         }
     }>
         {children}

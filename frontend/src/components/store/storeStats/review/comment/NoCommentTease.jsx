@@ -7,7 +7,7 @@ function NoCommentTease({ count, addReviews, toSeeReviews }) {
   const [addComment, setAddComment] = useState(false);
   const [kids, setKids] = useState();
 
-  const { userAuthenticated, currentVenue, setPage } = useMain();
+  const { userAuthenticated, currentVenue, setPage, home, setHistory } = useMain();
 
   let hideOriginal;
 
@@ -28,9 +28,9 @@ function NoCommentTease({ count, addReviews, toSeeReviews }) {
   };
 
   const handleClick = (count, event) => {
-    console.log(count, event)
     if (!userAuthenticated) {
       setPage("join");
+      setHistory([home, currentVenue])
     } else {
       setAddComment(true);
       if (count === 1) {

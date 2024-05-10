@@ -4,14 +4,15 @@ import { useAddForm } from '../../../../context/addFormContext'
 
 function LeaveReview() {
 
-    const { userAuthenticated, setPage } = useMain()
+    const { userAuthenticated, setPage, setHistory, home, currentVenue } = useMain()
     const { newReviewExistingVenue } = useAddForm()
 
     const handleClick = () => {
         if (userAuthenticated) {
             newReviewExistingVenue()
         } else {
-            setPage('join')
+            setHistory([home, currentVenue])
+            setPage('join') 
         }
     }
   return (
