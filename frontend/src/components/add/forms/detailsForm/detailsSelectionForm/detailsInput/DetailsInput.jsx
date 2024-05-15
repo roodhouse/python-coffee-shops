@@ -95,29 +95,31 @@ function DetailsInput({id}) {
     
             addClass(e.target.parentElement)
 
+            if(!editReview) {
+                setCurrentAnswers((prevStates) => {
+                    const updatedCategory = prevStates[categoryName] || []
+                    const existingIndex = updatedCategory.findIndex(item => item.question === questionElement)
 
-            if (!editReview) {
-                setCurrentAnswers((prevStates) => ({
-                    ...prevStates,
-                    [categoryName] : [
-                        ...(prevStates[categoryName] || []),
-                        {
+                    if (existingIndex !== -1) {
+                        updatedCategory[existingIndex].answer = newValue
+                    } else {
+                        updatedCategory.push({
                             question: questionElement,
                             answer: newValue
-                        },
-                    ]
-                }))
-            } else {
-                if (questionKey in currentAnswers.answers[0]) {
-                    currentAnswers.answers[0][questionKey] = answerIndex
-                } else {
-                    console.log('nothing to do')
-                }
+                        })
+                    }
+                    return {
+                        ...prevStates,
+                        [categoryName]: updatedCategory
+                    }
+                })
             }
 
         } else {
             console.log('div click')
         }
+
+        console.log(currentAnswers)
     }
 
     // if edit review is true then set the currentAnswers to the answers in the db
